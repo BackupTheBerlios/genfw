@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/com.sympedia.density.gen.deploytest/src"
+    modelPluginID="com.sympedia.density.gen.deploytest" modelName="Deploytest" modelPluginClass="com.sympedia.density.gen.deploytest.internal.Activator"
+    updateClasspath="false" codeFormatting="true" testsDirectory="" testSuiteClass=""
+    importerID="org.eclipse.emf.importer.ecore" usedGenPackages="../../../plugin/com.sympedia.density.gen.deploy/model/deploy.genmodel#//deploy">
+  <foreignModel>deploytest.ecore</foreignModel>
+  <genPackages prefix="Deploytest" basePackage="com.sympedia.density.gen" disposableProviderFactory="true"
+      ecorePackage="deploytest.ecore#/">
+    <genEnums ecoreEnum="deploytest.ecore#//UnaryOpType">
+      <genEnumLiterals ecoreEnumLiteral="deploytest.ecore#//UnaryOpType/False"/>
+      <genEnumLiterals ecoreEnumLiteral="deploytest.ecore#//UnaryOpType/Identity"/>
+      <genEnumLiterals ecoreEnumLiteral="deploytest.ecore#//UnaryOpType/Not"/>
+      <genEnumLiterals ecoreEnumLiteral="deploytest.ecore#//UnaryOpType/True"/>
+    </genEnums>
+    <genEnums ecoreEnum="deploytest.ecore#//BinaryOpType">
+      <genEnumLiterals ecoreEnumLiteral="deploytest.ecore#//BinaryOpType/False"/>
+      <genEnumLiterals ecoreEnumLiteral="deploytest.ecore#//BinaryOpType/And"/>
+      <genEnumLiterals ecoreEnumLiteral="deploytest.ecore#//BinaryOpType/LeftAndNotRight"/>
+      <genEnumLiterals ecoreEnumLiteral="deploytest.ecore#//BinaryOpType/Left"/>
+      <genEnumLiterals ecoreEnumLiteral="deploytest.ecore#//BinaryOpType/NotLeftAndRight"/>
+      <genEnumLiterals ecoreEnumLiteral="deploytest.ecore#//BinaryOpType/Right"/>
+      <genEnumLiterals ecoreEnumLiteral="deploytest.ecore#//BinaryOpType/XOr"/>
+      <genEnumLiterals ecoreEnumLiteral="deploytest.ecore#//BinaryOpType/Or"/>
+      <genEnumLiterals ecoreEnumLiteral="deploytest.ecore#//BinaryOpType/Nor"/>
+      <genEnumLiterals ecoreEnumLiteral="deploytest.ecore#//BinaryOpType/XNOr"/>
+      <genEnumLiterals ecoreEnumLiteral="deploytest.ecore#//BinaryOpType/NotRight"/>
+      <genEnumLiterals ecoreEnumLiteral="deploytest.ecore#//BinaryOpType/LeftOrNotRight"/>
+      <genEnumLiterals ecoreEnumLiteral="deploytest.ecore#//BinaryOpType/NotLeft"/>
+      <genEnumLiterals ecoreEnumLiteral="deploytest.ecore#//BinaryOpType/NotLeftOrRight"/>
+      <genEnumLiterals ecoreEnumLiteral="deploytest.ecore#//BinaryOpType/NAnd"/>
+      <genEnumLiterals ecoreEnumLiteral="deploytest.ecore#//BinaryOpType/True"/>
+    </genEnums>
+    <genClasses ecoreClass="deploytest.ecore#//IDisplayable">
+      <genFeatures property="None" createChild="false" ecoreFeature="ecore:EAttribute deploytest.ecore#//IDisplayable/displayLabel"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute deploytest.ecore#//IDisplayable/description"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="deploytest.ecore#//NamedElement">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute deploytest.ecore#//NamedElement/name"/>
+    </genClasses>
+    <genClasses ecoreClass="deploytest.ecore#//TestSpec">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute deploytest.ecore#//TestSpec/packageName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute deploytest.ecore#//TestSpec/fixtureInterface"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute deploytest.ecore#//TestSpec/fixtureClass"/>
+      <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference deploytest.ecore#//TestSpec/containerToTest"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference deploytest.ecore#//TestSpec/containerOverrides"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference deploytest.ecore#//TestSpec/actionContainer"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference deploytest.ecore#//TestSpec/assertionContainer"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference deploytest.ecore#//TestSpec/testCaseSpecs"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference deploytest.ecore#//TestSpec/testSuites"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference deploytest.ecore#//TestSpec/allVerifications"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference deploytest.ecore#//TestSpec/allActions"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference deploytest.ecore#//TestSpec/allAssertions"/>
+    </genClasses>
+    <genClasses ecoreClass="deploytest.ecore#//ContainerOverride">
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference deploytest.ecore#//ContainerOverride/testSpec"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference deploytest.ecore#//ContainerOverride/deploymentOverrides"/>
+    </genClasses>
+    <genClasses ecoreClass="deploytest.ecore#//DeploymentOverride">
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference deploytest.ecore#//DeploymentOverride/containerOverride"/>
+      <genFeatures createChild="false" propertyDescription="" ecoreFeature="ecore:EReference deploytest.ecore#//DeploymentOverride/deploymentToOverride"/>
+    </genClasses>
+    <genClasses ecoreClass="deploytest.ecore#//ActionContainer">
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference deploytest.ecore#//ActionContainer/testSpec"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference deploytest.ecore#//ActionContainer/superContainer"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference deploytest.ecore#//ActionContainer/subContainers"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference deploytest.ecore#//ActionContainer/actions"/>
+      <genFeatures property="Readonly" notify="false" createChild="false" ecoreFeature="ecore:EReference deploytest.ecore#//ActionContainer/allActions"/>
+    </genClasses>
+    <genClasses ecoreClass="deploytest.ecore#//Action">
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference deploytest.ecore#//Action/container"/>
+    </genClasses>
+    <genClasses ecoreClass="deploytest.ecore#//AssertionContainer">
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference deploytest.ecore#//AssertionContainer/testSpec"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference deploytest.ecore#//AssertionContainer/superContainer"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference deploytest.ecore#//AssertionContainer/subContainers"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference deploytest.ecore#//AssertionContainer/assertions"/>
+      <genFeatures property="Readonly" notify="false" createChild="false" ecoreFeature="ecore:EReference deploytest.ecore#//AssertionContainer/allAssertions"/>
+    </genClasses>
+    <genClasses ecoreClass="deploytest.ecore#//Assertion">
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference deploytest.ecore#//Assertion/container"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="deploytest.ecore#//DerivedAssertion"/>
+    <genClasses ecoreClass="deploytest.ecore#//UnaryOpAssertion">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute deploytest.ecore#//UnaryOpAssertion/operator"/>
+      <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference deploytest.ecore#//UnaryOpAssertion/operand"/>
+    </genClasses>
+    <genClasses ecoreClass="deploytest.ecore#//BinaryOpAssertion">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute deploytest.ecore#//BinaryOpAssertion/operator"/>
+      <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference deploytest.ecore#//BinaryOpAssertion/leftOperand"/>
+      <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference deploytest.ecore#//BinaryOpAssertion/rightOperand"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="deploytest.ecore#//TestCaseSpec">
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference deploytest.ecore#//TestCaseSpec/testSpec"/>
+      <genFeatures property="None" createChild="false" ecoreFeature="ecore:EReference deploytest.ecore#//TestCaseSpec/specSequence"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference deploytest.ecore#//TestCaseSpec/root"/>
+    </genClasses>
+    <genClasses ecoreClass="deploytest.ecore#//Initialization">
+      <genFeatures createChild="false" propertyDescription="" ecoreFeature="ecore:EReference deploytest.ecore#//Initialization/initializationActions"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference deploytest.ecore#//Initialization/superInitialization"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference deploytest.ecore#//Initialization/verifications"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference deploytest.ecore#//Initialization/subInitializations"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference deploytest.ecore#//Initialization/executions"/>
+    </genClasses>
+    <genClasses ecoreClass="deploytest.ecore#//Execution">
+      <genFeatures createChild="false" propertyCategory="" ecoreFeature="ecore:EReference deploytest.ecore#//Execution/executionActions"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference deploytest.ecore#//Execution/superExecution"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference deploytest.ecore#//Execution/initialization"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference deploytest.ecore#//Execution/verifications"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference deploytest.ecore#//Execution/subExecutions"/>
+    </genClasses>
+    <genClasses ecoreClass="deploytest.ecore#//Verification">
+      <genFeatures property="None" createChild="false" ecoreFeature="ecore:EAttribute deploytest.ecore#//Verification/specLabel"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute deploytest.ecore#//Verification/id"/>
+      <genFeatures createChild="false" propertyCategory="" ecoreFeature="ecore:EReference deploytest.ecore#//Verification/containerOverride"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EReference deploytest.ecore#//Verification/assertions"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference deploytest.ecore#//Verification/initialization"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference deploytest.ecore#//Verification/execution"/>
+    </genClasses>
+    <genClasses ecoreClass="deploytest.ecore#//TestSuite">
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference deploytest.ecore#//TestSuite/testSpec"/>
+      <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference deploytest.ecore#//TestSuite/includedActions"/>
+      <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference deploytest.ecore#//TestSuite/includedAssertions"/>
+      <genFeatures property="None" children="true" createChild="false" propertyDescription=""
+          ecoreFeature="ecore:EReference deploytest.ecore#//TestSuite/testCases"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute deploytest.ecore#//TestSuite/idPattern"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

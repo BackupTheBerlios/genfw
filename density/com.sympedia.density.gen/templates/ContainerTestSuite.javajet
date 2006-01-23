@@ -1,0 +1,84 @@
+<%@ jet package="com.sympedia.density.gen" imports="java.util.* org.eclipse.emf.common.util.* org.eclipse.emf.ecore.* com.sympedia.density.gen.deploy.* com.sympedia.density.gen.deploytest.*" class="ContainerTestSuite" %>
+<%
+/***************************************************************************
+ * Copyright (c) 2006 Eike Stepper, Fuggerstr. 39, 10777 Berlin, Germany.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ * 
+ * Contributors:
+ *    Eike Stepper - initial API and implementation
+ **************************************************************************/
+
+String suiteName = "All";
+String specName;
+String packageName;
+EList allTestCases;
+EList testCases;
+
+if (argument instanceof TestSpec)
+{
+  TestSpec testSpec = (TestSpec)argument;
+  specName = testSpec.getName();
+  packageName = testSpec.getPackageName();
+  allTestCases = testSpec.getAllVerifications();
+  testCases = allTestCases;
+}
+else
+{
+  TestSuite testSuite = (TestSuite)argument;
+  specName = testSuite.getTestSpec().getName();
+  packageName = testSuite.getTestSpec().getPackageName();
+  allTestCases = testSuite.getTestSpec().getAllVerifications();
+  testCases = testSuite.getTestCases();
+  suiteName = testSuite.getName();
+}
+%>
+package <%=packageName%>;
+
+
+import com.sympedia.density.*;
+import com.sympedia.density.impl.*;
+import com.sympedia.density.tests.*;
+import com.sympedia.density.tests.impl.*;
+import com.sympedia.density.tests.util.*;
+import com.sympedia.util.*;
+
+import junit.framework.TestCase;
+
+import java.util.*;
+
+
+public class <%=suiteName%>Tests extends TestCase
+{
+  public <%=suiteName%>Tests(String name)
+  {
+    super(name);
+  }
+
+  @Override
+  protected void setUp() throws Exception
+  {
+  }
+
+  @Override
+  protected void tearDown() throws Exception
+  {
+  }
+
+  /////////////////////////////////////////////////////////////////////////////////////
+  // Test cases
+  /////////////////////////////////////////////////////////////////////////////////////
+
+<%for (Iterator it = testCases.iterator(); it.hasNext();) {
+  Verification verification = (Verification)it.next();
+  String id = GenUtil.capitalize(verification.getId());%>
+  public void test<%=id%>() throws Exception
+  {
+    <%=specName%>TestSpec testSpec = new <%=specName%>TestSpec();    
+    String testCaseName = getName();
+    testSpec.test<%=id%>(testCaseName);
+  }<%=GenUtil.newline(it.hasNext())%>
+<%}%>
+}

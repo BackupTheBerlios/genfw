@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<plugin>
+
+  <extension
+    point = "org.eclipse.ui.newWizards">
+    <category
+      id="com.sympedia.genfw.ui"
+      name="%_UI_Wizard_category">
+    </category>
+    <wizard
+      id = "com.sympedia.genfw.ui.GenLibModelWizard"
+      name = "%_UI_GenLibModelWizard_label"
+      class = "com.sympedia.genfw.presentation.GenLibModelWizard"
+      category = "com.sympedia.genfw.ui"
+      icon = "icons/full/obj16/GenLibModelFile.gif">
+      <description>%_UI_GenLibModelWizard_description</description>
+      <selection class = "org.eclipse.core.resources.IResource" />
+    </wizard>
+    <wizard
+      id = "com.sympedia.genfw.ui.GenAppModelWizard"
+      name = "%_UI_GenAppModelWizard_label"
+      class = "com.sympedia.genfw.presentation.GenAppModelWizard"
+      category = "com.sympedia.genfw.ui"
+      icon = "icons/full/obj16/GenAppModelFile.gif">
+      <description>%_UI_GenAppModelWizard_description</description>
+      <selection class = "org.eclipse.core.resources.IResource" />
+    </wizard>
+  </extension>
+
+  <extension point = "org.eclipse.ui.editors">
+    <editor
+        id = "com.sympedia.genfw.ui.GenLibEditor"
+        name = "%_UI_GenLibEditor_label"
+        icon = "icons/full/obj16/GenLibModelFile.gif"
+        extensions = "genlib"
+        class = "com.sympedia.genfw.presentation.GenfwEditor" 
+        contributorClass="com.sympedia.genfw.presentation.GenfwActionBarContributor" >
+    </editor>
+  </extension>    
+  
+  <extension point = "org.eclipse.ui.editors">
+    <editor
+        id = "com.sympedia.genfw.ui.GenAppEditor"
+        name = "%_UI_GenAppEditor_label"
+        icon = "icons/full/obj16/GenAppModelFile.gif"
+        extensions = "genapp"
+        class = "com.sympedia.genfw.presentation.GenfwEditor" 
+        contributorClass="com.sympedia.genfw.presentation.GenfwActionBarContributor" >
+    </editor>
+  </extension>    
+  
+</plugin>

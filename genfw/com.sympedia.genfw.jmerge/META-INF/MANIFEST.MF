@@ -1,0 +1,17 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: %pluginName
+Bundle-SymbolicName: com.sympedia.genfw.jmerge; singleton:=true
+Bundle-Version: 1.0.0
+Bundle-ClassPath: .
+Bundle-Activator: com.sympedia.genfw.jmerge.internal.JmergeActivator$Implementation
+Bundle-Vendor: %providerName
+Bundle-Localization: plugin
+Export-Package: com.sympedia.genfw.jmerge,
+ com.sympedia.genfw.jmerge.impl,
+ com.sympedia.genfw.jmerge.internal,
+ com.sympedia.genfw.jmerge.util
+Require-Bundle: com.sympedia.genfw;visibility:=reexport,
+ org.eclipse.emf.codegen;visibility:=reexport,
+ org.eclipse.emf.codegen.ecore;visibility:=reexport
+Eclipse-LazyStart: true

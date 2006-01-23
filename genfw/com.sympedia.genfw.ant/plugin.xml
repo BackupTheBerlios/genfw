@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<plugin>
+
+   <extension point="org.eclipse.ant.core.extraClasspathEntries">
+     <extraClasspathEntry library="ant_tasks/genfw.ant.tasks.jar" />
+   </extension>
+
+   <extension
+         id="GenfwTask"
+         name="Sympedia Generation Task"
+         point="org.eclipse.ant.core.antTasks">
+      <antTask
+            class="com.sympedia.genfw.ant.GenfwTask"
+            headless="true"
+            library="ant_tasks/genfw.ant.tasks.jar"
+            name="genfw"/>
+   </extension>
+
+</plugin>

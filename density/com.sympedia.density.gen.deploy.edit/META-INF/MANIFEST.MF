@@ -1,0 +1,13 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: %pluginName
+Bundle-SymbolicName: com.sympedia.density.gen.deploy.edit; singleton:=true
+Bundle-Version: 1.0.0
+Bundle-ClassPath: .
+Bundle-Activator: com.sympedia.density.gen.deploy.provider.DeployEditPlugin$Implementation
+Bundle-Vendor: %providerName
+Bundle-Localization: plugin
+Export-Package: com.sympedia.density.gen.deploy.provider
+Require-Bundle: com.sympedia.density.gen.deploy;visibility:=reexport,
+ com.sympedia.util.emf.edit;visibility:=reexport
+Eclipse-LazyStart: true

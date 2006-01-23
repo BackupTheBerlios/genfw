@@ -1,0 +1,12 @@
+bin
+tmp
+dist
+build
+class
+classes
+runtime
+*.log
+*.tmp
+*.dump
+bin-tasks
+ant_tasks

@@ -1,0 +1,15 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: %pluginName
+Bundle-SymbolicName: com.sympedia.util.emf.edit
+Bundle-Version: 1.0.0
+Bundle-Activator: com.sympedia.util.emf.edit.internal.Activator
+Bundle-Vendor: %providerName
+Bundle-Localization: plugin
+Require-Bundle: com.sympedia.util.emf;visibility:=reexport,
+ org.eclipse.emf.edit;visibility:=reexport,
+ org.eclipse.emf.ecore.edit;visibility:=reexport
+Eclipse-LazyStart: true
+Export-Package: com.sympedia.util.emf.edit,
+ com.sympedia.util.emf.edit.internal
+Bundle-ClassPath: .

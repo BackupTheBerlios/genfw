@@ -1,0 +1,16 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: %pluginName
+Bundle-SymbolicName: com.sympedia.genfw.bsh; singleton:=true
+Bundle-Version: 1.0.0
+Bundle-ClassPath: .
+Bundle-Activator: com.sympedia.genfw.bsh.internal.Activator$Implementation
+Bundle-Vendor: %providerName
+Bundle-Localization: plugin
+Export-Package: com.sympedia.genfw.bsh,
+ com.sympedia.genfw.bsh.impl,
+ com.sympedia.genfw.bsh.internal,
+ com.sympedia.genfw.bsh.util
+Require-Bundle: com.sympedia.genfw;visibility:=reexport,
+ org.beanshell;visibility:=reexport
+Eclipse-LazyStart: true

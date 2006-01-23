@@ -1,0 +1,13 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: %pluginName
+Bundle-SymbolicName: com.sympedia.util.eclipse.resources
+Bundle-Version: 1.0.0
+Bundle-Vendor: %providerName
+Bundle-Localization: plugin
+Bundle-Activator: com.sympedia.util.eclipse.resources.internal.Activator
+Require-Bundle: com.sympedia.util.eclipse;visibility:=reexport,
+ org.eclipse.core.resources;visibility:=reexport
+Export-Package: com.sympedia.util.eclipse.resources,
+ com.sympedia.util.eclipse.resources.internal
+Bundle-ClassPath: .

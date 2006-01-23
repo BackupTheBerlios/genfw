@@ -1,0 +1,15 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: %pluginName
+Bundle-SymbolicName: com.sympedia.util
+Bundle-Version: 1.0.0
+Bundle-Vendor: %providerName
+Bundle-Localization: pluginExport-Package: com.sympedia.util,
+ com.sympedia.util.eclipse,
+ com.sympedia.util.ext,
+ com.sympedia.util.fsm,
+ com.sympedia.util.thread
+Require-Bundle: org.apache.log4j;visibility:=reexport
+Export-Package: com.sympedia.util,
+ com.sympedia.util.fsm,
+ com.sympedia.util.thread

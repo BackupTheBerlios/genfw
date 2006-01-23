@@ -1,0 +1,410 @@
+<%@ jet package="com.sympedia.density.gen" imports="java.util.* org.eclipse.emf.ecore.*" class="ComponentBase" %>
+<%
+/***************************************************************************
+ * Copyright (c) 2006 Eike Stepper, Fuggerstr. 39, 10777 Berlin, Germany.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ * 
+ * Contributors:
+ *    Eike Stepper - initial API and implementation
+ **************************************************************************/
+
+EClass eClass = (EClass)argument;
+EPackage ePackage = eClass.getEPackage();
+%>
+package <%=GenUtil.getFullPackageName(ePackage)%>.impl;
+
+
+import <%=GenUtil.getFullPackageName(ePackage)%>.I<%=eClass.getName()%>;
+import com.sympedia.density.*;
+import com.sympedia.density.impl.*;
+import com.sympedia.util.*;
+import java.util.*;
+
+
+public abstract class <%=eClass.getName()%>_Base
+  <%=GenUtil.getClassExtendsClause(eClass)%>
+  implements I<%=eClass.getName()%><%=GenUtil.getListenerClause(eClass)%>
+{
+  /////////////////////////////////////////////////////////////////////////////////////
+  // Object creation and lyfecycle
+  /////////////////////////////////////////////////////////////////////////////////////
+
+  public <%=eClass.getName()%>_Base()
+  {
+  }
+
+  @Override
+  protected void doInitialize() throws Exception
+  {
+    super.doInitialize();
+<%for (Iterator it = eClass.getEAttributes().iterator(); it.hasNext();) { 
+  EAttribute attr = (EAttribute)it.next();%>
+  <%if (attr.isRequired()) {%>
+    Assert.notNull(<%=attr.getName()%>, "Violated " + this + ".<%=attr.getName()%> != null");
+  <%}%>
+<%}%>
+<%for (Iterator it = eClass.getEReferences().iterator(); it.hasNext();) { 
+  EReference ref = (EReference)it.next(); 
+  if (GenUtil.isNormalDependency(ref) && ref.isRequired()) {%>
+    Assert.notNull(<%=ref.getName()%>, "Violated " + this + ".<%=ref.getName()%> != null");
+  <%}%>
+<%}%>
+  }
+
+  @Override
+  protected void doDispose() throws Exception
+  {
+<%for (Iterator it = eClass.getEReferences().iterator(); it.hasNext();) { 
+  EReference ref = (EReference)it.next(); 
+  if (GenUtil.isNormalDependency(ref)&& ref.isContainment()) {%>
+    BeanHelper.dispose(<%=ref.getName()%>);
+  <%}%>
+<%}%>
+    super.doDispose();
+  }
+
+<%if (!eClass.getEAttributes().isEmpty()) {%>
+  /////////////////////////////////////////////////////////////////////////////////////
+  // Property implementations
+  /////////////////////////////////////////////////////////////////////////////////////
+
+  <%for (Iterator it = eClass.getEAttributes().iterator(); it.hasNext();) { 
+    EAttribute attr = (EAttribute)it.next();
+    if (attr.getDefaultValue() != null) {%>
+  /**
+   * The default value of the <%=attr.getName()%> property.
+   */
+  public static final <%=GenUtil.getTypeName(attr.getEType())%> DEFAULT_<%=GenUtil.capitalize(attr.getName())%> = <%=GenUtil.formatValue(attr.getDefaultValue())%>;
+
+    <%}%>
+  /**
+   * The cached value of the <%=attr.getName()%> property.
+   */
+  private <%=GenUtil.getTypeName(attr.getEType())%> <%=attr.getName()%><%if (attr.getDefaultValue() !=null) {%> = DEFAULT_<%=GenUtil.capitalize(attr.getName())%><%}%>;
+
+  /**
+   * Returns the value of the <%=attr.getName()%> property.
+   * @return the value of the <%=attr.getName()%> property.
+   */
+  public <%=GenUtil.getTypeName(attr.getEType())%> <%=GenUtil.getGetterName(attr)%>()
+  {
+  	return <%=attr.getName()%>;
+  }
+
+  /**
+   * Sets the value of the <%=attr.getName()%> property.
+   * @parm <%=attr.getName()%> the new value of the <%=attr.getName()%> property.
+   */
+  public void set<%=GenUtil.capitalize(attr.getName())%>(<%=GenUtil.getTypeName(attr.getEType())%> <%=attr.getName()%>)
+  {
+    if (isInitialized() && getLogger().isDebugEnabled())
+    {
+      getLogger().debug("Setting <%=attr.getName()%> = " + <%=attr.getName()%>);
+    }
+
+    <%if (Annotations.isSignalAttribute(attr)) {%>
+  	if (!equals(this.<%=attr.getName()%>, <%=attr.getName()%>))
+  	{
+      final <%=GenUtil.getTypeName(attr.getEType())%> oldValue = this.<%=attr.getName()%>;
+      this.<%=attr.getName()%> = <%=attr.getName()%>;
+      fire<%=GenUtil.capitalize(attr.getName())%>Changed(<%=attr.getName()%>, oldValue);
+  	}
+  	<%} else {%>
+  	this.<%=attr.getName()%> = <%=attr.getName()%>;
+    <%}%>
+  }
+
+    <%if (Annotations.isSignalAttribute(attr)) {%>
+  /**
+   * A helper method to fire event notifications for changes of the <%=attr.getName()%> property.
+   * @parm newValue the new value of the <%=attr.getName()%> property.
+   * @parm oldValue the old value of the <%=attr.getName()%> property.
+   */
+  protected void fire<%=GenUtil.capitalize(attr.getName())%>Changed(<%=GenUtil.getTypeName(attr.getEType())%> newValue, <%=GenUtil.getTypeName(attr.getEType())%> oldValue)
+  {
+    fireEvent(new <%=GenUtil.capitalize(attr.getName())%>ChangedEventImpl(newValue, oldValue));
+  }
+
+  /**
+   * A concrete implementation of IEvent that carries information about changes of the <%=attr.getName()%> property.
+   */
+  public class <%=GenUtil.capitalize(attr.getName())%>ChangedEventImpl extends <%=GenUtil.capitalize(eClass.getName())%>EventImpl implements <%=GenUtil.capitalize(attr.getName())%>ChangedEvent
+  {
+  	private <%=GenUtil.getTypeName(attr.getEType())%> newValue;
+
+  	private <%=GenUtil.getTypeName(attr.getEType())%> oldValue;
+
+  	public <%=GenUtil.capitalize(attr.getName())%>ChangedEventImpl(<%=GenUtil.getTypeName(attr.getEType())%> newValue, <%=GenUtil.getTypeName(attr.getEType())%> oldValue)
+  	{
+  	  this.newValue = newValue;
+  	  this.oldValue = oldValue;
+  	}
+
+  	public <%=GenUtil.getTypeName(attr.getEType())%> getNewValue()
+  	{
+  	  return newValue;
+  	}
+
+  	public <%=GenUtil.getTypeName(attr.getEType())%> getOldValue()
+  	{
+  	  return oldValue;
+  	}
+
+  	@Override
+  	public String toString()
+  	{
+  	  return "<%=GenUtil.capitalize(attr.getName())%>ChangedEvent " + oldValue + " -> " + newValue;
+  	}
+  }<%=GenUtil.newline(it.hasNext())%>
+    <%}%>
+  <%}%>
+
+<%}%>
+<%for (Iterator it = eClass.getEReferences().iterator(); it.hasNext();) { 
+  EReference ref = (EReference)it.next(); 
+  if (GenUtil.isNormalDependency(ref)) {%>
+  /**
+   * The cached value of the <%=ref.getName()%> dependency.
+   */
+  private <%=GenUtil.getTypeName(ref)%> <%=ref.getName()%>;
+
+  /**
+   * Returns the value of the <%=ref.getName()%> dependency.
+   * @return the value of the <%=ref.getName()%> dependency.
+   */
+  public <%=GenUtil.getTypeName(ref)%> get<%=GenUtil.capitalize(ref.getName())%>()
+  {
+  	return <%=ref.getName()%>;
+  }
+
+  /**
+   * Sets the value of the <%=ref.getName()%> dependency.
+   * @parm <%=ref.getName()%> the new value of the <%=ref.getName()%> dependency.
+   */
+  public void set<%=GenUtil.capitalize(ref.getName())%>(<%=GenUtil.getTypeName(ref)%> <%=ref.getName()%>)
+  {
+    if (isInitialized() && getLogger().isDebugEnabled())
+    {
+      getLogger().debug("Setting <%=ref.getName()%> = " + <%=ref.getName()%>);
+    }
+
+  	this.<%=ref.getName()%> = <%=ref.getName()%>;
+  }
+
+  <%}%>
+<%}%>
+<%if (GenUtil.hasBusinessMethods(eClass)) {%>
+  /////////////////////////////////////////////////////////////////////////////////////
+  // Abstract implementations of the business methods to allow @Override
+  /////////////////////////////////////////////////////////////////////////////////////
+
+  <%for (Iterator it = eClass.getEOperations().iterator(); it.hasNext();) { 
+    EOperation op = (EOperation)it.next(); 
+    if (GenUtil.isBusinessMethod(op)) {%>
+  public abstract <%=GenUtil.getTypeName(op.getEType())%> <%=op.getName()%>(<%=GenUtil.getParameters(op)%>)<%=GenUtil.getThrowsClause(op)%>;
+    <%}%>
+  <%}%>
+<%}%>
+<%if (GenUtil.hasSignals(eClass)) {%>
+
+  /////////////////////////////////////////////////////////////////////////////////////
+  // Support classes and methods for <%=eClass.getName()%> events
+  /////////////////////////////////////////////////////////////////////////////////////
+
+  protected abstract class <%=eClass.getName()%>EventImpl extends Event_Base implements <%=eClass.getName()%>Event
+  {
+   	public <%=eClass.getName()%>EventImpl()
+  	{
+  	  super(<%=eClass.getName()%>_Base.this);
+  	}
+
+  	public I<%=eClass.getName()%> getNotifier<%=eClass.getName()%>()
+  	{
+  	  return (I<%=eClass.getName()%>)getEventNotifier();
+  	}
+
+  	@Override
+  	public String toString()
+  	{
+  	  return "<%=eClass.getName()%>Event";
+  	}
+  }
+
+  <%for (Iterator it = eClass.getEOperations().iterator(); it.hasNext();) { 
+    EOperation op = (EOperation)it.next(); 
+    if (Annotations.isSignalOperation(op)) {%>
+  protected class <%=GenUtil.capitalize(op.getName())%>EventImpl extends <%=eClass.getName()%>EventImpl implements <%=GenUtil.capitalize(op.getName())%>Event
+  {
+      <%for (Iterator it2 = op.getEParameters().iterator(); it2.hasNext();) { 
+        EParameter parm = (EParameter)it2.next();%>
+  	private <%=GenUtil.getTypeName(parm.getEType())%> <%=parm.getName()%>;
+
+      <%}%>
+   	public <%=GenUtil.capitalize(op.getName())%>EventImpl(<%=GenUtil.getParameters(op)%>)
+  	{
+      <%for (Iterator it2 = op.getEParameters().iterator(); it2.hasNext();) { 
+        EParameter parm = (EParameter)it2.next();%>
+    	this.<%=parm.getName()%> = <%=parm.getName()%>;
+      <%}%>
+  	}
+
+      <%for (Iterator it2 = op.getEParameters().iterator(); it2.hasNext();) { 
+        EParameter parm = (EParameter)it2.next();%>
+  	public <%=GenUtil.getTypeName(parm.getEType())%> get<%=GenUtil.capitalize(parm.getName())%>()
+  	{
+  	  return <%=parm.getName()%>;
+  	}<%=GenUtil.newline(it2.hasNext())%>
+      <%}%>
+
+  	@Override
+  	public String toString()
+  	{
+  	  return "<%=eClass.getName()%><%=GenUtil.capitalize(op.getName())%>Event"<%for (Iterator it2 = op.getEParameters().iterator(); it2.hasNext();) { EParameter parm = (EParameter)it2.next();%>
+        + " <%=parm.getName()%>=" + <%=parm.getName()%><%}%>;
+  	}
+  }
+
+  protected void fire<%=GenUtil.capitalize(op.getName())%>(<%=GenUtil.getParameters(op)%>)
+  {
+    fireEvent(new <%=GenUtil.capitalize(op.getName())%>EventImpl(<%=GenUtil.getParameterNames(op)%>));
+  }
+    <%}%>
+  <%}%>
+
+<%}%>
+<%if (GenUtil.hasCreatorOperations(eClass)) {%>
+  <%for (Iterator it = eClass.getEOperations().iterator(); it.hasNext();) {
+  EOperation op = (EOperation)it.next();
+  if (Annotations.isCreatorOperation(op)) {%>
+  /////////////////////////////////////////////////////////////////////////////////////
+  // Support for the <%=op.getName()%> creator
+  /////////////////////////////////////////////////////////////////////////////////////
+
+  public <%=GenUtil.getTypeName(op.getEType())%> <%=op.getName()%>(<%=GenUtil.getParameters(op)%>)
+  {
+    List<IComponent> toBeInitialized = new ArrayList<IComponent>();
+    <%=GenUtil.getTypeName(op.getEType())%> instance = ((IContext)getContext()).<%=op.getName()%>(toBeInitialized);
+    post<%=GenUtil.capitalize(op.getName())%>(instance<%if (!op.getEParameters().isEmpty()) {%>, <%=GenUtil.getParameterNames(op)%><%}%>);
+    instance.getContext().populateInstance(instance, toBeInitialized);
+
+    for (IComponent init : toBeInitialized)
+    {
+      try
+      {
+        BeanHelper.initialize(init);
+      }
+      catch (Exception ex)
+      {
+        getLogger().error("Problem while initializing " + init, ex);
+      }
+    }
+
+    return instance;
+  }
+
+  protected void post<%=GenUtil.capitalize(op.getName())%>(<%=GenUtil.getTypeName(op.getEType())%> instance<%if (!op.getEParameters().isEmpty()) {%>, <%=GenUtil.getParameters(op)%><%}%>)
+  {
+  }
+  <%}}%>
+
+<%}%>
+<%if (GenUtil.hasListenerReferences(eClass)) {%>
+  <%for (Iterator it1 = GenUtil.getListenerInterfaces(eClass).iterator(); it1.hasNext();) { 
+    EClass target = (EClass)it1.next();%>
+  /////////////////////////////////////////////////////////////////////////////////////
+  // Empty handlers for incoming <%=target.getName()%> events
+  /////////////////////////////////////////////////////////////////////////////////////
+
+    <%for (Iterator it = target.getEAttributes().iterator(); it.hasNext();) { 
+      EAttribute attr = (EAttribute)it.next(); 
+      if (Annotations.isSignalAttribute(attr)) {%>
+  public void notify<%=target.getName()%><%=GenUtil.capitalize(attr.getName())%>Changed(<%=GenUtil.getFullName(target, "I")%> notifier, <%=GenUtil.getTypeName(attr.getEType())%> newValue, <%=GenUtil.getTypeName(attr.getEType())%> oldValue)
+  {
+  }<%=GenUtil.newline(it.hasNext())%>
+      <%}%>
+    <%}%><%=GenUtil.newline(!target.getEOperations().isEmpty())%>
+    <%for (Iterator it = target.getEOperations().iterator(); it.hasNext();) { 
+      EOperation op = (EOperation)it.next(); 
+      if (Annotations.isSignalOperation(op)) {%>
+  public void notify<%=target.getName()%><%=GenUtil.capitalize(op.getName())%>(<%=GenUtil.getFullName(target, "I")%> notifier, <%=GenUtil.getParameters(op)%>)
+  {
+  }<%=GenUtil.newline(it.hasNext())%>
+      <%}%>
+    <%}%>
+  <%}%>
+
+  @Override
+  protected void dispatchEvent(IEvent event)
+  {
+  <%for (Iterator it1 = eClass.getEReferences().iterator(); it1.hasNext();) { 
+    EReference ref = (EReference)it1.next(); 
+    if (Annotations.isListenerReference(ref)) { 
+      EClass target = (EClass)ref.getEType();%>
+      <%for (Iterator it = target.getEAttributes().iterator(); it.hasNext();) { 
+        EAttribute attr = (EAttribute)it.next(); 
+         if (Annotations.isSignalAttribute(attr)) {%>
+    if (event instanceof <%=GenUtil.getFullName(target, "I")%>.<%=GenUtil.capitalize(attr.getName())%>ChangedEvent)
+    {
+      <%=GenUtil.getFullName(target, "I")%>.<%=GenUtil.capitalize(attr.getName())%>ChangedEvent e =
+        (<%=GenUtil.getFullName(target, "I")%>.<%=GenUtil.capitalize(attr.getName())%>ChangedEvent)event;
+      notify<%=target.getName()%><%=GenUtil.capitalize(attr.getName())%>Changed(e.getNotifier<%=target.getName()%>(), e.getNewValue(), e.getOldValue());
+    } else
+        <%}%>
+      <%}%>
+      <%for (Iterator it = target.getEOperations().iterator(); it.hasNext();) { 
+        EOperation op = (EOperation)it.next(); 
+        if (Annotations.isSignalOperation(op)) {%>
+    if (event instanceof <%=GenUtil.getFullName(target, "I")%>.<%=GenUtil.capitalize(op.getName())%>Event)
+    {
+      <%=GenUtil.getFullName(target, "I")%>.<%=GenUtil.capitalize(op.getName())%>Event e =
+        (<%=GenUtil.getFullName(target, "I")%>.<%=GenUtil.capitalize(op.getName())%>Event)event;
+      notify<%=target.getName()%><%=GenUtil.capitalize(op.getName())%>(e.getNotifier<%=target.getName()%>()
+          <%for (Iterator it2 = op.getEParameters().iterator(); it2.hasNext();) { 
+            EParameter parm = (EParameter)it2.next();%>
+  	    , e.get<%=GenUtil.capitalize(parm.getName())%>()
+          <%}%>
+      );
+    } else
+        <%}%>
+      <%}%>
+    <%}%>
+  <%}%>
+    {
+      super.dispatchEvent(event);
+    }
+  }
+<%}%>
+
+  /////////////////////////////////////////////////////////////////////////////////////
+  // Context interface
+  /////////////////////////////////////////////////////////////////////////////////////
+
+  public interface IContext<%=GenUtil.getContextExtendsClause(eClass)%>
+  {
+<%for (Iterator it = eClass.getEOperations().iterator(); it.hasNext();) { 
+  EOperation op = (EOperation)it.next(); 
+  if (Annotations.isCreatorOperation(op)) {%>
+    public <%=GenUtil.getTypeName(op.getEType())%> <%=op.getName()%>(List<IComponent> toBeInitialized);<%=GenUtil.newline(it.hasNext())%>
+  <%}%>
+<%}%>
+  }
+
+  /////////////////////////////////////////////////////////////////////////////////////
+  // Introspection
+  /////////////////////////////////////////////////////////////////////////////////////
+
+  @Override
+  protected void doFillReferences(List<IComponent> references, int flags)
+  {
+    super.doFillReferences(references, flags);
+<%for (Iterator it = eClass.getEReferences().iterator(); it.hasNext();) { 
+  EReference ref = (EReference)it.next(); 
+  if (GenUtil.isNormalDependency(ref) && ref.getEType() instanceof EClass) {%>
+    if (<%=ref.getName()%> != null && (flags & IComponent.<%if (ref.isContainment()) {%>REFTYPE_CONTAINMENT<%} else {%>REFTYPE_NORMAL<%}%>) != 0) references.add((IComponent)<%=ref.getName()%>);
+  <%}%>
+<%}%>
+  }
+}

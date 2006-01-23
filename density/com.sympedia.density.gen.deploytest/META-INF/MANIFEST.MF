@@ -1,0 +1,15 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: %pluginName
+Bundle-SymbolicName: com.sympedia.density.gen.deploytest; singleton:=true
+Bundle-Version: 1.0.0
+Bundle-ClassPath: .
+Bundle-Activator: com.sympedia.density.gen.deploytest.internal.Activator$Implementation
+Bundle-Vendor: %providerName
+Bundle-Localization: plugin
+Export-Package: com.sympedia.density.gen.deploytest,
+ com.sympedia.density.gen.deploytest.impl,
+ com.sympedia.density.gen.deploytest.internal,
+ com.sympedia.density.gen.deploytest.util
+Require-Bundle: com.sympedia.density.gen.deploy;visibility:=reexport
+Eclipse-LazyStart: true

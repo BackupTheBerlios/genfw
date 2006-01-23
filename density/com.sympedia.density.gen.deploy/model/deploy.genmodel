@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/com.sympedia.density.gen.deploy/src"
+    modelPluginID="com.sympedia.density.gen.deploy" modelName="Deploy" modelPluginClass="com.sympedia.density.gen.deploy.internal.Activator"
+    updateClasspath="false" codeFormatting="true" testsDirectory="" testSuiteClass=""
+    importerID="org.eclipse.emf.importer.ecore">
+  <foreignModel>deploy.ecore</foreignModel>
+  <genPackages prefix="Deploy" basePackage="com.sympedia.density.gen" disposableProviderFactory="true"
+      ecorePackage="deploy.ecore#/">
+    <genEnums ecoreEnum="deploy.ecore#//DeploymentType">
+      <genEnumLiterals ecoreEnumLiteral="deploy.ecore#//DeploymentType/Singleton"/>
+      <genEnumLiterals ecoreEnumLiteral="deploy.ecore#//DeploymentType/LazySingleton"/>
+      <genEnumLiterals ecoreEnumLiteral="deploy.ecore#//DeploymentType/Prototype"/>
+    </genEnums>
+    <genClasses ecoreClass="deploy.ecore#//Container">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute deploy.ecore#//Container/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute deploy.ecore#//Container/packageName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute deploy.ecore#//Container/incomplete"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference deploy.ecore#//Container/deployments"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference deploy.ecore#//Container/deploymentGroups"/>
+      <genFeatures property="Readonly" notify="false" createChild="false" ecoreFeature="ecore:EReference deploy.ecore#//Container/allDeployments"/>
+    </genClasses>
+    <genClasses ecoreClass="deploy.ecore#//Deployment">
+      <genFeatures createChild="false" propertyDescription="" ecoreFeature="ecore:EReference deploy.ecore#//Deployment/component"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute deploy.ecore#//Deployment/id"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute deploy.ecore#//Deployment/type"/>
+      <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute deploy.ecore#//Deployment/singleton"/>
+      <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute deploy.ecore#//Deployment/lazy"/>
+      <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute deploy.ecore#//Deployment/prototype"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute deploy.ecore#//Deployment/initialized"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference deploy.ecore#//Deployment/container"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference deploy.ecore#//Deployment/deploymentGroup"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference deploy.ecore#//Deployment/dependencies"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference deploy.ecore#//Deployment/creators"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference deploy.ecore#//Deployment/listeners"/>
+      <genFeatures property="Readonly" notify="false" createChild="false" ecoreFeature="ecore:EReference deploy.ecore#//Deployment/referers"/>
+      <genFeatures property="Readonly" notify="false" createChild="false" ecoreFeature="ecore:EReference deploy.ecore#//Deployment/root"/>
+      <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference deploy.ecore#//Deployment/depends"/>
+    </genClasses>
+    <genClasses ecoreClass="deploy.ecore#//DeploymentGroup">
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference deploy.ecore#//DeploymentGroup/container"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference deploy.ecore#//DeploymentGroup/subGroups"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference deploy.ecore#//DeploymentGroup/superGroup"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference deploy.ecore#//DeploymentGroup/deployments"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute deploy.ecore#//DeploymentGroup/name"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="deploy.ecore#//Parameter">
+      <genOperations ecoreOperation="deploy.ecore#//Parameter/getValueString"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="deploy.ecore#//Dependency">
+      <genFeatures createChild="false" ecoreFeature="ecore:EReference deploy.ecore#//Dependency/feature"/>
+      <genFeatures property="None" notify="false" createChild="false" propertyCategory=""
+          ecoreFeature="ecore:EReference deploy.ecore#//Dependency/deployment"/>
+    </genClasses>
+    <genClasses ecoreClass="deploy.ecore#//Reference">
+      <genFeatures createChild="false" ecoreFeature="ecore:EReference deploy.ecore#//Reference/target"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute deploy.ecore#//Reference/listen"/>
+    </genClasses>
+    <genClasses ecoreClass="deploy.ecore#//IntegerParameter">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute deploy.ecore#//IntegerParameter/value"/>
+    </genClasses>
+    <genClasses ecoreClass="deploy.ecore#//LongParameter">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute deploy.ecore#//LongParameter/value"/>
+    </genClasses>
+    <genClasses ecoreClass="deploy.ecore#//FloatParameter">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute deploy.ecore#//FloatParameter/value"/>
+    </genClasses>
+    <genClasses ecoreClass="deploy.ecore#//DoubleParameter">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute deploy.ecore#//DoubleParameter/value"/>
+    </genClasses>
+    <genClasses ecoreClass="deploy.ecore#//BooleanParameter">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute deploy.ecore#//BooleanParameter/value"/>
+    </genClasses>
+    <genClasses ecoreClass="deploy.ecore#//StringParameter">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute deploy.ecore#//StringParameter/value"/>
+    </genClasses>
+    <genClasses ecoreClass="deploy.ecore#//CharParameter">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute deploy.ecore#//CharParameter/value"/>
+    </genClasses>
+    <genClasses ecoreClass="deploy.ecore#//Creator">
+      <genFeatures createChild="false" propertyCategory="" ecoreFeature="ecore:EReference deploy.ecore#//Creator/operation"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference deploy.ecore#//Creator/deployment"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EReference deploy.ecore#//Creator/product"/>
+    </genClasses>
+    <genClasses ecoreClass="deploy.ecore#//Listener">
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference deploy.ecore#//Listener/deployment"/>
+      <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference deploy.ecore#//Listener/notifier"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

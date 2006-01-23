@@ -1,0 +1,93 @@
+<%@ jet package="com.sympedia.density.gen" imports="java.util.* org.eclipse.emf.ecore.*" class="ComponentImpl" %>
+<%
+/***************************************************************************
+ * Copyright (c) 2006 Eike Stepper, Fuggerstr. 39, 10777 Berlin, Germany.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ * 
+ * Contributors:
+ *    Eike Stepper - initial API and implementation
+ **************************************************************************/
+
+EClass eClass = (EClass)argument;
+EPackage ePackage = eClass.getEPackage();
+%>
+package <%=GenUtil.getFullPackageName(ePackage)%>.impl;
+
+
+import <%=GenUtil.getFullPackageName(ePackage)%>.I<%=eClass.getName()%>;
+import com.sympedia.density.*;
+import com.sympedia.density.impl.*;
+import com.sympedia.util.*;
+import java.util.*;
+
+
+public <%if (eClass.isAbstract()) {%>abstract <%}%>class <%=eClass.getName()%>Impl extends <%=eClass.getName()%>_Base
+{
+  /////////////////////////////////////////////////////////////////////////////////////
+  // Object creation and lyfecycle
+  /////////////////////////////////////////////////////////////////////////////////////
+
+  public <%=eClass.getName()%>Impl()
+  {
+  }
+
+  @Override
+  protected void doInitialize() throws Exception
+  {
+    super.doInitialize();
+  }
+
+  @Override
+  protected void doDispose() throws Exception
+  {
+    super.doDispose();
+  }
+
+<%if (GenUtil.hasListenerReferences(eClass)) {%>
+  <%for (Iterator it1 = GenUtil.getListenerInterfaces(eClass).iterator(); it1.hasNext();) { 
+    EClass target = (EClass)it1.next();%>
+  /////////////////////////////////////////////////////////////////////////////////////
+  // Empty handlers for incoming <%=target.getName()%> events
+  /////////////////////////////////////////////////////////////////////////////////////
+
+    <%for (Iterator it = target.getEAttributes().iterator(); it.hasNext();) { 
+      EAttribute attr = (EAttribute)it.next(); 
+      if (Annotations.isSignalAttribute(attr)) {%>
+  @Override
+  public void notify<%=target.getName()%><%=GenUtil.capitalize(attr.getName())%>Changed(<%=GenUtil.getFullName(target, "I")%> notifier, <%=GenUtil.getTypeName(attr.getEType())%> newValue, <%=GenUtil.getTypeName(attr.getEType())%> oldValue)
+  {
+  }<%=GenUtil.newline(it.hasNext())%>
+      <%}%>
+    <%}%><%=GenUtil.newline(!target.getEOperations().isEmpty())%>
+    <%for (Iterator it = target.getEOperations().iterator(); it.hasNext();) { 
+      EOperation op = (EOperation)it.next(); 
+      if (Annotations.isSignalOperation(op)) {%>
+  public void notify<%=target.getName()%><%=GenUtil.capitalize(op.getName())%>(<%=GenUtil.getFullName(target, "I")%> notifier, <%=GenUtil.getParameters(op)%>)
+  {
+  }<%=GenUtil.newline(it.hasNext())%>
+      <%}%>
+    <%}%>
+  <%}%>
+<%}%>
+<%if (GenUtil.hasBusinessMethods(eClass)) {%>
+  /////////////////////////////////////////////////////////////////////////////////////
+  // Implementations of the business methods
+  /////////////////////////////////////////////////////////////////////////////////////
+
+  <%for (Iterator it = eClass.getEOperations().iterator(); it.hasNext();) { 
+    EOperation op = (EOperation)it.next(); 
+    if (GenUtil.isBusinessMethod(op)) {%>
+  @Override
+  public <%=GenUtil.getTypeName(op.getEType())%> <%=op.getName()%>(<%=GenUtil.getParameters(op)%>)<%=GenUtil.getThrowsClause(op)%>
+  {
+    // TODO Implement <%=eClass.getName()%>.<%=op.getName()%>
+    throw new UnsupportedOperationException();
+  }
+  
+    <%}%>
+  <%}%>
+<%}%>
+}

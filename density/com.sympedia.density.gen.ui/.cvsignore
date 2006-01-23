@@ -1,0 +1,11 @@
+old
+bin
+tmp
+dist
+build
+class
+classes
+runtime
+*.log
+*.tmp
+*.dump

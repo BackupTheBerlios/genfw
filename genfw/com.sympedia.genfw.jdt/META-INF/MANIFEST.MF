@@ -1,0 +1,17 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: %pluginName
+Bundle-SymbolicName: com.sympedia.genfw.jdt; singleton:=true
+Bundle-Version: 1.0.0
+Bundle-ClassPath: .
+Bundle-Activator: com.sympedia.genfw.jdt.internal.JdtActivator$Implementation
+Bundle-Vendor: %providerName
+Bundle-Localization: plugin
+Export-Package: com.sympedia.genfw.jdt,
+ com.sympedia.genfw.jdt.impl,
+ com.sympedia.genfw.jdt.internal,
+ com.sympedia.genfw.jdt.util
+Require-Bundle: com.sympedia.genfw;visibility:=reexport,
+ org.eclipse.jdt.core;visibility:=reexport,
+ org.eclipse.jface.text
+Eclipse-LazyStart: true

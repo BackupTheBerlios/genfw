@@ -1,0 +1,13 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: %pluginName
+Bundle-SymbolicName: com.sympedia.density; singleton:=true
+Bundle-Version: 1.0.0
+Bundle-ClassPath: .
+Bundle-Vendor: %providerName
+Bundle-Localization: plugin
+Export-Package: com.sympedia.density,
+ com.sympedia.density.impl
+Require-Bundle: com.sympedia.util.eclipse.resources;visibility:=reexport,
+ com.sympedia.util.emf;visibility:=reexport
+Eclipse-LazyStart: true

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/com.sympedia.genfw.bsh/src"
+    editorDirectory="" modelPluginID="com.sympedia.genfw.bsh" modelName="Bsh" modelPluginClass="com.sympedia.genfw.bsh.internal.Activator"
+    editorPluginClass="" updateClasspath="false" codeFormatting="true" testsDirectory=""
+    testSuiteClass="" importerID="org.eclipse.emf.importer.ecore" usedGenPackages="../../com.sympedia.genfw/model/genfw.genmodel#//genfw">
+  <foreignModel>bsh.ecore</foreignModel>
+  <genPackages prefix="Bsh" basePackage="com.sympedia.genfw" disposableProviderFactory="true"
+      ecorePackage="bsh.ecore#/">
+    <genDataTypes ecoreDataType="bsh.ecore#//BshInterpreter"/>
+    <genClasses ecoreClass="bsh.ecore#//BeanShellRule">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute bsh.ecore#//BeanShellRule/bootstrapCode"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

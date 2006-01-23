@@ -1,0 +1,711 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<org.topcased.modeler.diagrams.model:Diagrams xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:org.topcased.modeler.di.model="http://org.topcased.modeler.di.model" xmlns:org.topcased.modeler.diagrams.model="http://org.topcased.modeler.diagrams.model">
+  <model href="deploytest.ecore#/"/>
+  <diagrams position="0,0" size="100,100" name="mmtest" viewport="0,0">
+    <property key="org.topcased.modeler.di.typeName" value="Ecore Diagram"/>
+    <property key="pageFormatName" value="A4"/>
+    <property key="diagramWidth" value="840"/>
+    <property key="diagramHeight" value="1188"/>
+    <property key="pageMarginName" value="Small Margin"/>
+    <property key="diagramTopMargin" value="20"/>
+    <property key="diagramBottomMargin" value="20"/>
+    <property key="diagramLeftMargin" value="20"/>
+    <property key="diagramRightMargin" value="20"/>
+    <property key="orientation" value="landscape"/>
+    <semanticModel xsi:type="org.topcased.modeler.di.model:EMFSemanticModelBridge" presentation="org.topcased.modeler.ecore.ediagram">
+      <element href="deploytest.ecore#/"/>
+    </semanticModel>
+    <contained xsi:type="org.topcased.modeler.di.model:GraphNode" position="59,144" size="147,-1">
+      <anchorage graphEdge="//@diagrams.0/@contained.7 //@diagrams.0/@contained.8 //@diagrams.0/@contained.15 //@diagrams.0/@contained.16 //@diagrams.0/@contained.17 //@diagrams.0/@contained.18 //@diagrams.0/@contained.37 //@diagrams.0/@contained.38 //@diagrams.0/@contained.63 //@diagrams.0/@contained.64 //@diagrams.0/@contained.69 //@diagrams.0/@contained.70 //@diagrams.0/@contained.71 //@diagrams.0/@contained.74 //@diagrams.0/@contained.75"/>
+      <semanticModel xsi:type="org.topcased.modeler.di.model:EMFSemanticModelBridge">
+        <element href="deploytest.ecore#//TestSpec"/>
+      </semanticModel>
+      <contained xsi:type="org.topcased.modeler.di.model:GraphNode" position="27,7" size="100,100">
+        <semanticModel xsi:type="org.topcased.modeler.di.model:EMFSemanticModelBridge">
+          <element href="deploytest.ecore#//TestSpec/packageName"/>
+        </semanticModel>
+      </contained>
+      <contained xsi:type="org.topcased.modeler.di.model:GraphNode" position="56,6" size="100,100">
+        <semanticModel xsi:type="org.topcased.modeler.di.model:EMFSemanticModelBridge">
+          <element href="deploytest.ecore#//TestSpec/fixtureInterface"/>
+        </semanticModel>
+      </contained>
+      <contained xsi:type="org.topcased.modeler.di.model:GraphNode" position="84,5" size="100,100">
+        <semanticModel xsi:type="org.topcased.modeler.di.model:EMFSemanticModelBridge">
+          <element href="deploytest.ecore#//TestSpec/fixtureClass"/>
+        </semanticModel>
+      </contained>
+    </contained>
+    <contained xsi:type="org.topcased.modeler.di.model:GraphNode" position="328,316" size="112,-1">
+      <anchorage graphEdge="//@diagrams.0/@contained.7 //@diagrams.0/@contained.8 //@diagrams.0/@contained.9 //@diagrams.0/@contained.10 //@diagrams.0/@contained.29"/>
+      <semanticModel xsi:type="org.topcased.modeler.di.model:EMFSemanticModelBridge">
+        <element href="deploytest.ecore#//ContainerOverride"/>
+      </semanticModel>
+    </contained>
+    <contained xsi:type="org.topcased.modeler.di.model:GraphNode" position="334,22" size="100,-1">
+      <anchorage graphEdge="//@diagrams.0/@contained.11 //@diagrams.0/@contained.12 //@diagrams.0/@contained.15 //@diagrams.0/@contained.16 //@diagrams.0/@contained.19 //@diagrams.0/@contained.20 //@diagrams.0/@contained.72"/>
+      <anchorage graphEdge="//@diagrams.0/@contained.19 //@diagrams.0/@contained.20"/>
+      <semanticModel xsi:type="org.topcased.modeler.di.model:EMFSemanticModelBridge">
+        <element href="deploytest.ecore#//ActionContainer"/>
+      </semanticModel>
+    </contained>
+    <contained xsi:type="org.topcased.modeler.di.model:GraphNode" position="326,167" size="115,-1">
+      <anchorage graphEdge="//@diagrams.0/@contained.13 //@diagrams.0/@contained.14 //@diagrams.0/@contained.17 //@diagrams.0/@contained.18 //@diagrams.0/@contained.21 //@diagrams.0/@contained.22 //@diagrams.0/@contained.73"/>
+      <anchorage graphEdge="//@diagrams.0/@contained.21 //@diagrams.0/@contained.22"/>
+      <semanticModel xsi:type="org.topcased.modeler.di.model:EMFSemanticModelBridge">
+        <element href="deploytest.ecore#//AssertionContainer"/>
+      </semanticModel>
+    </contained>
+    <contained xsi:type="org.topcased.modeler.di.model:GraphNode" position="323,480" size="122,-1">
+      <anchorage graphEdge="//@diagrams.0/@contained.9 //@diagrams.0/@contained.10 //@diagrams.0/@contained.50"/>
+      <semanticModel xsi:type="org.topcased.modeler.di.model:EMFSemanticModelBridge">
+        <element href="deploytest.ecore#//DeploymentOverride"/>
+      </semanticModel>
+    </contained>
+    <contained xsi:type="org.topcased.modeler.di.model:GraphNode" position="618,22" size="53,-1">
+      <anchorage graphEdge="//@diagrams.0/@contained.11 //@diagrams.0/@contained.12 //@diagrams.0/@contained.26 //@diagrams.0/@contained.27 //@diagrams.0/@contained.66 //@diagrams.0/@contained.70 //@diagrams.0/@contained.72"/>
+      <semanticModel xsi:type="org.topcased.modeler.di.model:EMFSemanticModelBridge">
+        <element href="deploytest.ecore#//Action"/>
+      </semanticModel>
+    </contained>
+    <contained xsi:type="org.topcased.modeler.di.model:GraphNode" position="611,167" size="68,-1">
+      <anchorage graphEdge="//@diagrams.0/@contained.13 //@diagrams.0/@contained.14 //@diagrams.0/@contained.28 //@diagrams.0/@contained.56 //@diagrams.0/@contained.59 //@diagrams.0/@contained.60 //@diagrams.0/@contained.61 //@diagrams.0/@contained.65 //@diagrams.0/@contained.71 //@diagrams.0/@contained.73"/>
+      <semanticModel xsi:type="org.topcased.modeler.di.model:EMFSemanticModelBridge">
+        <element href="deploytest.ecore#//Assertion"/>
+      </semanticModel>
+    </contained>
+    <contained xsi:type="org.topcased.modeler.di.model:GraphEdge" anchor="//@diagrams.0/@contained.0/@anchorage.0 //@diagrams.0/@contained.1/@anchorage.0">
+      <semanticModel xsi:type="org.topcased.modeler.di.model:EMFSemanticModelBridge">
+        <element href="deploytest.ecore#//TestSpec/containerOverrides"/>
+      </semanticModel>
+      <contained xsi:type="org.topcased.modeler.di.model:EdgeObjectUV" id="cardinalityLabel" uDistance="20" vDistance="-20"/>
+      <contained xsi:type="org.topcased.modeler.di.model:EdgeObjectUV" id="nameLabel" uDistance="20" vDistance="20"/>
+    </contained>
+    <contained xsi:type="org.topcased.modeler.di.model:GraphEdge" anchor="//@diagrams.0/@contained.1/@anchorage.0 //@diagrams.0/@contained.0/@anchorage.0">
+      <semanticModel xsi:type="org.topcased.modeler.di.model:EMFSemanticModelBridge">
+        <element href="deploytest.ecore#//ContainerOverride/testSpec"/>
+      </semanticModel>
+      <contained xsi:type="org.topcased.modeler.di.model:EdgeObjectUV" id="cardinalityLabel" uDistance="20" vDistance="-20"/>
+      <contained xsi:type="org.topcased.modeler.di.model:EdgeObjectUV" id="nameLabel" uDistance="20" vDistance="20"/>
+    </contained>
+    <contained xsi:type="org.topcased.modeler.di.model:GraphEdge" anchor="//@diagrams.0/@contained.1/@anchorage.0 //@diagrams.0/@contained.4/@anchorage.0">
+      <semanticModel xsi:type="org.topcased.modeler.di.model:EMFSemanticModelBridge">
+        <element href="deploytest.ecore#//ContainerOverride/deploymentOverrides"/>
+      </semanticModel>
+      <contained xsi:type="org.topcased.modeler.di.model:EdgeObjectUV" id="cardinalityLabel" uDistance="20" vDistance="-20"/>
+      <contained xsi:type="org.topcased.modeler.di.model:EdgeObjectUV" id="nameLabel" uDistance="20" vDistance="20"/>
+    </contained>
+    <contained xsi:type="org.topcased.modeler.di.model:GraphEdge" anchor="//@diagrams.0/@contained.4/@anchorage.0 //@diagrams.0/@contained.1/@anchorage.0">
+      <semanticModel xsi:type="org.topcased.modeler.di.model:EMFSemanticModelBridge">
+        <element href="deploytest.ecore#//DeploymentOverride/containerOverride"/>
+      </semanticModel>
+      <contained xsi:type="org.topcased.modeler.di.model:EdgeObjectUV" id="cardinalityLabel" uDistance="20" vDistance="-20"/>
+      <contained xsi:type="org.topcased.modeler.di.model:EdgeObjectUV" id="nameLabel" uDistance="20" vDistance="20"/>
+    </contained>
+    <contained xsi:type="org.topcased.modeler.di.model:GraphEdge" anchor="//@diagrams.0/@contained.2/@anchorage.0 //@diagrams.0/@contained.5/@anchorage.0">
+      <semanticModel xsi:type="org.topcased.modeler.di.model:EMFSemanticModelBridge">
+        <element href="deploytest.ecore#//ActionContainer/actions"/>
+      </semanticModel>
+      <contained xsi:type="org.topcased.modeler.di.model:EdgeObjectUV" id="cardinalityLabel" uDistance="20" vDistance="-20"/>
+      <contained xsi:type="org.topcased.modeler.di.model:EdgeObjectUV" id="nameLabel" uDistance="20" vDistance="20"/>
+    </contained>
+    <contained xsi:type="org.topcased.modeler.di.model:GraphEdge" anchor="//@diagrams.0/@contained.5/@anchorage.0 //@diagrams.0/@contained.2/@anchorage.0">
+      <semanticModel xsi:type="org.topcased.modeler.di.model:EMFSemanticModelBridge">
+        <element href="deploytest.ecore#//Action/container"/>
+      </semanticModel>
+      <contained xsi:type="org.topcased.modeler.di.model:EdgeObjectUV" id="cardinalityLabel" uDistance="20" vDistance="-20"/>
+      <contained xsi:type="org.topcased.modeler.di.model:EdgeObjectUV" id="nameLabel" uDistance="20" vDistance="20"/>
+    </contained>
+    <contained xsi:type="org.topcased.modeler.di.model:GraphEdge" anchor="//@diagrams.0/@contained.3/@anchorage.0 //@diagrams.0/@contained.6/@anchorage.0">
+      <semanticModel xsi:type="org.topcased.modeler.di.model:EMFSemanticModelBridge">
+        <element href="deploytest.ecore#//AssertionContainer/assertions"/>
+      </semanticModel>
+      <contained xsi:type="org.topcased.modeler.di.model:EdgeObjectUV" id="cardinalityLabel" uDistance="20" vDistance="-20"/>
+      <contained xsi:type="org.topcased.modeler.di.model:EdgeObjectUV" id="nameLabel" uDistance="20" vDistance="20"/>
+    </contained>
+    <contained xsi:type="org.topcased.modeler.di.model:GraphEdge" anchor="//@diagrams.0/@contained.6/@anchorage.0 //@diagrams.0/@contained.3/@anchorage.0">
+      <semanticModel xsi:type="org.topcased.modeler.di.model:EMFSemanticModelBridge">
+        <element href="deploytest.ecore#//Assertion/container"/>
+      </semanticModel>
+      <contained xsi:type="org.topcased.modeler.di.model:EdgeObjectUV" id="cardinalityLabel" uDistance="20" vDistance="-20"/>
+      <contained xsi:type="org.topcased.modeler.di.model:EdgeObjectUV" id="nameLabel" uDistance="20" vDistance="20"/>
+    </contained>
+    <contained xsi:type="org.topcased.modeler.di.model:GraphEdge" anchor="//@diagrams.0/@contained.0/@anchorage.0 //@diagrams.0/@contained.2/@anchorage.0">
+      <semanticModel xsi:type="org.topcased.modeler.di.model:EMFSemanticModelBridge">
+        <element href="deploytest.ecore#//TestSpec/actionContainer"/>
+      </semanticModel>
+      <contained xsi:type="org.topcased.modeler.di.model:EdgeObjectUV" id="cardinalityLabel" uDistance="20" vDistance="-20"/>
+      <contained xsi:type="org.topcased.modeler.di.model:EdgeObjectUV" id="nameLabel" uDistance="20" vDistance="20"/>
+    </contained>
+    <contained xsi:type="org.topcased.modeler.di.model:GraphEdge" anchor="//@diagrams.0/@contained.2/@anchorage.0 //@diagrams.0/@contained.0/@anchorage.0">
+      <semanticModel xsi:type="org.topcased.modeler.di.model:EMFSemanticModelBridge">
+        <element href="deploytest.ecore#//ActionContainer/testSpec"/>
+      </semanticModel>
+      <contained xsi:type="org.topcased.modeler.di.model:EdgeObjectUV" id="cardinalityLabel" uDistance="20" vDistance="-20"/>
+      <contained xsi:type="org.topcased.modeler.di.model:EdgeObjectUV" id="nameLabel" uDistance="20" vDistance="20"/>
+    </contained>
+    <contained xsi:type="org.topcased.modeler.di.model:GraphEdge" anchor="//@diagrams.0/@contained.0/@anchorage.0 //@diagrams.0/@contained.3/@anchorage.0">
+      <semanticModel xsi:type="org.topcased.modeler.di.model:EMFSemanticModelBridge">
+        <element href="deploytest.ecore#//TestSpec/assertionContainer"/>
+      </semanticModel>
+      <contained xsi:type="org.topcased.modeler.di.model:EdgeObjectUV" id="cardinalityLabel" uDistance="20" vDistance="-20"/>
+      <contained xsi:type="org.topcased.modeler.di.model:EdgeObjectUV" id="nameLabel" uDistance="20" vDistance="20"/>
+    </contained>
+    <contained xsi:type="org.topcased.modeler.di.model:GraphEdge" anchor="//@diagrams.0/@contained.3/@anchorage.0 //@diagrams.0/@contained.0/@anchorage.0">
+      <semanticModel xsi:type="org.topcased.modeler.di.model:EMFSemanticModelBridge">
+        <element href="deploytest.ecore#//AssertionContainer/testSpec"/>
+      </semanticModel>
+      <contained xsi:type="org.topcased.modeler.di.model:EdgeObjectUV" id="cardinalityLabel" uDistance="20" vDistance="-20"/>
+      <contained xsi:type="org.topcased.modeler.di.model:EdgeObjectUV" id="nameLabel" uDistance="20" vDistance="20"/>
+    </contained>
+    <contained xsi:type="org.topcased.modeler.di.model:GraphEdge" anchor="//@diagrams.0/@contained.2/@anchorage.0 //@diagrams.0/@contained.2/@anchorage.1">
+      <semanticModel xsi:type="org.topcased.modeler.di.model:EMFSemanticModelBridge">
+        <element href="deploytest.ecore#//ActionContainer/superContainer"/>
+      </semanticModel>
+      <contained xsi:type="org.topcased.modeler.di.model:EdgeObjectUV" id="cardinalityLabel" uDistance="20" vDistance="-20"/>
+      <contained xsi:type="org.topcased.modeler.di.model:EdgeObjectUV" id="nameLabel" uDistance="20" vDistance="20"/>
+    </contained>
+    <contained xsi:type="org.topcased.modeler.di.model:GraphEdge" anchor="//@diagrams.0/@contained.2/@anchorage.0 //@diagrams.0/@contained.2/@anchorage.1">
+      <semanticModel xsi:type="org.topcased.modeler.di.model:EMFSemanticModelBridge">
+        <element href="deploytest.ecore#//ActionContainer/subContainers"/>
+      </semanticModel>
+      <contained xsi:type="org.topcased.modeler.di.model:EdgeObjectUV" id="cardinalityLabel" uDistance="20" vDistance="-20"/>
+      <contained xsi:type="org.topcased.modeler.di.model:EdgeObjectUV" id="nameLabel" uDistance="20" vDistance="20"/>
+    </contained>
+    <contained xsi:type="org.topcased.modeler.di.model:GraphEdge" anchor="//@diagrams.0/@contained.3/@anchorage.0 //@diagrams.0/@contained.3/@anchorage.1">
+      <semanticModel xsi:type="org.topcased.modeler.di.model:EMFSemanticModelBridge">
+        <element href="deploytest.ecore#//AssertionContainer/superContainer"/>
+      </semanticModel>
+      <contained xsi:type="org.topcased.modeler.di.model:EdgeObjectUV" id="cardinalityLabel" uDistance="20" vDistance="-20"/>
+      <contained xsi:type="org.topcased.modeler.di.model:EdgeObjectUV" id="nameLabel" uDistance="20" vDistance="20"/>
+    </contained>
+    <contained xsi:type="org.topcased.modeler.di.model:GraphEdge" anchor="//@diagrams.0/@contained.3/@anchorage.0 //@diagrams.0/@contained.3/@anchorage.1">
+      <semanticModel xsi:type="org.topcased.modeler.di.model:EMFSemanticModelBridge">
+        <element href="deploytest.ecore#//AssertionContainer/subContainers"/>
+      </semanticModel>
+      <contained xsi:type="org.topcased.modeler.di.model:EdgeObjectUV" id="cardinalityLabel" uDistance="20" vDistance="-20"/>
+      <contained xsi:type="org.topcased.modeler.di.model:EdgeObjectUV" id="nameLabel" uDistance="20" vDistance="20"/>
+    </contained>
+    <contained xsi:type="org.topcased.modeler.di.model:GraphNode" position="839,22" size="80,-1">
+      <anchorage graphEdge="//@diagrams.0/@contained.27 //@diagrams.0/@contained.30 //@diagrams.0/@contained.32 //@diagrams.0/@contained.33 //@diagrams.0/@contained.39 //@diagrams.0/@contained.40 //@diagrams.0/@contained.41"/>
+      <anchorage graphEdge="//@diagrams.0/@contained.30 //@diagrams.0/@contained.41"/>
+      <semanticModel xsi:type="org.topcased.modeler.di.model:EMFSemanticModelBridge">
+        <element href="deploytest.ecore#//Initialization"/>
+      </semanticModel>
+    </contained>
+    <contained xsi:type="org.topcased.modeler.di.model:GraphNode" position="844,167" size="70,-1">
+      <anchorage graphEdge="//@diagrams.0/@contained.26 //@diagrams.0/@contained.31 //@diagrams.0/@contained.32 //@diagrams.0/@contained.33 //@diagrams.0/@contained.34 //@diagrams.0/@contained.35 //@diagrams.0/@contained.42"/>
+      <anchorage graphEdge="//@diagrams.0/@contained.31 //@diagrams.0/@contained.42"/>
+      <semanticModel xsi:type="org.topcased.modeler.di.model:EMFSemanticModelBridge">
+        <element href="deploytest.ecore#//Execution"/>
+      </semanticModel>
+    </contained>
+    <contained xsi:type="org.topcased.modeler.di.model:GraphNode" position="820,302" size="117,-1">
+      <anchorage graphEdge="//@diagrams.0/@contained.28 //@diagrams.0/@contained.29 //@diagrams.0/@contained.34 //@diagrams.0/@contained.35 //@diagrams.0/@contained.39 //@diagrams.0/@contained.40 //@diagrams.0/@contained.68 //@diagrams.0/@contained.69"/>
+      <semanticModel xsi:type="org.topcased.modeler.di.model:EMFSemanticModelBridge">
+        <element href="deploytest.ecore#//Verification"/>
+      </semanticModel>
+      <contained xsi:type="org.topcased.modeler.di.model:GraphNode" position="37,6" size="100,100">
+        <semanticModel xsi:type="org.topcased.modeler.di.model:EMFSemanticModelBridge">
+          <element href="deploytest.ecore#//Verification/specLabel"/>
+        </semanticModel>
+      </contained>
+      <contained xsi:type="org.topcased.modeler.di.model:GraphNode" position="60,6" size="100,100">
+        <semanticModel xsi:type="org.topcased.modeler.di.model:EMFSemanticModelBridge">
+          <element href="deploytest.ecore#//Verification/id"/>
+        </semanticModel>
+      </contained>
+    </contained>
+    <contained xsi:type="org.topcased.modeler.di.model:GraphEdge" anchor="//@diagrams.0/@contained.24/@anchorage.0 //@diagrams.0/@contained.5/@anchorage.0">
+      <semanticModel xsi:type="org.topcased.modeler.di.model:EMFSemanticModelBridge">
+        <element href="deploytest.ecore#//Execution/executionActions"/>
+      </semanticModel>
+      <contained xsi:type="org.topcased.modeler.di.model:EdgeObjectUV" id="cardinalityLabel" uDistance="20" vDistance="-20"/>
+      <contained xsi:type="org.topcased.modeler.di.model:EdgeObjectUV" id="nameLabel" uDistance="20" vDistance="20"/>
+    </contained>
+    <contained xsi:type="org.topcased.modeler.di.model:GraphEdge" anchor="//@diagrams.0/@contained.23/@anchorage.0 //@diagrams.0/@contained.5/@anchorage.0">
+      <semanticModel xsi:type="org.topcased.modeler.di.model:EMFSemanticModelBridge">
+        <element href="deploytest.ecore#//Initialization/initializationActions"/>
+      </semanticModel>
+      <contained xsi:type="org.topcased.modeler.di.model:EdgeObjectUV" id="cardinalityLabel" uDistance="20" vDistance="-20"/>
+      <contained xsi:type="org.topcased.modeler.di.model:EdgeObjectUV" id="nameLabel" uDistance="20" vDistance="20"/>
+    </contained>
+    <contained xsi:type="org.topcased.modeler.di.model:GraphEdge" anchor="//@diagrams.0/@contained.25/@anchorage.0 //@diagrams.0/@contained.6/@anchorage.0">
+      <semanticModel xsi:type="org.topcased.modeler.di.model:EMFSemanticModelBridge">
+        <element href="deploytest.ecore#//Verification/assertions"/>
+      </semanticModel>
+      <contained xsi:type="org.topcased.modeler.di.model:EdgeObjectUV" id="cardinalityLabel" uDistance="20" vDistance="-20"/>
+      <contained xsi:type="org.topcased.modeler.di.model:EdgeObjectUV" id="nameLabel" uDistance="20" vDistance="20"/>
+    </contained>
+    <contained xsi:type="org.topcased.modeler.di.model:GraphEdge" anchor="//@diagrams.0/@contained.25/@anchorage.0 //@diagrams.0/@contained.1/@anchorage.0">
+      <semanticModel xsi:type="org.topcased.modeler.di.model:EMFSemanticModelBridge">
+        <element href="deploytest.ecore#//Verification/containerOverride"/>
+      </semanticModel>
+      <contained xsi:type="org.topcased.modeler.di.model:EdgeObjectUV" id="cardinalityLabel" uDistance="20" vDistance="-20"/>
+      <contained xsi:type="org.topcased.modeler.di.model:EdgeObjectUV" id="nameLabel" uDistance="20" vDistance="20"/>
+    </contained>
+    <contained xsi:type="org.topcased.modeler.di.model:GraphEdge" anchor="//@diagrams.0/@contained.23/@anchorage.0 //@diagrams.0/@contained.23/@anchorage.1">
+      <semanticModel xsi:type="org.topcased.modeler.di.model:EMFSemanticModelBridge">
+        <element href="deploytest.ecore#//Initialization/subInitializations"/>
+      </semanticModel>
+      <contained xsi:type="org.topcased.modeler.di.model:EdgeObjectUV" id="cardinalityLabel" uDistance="20" vDistance="-20"/>
+      <contained xsi:type="org.topcased.modeler.di.model:EdgeObjectUV" id="nameLabel" uDistance="20" vDistance="20"/>
+    </contained>
+    <contained xsi:type="org.topcased.modeler.di.model:GraphEdge" anchor="//@diagrams.0/@contained.24/@anchorage.0 //@diagrams.0/@contained.24/@anchorage.1">
+      <semanticModel xsi:type="org.topcased.modeler.di.model:EMFSemanticModelBridge">
+        <element href="deploytest.ecore#//Execution/subExecutions"/>
+      </semanticModel>
+      <contained xsi:type="org.topcased.modeler.di.model:EdgeObjectUV" id="cardinalityLabel" uDistance="20" vDistance="-20"/>
+      <contained xsi:type="org.topcased.modeler.di.model:EdgeObjectUV" id="nameLabel" uDistance="20" vDistance="20"/>
+    </contained>
+    <contained xsi:type="org.topcased.modeler.di.model:GraphEdge" anchor="//@diagrams.0/@contained.23/@anchorage.0 //@diagrams.0/@contained.24/@anchorage.0">
+      <semanticModel xsi:type="org.topcased.modeler.di.model:EMFSemanticModelBridge">
+        <element href="deploytest.ecore#//Initialization/executions"/>
+      </semanticModel>
+      <contained xsi:type="org.topcased.modeler.di.model:EdgeObjectUV" id="cardinalityLabel" uDistance="20" vDistance="-20"/>
+      <contained xsi:type="org.topcased.modeler.di.model:EdgeObjectUV" id="nameLabel" uDistance="20" vDistance="20"/>
+    </contained>
+    <contained xsi:type="org.topcased.modeler.di.model:GraphEdge" anchor="//@diagrams.0/@contained.24/@anchorage.0 //@diagrams.0/@contained.23/@anchorage.0">
+      <semanticModel xsi:type="org.topcased.modeler.di.model:EMFSemanticModelBridge">
+        <element href="deploytest.ecore#//Execution/initialization"/>
+      </semanticModel>
+      <contained xsi:type="org.topcased.modeler.di.model:EdgeObjectUV" id="cardinalityLabel" uDistance="20" vDistance="-20"/>
+      <contained xsi:type="org.topcased.modeler.di.model:EdgeObjectUV" id="nameLabel" uDistance="20" vDistance="20"/>
+    </contained>
+    <contained xsi:type="org.topcased.modeler.di.model:GraphEdge" anchor="//@diagrams.0/@contained.24/@anchorage.0 //@diagrams.0/@contained.25/@anchorage.0">
+      <semanticModel xsi:type="org.topcased.modeler.di.model:EMFSemanticModelBridge">
+        <element href="deploytest.ecore#//Execution/verifications"/>
+      </semanticModel>
+      <contained xsi:type="org.topcased.modeler.di.model:EdgeObjectUV" id="cardinalityLabel" uDistance="20" vDistance="-20"/>
+      <contained xsi:type="org.topcased.modeler.di.model:EdgeObjectUV" id="nameLabel" uDistance="20" vDistance="20"/>
+    </contained>
+    <contained xsi:type="org.topcased.modeler.di.model:GraphEdge" anchor="//@diagrams.0/@contained.25/@anchorage.0 //@diagrams.0/@contained.24/@anchorage.0">
+      <semanticModel xsi:type="org.topcased.modeler.di.model:EMFSemanticModelBridge">
+        <element href="deploytest.ecore#//Verification/execution"/>
+      </semanticModel>
+      <contained xsi:type="org.topcased.modeler.di.model:EdgeObjectUV" id="cardinalityLabel" uDistance="20" vDistance="-20"/>
+      <contained xsi:type="org.topcased.modeler.di.model:EdgeObjectUV" id="nameLabel" uDistance="20" vDistance="20"/>
+    </contained>
+    <contained xsi:type="org.topcased.modeler.di.model:GraphNode" position="87,22" size="91,-1">
+      <anchorage graphEdge="//@diagrams.0/@contained.37 //@diagrams.0/@contained.38 //@diagrams.0/@contained.67 //@diagrams.0/@contained.75"/>
+      <anchorage graphEdge="//@diagrams.0/@contained.67"/>
+      <semanticModel xsi:type="org.topcased.modeler.di.model:EMFSemanticModelBridge">
+        <element href="deploytest.ecore#//TestCaseSpec"/>
+      </semanticModel>
+    </contained>
+    <contained xsi:type="org.topcased.modeler.di.model:GraphEdge" anchor="//@diagrams.0/@contained.0/@anchorage.0 //@diagrams.0/@contained.36/@anchorage.0">
+      <semanticModel xsi:type="org.topcased.modeler.di.model:EMFSemanticModelBridge">
+        <element href="deploytest.ecore#//TestSpec/testCaseSpecs"/>
+      </semanticModel>
+      <contained xsi:type="org.topcased.modeler.di.model:EdgeObjectUV" id="cardinalityLabel" uDistance="20" vDistance="-20"/>
+      <contained xsi:type="org.topcased.modeler.di.model:EdgeObjectUV" id="nameLabel" uDistance="20" vDistance="20"/>
+    </contained>
+    <contained xsi:type="org.topcased.modeler.di.model:GraphEdge" anchor="//@diagrams.0/@contained.36/@anchorage.0 //@diagrams.0/@contained.0/@anchorage.0">
+      <semanticModel xsi:type="org.topcased.modeler.di.model:EMFSemanticModelBridge">
+        <element href="deploytest.ecore#//TestCaseSpec/testSpec"/>
+      </semanticModel>
+      <contained xsi:type="org.topcased.modeler.di.model:EdgeObjectUV" id="cardinalityLabel" uDistance="20" vDistance="-20"/>
+      <contained xsi:type="org.topcased.modeler.di.model:EdgeObjectUV" id="nameLabel" uDistance="20" vDistance="20"/>
+    </contained>
+    <contained xsi:type="org.topcased.modeler.di.model:GraphEdge" anchor="//@diagrams.0/@contained.23/@anchorage.0 //@diagrams.0/@contained.25/@anchorage.0">
+      <semanticModel xsi:type="org.topcased.modeler.di.model:EMFSemanticModelBridge">
+        <element href="deploytest.ecore#//Initialization/verifications"/>
+      </semanticModel>
+      <contained xsi:type="org.topcased.modeler.di.model:EdgeObjectUV" id="cardinalityLabel" uDistance="20" vDistance="-20"/>
+      <contained xsi:type="org.topcased.modeler.di.model:EdgeObjectUV" id="nameLabel" uDistance="20" vDistance="20"/>
+      <waypoints>[-20, 20, -20, -274]</waypoints>
+      <waypoints>[-139, 143, -139, -151]</waypoints>
+      <waypoints>[-19, 273, -19, -21]</waypoints>
+    </contained>
+    <contained xsi:type="org.topcased.modeler.di.model:GraphEdge" anchor="//@diagrams.0/@contained.25/@anchorage.0 //@diagrams.0/@contained.23/@anchorage.0">
+      <semanticModel xsi:type="org.topcased.modeler.di.model:EMFSemanticModelBridge">
+        <element href="deploytest.ecore#//Verification/initialization"/>
+      </semanticModel>
+      <contained xsi:type="org.topcased.modeler.di.model:EdgeObjectUV" id="cardinalityLabel" uDistance="20" vDistance="-20"/>
+      <contained xsi:type="org.topcased.modeler.di.model:EdgeObjectUV" id="nameLabel" uDistance="20" vDistance="20"/>
+      <waypoints>[-20, -21, -20, 273]</waypoints>
+      <waypoints>[-140, -151, -140, 143]</waypoints>
+      <waypoints>[-20, -274, -20, 20]</waypoints>
+    </contained>
+    <contained xsi:type="org.topcased.modeler.di.model:GraphEdge" anchor="//@diagrams.0/@contained.23/@anchorage.0 //@diagrams.0/@contained.23/@anchorage.1">
+      <semanticModel xsi:type="org.topcased.modeler.di.model:EMFSemanticModelBridge">
+        <element href="deploytest.ecore#//Initialization/superInitialization"/>
+      </semanticModel>
+      <contained xsi:type="org.topcased.modeler.di.model:EdgeObjectUV" id="cardinalityLabel" uDistance="20" vDistance="-20"/>
+      <contained xsi:type="org.topcased.modeler.di.model:EdgeObjectUV" id="nameLabel" uDistance="20" vDistance="20"/>
+    </contained>
+    <contained xsi:type="org.topcased.modeler.di.model:GraphEdge" anchor="//@diagrams.0/@contained.24/@anchorage.0 //@diagrams.0/@contained.24/@anchorage.1">
+      <semanticModel xsi:type="org.topcased.modeler.di.model:EMFSemanticModelBridge">
+        <element href="deploytest.ecore#//Execution/superExecution"/>
+      </semanticModel>
+      <contained xsi:type="org.topcased.modeler.di.model:EdgeObjectUV" id="cardinalityLabel" uDistance="20" vDistance="-20"/>
+      <contained xsi:type="org.topcased.modeler.di.model:EdgeObjectUV" id="nameLabel" uDistance="20" vDistance="20"/>
+    </contained>
+    <contained xsi:type="org.topcased.modeler.di.model:GraphNode" position="999,452" size="128,-1">
+      <anchorage graphEdge="//@diagrams.0/@contained.45"/>
+      <semanticModel xsi:type="org.topcased.modeler.di.model:EMFSemanticModelBridge">
+        <element href="deploytest.ecore#//IDisplayable"/>
+      </semanticModel>
+      <contained xsi:type="org.topcased.modeler.di.model:GraphNode" position="53,10" size="100,100">
+        <semanticModel xsi:type="org.topcased.modeler.di.model:EMFSemanticModelBridge">
+          <element href="deploytest.ecore#//IDisplayable/displayLabel"/>
+        </semanticModel>
+      </contained>
+      <contained xsi:type="org.topcased.modeler.di.model:GraphNode" position="31,11" size="100,100">
+        <semanticModel xsi:type="org.topcased.modeler.di.model:EMFSemanticModelBridge">
+          <element href="deploytest.ecore#//IDisplayable/description"/>
+        </semanticModel>
+      </contained>
+    </contained>
+    <contained xsi:type="org.topcased.modeler.di.model:GraphNode" position="1015,553" size="96,-1">
+      <anchorage graphEdge="//@diagrams.0/@contained.45"/>
+      <semanticModel xsi:type="org.topcased.modeler.di.model:EMFSemanticModelBridge">
+        <element href="deploytest.ecore#//NamedElement"/>
+      </semanticModel>
+      <contained xsi:type="org.topcased.modeler.di.model:GraphNode" position="60,9" size="100,100">
+        <semanticModel xsi:type="org.topcased.modeler.di.model:EMFSemanticModelBridge">
+          <element href="deploytest.ecore#//NamedElement/name"/>
+        </semanticModel>
+      </contained>
+    </contained>
+    <contained xsi:type="org.topcased.modeler.di.model:GraphEdge" anchor="//@diagrams.0/@contained.44/@anchorage.0 //@diagrams.0/@contained.43/@anchorage.0">
+      <semanticModel xsi:type="org.topcased.modeler.di.model:SimpleSemanticModelElement" typeInfo="Inheritance EditPolicy"/>
+    </contained>
+    <contained xsi:type="org.topcased.modeler.di.model:GraphNode" position="86,309" size="93,-1">
+      <anchorage graphEdge="//@diagrams.0/@contained.48 //@diagrams.0/@contained.49 //@diagrams.0/@contained.74"/>
+      <semanticModel xsi:type="org.topcased.modeler.di.model:EMFSemanticModelBridge">
+        <element href="../../com.sympedia.density.gen.deploy/model/deploy.ecore#//Container"/>
+      </semanticModel>
+      <contained xsi:type="org.topcased.modeler.di.model:GraphNode" position="-1,-1">
+        <semanticModel xsi:type="org.topcased.modeler.di.model:EMFSemanticModelBridge">
+          <element href="../../com.sympedia.density.gen.deploy/model/deploy.ecore#//Container/%http:%2F%2Fwww.topcased.org%2Fuuid%"/>
+        </semanticModel>
+      </contained>
+    </contained>
+    <contained xsi:type="org.topcased.modeler.di.model:GraphNode" position="86,473" size="93,-1">
+      <anchorage graphEdge="//@diagrams.0/@contained.48 //@diagrams.0/@contained.49 //@diagrams.0/@contained.50"/>
+      <anchorage/>
+      <semanticModel xsi:type="org.topcased.modeler.di.model:EMFSemanticModelBridge">
+        <element href="../../com.sympedia.density.gen.deploy/model/deploy.ecore#//Deployment"/>
+      </semanticModel>
+      <contained xsi:type="org.topcased.modeler.di.model:GraphNode" position="-1,-1">
+        <semanticModel xsi:type="org.topcased.modeler.di.model:EMFSemanticModelBridge">
+          <element href="../../com.sympedia.density.gen.deploy/model/deploy.ecore#//Deployment/%http:%2F%2Fwww.topcased.org%2Fuuid%"/>
+        </semanticModel>
+      </contained>
+    </contained>
+    <contained xsi:type="org.topcased.modeler.di.model:GraphEdge" anchor="//@diagrams.0/@contained.46/@anchorage.0 //@diagrams.0/@contained.47/@anchorage.0">
+      <semanticModel xsi:type="org.topcased.modeler.di.model:EMFSemanticModelBridge">
+        <element href="../../com.sympedia.density.gen.deploy/model/deploy.ecore#//Container/deployments"/>
+      </semanticModel>
+      <contained xsi:type="org.topcased.modeler.di.model:EdgeObjectUV" id="cardinalityLabel" uDistance="20" vDistance="-20"/>
+      <contained xsi:type="org.topcased.modeler.di.model:EdgeObjectUV" id="nameLabel" uDistance="20" vDistance="20"/>
+    </contained>
+    <contained xsi:type="org.topcased.modeler.di.model:GraphEdge" anchor="//@diagrams.0/@contained.47/@anchorage.0 //@diagrams.0/@contained.46/@anchorage.0">
+      <semanticModel xsi:type="org.topcased.modeler.di.model:EMFSemanticModelBridge">
+        <element href="../../com.sympedia.density.gen.deploy/model/deploy.ecore#//Deployment/container"/>
+      </semanticModel>
+      <contained xsi:type="org.topcased.modeler.di.model:EdgeObjectUV" id="cardinalityLabel" uDistance="20" vDistance="-20"/>
+      <contained xsi:type="org.topcased.modeler.di.model:EdgeObjectUV" id="nameLabel" uDistance="20" vDistance="20"/>
+    </contained>
+    <contained xsi:type="org.topcased.modeler.di.model:GraphEdge" anchor="//@diagrams.0/@contained.4/@anchorage.0 //@diagrams.0/@contained.47/@anchorage.0">
+      <semanticModel xsi:type="org.topcased.modeler.di.model:EMFSemanticModelBridge">
+        <element href="deploytest.ecore#//DeploymentOverride/deploymentToOverride"/>
+      </semanticModel>
+      <contained xsi:type="org.topcased.modeler.di.model:EdgeObjectUV" id="cardinalityLabel" uDistance="20" vDistance="-20"/>
+      <contained xsi:type="org.topcased.modeler.di.model:EdgeObjectUV" id="nameLabel" uDistance="20" vDistance="20"/>
+    </contained>
+    <contained xsi:type="org.topcased.modeler.di.model:GraphNode" position="491,475" size="149,-1">
+      <anchorage graphEdge="//@diagrams.0/@contained.57 //@diagrams.0/@contained.59"/>
+      <semanticModel xsi:type="org.topcased.modeler.di.model:EMFSemanticModelBridge">
+        <element href="deploytest.ecore#//UnaryOpAssertion"/>
+      </semanticModel>
+      <contained xsi:type="org.topcased.modeler.di.model:GraphNode" position="-20,-51" size="100,100">
+        <semanticModel xsi:type="org.topcased.modeler.di.model:EMFSemanticModelBridge">
+          <element href="deploytest.ecore#//UnaryOpAssertion/operator"/>
+        </semanticModel>
+      </contained>
+    </contained>
+    <contained xsi:type="org.topcased.modeler.di.model:GraphNode" position="654,475" size="150,-1">
+      <anchorage graphEdge="//@diagrams.0/@contained.58 //@diagrams.0/@contained.60 //@diagrams.0/@contained.61"/>
+      <semanticModel xsi:type="org.topcased.modeler.di.model:EMFSemanticModelBridge">
+        <element href="deploytest.ecore#//BinaryOpAssertion"/>
+      </semanticModel>
+      <contained xsi:type="org.topcased.modeler.di.model:GraphNode" position="-781,-646" size="100,100">
+        <semanticModel xsi:type="org.topcased.modeler.di.model:EMFSemanticModelBridge">
+          <element href="deploytest.ecore#//BinaryOpAssertion/operator"/>
+        </semanticModel>
+      </contained>
+    </contained>
+    <contained xsi:type="org.topcased.modeler.di.model:GraphNode" position="1016,15" size="94,-1">
+      <semanticModel xsi:type="org.topcased.modeler.di.model:EMFSemanticModelBridge">
+        <element href="deploytest.ecore#//UnaryOpType"/>
+      </semanticModel>
+      <contained xsi:type="org.topcased.modeler.di.model:GraphNode" position="-392,-738" size="100,100">
+        <semanticModel xsi:type="org.topcased.modeler.di.model:EMFSemanticModelBridge">
+          <element href="deploytest.ecore#//UnaryOpType/False"/>
+        </semanticModel>
+      </contained>
+      <contained xsi:type="org.topcased.modeler.di.model:GraphNode" position="-416,-743" size="100,100">
+        <semanticModel xsi:type="org.topcased.modeler.di.model:EMFSemanticModelBridge">
+          <element href="deploytest.ecore#//UnaryOpType/Identity"/>
+        </semanticModel>
+      </contained>
+      <contained xsi:type="org.topcased.modeler.di.model:GraphNode" position="-402,-746" size="100,100">
+        <semanticModel xsi:type="org.topcased.modeler.di.model:EMFSemanticModelBridge">
+          <element href="deploytest.ecore#//UnaryOpType/Not"/>
+        </semanticModel>
+      </contained>
+      <contained xsi:type="org.topcased.modeler.di.model:GraphNode" position="-367,-735" size="100,100">
+        <semanticModel xsi:type="org.topcased.modeler.di.model:EMFSemanticModelBridge">
+          <element href="deploytest.ecore#//UnaryOpType/True"/>
+        </semanticModel>
+      </contained>
+    </contained>
+    <contained xsi:type="org.topcased.modeler.di.model:GraphNode" position="1011,136" size="104,-1">
+      <semanticModel xsi:type="org.topcased.modeler.di.model:EMFSemanticModelBridge">
+        <element href="deploytest.ecore#//BinaryOpType"/>
+      </semanticModel>
+      <contained xsi:type="org.topcased.modeler.di.model:GraphNode" position="-662,-751" size="100,100">
+        <semanticModel xsi:type="org.topcased.modeler.di.model:EMFSemanticModelBridge">
+          <element href="deploytest.ecore#//BinaryOpType/False"/>
+        </semanticModel>
+      </contained>
+      <contained xsi:type="org.topcased.modeler.di.model:GraphNode" position="-697,-729" size="100,100">
+        <semanticModel xsi:type="org.topcased.modeler.di.model:EMFSemanticModelBridge">
+          <element href="deploytest.ecore#//BinaryOpType/And"/>
+        </semanticModel>
+      </contained>
+      <contained xsi:type="org.topcased.modeler.di.model:GraphNode" position="-720,-728" size="100,100">
+        <semanticModel xsi:type="org.topcased.modeler.di.model:EMFSemanticModelBridge">
+          <element href="deploytest.ecore#//BinaryOpType/LeftAndNotRight"/>
+        </semanticModel>
+      </contained>
+      <contained xsi:type="org.topcased.modeler.di.model:GraphNode" position="-659,-728" size="100,100">
+        <semanticModel xsi:type="org.topcased.modeler.di.model:EMFSemanticModelBridge">
+          <element href="deploytest.ecore#//BinaryOpType/Left"/>
+        </semanticModel>
+      </contained>
+      <contained xsi:type="org.topcased.modeler.di.model:GraphNode" position="-1751,-539" size="100,100">
+        <semanticModel xsi:type="org.topcased.modeler.di.model:EMFSemanticModelBridge">
+          <element href="deploytest.ecore#//BinaryOpType/NotLeftAndRight"/>
+        </semanticModel>
+      </contained>
+      <contained xsi:type="org.topcased.modeler.di.model:GraphNode" position="-1744,-536" size="100,100">
+        <semanticModel xsi:type="org.topcased.modeler.di.model:EMFSemanticModelBridge">
+          <element href="deploytest.ecore#//BinaryOpType/Right"/>
+        </semanticModel>
+      </contained>
+      <contained xsi:type="org.topcased.modeler.di.model:GraphNode" position="-1751,-541" size="100,100">
+        <semanticModel xsi:type="org.topcased.modeler.di.model:EMFSemanticModelBridge">
+          <element href="deploytest.ecore#//BinaryOpType/XOr"/>
+        </semanticModel>
+      </contained>
+      <contained xsi:type="org.topcased.modeler.di.model:GraphNode" position="-1677,-534" size="100,100">
+        <semanticModel xsi:type="org.topcased.modeler.di.model:EMFSemanticModelBridge">
+          <element href="deploytest.ecore#//BinaryOpType/Or"/>
+        </semanticModel>
+      </contained>
+      <contained xsi:type="org.topcased.modeler.di.model:GraphNode" position="-1688,-544" size="100,100">
+        <semanticModel xsi:type="org.topcased.modeler.di.model:EMFSemanticModelBridge">
+          <element href="deploytest.ecore#//BinaryOpType/Nor"/>
+        </semanticModel>
+      </contained>
+      <contained xsi:type="org.topcased.modeler.di.model:GraphNode" position="-1699,-536" size="100,100">
+        <semanticModel xsi:type="org.topcased.modeler.di.model:EMFSemanticModelBridge">
+          <element href="deploytest.ecore#//BinaryOpType/XNOr"/>
+        </semanticModel>
+      </contained>
+      <contained xsi:type="org.topcased.modeler.di.model:GraphNode" position="-1731,-536" size="100,100">
+        <semanticModel xsi:type="org.topcased.modeler.di.model:EMFSemanticModelBridge">
+          <element href="deploytest.ecore#//BinaryOpType/NotRight"/>
+        </semanticModel>
+      </contained>
+      <contained xsi:type="org.topcased.modeler.di.model:GraphNode" position="-1720,-535" size="100,100">
+        <semanticModel xsi:type="org.topcased.modeler.di.model:EMFSemanticModelBridge">
+          <element href="deploytest.ecore#//BinaryOpType/LeftOrNotRight"/>
+        </semanticModel>
+      </contained>
+      <contained xsi:type="org.topcased.modeler.di.model:GraphNode" position="-1734,-536" size="100,100">
+        <semanticModel xsi:type="org.topcased.modeler.di.model:EMFSemanticModelBridge">
+          <element href="deploytest.ecore#//BinaryOpType/NotLeft"/>
+        </semanticModel>
+      </contained>
+      <contained xsi:type="org.topcased.modeler.di.model:GraphNode" position="-1716,-542" size="100,100">
+        <semanticModel xsi:type="org.topcased.modeler.di.model:EMFSemanticModelBridge">
+          <element href="deploytest.ecore#//BinaryOpType/NotLeftOrRight"/>
+        </semanticModel>
+      </contained>
+      <contained xsi:type="org.topcased.modeler.di.model:GraphNode" position="-1787,-543" size="100,100">
+        <semanticModel xsi:type="org.topcased.modeler.di.model:EMFSemanticModelBridge">
+          <element href="deploytest.ecore#//BinaryOpType/NAnd"/>
+        </semanticModel>
+      </contained>
+      <contained xsi:type="org.topcased.modeler.di.model:GraphNode" position="-1766,-541" size="100,100">
+        <semanticModel xsi:type="org.topcased.modeler.di.model:EMFSemanticModelBridge">
+          <element href="deploytest.ecore#//BinaryOpType/True"/>
+        </semanticModel>
+      </contained>
+    </contained>
+    <contained xsi:type="org.topcased.modeler.di.model:GraphNode" position="592,373" size="105,-1">
+      <anchorage graphEdge="//@diagrams.0/@contained.56 //@diagrams.0/@contained.57 //@diagrams.0/@contained.58"/>
+      <semanticModel xsi:type="org.topcased.modeler.di.model:EMFSemanticModelBridge">
+        <element href="deploytest.ecore#//DerivedAssertion"/>
+      </semanticModel>
+    </contained>
+    <contained xsi:type="org.topcased.modeler.di.model:GraphEdge" anchor="//@diagrams.0/@contained.55/@anchorage.0 //@diagrams.0/@contained.6/@anchorage.0">
+      <semanticModel xsi:type="org.topcased.modeler.di.model:SimpleSemanticModelElement" typeInfo="Inheritance EditPolicy"/>
+    </contained>
+    <contained xsi:type="org.topcased.modeler.di.model:GraphEdge" anchor="//@diagrams.0/@contained.51/@anchorage.0 //@diagrams.0/@contained.55/@anchorage.0">
+      <semanticModel xsi:type="org.topcased.modeler.di.model:SimpleSemanticModelElement" typeInfo="Inheritance EditPolicy"/>
+    </contained>
+    <contained xsi:type="org.topcased.modeler.di.model:GraphEdge" anchor="//@diagrams.0/@contained.52/@anchorage.0 //@diagrams.0/@contained.55/@anchorage.0">
+      <semanticModel xsi:type="org.topcased.modeler.di.model:SimpleSemanticModelElement" typeInfo="Inheritance EditPolicy"/>
+    </contained>
+    <contained xsi:type="org.topcased.modeler.di.model:GraphEdge" anchor="//@diagrams.0/@contained.51/@anchorage.0 //@diagrams.0/@contained.6/@anchorage.0">
+      <semanticModel xsi:type="org.topcased.modeler.di.model:EMFSemanticModelBridge">
+        <element href="deploytest.ecore#//UnaryOpAssertion/operand"/>
+      </semanticModel>
+      <contained xsi:type="org.topcased.modeler.di.model:EdgeObjectUV" id="cardinalityLabel" uDistance="20" vDistance="-20"/>
+      <contained xsi:type="org.topcased.modeler.di.model:EdgeObjectUV" id="nameLabel" uDistance="20" vDistance="20"/>
+    </contained>
+    <contained xsi:type="org.topcased.modeler.di.model:GraphEdge" anchor="//@diagrams.0/@contained.52/@anchorage.0 //@diagrams.0/@contained.6/@anchorage.0">
+      <semanticModel xsi:type="org.topcased.modeler.di.model:EMFSemanticModelBridge">
+        <element href="deploytest.ecore#//BinaryOpAssertion/leftOperand"/>
+      </semanticModel>
+      <contained xsi:type="org.topcased.modeler.di.model:EdgeObjectUV" id="cardinalityLabel" uDistance="20" vDistance="-20"/>
+      <contained xsi:type="org.topcased.modeler.di.model:EdgeObjectUV" id="nameLabel" uDistance="20" vDistance="20"/>
+    </contained>
+    <contained xsi:type="org.topcased.modeler.di.model:GraphEdge" anchor="//@diagrams.0/@contained.52/@anchorage.0 //@diagrams.0/@contained.6/@anchorage.0">
+      <semanticModel xsi:type="org.topcased.modeler.di.model:EMFSemanticModelBridge">
+        <element href="deploytest.ecore#//BinaryOpAssertion/rightOperand"/>
+      </semanticModel>
+      <contained xsi:type="org.topcased.modeler.di.model:EdgeObjectUV" id="cardinalityLabel" uDistance="20" vDistance="-20"/>
+      <contained xsi:type="org.topcased.modeler.di.model:EdgeObjectUV" id="nameLabel" uDistance="20" vDistance="20"/>
+    </contained>
+    <contained xsi:type="org.topcased.modeler.di.model:GraphNode" position="822,475" size="114,-1">
+      <anchorage graphEdge="//@diagrams.0/@contained.63 //@diagrams.0/@contained.64 //@diagrams.0/@contained.65 //@diagrams.0/@contained.66 //@diagrams.0/@contained.68"/>
+      <semanticModel xsi:type="org.topcased.modeler.di.model:EMFSemanticModelBridge">
+        <element href="deploytest.ecore#//TestSuite"/>
+      </semanticModel>
+      <contained xsi:type="org.topcased.modeler.di.model:GraphNode" position="48,8" size="100,100">
+        <semanticModel xsi:type="org.topcased.modeler.di.model:EMFSemanticModelBridge">
+          <element href="deploytest.ecore#//TestSuite/idPattern"/>
+        </semanticModel>
+      </contained>
+    </contained>
+    <contained xsi:type="org.topcased.modeler.di.model:GraphEdge" anchor="//@diagrams.0/@contained.0/@anchorage.0 //@diagrams.0/@contained.62/@anchorage.0">
+      <semanticModel xsi:type="org.topcased.modeler.di.model:EMFSemanticModelBridge">
+        <element href="deploytest.ecore#//TestSpec/testSuites"/>
+      </semanticModel>
+      <contained xsi:type="org.topcased.modeler.di.model:EdgeObjectUV" id="cardinalityLabel" uDistance="20" vDistance="-20"/>
+      <contained xsi:type="org.topcased.modeler.di.model:EdgeObjectUV" id="nameLabel" uDistance="20" vDistance="20"/>
+      <waypoints>[-69, -1, -816, -307]</waypoints>
+      <waypoints>[-85, -1, -832, -307]</waypoints>
+      <waypoints>[-85, 386, -832, 80]</waypoints>
+      <waypoints>[747, 386, 0, 80]</waypoints>
+      <waypoints>[747, 326, 0, 20]</waypoints>
+    </contained>
+    <contained xsi:type="org.topcased.modeler.di.model:GraphEdge" anchor="//@diagrams.0/@contained.62/@anchorage.0 //@diagrams.0/@contained.0/@anchorage.0">
+      <semanticModel xsi:type="org.topcased.modeler.di.model:EMFSemanticModelBridge">
+        <element href="deploytest.ecore#//TestSuite/testSpec"/>
+      </semanticModel>
+      <contained xsi:type="org.topcased.modeler.di.model:EdgeObjectUV" id="cardinalityLabel" uDistance="20" vDistance="-20"/>
+      <contained xsi:type="org.topcased.modeler.di.model:EdgeObjectUV" id="nameLabel" uDistance="20" vDistance="20"/>
+      <waypoints>[0, 20, 747, 326]</waypoints>
+      <waypoints>[0, 81, 747, 387]</waypoints>
+      <waypoints>[-832, 81, -85, 387]</waypoints>
+      <waypoints>[-832, -306, -85, 0]</waypoints>
+      <waypoints>[-816, -306, -69, 0]</waypoints>
+    </contained>
+    <contained xsi:type="org.topcased.modeler.di.model:GraphEdge" anchor="//@diagrams.0/@contained.62/@anchorage.0 //@diagrams.0/@contained.6/@anchorage.0">
+      <semanticModel xsi:type="org.topcased.modeler.di.model:EMFSemanticModelBridge">
+        <element href="deploytest.ecore#//TestSuite/includedAssertions"/>
+      </semanticModel>
+      <contained xsi:type="org.topcased.modeler.di.model:EdgeObjectUV" id="cardinalityLabel" uDistance="20" vDistance="-20"/>
+      <contained xsi:type="org.topcased.modeler.di.model:EdgeObjectUV" id="nameLabel" uDistance="20" vDistance="20"/>
+    </contained>
+    <contained xsi:type="org.topcased.modeler.di.model:GraphEdge" anchor="//@diagrams.0/@contained.62/@anchorage.0 //@diagrams.0/@contained.5/@anchorage.0">
+      <semanticModel xsi:type="org.topcased.modeler.di.model:EMFSemanticModelBridge">
+        <element href="deploytest.ecore#//TestSuite/includedActions"/>
+      </semanticModel>
+      <contained xsi:type="org.topcased.modeler.di.model:EdgeObjectUV" id="cardinalityLabel" uDistance="20" vDistance="-20"/>
+      <contained xsi:type="org.topcased.modeler.di.model:EdgeObjectUV" id="nameLabel" uDistance="20" vDistance="20"/>
+    </contained>
+    <contained xsi:type="org.topcased.modeler.di.model:GraphEdge" anchor="//@diagrams.0/@contained.36/@anchorage.0 //@diagrams.0/@contained.36/@anchorage.1">
+      <semanticModel xsi:type="org.topcased.modeler.di.model:EMFSemanticModelBridge">
+        <element href="deploytest.ecore#//TestCaseSpec/specSequence"/>
+      </semanticModel>
+      <contained xsi:type="org.topcased.modeler.di.model:EdgeObjectUV" id="cardinalityLabel" uDistance="20" vDistance="-20"/>
+      <contained xsi:type="org.topcased.modeler.di.model:EdgeObjectUV" id="nameLabel" uDistance="20" vDistance="20"/>
+    </contained>
+    <contained xsi:type="org.topcased.modeler.di.model:GraphEdge" anchor="//@diagrams.0/@contained.62/@anchorage.0 //@diagrams.0/@contained.25/@anchorage.0">
+      <semanticModel xsi:type="org.topcased.modeler.di.model:EMFSemanticModelBridge">
+        <element href="deploytest.ecore#//TestSuite/testCases"/>
+      </semanticModel>
+      <contained xsi:type="org.topcased.modeler.di.model:EdgeObjectUV" id="cardinalityLabel" uDistance="20" vDistance="-20"/>
+      <contained xsi:type="org.topcased.modeler.di.model:EdgeObjectUV" id="nameLabel" uDistance="20" vDistance="20"/>
+    </contained>
+    <contained xsi:type="org.topcased.modeler.di.model:GraphEdge" anchor="//@diagrams.0/@contained.0/@anchorage.0 //@diagrams.0/@contained.25/@anchorage.0">
+      <semanticModel xsi:type="org.topcased.modeler.di.model:EMFSemanticModelBridge">
+        <element href="deploytest.ecore#//TestSpec/allVerifications"/>
+      </semanticModel>
+      <contained xsi:type="org.topcased.modeler.di.model:EdgeObjectUV" id="cardinalityLabel" uDistance="20" vDistance="-20"/>
+      <contained xsi:type="org.topcased.modeler.di.model:EdgeObjectUV" id="nameLabel" uDistance="20" vDistance="20"/>
+      <waypoints>[34, 10, -736, -139]</waypoints>
+      <waypoints>[293, 91, -477, -58]</waypoints>
+      <waypoints>[711, 141, -59, -8]</waypoints>
+    </contained>
+    <contained xsi:type="org.topcased.modeler.di.model:GraphEdge" anchor="//@diagrams.0/@contained.0/@anchorage.0 //@diagrams.0/@contained.5/@anchorage.0">
+      <semanticModel xsi:type="org.topcased.modeler.di.model:EMFSemanticModelBridge">
+        <element href="deploytest.ecore#//TestSpec/allActions"/>
+      </semanticModel>
+      <contained xsi:type="org.topcased.modeler.di.model:EdgeObjectUV" id="cardinalityLabel" uDistance="20" vDistance="-20"/>
+      <contained xsi:type="org.topcased.modeler.di.model:EdgeObjectUV" id="nameLabel" uDistance="20" vDistance="20"/>
+    </contained>
+    <contained xsi:type="org.topcased.modeler.di.model:GraphEdge" anchor="//@diagrams.0/@contained.0/@anchorage.0 //@diagrams.0/@contained.6/@anchorage.0">
+      <semanticModel xsi:type="org.topcased.modeler.di.model:EMFSemanticModelBridge">
+        <element href="deploytest.ecore#//TestSpec/allAssertions"/>
+      </semanticModel>
+      <contained xsi:type="org.topcased.modeler.di.model:EdgeObjectUV" id="cardinalityLabel" uDistance="20" vDistance="-20"/>
+      <contained xsi:type="org.topcased.modeler.di.model:EdgeObjectUV" id="nameLabel" uDistance="20" vDistance="20"/>
+      <waypoints>[34, -5, -503, -5]</waypoints>
+      <waypoints>[492, -72, -45, -72]</waypoints>
+      <waypoints>[524, -21, -13, -21]</waypoints>
+    </contained>
+    <contained xsi:type="org.topcased.modeler.di.model:GraphEdge" anchor="//@diagrams.0/@contained.2/@anchorage.0 //@diagrams.0/@contained.5/@anchorage.0">
+      <semanticModel xsi:type="org.topcased.modeler.di.model:EMFSemanticModelBridge">
+        <element href="deploytest.ecore#//ActionContainer/allActions"/>
+      </semanticModel>
+      <contained xsi:type="org.topcased.modeler.di.model:EdgeObjectUV" id="cardinalityLabel" uDistance="20" vDistance="-20"/>
+      <contained xsi:type="org.topcased.modeler.di.model:EdgeObjectUV" id="nameLabel" uDistance="20" vDistance="20"/>
+      <waypoints>[50, -13, -210, -13]</waypoints>
+      <waypoints>[137, -34, -123, -34]</waypoints>
+      <waypoints>[233, -8, -27, -8]</waypoints>
+    </contained>
+    <contained xsi:type="org.topcased.modeler.di.model:GraphEdge" anchor="//@diagrams.0/@contained.3/@anchorage.0 //@diagrams.0/@contained.6/@anchorage.0">
+      <semanticModel xsi:type="org.topcased.modeler.di.model:EMFSemanticModelBridge">
+        <element href="deploytest.ecore#//AssertionContainer/allAssertions"/>
+      </semanticModel>
+      <contained xsi:type="org.topcased.modeler.di.model:EdgeObjectUV" id="cardinalityLabel" uDistance="20" vDistance="-20"/>
+      <contained xsi:type="org.topcased.modeler.di.model:EdgeObjectUV" id="nameLabel" uDistance="20" vDistance="20"/>
+      <waypoints>[58, -15, -204, -15]</waypoints>
+      <waypoints>[131, -33, -131, -33]</waypoints>
+      <waypoints>[227, -9, -35, -9]</waypoints>
+    </contained>
+    <contained xsi:type="org.topcased.modeler.di.model:GraphEdge" anchor="//@diagrams.0/@contained.0/@anchorage.0 //@diagrams.0/@contained.46/@anchorage.0">
+      <semanticModel xsi:type="org.topcased.modeler.di.model:EMFSemanticModelBridge">
+        <element href="deploytest.ecore#//TestSpec/containerToTest"/>
+      </semanticModel>
+      <contained xsi:type="org.topcased.modeler.di.model:EdgeObjectUV" id="cardinalityLabel" uDistance="20" vDistance="-20"/>
+      <contained xsi:type="org.topcased.modeler.di.model:EdgeObjectUV" id="nameLabel" uDistance="20" vDistance="20"/>
+    </contained>
+    <contained xsi:type="org.topcased.modeler.di.model:GraphEdge" anchor="//@diagrams.0/@contained.36/@anchorage.0 //@diagrams.0/@contained.0/@anchorage.0">
+      <semanticModel xsi:type="org.topcased.modeler.di.model:EMFSemanticModelBridge">
+        <element href="deploytest.ecore#//TestCaseSpec/root"/>
+      </semanticModel>
+      <contained xsi:type="org.topcased.modeler.di.model:EdgeObjectUV" id="cardinalityLabel" uDistance="20" vDistance="-20"/>
+      <contained xsi:type="org.topcased.modeler.di.model:EdgeObjectUV" id="nameLabel" uDistance="20" vDistance="20"/>
+    </contained>
+  </diagrams>
+</org.topcased.modeler.diagrams.model:Diagrams>

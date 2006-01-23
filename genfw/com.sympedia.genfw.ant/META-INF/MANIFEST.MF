@@ -1,0 +1,14 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: %pluginName
+Bundle-SymbolicName: com.sympedia.genfw.ant;singleton:=true
+Bundle-Version: 1.0.0
+Bundle-Activator: com.sympedia.genfw.ant.internal.Activator
+Bundle-Vendor: %providerName
+Bundle-Localization: plugin
+Require-Bundle: com.sympedia.genfw;visibility:=reexport,
+ org.apache.ant;visibility:=reexport,
+ org.eclipse.ant.core;visibility:=reexport
+Eclipse-LazyStart: true
+Bundle-ClassPath: com.sympedia.genfw.ant.jar,
+ ant_tasks/genfw.ant.tasks.jar

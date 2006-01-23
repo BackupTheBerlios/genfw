@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+ <copyright>
+ </copyright>
+
+ $Id: plugin.xml,v 1.1 2006/01/23 10:25:14 stepper Exp $
+-->
+
+<plugin>
+
+
+  <extension
+    point = "org.eclipse.ui.newWizards">
+    <category
+      id = "org.eclipse.emf.ecore.Wizard.category.ID"
+      name="%_UI_Wizard_category">
+    </category>
+    <wizard
+      id = "com.sympedia.density.gen.arch.presentation.ArchModelWizardID"
+      name = "%_UI_ArchModelWizard_label"
+      class = "com.sympedia.density.gen.arch.presentation.ArchModelWizard"
+      category = "org.eclipse.emf.ecore.Wizard.category.ID"
+      icon = "icons/full/obj16/ArchModelFile.gif">
+      <description>%_UI_ArchModelWizard_description</description>
+      <selection class = "org.eclipse.core.resources.IResource" />
+    </wizard>
+  </extension>
+
+  <extension point = "org.eclipse.ui.editors">
+    <editor
+        id = "com.sympedia.density.gen.arch.presentation.ArchEditorID"
+        name = "%_UI_ArchEditor_label"
+        icon = "icons/full/obj16/ArchModelFile.gif"
+        extensions = "arch"
+        class = "com.sympedia.density.gen.arch.presentation.ArchEditor" 
+        contributorClass="com.sympedia.density.gen.arch.presentation.ArchActionBarContributor" >
+    </editor>
+  </extension>    
+</plugin>

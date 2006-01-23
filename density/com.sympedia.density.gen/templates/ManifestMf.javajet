@@ -1,0 +1,14 @@
+<%@ jet package="com.sympedia.density.gen" imports="com.sympedia.density.gen.arch.*" class="ManifestMf" %>
+<%
+PluginProject project = (PluginProject)argument;
+%>
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: XXX Plug-in
+Bundle-SymbolicName: <%=project.getProjectName()%>
+Bundle-Version: 1.0.0
+Bundle-Vendor: SYMPEDIA
+Bundle-Localization: plugin
+Require-Bundle: com.sympedia.density;visibility:=reexport
+Export-Package: <%=project.getProjectName()%>,
+ <%=project.getProjectName()%>.internal

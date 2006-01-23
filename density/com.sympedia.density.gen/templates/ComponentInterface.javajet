@@ -1,0 +1,159 @@
+<%@ jet package="com.sympedia.density.gen" imports="java.util.* org.eclipse.emf.common.util.* org.eclipse.emf.ecore.*" class="ComponentInterface" %>
+<%
+/***************************************************************************
+ * Copyright (c) 2006 Eike Stepper, Fuggerstr. 39, 10777 Berlin, Germany.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ * 
+ * Contributors:
+ *    Eike Stepper - initial API and implementation
+ **************************************************************************/
+
+EClass eClass = (EClass)argument;
+EPackage ePackage = eClass.getEPackage();
+%>
+package <%=GenUtil.getFullPackageName(ePackage)%>;
+
+
+import com.sympedia.density.*;
+
+
+public interface I<%=eClass.getName()%><%=GenUtil.getInterfaceExtendsClause(eClass)%>
+{
+<%EList enumDefs = GenUtil.getEnumDefs(eClass); 
+if (!enumDefs.isEmpty()) {%>
+  <%for (Iterator it = enumDefs.iterator(); it.hasNext();) { 
+    EEnum enumDef = (EEnum)it.next();%>
+  public enum <%=enumDef.getName()%> {<%=GenUtil.getEnumDef(enumDef)%>};
+
+  <%}%>
+<%}%>
+<%if (GenUtil.hasBusinessMethods(eClass) || Annotations.getLegacyMethods(eClass).length() > 0) {%>
+  /////////////////////////////////////////////////////////////////////////////////////
+  // Business methods
+  /////////////////////////////////////////////////////////////////////////////////////
+
+  <%for (Iterator it = eClass.getEOperations().iterator(); it.hasNext();) { 
+    EOperation op = (EOperation)it.next(); 
+    if (GenUtil.isBusinessMethod(op)) {%>
+  public <%=GenUtil.getTypeName(op.getEType())%> <%=op.getName()%>(<%=GenUtil.getParameters(op)%>)<%=GenUtil.getThrowsClause(op)%>;
+
+    <%}%>
+  <%}%>
+  <%for (Iterator it = GenUtil.getWrapMethods(eClass).iterator(); it.hasNext();) { 
+    java.lang.reflect.Method method = (java.lang.reflect.Method)it.next();%>
+  public <%=method.getReturnType().getName()%> <%=method.getName()%>(<%=GenUtil.getParameters(method)%>);
+
+  <%}%>
+  <%String[] lines = Annotations.getLegacyMethods(eClass).split("\t"); 
+  for (int i = 0; i < lines.length; ++i) {%>
+    <%=lines[i]%>  
+  <%}%>
+<%}%>
+<%for (Iterator it = eClass.getEOperations().iterator(); it.hasNext();) { 
+  EOperation op = (EOperation)it.next(); 
+  if (Annotations.isCreatorOperation(op) && Annotations.isCreatorAccess(op)) {%>
+  public <%=GenUtil.getTypeName(op.getEType())%> <%=op.getName()%>(<%=GenUtil.getParameters(op)%>);
+
+  <%}%>
+<%}%>
+<%if (!eClass.getEAttributes().isEmpty()) {%>
+  /////////////////////////////////////////////////////////////////////////////////////
+  // Attribute access
+  /////////////////////////////////////////////////////////////////////////////////////
+
+  <%for (Iterator it = eClass.getEAttributes().iterator(); it.hasNext();) { 
+    EAttribute attr = (EAttribute)it.next();%>
+  /**
+   * Returns the value of the <%=attr.getName()%> property.
+   * @return the value of the <%=attr.getName()%> property.
+   */
+  public <%=GenUtil.getTypeName(attr.getEType())%> <%=GenUtil.getGetterName(attr)%>();
+
+  /**
+   * Sets the value of the <%=attr.getName()%> property.
+   * @parm <%=attr.getName()%> the new value of the <%=attr.getName()%> property.
+   */
+  public void set<%=GenUtil.capitalize(attr.getName())%>(<%=GenUtil.getTypeName(attr.getEType())%> <%=attr.getName()%>);
+
+  <%}%>
+<%}%>
+<%for (Iterator it = eClass.getEReferences().iterator(); it.hasNext();) { 
+  EReference ref = (EReference)it.next(); 
+  if (!Annotations.isListenerReference(ref) || Annotations.isListenerAccess(ref)) {%>
+  /////////////////////////////////////////////////////////////////////////////////////
+  // Reference access
+  /////////////////////////////////////////////////////////////////////////////////////
+
+  /**
+   * Returns the value of the <%=ref.getName()%> dependency.
+   * @return the value of the <%=ref.getName()%> dependency.
+   */
+  public <%=GenUtil.getTypeName(ref)%> get<%=GenUtil.capitalize(ref.getName())%>();
+
+  /**
+   * Sets the value of the <%=ref.getName()%> dependency.
+   * @parm <%=ref.getName()%> the new value of the <%=ref.getName()%> dependency.
+   */
+  public void set<%=GenUtil.capitalize(ref.getName())%>(<%=GenUtil.getTypeName(ref)%> <%=ref.getName()%>);
+
+  <%}%>
+<%}%>
+<%if (GenUtil.hasSignals(eClass)) {%>
+  /////////////////////////////////////////////////////////////////////////////////////
+  // Listener interface for <%=eClass.getName()%> events
+  /////////////////////////////////////////////////////////////////////////////////////
+
+  public interface Listener extends IEventListener
+  {
+  <%for (Iterator it = eClass.getEAttributes().iterator(); it.hasNext();) { 
+    EAttribute attr = (EAttribute)it.next(); 
+    if (Annotations.isSignalAttribute(attr)) {%>
+    public void notify<%=eClass.getName()%><%=GenUtil.capitalize(attr.getName())%>Changed(I<%=eClass.getName()%> notifier, <%=GenUtil.getTypeName(attr.getEType())%> newValue, <%=GenUtil.getTypeName(attr.getEType())%> oldValue);<%=GenUtil.newline(it.hasNext())%>
+    <%}%>
+  <%}%><%=GenUtil.newline(!eClass.getEOperations().isEmpty())%>
+  <%for (Iterator it = eClass.getEOperations().iterator(); it.hasNext();) { 
+    EOperation op = (EOperation)it.next(); 
+      if (Annotations.isSignalOperation(op)) {%>
+    public void notify<%=eClass.getName()%><%=GenUtil.capitalize(op.getName())%>(I<%=eClass.getName()%> notifier<%String parms = GenUtil.getParameters(op); if (parms.length() != 0) {%>, <%=parms%><%}%>);<%=GenUtil.newline(it.hasNext())%>
+    <%}%>
+  <%}%>
+  }
+
+  /////////////////////////////////////////////////////////////////////////////////////
+  // Interfaces for client access to <%=eClass.getName()%> events
+  /////////////////////////////////////////////////////////////////////////////////////
+
+  public interface <%=eClass.getName()%>Event extends IEvent
+  {
+  	public I<%=eClass.getName()%> getNotifier<%=eClass.getName()%>();
+  }
+
+  <%for (Iterator it = eClass.getEAttributes().iterator(); it.hasNext();) { 
+    EAttribute attr = (EAttribute)it.next(); 
+    if (Annotations.isSignalAttribute(attr)) {%>
+  public interface <%=GenUtil.capitalize(attr.getName())%>ChangedEvent extends <%=eClass.getName()%>Event
+  {
+  	public <%=GenUtil.getTypeName(attr.getEType())%> getNewValue();
+
+  	public <%=GenUtil.getTypeName(attr.getEType())%> getOldValue();
+  }
+    <%}%>
+  <%}%>
+
+  <%for (Iterator it = eClass.getEOperations().iterator(); it.hasNext();) { 
+    EOperation op = (EOperation)it.next(); 
+    if (Annotations.isSignalOperation(op)) {%>
+  public interface <%=GenUtil.capitalize(op.getName())%>Event extends <%=eClass.getName()%>Event
+  {
+    <%for (Iterator it2 = op.getEParameters().iterator(); it2.hasNext();) { 
+      EParameter parm = (EParameter)it2.next();%>
+  	public <%=GenUtil.getTypeName(parm.getEType())%> get<%=GenUtil.capitalize(parm.getName())%>();<%=GenUtil.newline(it2.hasNext())%>
+    <%}%>
+  }<%=GenUtil.newline(it.hasNext())%>
+    <%}%>
+  <%}%>
+<%}%>
+}

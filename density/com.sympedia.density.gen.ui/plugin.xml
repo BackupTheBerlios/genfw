@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<plugin>
+
+   <extension
+         point="org.eclipse.ui.views">
+      <category
+            name="Density Runtime"
+            id="com.sympedia.density.gen.ui.Views">
+      </category>
+      <view
+            category="com.sympedia.density.gen.ui.Views"
+            class="com.sympedia.density.gen.ui.internal.views.ContainerMonitorView"
+            icon="icons/Container.gif"
+            id="com.sympedia.density.gen.ui.ContainerMonitorView"
+            name="Container Monitor"/>
+      <view
+            category="com.sympedia.density.gen.ui.Views"
+            class="com.sympedia.density.gen.ui.internal.views.InstanceDetailsView"
+            icon="icons/Deployment.gif"
+            id="com.sympedia.density.gen.ui.views.InstanceDetailsView"
+            name="Instance Details"/>
+      <view
+            category="com.sympedia.density.gen.ui.Views"
+            class="com.sympedia.density.gen.ui.internal.views.ContainerExplorerView"
+            icon="icons/Explorer.gif"
+            id="com.sympedia.density.gen.ui.views.ContainerExplorerView"
+            name="Container Explorer"/>
+   </extension>
+
+</plugin>

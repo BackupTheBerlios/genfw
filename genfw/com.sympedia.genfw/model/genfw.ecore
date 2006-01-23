@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<ecore:EPackage xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="genfw"
+    nsURI="http://www.sympedia.com/2006/genfw" nsPrefix="com.sympedia.genfw">
+  <eAnnotations source="http://www.topcased.org/uuid">
+    <details key="uuid" value="11367080429370"/>
+  </eAnnotations>
+  <eClassifiers xsi:type="ecore:EClass" name="GenLib">
+    <eAnnotations source="http://www.topcased.org/uuid">
+      <details key="uuid" value="113672173296899"/>
+    </eAnnotations>
+    <eOperations name="getClassLoader" eType="#//ClassLoader">
+      <eAnnotations source="http://www.topcased.org/uuid">
+        <details key="uuid" value="11368054601876"/>
+      </eAnnotations>
+      <eParameters name="parentClassLoader" eType="#//ClassLoader">
+        <eAnnotations source="http://www.topcased.org/uuid">
+          <details key="uuid" value="11371699798129"/>
+        </eAnnotations>
+      </eParameters>
+    </eOperations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="contentProviders" upperBound="-1"
+        eType="#//ContentProvider" containment="true" eOpposite="#//ContentProvider/root">
+      <eAnnotations source="http://www.topcased.org/uuid">
+        <details key="uuid" value="1136722211062110"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="generators" upperBound="-1"
+        eType="#//Generator" containment="true" eOpposite="#//Generator/root">
+      <eAnnotations source="http://www.topcased.org/uuid">
+        <details key="uuid" value="1136722211062112"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ruleSets" upperBound="-1"
+        eType="#//RuleSet" containment="true" eOpposite="#//RuleSet/root">
+      <eAnnotations source="http://www.topcased.org/uuid">
+        <details key="uuid" value="1136722211062111"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="GenApp" eSuperTypes="#//GenLib">
+    <eAnnotations source="http://www.topcased.org/uuid">
+      <details key="uuid" value="1136887070640172"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="inputs" upperBound="-1"
+        eType="#//Input" containment="true" eOpposite="#//Input/root">
+      <eAnnotations source="http://www.topcased.org/uuid">
+        <details key="uuid" value="1136887070640173"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ContentProvider" abstract="true">
+    <eAnnotations source="http://www.topcased.org/uuid">
+      <details key="uuid" value="113671546137560"/>
+    </eAnnotations>
+    <eOperations name="getRoots" eType="#//JavaList">
+      <eAnnotations source="http://www.topcased.org/uuid">
+        <details key="uuid" value="113671546137561"/>
+      </eAnnotations>
+      <eParameters name="path" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+        <eAnnotations source="http://www.topcased.org/uuid">
+          <details key="uuid" value="113671579192166"/>
+        </eAnnotations>
+      </eParameters>
+    </eOperations>
+    <eOperations name="getChildren" eType="#//JavaList">
+      <eAnnotations source="http://www.topcased.org/uuid">
+        <details key="uuid" value="113671579192167"/>
+      </eAnnotations>
+      <eParameters name="object" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject">
+        <eAnnotations source="http://www.topcased.org/uuid">
+          <details key="uuid" value="113671579193768"/>
+        </eAnnotations>
+      </eParameters>
+    </eOperations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="root" lowerBound="1" eType="#//GenLib"
+        eOpposite="#//GenLib/contentProviders">
+      <eAnnotations source="http://www.topcased.org/uuid">
+        <details key="uuid" value="113672221104652"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+        iD="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="EcoreContentProvider" eSuperTypes="#//ContentProvider">
+    <eAnnotations source="http://www.topcased.org/uuid">
+      <details key="uuid" value="113671583842178"/>
+    </eAnnotations>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="PropertiesContentProvider" eSuperTypes="#//ContentProvider">
+    <eAnnotations source="http://www.topcased.org/uuid">
+      <details key="uuid" value="113671672139081"/>
+    </eAnnotations>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="RuleSet">
+    <eAnnotations source="http://www.topcased.org/uuid">
+      <details key="uuid" value="113672173296897"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="rules" upperBound="-1"
+        eType="#//Rule" containment="true" eOpposite="#//Rule/ruleSet">
+      <eAnnotations source="http://www.topcased.org/uuid">
+        <details key="uuid" value="113672173296898"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="root" lowerBound="1" eType="#//GenLib"
+        eOpposite="#//GenLib/ruleSets">
+      <eAnnotations source="http://www.topcased.org/uuid">
+        <details key="uuid" value="1136722211046105"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+        iD="true">
+      <eAnnotations source="http://www.topcased.org/uuid">
+        <details key="uuid" value="1136786719500114"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="deactivate" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
+        iD="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Rule" abstract="true">
+    <eAnnotations source="http://www.topcased.org/uuid">
+      <details key="uuid" value="113672105539064"/>
+    </eAnnotations>
+    <eOperations name="isMatching" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
+      <eAnnotations source="http://www.topcased.org/uuid">
+        <details key="uuid" value="113672105540665"/>
+      </eAnnotations>
+      <eParameters name="inputObject" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject">
+        <eAnnotations source="http://www.topcased.org/uuid">
+          <details key="uuid" value="113672289210960"/>
+        </eAnnotations>
+      </eParameters>
+    </eOperations>
+    <eOperations name="getTargetPath" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="http://www.topcased.org/uuid">
+        <details key="uuid" value="113672120854669"/>
+      </eAnnotations>
+      <eParameters name="inputObject" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject">
+        <eAnnotations source="http://www.topcased.org/uuid">
+          <details key="uuid" value="113672289210964"/>
+        </eAnnotations>
+      </eParameters>
+    </eOperations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ruleSet" lowerBound="1"
+        eType="#//RuleSet" eOpposite="#//RuleSet/rules">
+      <eAnnotations source="http://www.topcased.org/uuid">
+        <details key="uuid" value="113672173295375"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+        iD="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="prerequisites" upperBound="-1"
+        eType="#//Rule"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="generator" lowerBound="1"
+        eType="#//Generator">
+      <eAnnotations source="http://www.topcased.org/uuid">
+        <details key="uuid" value="113672135642172"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="matchClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="http://www.topcased.org/uuid">
+        <details key="uuid" value="113716997982888"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="dontOverwrite" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
+        iD="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="deactivate" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
+        iD="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="StaticRule" eSuperTypes="#//Rule">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="targetPath" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ExpressionBasedRule" abstract="true"
+      eSuperTypes="#//Rule">
+    <eAnnotations source="http://www.topcased.org/uuid">
+      <details key="uuid" value="113672129781278"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="matchExpression" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="http://www.topcased.org/uuid">
+        <details key="uuid" value="113672129782879"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="targetPathExpression" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="http://www.topcased.org/uuid">
+        <details key="uuid" value="113672129782880"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Generator" abstract="true">
+    <eAnnotations source="http://www.topcased.org/uuid">
+      <details key="uuid" value="113672105540666"/>
+    </eAnnotations>
+    <eOperations name="generate" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+        eExceptions="#//CoreException">
+      <eAnnotations source="http://www.topcased.org/uuid">
+        <details key="uuid" value="113672120854673"/>
+      </eAnnotations>
+      <eParameters name="inputObject" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject">
+        <eAnnotations source="http://www.topcased.org/uuid">
+          <details key="uuid" value="113672289210977"/>
+        </eAnnotations>
+      </eParameters>
+      <eParameters name="targetPath" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+        <eAnnotations source="http://www.topcased.org/uuid">
+          <details key="uuid" value="113672289210978"/>
+        </eAnnotations>
+      </eParameters>
+      <eParameters name="monitor" eType="#//IProgressMonitor">
+        <eAnnotations source="http://www.topcased.org/uuid">
+          <details key="uuid" value="1136795172375105"/>
+        </eAnnotations>
+      </eParameters>
+    </eOperations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="root" lowerBound="1" eType="#//GenLib"
+        eOpposite="#//GenLib/generators">
+      <eAnnotations source="http://www.topcased.org/uuid">
+        <details key="uuid" value="113672221104686"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+        iD="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="DelegatingGenerator" abstract="true"
+      eSuperTypes="#//Generator">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="delegate" lowerBound="1"
+        eType="#//Generator"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="InitialGenerator" eSuperTypes="#//DelegatingGenerator">
+    <eAnnotations source="http://www.topcased.org/uuid">
+      <details key="uuid" value="1137441848828180"/>
+    </eAnnotations>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="FileInitializer" abstract="true" eSuperTypes="#//Generator">
+    <eOperations name="getContent" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+        eExceptions="#//CoreException">
+      <eParameters name="inputObject" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
+      <eParameters name="targetPath" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eParameters name="monitor" eType="#//IProgressMonitor"/>
+    </eOperations>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="StaticFileInitializer" eSuperTypes="#//FileInitializer">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="lines" upperBound="-1"
+        eType="#//Line" containment="true" eOpposite="#//Line/staticFileInitializer"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Line">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="content" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="staticFileInitializer"
+        lowerBound="1" eType="#//StaticFileInitializer" eOpposite="#//StaticFileInitializer/lines"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ProjectInitializer" eSuperTypes="#//Generator"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ProjectInitializationProvider" interface="true"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Input">
+    <eAnnotations source="http://www.topcased.org/uuid">
+      <details key="uuid" value="11367080429534"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="root" eType="#//GenApp"
+        eOpposite="#//GenApp/inputs">
+      <eAnnotations source="http://www.topcased.org/uuid">
+        <details key="uuid" value="1136887070625153"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="label" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+        changeable="false" volatile="true" transient="true" derived="true">
+      <eAnnotations source="http://www.topcased.org/uuid">
+        <details key="uuid" value="1136894756921162"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="fullPath" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="http://www.topcased.org/uuid">
+        <details key="uuid" value="113678603343715"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="contentProvider" lowerBound="1"
+        eType="#//ContentProvider">
+      <eAnnotations source="http://www.topcased.org/uuid">
+        <details key="uuid" value="113671857948412"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ruleSets" lowerBound="1"
+        upperBound="-1" eType="#//RuleSet">
+      <eAnnotations source="http://www.topcased.org/uuid">
+        <details key="uuid" value="11367219081719"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EDataType" name="ClassLoader" instanceClassName="java.lang.ClassLoader">
+    <eAnnotations source="http://www.topcased.org/uuid">
+      <details key="uuid" value="113670815921825"/>
+    </eAnnotations>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EDataType" name="IPath" instanceClassName="org.eclipse.core.runtime.IPath">
+    <eAnnotations source="http://www.topcased.org/uuid">
+      <details key="uuid" value="113670815921825"/>
+    </eAnnotations>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EDataType" name="JavaList" instanceClassName="java.util.List">
+    <eAnnotations source="http://www.topcased.org/uuid">
+      <details key="uuid" value="113671579193769"/>
+    </eAnnotations>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EDataType" name="OutputStream" instanceClassName="java.io.OutputStream"/>
+  <eClassifiers xsi:type="ecore:EDataType" name="CoreException" instanceClassName="org.eclipse.core.runtime.CoreException">
+    <eAnnotations source="http://www.topcased.org/uuid">
+      <details key="uuid" value="1136792315343141"/>
+    </eAnnotations>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EDataType" name="IProgressMonitor" instanceClassName="org.eclipse.core.runtime.IProgressMonitor">
+    <eAnnotations source="http://www.topcased.org/uuid">
+      <details key="uuid" value="1136792315343142"/>
+    </eAnnotations>
+  </eClassifiers>
+</ecore:EPackage>

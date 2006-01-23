@@ -1,0 +1,241 @@
+<%@ jet package="com.sympedia.density.gen" imports="java.util.* org.eclipse.emf.common.util.* org.eclipse.emf.ecore.* com.sympedia.density.gen.deploy.* com.sympedia.density.gen.deploytest.*" class="ContainerTestSpec" %>
+<%
+/***************************************************************************
+ * Copyright (c) 2006 Eike Stepper, Fuggerstr. 39, 10777 Berlin, Germany.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ * 
+ * Contributors:
+ *    Eike Stepper - initial API and implementation
+ **************************************************************************/
+
+TestSpec testSpec = (TestSpec)argument;
+EList allTests = testSpec.getAllVerifications();
+EList allActions = testSpec.getAllActions();
+EList allAssertions = testSpec.getAllAssertions();
+EList containerOverrides = testSpec.getContainerOverrides();
+
+String containerInterface = testSpec.getContainerToTest().getPackageName() + ".I" + GenUtil.capitalize(testSpec.getContainerToTest().getName());
+String containerClass = testSpec.getContainerToTest().getPackageName() + ".impl." + GenUtil.capitalize(testSpec.getContainerToTest().getName()) + "Impl";
+String fixtureInterface = testSpec.getFixtureInterface();
+String fixtureClass = testSpec.getFixtureClass();
+if (fixtureInterface == null || fixtureInterface.length() == 0) fixtureInterface = "IFixture";
+if (fixtureClass == null || fixtureClass.length() == 0) fixtureClass = "Fixture";
+%>
+package <%=testSpec.getPackageName()%>;
+
+
+import com.sympedia.density.*;
+import com.sympedia.density.impl.*;
+import com.sympedia.density.tests.*;
+import com.sympedia.density.tests.impl.*;
+import com.sympedia.density.tests.util.*;
+import com.sympedia.util.*;
+
+import java.util.*;
+
+
+public abstract class <%=testSpec.getName()%>TestSpec_Base extends TestSpec
+{
+  public static final String TEST_SPEC_NAME = "<%=testSpec.getName()%>";
+  
+  protected <%=fixtureInterface%> fixture;
+  
+  protected <%=containerInterface%> container;
+  
+  public <%=testSpec.getName()%>TestSpec_Base(String testBundleId)
+  {
+    super(TEST_SPEC_NAME, testBundleId);
+  }
+
+  public IFixture getFixture()
+  {
+    return fixture;
+  }
+  
+<%for (Iterator it = allTests.iterator(); it.hasNext();) {
+  Verification test = (Verification)it.next();
+  EList specSequence = test.getSpecSequence();
+  String id = GenUtil.capitalize(test.getId());%>
+  /////////////////////////////////////////////////////////////////////////////////////
+  // Test Case <%=id%>
+  /////////////////////////////////////////////////////////////////////////////////////
+
+  public void test<%=id%>(String testCaseName) throws Exception
+  {
+    long start = System.currentTimeMillis();
+    this.testCaseName = testCaseName;
+    fixture = null;
+    container = null;
+    
+	System.out.println("**********************************************************************");
+	System.out.println("**********************************************************************");
+    System.out.println("******* Test Case:      " + testCaseName);
+    System.out.println("******* Postcondition:  ");
+    System.out.println("******* Precondition:   ");
+    System.out.println("******* Test Container: ");
+    System.out.println("******* Test Execution: ");
+	System.out.println("**********************************************************************");
+	System.out.println("**********************************************************************");
+
+    try
+    {
+      // Create the fixture
+      System.out.println("******* Creating Fixture [" + testCaseName + "]");
+      fixture = test<%=id%>_CreateFixture();
+      BeanHelper.initialize(fixture);
+  <%for (Iterator it2 = specSequence.iterator(); it2.hasNext();) {
+    TestCaseSpec tcs = (TestCaseSpec)it2.next();
+    if (tcs instanceof Initialization) {
+      Initialization init = (Initialization) tcs;
+      for (Iterator it3 = init.getInitializationActions().iterator(); it3.hasNext();) {
+        Action action = (Action)it3.next();%>
+      action<%=GenUtil.capitalize(action.getName())%>(); // <%=GenUtil.capitalize(action.getName())%>
+      <%}%>
+    <%}%>
+  <%}%>
+
+      try
+      {
+        // Create the container
+        System.out.println("******* Creating Container [" + testCaseName + "]");
+        container = test<%=id%>_CreateContainer();
+        BeanHelper.initialize(container);
+        System.out.println("******* Executing [" + testCaseName + "]");
+  <%for (Iterator it2 = specSequence.iterator(); it2.hasNext();) {
+    TestCaseSpec tcs = (TestCaseSpec)it2.next();
+    if (tcs instanceof Execution) {
+      Execution exec = (Execution) tcs;
+      for (Iterator it3 = exec.getExecutionActions().iterator(); it3.hasNext();) { Action action = (Action)it3.next();%>
+        action<%=GenUtil.capitalize(action.getName())%>(); // <%=GenUtil.capitalize(action.getName())%>
+      <%}%>
+    <%}%>
+  <%}%>
+
+        System.out.println("******* Verifying [" + testCaseName + "]");
+  <%for (Iterator it3 = test.getAssertions().iterator(); it3.hasNext();) {
+    Assertion assertion = (Assertion)it3.next();%>
+        assertion<%=GenUtil.capitalize(assertion.getName())%>(); // <%=GenUtil.capitalize(assertion.getName())%>
+  <%}%>
+	  }
+	  catch (Exception ex)
+	  {
+	    ex.printStackTrace();
+	    throw ex;
+	  }
+	  finally
+	  {
+        System.out.println("******* Disposing Container [" + testCaseName + "]");
+        BeanHelper.disposeSilently(container);
+	  }
+	}
+    catch (Exception ex)
+    {
+      ex.printStackTrace();
+      throw ex;
+    }
+	finally
+	{
+      System.out.println("******* Disposing Fixture [" + testCaseName + "]");
+      BeanHelper.disposeSilently(fixture);
+      long duration = System.currentTimeMillis() - start;
+      System.out.println("******* Finished after " + duration + " msecs [" + testCaseName + "]");
+      System.out.println();
+      System.out.println();
+	}
+  }
+
+  protected <%=fixtureInterface%> test<%=id%>_CreateFixture() throws Exception
+  {
+    return new <%=fixtureClass%>(this);
+  }
+
+  protected <%=containerInterface%> test<%=id%>_CreateContainer() throws Exception
+  {
+  <%if (test.getContainerOverride() != null) {%>
+    return create_<%=GenUtil.capitalize(test.getContainerOverride().getName())%>_Container(); 
+  <%} else {%>
+    return new <%=containerClass%>();
+  <%}%>
+  }
+
+<%}%>
+  /////////////////////////////////////////////////////////////////////////////////////
+  // Actions
+  /////////////////////////////////////////////////////////////////////////////////////
+
+<%for (Iterator it = allActions.iterator(); it.hasNext();) {
+  Action action = (Action)it.next();%>
+  protected abstract void action<%=GenUtil.capitalize(action.getName())%>() throws Exception;
+
+<%}%>
+  /////////////////////////////////////////////////////////////////////////////////////
+  // Assertions
+  /////////////////////////////////////////////////////////////////////////////////////
+
+<%for (Iterator it = allAssertions.iterator(); it.hasNext();) {
+  Assertion assertion= (Assertion)it.next();%>
+  protected abstract void assertion<%=GenUtil.capitalize(assertion.getName())%>() throws Exception;
+
+<%}%>
+<%%>
+<%%>
+<%%>
+<%for (Iterator it = containerOverrides.iterator(); it.hasNext();) {
+  ContainerOverride containerOverride = (ContainerOverride)it.next();
+  String overrideName = GenUtil.capitalize(containerOverride.getName());%>
+  /////////////////////////////////////////////////////////////////////////////////////
+  // Support for test container <%=overrideName%>
+  /////////////////////////////////////////////////////////////////////////////////////
+
+  protected <%=containerInterface%> create_<%=overrideName%>_Container()
+  {
+    return new <%=overrideName%>();
+  }
+
+  <%for (Iterator it2 = containerOverride.getDeploymentOverrides().iterator(); it2.hasNext();) {
+    DeploymentOverride testDepl = (DeploymentOverride)it2.next(); 
+    Deployment depl = testDepl.getDeploymentToOverride(); 
+    String deplId = GenUtil.capitalize(depl.getId());%>
+  protected <%=containerClass%>.<%=deplId%>Context create_<%=overrideName%>_<%=deplId%>Context(<%=overrideName%> container)
+  {
+    return new <%=containerClass%>.<%=deplId%>Context(container)
+    {
+      @Override
+      public IComponent createInstance()
+      {
+        Component_Base originalInstance = (Component_Base)super.createInstance();
+        Component_Base instance = create_<%=overrideName%>_<%=deplId%>Instance(originalInstance);
+        instance.setContext(this);
+        return instance;
+      }
+    };
+  }
+
+  protected Component_Base create_<%=overrideName%>_<%=deplId%>Instance(Component_Base originalInstance)
+  {
+    return originalInstance;
+  }
+
+  <%}%>
+  protected class <%=overrideName%> extends <%=containerClass%>
+  {
+    public <%=overrideName%>()
+    {
+    }
+  <%for (Iterator it2 = containerOverride.getDeploymentOverrides().iterator(); it2.hasNext();) {
+    DeploymentOverride testDepl = (DeploymentOverride)it2.next();
+    Deployment depl = testDepl.getDeploymentToOverride();
+    String deplId = GenUtil.capitalize(depl.getId());%>
+
+    @Override
+    protected <%=deplId%>Context create<%=deplId%>Context()
+    {
+      return create_<%=overrideName%>_<%=deplId%>Context(this);
+    }
+  <%}%>
+  }<%=GenUtil.newline(it.hasNext())%>
+<%}%>
+}

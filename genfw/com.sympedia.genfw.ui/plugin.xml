@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<plugin>
+
+   <extension
+         point="org.eclipse.ui.popupMenus">
+      <objectContribution
+            adaptable="true"
+            id="com.sympedia.genfw.ui.contribution1"
+            nameFilter="*.genapp"
+            objectClass="org.eclipse.core.resources.IFile">
+         <menu
+               id="com.sympedia.genfw.ui.menu1"
+               label="Sympedia Generation"
+               path="additions">
+            <separator name="group1"/>
+         </menu>
+         <action
+               class="com.sympedia.genfw.ui.internal.actions.GenerateAction"
+               enablesFor="*"
+               icon="icons/GenApp.gif"
+               id="com.sympedia.genfw.ui.newAction"
+               label="Generate"
+               menubarPath="com.sympedia.genfw.ui.menu1/group1"
+               state="true"
+               style="push"
+               tooltip="Generate"/>
+      </objectContribution>
+   </extension>
+   
+   <extension
+         point="org.eclipse.ui.views">
+      <category
+            id="com.sympedia.genfw.ui"
+            name="Sympedia Generation"/>
+      <view
+            category="com.sympedia.genfw.ui"
+            class="com.sympedia.genfw.ui.internal.views.GenAppsView"
+            icon="icons/GenApp.gif"
+            id="com.sympedia.genfw.ui.internal.views.GenAppsView"
+            name="Generator Applications"/>
+   </extension>
+   
+   <extension
+         point="org.eclipse.ui.actionSets">
+      <actionSet
+            id="com.sympedia.genfw.ui.actionSet"
+            label="Sympedia Generation"
+            visible="true">
+         <menu
+               id="sampleMenu"
+               label="Sympedia Generation">
+            <separator name="sampleGroup"/>
+         </menu>
+         <action
+               class="com.sympedia.genfw.ui.internal.actions.GenerateAllAction"
+               definitionId="com.sympedia.genfw.GenerateAllCommand"
+               icon="icons/GenerateAll.gif"
+               id="com.sympedia.genfw.ui.GenerateAllAction"
+               label="Generate All"
+               menubarPath="sampleMenu/sampleGroup"
+               toolbarPath="sampleGroup"
+               tooltip="Generate all applications"/>
+      </actionSet>
+   </extension>
+   
+   <extension
+         point="org.eclipse.ui.commands">
+      <category
+            description="Commands for the Sympedia Generator Framework"
+            id="com.sympedia.genfw.ui.Commands"
+            name="Sympedia Generation"/>
+      <command
+            categoryId="com.sympedia.genfw.ui.Commands"
+            description="Generate all applications"
+            id="com.sympedia.genfw.GenerateAllCommand"
+            name="Generate All"/>
+   </extension>
+   
+   <extension
+         point="org.eclipse.ui.bindings">
+      <key
+            commandId="com.sympedia.genfw.GenerateAllCommand"
+            contextId="org.eclipse.ui.contexts.window"
+            schemeId="default"
+            sequence="M2+M3+G"/>
+   </extension>
+
+</plugin>

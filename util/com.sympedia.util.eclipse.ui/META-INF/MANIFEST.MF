@@ -1,0 +1,17 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: %pluginName
+Bundle-SymbolicName: com.sympedia.util.eclipse.ui
+Bundle-Version: 1.0.0
+Bundle-Activator: com.sympedia.util.eclipse.ui.internal.Activator
+Bundle-Vendor: %providerName
+Bundle-Localization: plugin
+Require-Bundle: com.sympedia.util.eclipse.resources;visibility:=reexport,
+ org.eclipse.ui;visibility:=reexport,
+ org.eclipse.ui.forms;visibility:=reexport,
+ org.eclipse.ui.ide;visibility:=reexport,
+ org.eclipse.emf.common.ui;visibility:=reexport
+Eclipse-LazyStart: true
+Export-Package: com.sympedia.util.eclipse.ui,
+ com.sympedia.util.eclipse.ui.internal
+Bundle-ClassPath: .

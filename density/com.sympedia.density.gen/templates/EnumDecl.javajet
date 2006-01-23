@@ -1,0 +1,32 @@
+<%@ jet package="com.sympedia.density.gen" imports="java.util.* org.eclipse.emf.ecore.*" class="EnumDecl" %>
+<%
+/***************************************************************************
+ * Copyright (c) 2006 Eike Stepper, Fuggerstr. 39, 10777 Berlin, Germany.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ * 
+ * Contributors:
+ *    Eike Stepper - initial API and implementation
+ **************************************************************************/
+
+EEnum e = (EEnum)argument;
+EPackage ePackage = e.getEPackage();
+%>
+package <%=GenUtil.getFullPackageName(ePackage)%>;
+
+
+import com.sympedia.density.*;
+import com.sympedia.density.impl.*;
+import com.sympedia.util.*;
+import java.util.*;
+
+
+public enum <%=e.getName()%>
+{
+<%for (Iterator it = e.getELiterals() .iterator(); it.hasNext();) { EEnumLiteral lit = (EEnumLiteral)it.next();%>
+  <%=lit.getName()%>/*(<%=lit.getValue()%>)*/<%if(it.hasNext()) {%>, 
+  <%} else {%>;<%}%>
+<%}%>
+}

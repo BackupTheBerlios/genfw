@@ -1,0 +1,183 @@
+<%@ jet package="com.sympedia.density.gen" imports="java.util.* org.eclipse.emf.common.util.* org.eclipse.emf.ecore.* com.sympedia.density.gen.deploy.*" class="ContainerBase" %>
+<%
+/***************************************************************************
+ * Copyright (c) 2006 Eike Stepper, Fuggerstr. 39, 10777 Berlin, Germany.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ * 
+ * Contributors:
+ *    Eike Stepper - initial API and implementation
+ **************************************************************************/
+
+Container container = (Container)argument;
+EList allDeployments = container.getAllDeployments();
+EList deployments = DeploymentSorter.sort(allDeployments);
+%>
+package <%=container.getPackageName()%>.impl;
+
+
+import <%=container.getPackageName()%>.*;
+import com.sympedia.density.*;
+import com.sympedia.density.impl.*;
+import com.sympedia.util.*;
+import java.util.*;
+
+
+public class <%=GenUtil.getContainerName(container)%>
+  extends Container_Base
+  implements I<%=container.getName()%>
+{
+  /////////////////////////////////////////////////////////////////////////////////////
+  // Cached contexts
+  /////////////////////////////////////////////////////////////////////////////////////
+
+<%for (Iterator it = deployments.iterator(); it.hasNext();) { Deployment deployment = (Deployment)it.next();%>
+  private <%=GenUtil.capitalize(deployment.getId())%>Context <%=deployment.getId()%>Context;
+
+<%}%>
+  /////////////////////////////////////////////////////////////////////////////////////
+  // Object creation and lyfecycle
+  /////////////////////////////////////////////////////////////////////////////////////
+
+  public <%=GenUtil.getContainerName(container)%>()
+  {
+    super("<%=container.getName()%>", "<%=container.getPackageName()%>", <%if (container.isIncomplete()) {%>true<%} else {%>false<%}%>);
+  }
+
+  protected List<IContext> createContexts()
+  {
+    List<IContext> contexts = new ArrayList<IContext>();
+  <%for (Iterator it = deployments.iterator(); it.hasNext();) { Deployment deployment = (Deployment)it.next();%>
+    contexts.add(<%=deployment.getId()%>Context = create<%=GenUtil.capitalize(deployment.getId())%>Context());
+  <%}%>
+    return contexts;
+  }
+<%if (!deployments.isEmpty()) {%>
+
+  /////////////////////////////////////////////////////////////////////////////////////
+  // Public accessor methods for the component instances
+  /////////////////////////////////////////////////////////////////////////////////////
+
+  <%for (Iterator it = deployments.iterator(); it.hasNext();) { Deployment deployment = (Deployment)it.next();%>
+  public final <%=GenUtil.getTypeName(deployment.getComponent())%> get<%=GenUtil.capitalize(deployment.getId())%>()
+  {
+    List<IComponent> toBeInitialized = new ArrayList<IComponent>();
+    <%=GenUtil.getTypeName(deployment.getComponent())%> result = doGet<%=GenUtil.capitalize(deployment.getId())%>(toBeInitialized);
+    initializeInstances(toBeInitialized);
+    return result;
+  }
+
+  <%}%>
+  /////////////////////////////////////////////////////////////////////////////////////
+  // Internal accessor methods for the component instances
+  /////////////////////////////////////////////////////////////////////////////////////
+
+  <%for (Iterator it = deployments.iterator(); it.hasNext();) { Deployment deployment = (Deployment)it.next();%>
+  protected <%=GenUtil.getTypeName(deployment.getComponent())%> doGet<%=GenUtil.capitalize(deployment.getId())%>(List<IComponent> toBeInitialized)
+  {
+    return (<%=GenUtil.getTypeName(deployment.getComponent())%>)<%=deployment.getId()%>Context.getInstance(toBeInitialized);
+  }
+
+  <%}%>
+  /////////////////////////////////////////////////////////////////////////////////////
+  // Internal context creation methods
+  /////////////////////////////////////////////////////////////////////////////////////
+
+  <%for (Iterator it = deployments.iterator(); it.hasNext();) { Deployment deployment = (Deployment)it.next();%>
+  protected <%=GenUtil.capitalize(deployment.getId())%>Context create<%=GenUtil.capitalize(deployment.getId())%>Context()
+  {
+    return new <%=GenUtil.capitalize(deployment.getId())%>Context(this);
+  }
+
+  <%}%>
+<%}%>
+<%if (!deployments.isEmpty()) {%>
+  /////////////////////////////////////////////////////////////////////////////////////
+  // Internal IContext classes
+  /////////////////////////////////////////////////////////////////////////////////////
+
+  <%for (Iterator it = deployments.iterator(); it.hasNext();) { Deployment deployment = (Deployment)it.next(); String className = GenUtil.getFullPackageName(deployment.getComponent().getEPackage()) + ".impl." + deployment.getComponent().getName() + "Impl";%>
+  public static class <%=GenUtil.capitalize(deployment.getId())%>Context
+    extends <%if (deployment.isSingleton()) {%>Singleton<%} else {%>Prototype<%}%>Context_Base
+    implements <%=GenUtil.getFullAbstractBaseName(deployment.getComponent())%>.IContext
+  {
+    public <%=GenUtil.capitalize(deployment.getId())%>Context(IContainer container)
+    {
+      super(container, "<%=deployment.getId()%>", <%=Boolean.toString(deployment.isInitialized())%><%if (deployment.isSingleton()) {%>, <%=Boolean.toString(deployment.isLazy())%><%}%>);
+    }
+
+    public IComponent createInstance()
+    {
+      <%=className%> instance = new <%=className%>();
+      instance.setContext(this);
+      return instance;
+    }
+
+    public void populateInstance(IComponent instance, List<IComponent> toBeInitialized)
+    {
+    <%for (Iterator it2 = deployment.getDependencies().iterator(); it2.hasNext();) { 
+      Dependency dep = (Dependency)it2.next();
+      if (dep instanceof Parameter) { 
+        Parameter parm = (Parameter)dep;%>
+      ((<%=className%>)instance).set<%=GenUtil.capitalize(parm.getFeature().getName())%>(<%=parm.getValueString()%>);
+      <%} else { 
+        Reference ref = (Reference)dep; 
+        if (GenUtil.isNormalDependency(ref.getFeature())) {%>
+      ((<%=className%>)instance).set<%=GenUtil.capitalize(ref.getFeature().getName())%>(((<%=container.getName()%>Impl)getContainer()).doGet<%=GenUtil.capitalize(ref.getTarget().getId())%>(toBeInitialized));
+        <%}%>
+      <%}%>
+    <%}%>
+    }
+    <%if (!deployment.getCreators().isEmpty()) {%>
+
+      <%for (Iterator it2 = deployment.getCreators().iterator(); it2.hasNext();) { Creator creator = (Creator)it2.next();%>
+    public <%=GenUtil.getTypeName(creator.getOperation().getEType())%> <%=creator.getOperation().getName()%>(List<IComponent> toBeInitialized)
+    {
+      // TODO NOT OK for singletons ;-(
+      PrototypeContext_Base context = ((<%=container.getName()%>_Base)getContainer()).<%=creator.getProduct().getId()%>Context;
+      IComponent instance = context.createInstance();
+      context.addInstance(instance);
+      toBeInitialized.add(instance);
+      return (<%=GenUtil.getTypeName(creator.getOperation().getEType())%>)instance;
+    }<%=GenUtil.newline(it2.hasNext())%>
+      <%}%>
+    <%}%>
+
+	@Override
+    public void notifyComponentInitialized(IComponent instance) throws Exception
+    {
+      super.notifyComponentInitialized(instance);
+    <%for (Iterator it2 = deployment.getDependencies().iterator(); it2.hasNext();) { Dependency dep = (Dependency)it2.next();%>
+      <%if (dep instanceof Reference) { Reference ref = (Reference)dep; if (ref.isListen()) {%>
+      ((<%=className%>)instance).get<%=GenUtil.capitalize(ref.getFeature().getName())%>().addEventListener(instance);
+      <%}}%>
+    <%}%>
+    <%for (Iterator it2 = deployment.getListeners().iterator(); it2.hasNext();) { Listener listener = (Listener)it2.next();%>
+      ((IMDE)getContainer()).get<%=GenUtil.capitalize(listener.getNotifier().getId())%>().addEventListener(instance);
+    <%}%>
+    }
+
+	@Override
+    public void notifyComponentDisposed(IComponent instance) throws Exception
+    {
+    <%for (Iterator it2 = deployment.getDependencies().iterator(); it2.hasNext();) { Dependency dep = (Dependency)it2.next();%>
+      <%if (dep instanceof Reference) { Reference ref = (Reference)dep; if (ref.isListen()) {%>
+      ((<%=className%>)instance).get<%=GenUtil.capitalize(ref.getFeature().getName())%>().removeEventListener(instance);
+      <%}}%>
+    <%}%>
+    <%for (Iterator it2 = deployment.getListeners().iterator(); it2.hasNext();) { Listener listener = (Listener)it2.next();%>
+      ((IMDE)getContainer()).get<%=GenUtil.capitalize(listener.getNotifier().getId())%>().removeEventListener(instance);
+    <%}%>
+    <%for (Iterator it2 = deployment.getDependencies().iterator(); it2.hasNext();) { Dependency dep = (Dependency)it2.next();%>
+      <%if (dep instanceof Reference) { Reference ref = (Reference)dep; if (ref.getTarget().isPrototype() && GenUtil.isNormalDependency(ref.getFeature())) {%>
+      BeanHelper.dispose(((<%=className%>)instance).get<%=GenUtil.capitalize(ref.getFeature().getName())%>());
+      <%}}%>
+    <%}%>
+      super.notifyComponentDisposed(instance);
+    }
+  }<%=GenUtil.newline(it.hasNext())%>
+  <%}%>
+<%}%>
+}

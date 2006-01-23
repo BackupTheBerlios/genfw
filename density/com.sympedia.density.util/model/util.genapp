@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<com.sympedia.genfw:GenApp xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:com.sympedia.genfw="http://www.sympedia.com/2006/genfw">
+  <inputs fullPath="model/util.ecore">
+    <contentProvider xsi:type="com.sympedia.genfw:EcoreContentProvider" href="../../com.sympedia.density.gen/model/density.genlib#ECORE"/>
+    <ruleSets href="../../com.sympedia.density.gen/model/density.genlib#Package"/>
+  </inputs>
+</com.sympedia.genfw:GenApp>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<com.sympedia.genfw:GenLib xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:com.sympedia.genfw="http://www.sympedia.com/2006/genfw" xmlns:com.sympedia.genfw.bsh="http://www.sympedia.com/2006/genfw/bsh" xmlns:com.sympedia.genfw.jdt="http://www.sympedia.com/2006/genfw/jdt" xmlns:com.sympedia.genfw.jet="http://www.sympedia.com/2006/genfw/jet" xmlns:com.sympedia.genfw.jmerge="http://www.sympedia.com/2006/genfw/jmerge">
+  <contentProviders xsi:type="com.sympedia.genfw:EcoreContentProvider" name="ECORE"/>
+  <contentProviders xsi:type="com.sympedia.genfw:PropertiesContentProvider" name="PROPERTIES"/>
+  <generators xsi:type="com.sympedia.genfw.jet:JetTemplate" name="ComponentInterface" className="com.sympedia.density.gen.ComponentInterface"/>
+  <generators xsi:type="com.sympedia.genfw.jet:JetTemplate" name="ComponentBase" className="com.sympedia.density.gen.ComponentBase"/>
+  <generators xsi:type="com.sympedia.genfw.jet:JetTemplate" name="ComponentImpl" className="com.sympedia.density.gen.ComponentImpl"/>
+  <generators xsi:type="com.sympedia.genfw.jet:JetTemplate" name="EnumDecl" className="com.sympedia.density.gen.EnumDecl"/>
+  <generators xsi:type="com.sympedia.genfw.jet:JetTemplate" name="ContainerInterface" className="com.sympedia.density.gen.ContainerInterface"/>
+  <generators xsi:type="com.sympedia.genfw.jet:JetTemplate" name="ContainerBase" className="com.sympedia.density.gen.ContainerBase"/>
+  <generators xsi:type="com.sympedia.genfw.jet:JetTemplate" name="ContainerTestSpec" className="com.sympedia.density.gen.ContainerTestSpec"/>
+  <generators xsi:type="com.sympedia.genfw.jet:JetTemplate" name="ContainerTestSuite" className="com.sympedia.density.gen.ContainerTestSuite"/>
+  <generators xsi:type="com.sympedia.genfw:ProjectInitializer" name="INIT-PROJECT"/>
+  <generators xsi:type="com.sympedia.genfw:StaticFileInitializer" name="EmptyCvsIgnore"/>
+  <generators xsi:type="com.sympedia.genfw:StaticFileInitializer" name="BuildProperties">
+    <lines content="source.. = src/,\"/>
+    <lines content="           src-gen/"/>
+    <lines content="output.. = bin/"/>
+    <lines content="bin.includes = META-INF/,\"/>
+    <lines content="               .,\"/>
+    <lines content="               plugin.xml"/>
+  </generators>
+  <generators xsi:type="com.sympedia.genfw.jet:JetTemplate" name="ManifestMf" className="com.sympedia.density.gen.ManifestMf"/>
+  <generators xsi:type="com.sympedia.genfw.jet:JetTemplate" name="Classpath" className="com.sympedia.density.gen.Classpath"/>
+  <generators xsi:type="com.sympedia.genfw.jet:JetTemplate" name="ConstantsInterface" className="com.sympedia.density.gen.ConstantsInterface"/>
+  <generators xsi:type="com.sympedia.genfw.jet:JetTemplate" name="Activator" className="com.sympedia.density.gen.Activator"/>
+  <generators xsi:type="com.sympedia.genfw.jmerge:JmergeGenerator" name="JMERGE-Activator" delegate="Activator"/>
+  <generators xsi:type="com.sympedia.genfw.jdt:JavaFormatter" name="FORMAT-JMERGE-Activator" delegate="JMERGE-Activator"/>
+  <ruleSets name="Architecture">
+    <rules xsi:type="com.sympedia.genfw.bsh:BeanShellRule" name="RULE-WorkspaceProject" generator="INIT-PROJECT" matchExpression="self instanceof IProjectInitializationProvider" targetPathExpression="&quot;/&quot; + self.getProjectName()"/>
+    <rules xsi:type="com.sympedia.genfw.bsh:BeanShellRule" name="RULE-SrcGenFolder" prerequisites="RULE-WorkspaceProject" generator="EmptyCvsIgnore" dontOverwrite="true" matchClassName="" matchExpression="self instanceof PluginProject" targetPathExpression="&quot;/&quot; + self.getProjectName() + &quot;/src-gen/.cvsignore&quot;" bootstrapCode="import com.sympedia.density.gen.*; import com.sympedia.density.gen.arch.*;"/>
+    <rules xsi:type="com.sympedia.genfw.bsh:BeanShellRule" name="RULE-ManifestMf" prerequisites="RULE-WorkspaceProject" generator="ManifestMf" dontOverwrite="true" matchClassName="" matchExpression="self instanceof PluginProject" targetPathExpression="&quot;/&quot; + self.getProjectName() + &quot;/META-INF/MANIFEST.MF&quot;" bootstrapCode="import com.sympedia.density.gen.*; import com.sympedia.density.gen.arch.*;"/>
+    <rules xsi:type="com.sympedia.genfw.bsh:BeanShellRule" name="RULE-Classpath" prerequisites="RULE-WorkspaceProject" generator="Classpath" dontOverwrite="true" matchClassName="" matchExpression="self instanceof PluginProject" targetPathExpression="&quot;/&quot; + self.getProjectName() + &quot;/.classpath&quot;" bootstrapCode="import com.sympedia.density.gen.*; import com.sympedia.density.gen.arch.*;"/>
+    <rules xsi:type="com.sympedia.genfw.bsh:BeanShellRule" name="RULE-BuildProperties" prerequisites="RULE-WorkspaceProject" generator="BuildProperties" dontOverwrite="true" matchClassName="" matchExpression="self instanceof PluginProject" targetPathExpression="&quot;/&quot; + self.getProjectName() + &quot;/.build.properties&quot;" bootstrapCode="import com.sympedia.density.gen.*; import com.sympedia.density.gen.arch.*;"/>
+    <rules xsi:type="com.sympedia.genfw.bsh:BeanShellRule" name="RULE-ConstantsInterface" prerequisites="RULE-WorkspaceProject" generator="ConstantsInterface" dontOverwrite="true" matchClassName="" matchExpression="self instanceof ModelProject" targetPathExpression="&quot;/&quot; + self.getProjectName() + &quot;/src/&quot; + self.getProjectName().replace('.', '/') + &quot;/I&quot; + self.getModelName() + &quot;Constants.java&quot;" bootstrapCode="import com.sympedia.density.gen.*; import com.sympedia.density.gen.arch.*;"/>
+    <rules xsi:type="com.sympedia.genfw.bsh:BeanShellRule" name="RULE-Activator" prerequisites="RULE-WorkspaceProject" generator="FORMAT-JMERGE-Activator" matchClassName="" matchExpression="self instanceof ModelProject" targetPathExpression="&quot;/&quot; + self.getProjectName() + &quot;/src/&quot; + self.getProjectName().replace('.', '/') + &quot;/internal/&quot; + self.getModelName() + &quot;Activator.java&quot;" bootstrapCode="import com.sympedia.density.gen.*; import com.sympedia.density.gen.arch.*;"/>
+  </ruleSets>
+  <ruleSets name="Package">
+    <rules xsi:type="com.sympedia.genfw.bsh:BeanShellRule" name="RULE-ComponentInterface" generator="ComponentInterface" matchClassName="org.eclipse.emf.ecore.impl.EClassImpl" targetPathExpression="&quot;src-gen/&quot; + GenUtil.getFullPackageName(self.getEPackage()).replace('.', '/') + &quot;/I&quot; + self.getName() + &quot;.java&quot;" bootstrapCode="import com.sympedia.density.gen.*;"/>
+    <rules xsi:type="com.sympedia.genfw.bsh:BeanShellRule" name="RULE-ComponentBase" generator="ComponentBase" matchClassName="org.eclipse.emf.ecore.impl.EClassImpl" targetPathExpression="&quot;src-gen/&quot; + GenUtil.getFullPackageName(self.getEPackage()).replace('.', '/') + &quot;/impl/&quot; + self.getName() + &quot;_Base.java&quot;" bootstrapCode="import com.sympedia.density.gen.*;"/>
+    <rules xsi:type="com.sympedia.genfw.bsh:BeanShellRule" name="RULE-ComponentImpl" generator="ComponentImpl" dontOverwrite="true" matchClassName="org.eclipse.emf.ecore.impl.EClassImpl" targetPathExpression="&quot;src/&quot; + GenUtil.getFullPackageName(self.getEPackage()).replace('.', '/') + &quot;/impl/&quot; + self.getName() + &quot;Impl.java&quot;" bootstrapCode="import com.sympedia.density.gen.*;"/>
+    <rules xsi:type="com.sympedia.genfw.bsh:BeanShellRule" name="RULE-EnumDecl" generator="EnumDecl" matchClassName="org.eclipse.emf.ecore.impl.EEnumImpl" targetPathExpression="&quot;src-gen/&quot; + GenUtil.getFullPackageName(self.getEPackage()).replace('.', '/') + &quot;/&quot; + self.getName() + &quot;.java&quot;" bootstrapCode="import com.sympedia.density.gen.*;"/>
+  </ruleSets>
+  <ruleSets name="Container">
+    <rules xsi:type="com.sympedia.genfw.bsh:BeanShellRule" name="RULE-ContainerInterface" generator="ContainerInterface" matchClassName="com.sympedia.density.gen.deploy.impl.ContainerImpl" targetPathExpression="&quot;src-gen/&quot; + self.getPackageName().replace('.', '/') + &quot;/I&quot; + self.getName() + &quot;.java&quot;" bootstrapCode="import com.sympedia.density.gen.*;"/>
+    <rules xsi:type="com.sympedia.genfw.bsh:BeanShellRule" name="RULE-ContainerBase" generator="ContainerBase" matchClassName="com.sympedia.density.gen.deploy.impl.ContainerImpl" targetPathExpression="&quot;src-gen/&quot; + self.getPackageName().replace('.', '/') + &quot;/impl/&quot; + self.getName() + &quot;_Base.java&quot;" bootstrapCode="import com.sympedia.density.gen.*;"/>
+  </ruleSets>
+  <ruleSets name="ContainerTest">
+    <rules xsi:type="com.sympedia.genfw.bsh:BeanShellRule" name="RULE-ContainerTestSpec" generator="ContainerTestSpec" matchClassName="com.sympedia.density.gen.deploytest.impl.TestSpecImpl" targetPathExpression="&quot;src-gen/&quot; + self.getPackageName().replace('.', '/') + &quot;/&quot; + self.getName() + &quot;TestSpec_Base.java&quot;" bootstrapCode="import com.sympedia.density.gen.*;"/>
+    <rules xsi:type="com.sympedia.genfw.bsh:BeanShellRule" name="RULE-ContainerTestSuite1" generator="ContainerTestSuite" matchClassName="com.sympedia.density.gen.deploytest.impl.TestSpecImpl" targetPathExpression="&quot;src-gen/&quot; + self.getPackageName().replace('.', '/') + &quot;/AllTests.java&quot;" bootstrapCode="import com.sympedia.density.gen.*;"/>
+    <rules xsi:type="com.sympedia.genfw.bsh:BeanShellRule" name="RULE-ContainerTestSuite2" generator="ContainerTestSuite" matchClassName="com.sympedia.density.gen.deploytest.impl.TestSuiteImpl" targetPathExpression="&quot;src-gen/&quot; + self.getTestSpec().getPackageName().replace('.', '/') + &quot;/&quot; + self.getName() + &quot;Tests.java&quot;" bootstrapCode="import com.sympedia.density.gen.*;"/>
+  </ruleSets>
+</com.sympedia.genfw:GenLib>

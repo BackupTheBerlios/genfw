@@ -1,0 +1,13 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: %pluginName
+Bundle-SymbolicName: com.sympedia.density.gen.deploytest.edit; singleton:=true
+Bundle-Version: 1.0.0
+Bundle-ClassPath: .
+Bundle-Activator: com.sympedia.density.gen.deploytest.provider.DeploytestEditPlugin$Implementation
+Bundle-Vendor: %providerName
+Bundle-Localization: plugin
+Export-Package: com.sympedia.density.gen.deploytest.provider
+Require-Bundle: com.sympedia.density.gen.deploytest;visibility:=reexport,
+ com.sympedia.density.gen.deploy.edit;visibility:=reexport
+Eclipse-LazyStart: true
