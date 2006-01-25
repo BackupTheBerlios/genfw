@@ -1,0 +1,18 @@
+<%@ jet package="tutorial1.gen" 
+        imports="java.util.* tutorial1.gen.beans.*" 
+        class="BeanTemplate"%>
+<%Bean bean = (Bean)argument;%>
+package <%=bean.getBeanLibrary().getPackageName()%>;
+
+public class <%=bean.getName()%>Bean extends <%=bean.getName()%>BeanBase
+{
+  public <%=bean.getName()%>Bean(<%=BeanHelper.formatParameters(bean, true)%>)
+  {
+    super(<%=BeanHelper.formatParameters(bean, false)%>);
+  }
+  
+  /////////////////////////////////////////////////////////////////////////
+  // Business methods
+  /////////////////////////////////////////////////////////////////////////
+
+}

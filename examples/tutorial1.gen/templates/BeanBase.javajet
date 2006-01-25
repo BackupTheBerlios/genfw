@@ -1,0 +1,63 @@
+<%@ jet package="tutorial1.gen" 
+        imports="java.util.* tutorial1.gen.beans.*" 
+        class="BeanBaseTemplate"%>
+<%Bean bean = (Bean)argument;%>
+package <%=bean.getBeanLibrary().getPackageName()%>;
+
+import tutorial1.EqualityHelper;
+
+public abstract class <%=bean.getName()%>BeanBase
+{
+<%for (Iterator it = bean.getProperties().iterator(); it.hasNext();) { 
+  BeanProperty prop = (BeanProperty)it.next();%>
+  protected <%=prop.getTypeName()%> <%=prop.getName()%>;
+<%}%>
+
+  private java.util.List<Listener> listeners = new java.util.ArrayList<Listener>();
+
+  public <%=bean.getName()%>BeanBase(<%=BeanHelper.formatParameters(bean, true)%>)
+  {
+<%for (Iterator it = bean.getProperties().iterator(); it.hasNext();) { 
+  BeanProperty prop = (BeanProperty)it.next();%>
+    this.<%=prop.getName()%> = <%=prop.getName()%>;
+<%}%>
+  }
+
+<%for (Iterator it = bean.getProperties().iterator(); it.hasNext();) { 
+  BeanProperty prop = (BeanProperty)it.next();
+  String capName = StringHelper.capitalize(prop.getName());%>
+  public <%=prop.getTypeName()%> get<%=capName%>()
+  {
+    return <%=prop.getName()%>;
+  }
+
+  <%if (prop.isChangeable()) {%>
+  public void set<%=capName%>(<%=prop.getTypeName()%> new<%=capName%>)
+  {
+    <%=prop.getTypeName()%> old<%=capName%> = <%=prop.getName()%>;
+    if (!EqualityHelper.equals(old<%=capName%>, new<%=capName%>))
+    {
+      <%=prop.getName()%> = new<%=capName%>;
+      for (Listener listener : listeners)
+        listener.notify<%=capName%>Changed(this, old<%=capName%>, new<%=capName%>);
+    }
+  }
+
+  <%}%>
+<%}%>
+  public void addListener(Listener listener) { listeners.add(listener); }
+  
+  public void removeListener(Listener listener) { listeners.remove(listener); }
+
+  public interface Listener
+  {
+<%for (Iterator it = bean.getProperties().iterator(); it.hasNext();) { 
+  BeanProperty prop = (BeanProperty)it.next();
+  if (prop.isChangeable()) {
+    String capName = StringHelper.capitalize(prop.getName());%>
+    void notify<%=capName%>Changed(<%=bean.getName()%>BeanBase source, <%=
+      prop.getTypeName()%> old<%=capName%>, <%=prop.getTypeName()%> new<%=capName%>);
+  <%}%>
+<%}%>
+  }
+}

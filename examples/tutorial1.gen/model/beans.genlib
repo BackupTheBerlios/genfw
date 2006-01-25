@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<com.sympedia.genfw:GenLib xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:com.sympedia.genfw="http://www.sympedia.com/2006/genfw" xmlns:com.sympedia.genfw.bsh="http://www.sympedia.com/2006/genfw/bsh" xmlns:com.sympedia.genfw.jet="http://www.sympedia.com/2006/genfw/jet">
+  <contentProviders xsi:type="com.sympedia.genfw:EcoreContentProvider" name="ECORE"/>
+  <generators xsi:type="com.sympedia.genfw.jet:JetTemplate" name="BeanBaseTemplate" className="tutorial1.gen.BeanBaseTemplate"/>
+  <generators xsi:type="com.sympedia.genfw.jet:JetTemplate" name="BeanTemplate" className="tutorial1.gen.BeanTemplate"/>
+  <ruleSets name="BeanRules">
+    <rules xsi:type="com.sympedia.genfw.bsh:BeanShellRule" name="BeanBaseRule" generator="BeanBaseTemplate" matchClassName="" matchExpression="self instanceof Bean" targetPathExpression="&quot;src-gen/&quot; + self.getBeanLibrary().getPackageName().replace('.', '/') + &quot;/&quot; + self.getName() + &quot;BeanBase.java&quot;" bootstrapCode="import tutorial1.gen.beans.*;"/>
+    <rules xsi:type="com.sympedia.genfw.bsh:BeanShellRule" name="InitialBeanRule" generator="BeanTemplate" matchClassName="" dontOverwrite="true" matchExpression="self instanceof Bean" targetPathExpression="&quot;src/&quot; + self.getBeanLibrary().getPackageName().replace('.', '/') + &quot;/&quot; + self.getName() + &quot;Bean.java&quot;" bootstrapCode="import tutorial1.gen.beans.*;"/>
+  </ruleSets>
+</com.sympedia.genfw:GenLib>

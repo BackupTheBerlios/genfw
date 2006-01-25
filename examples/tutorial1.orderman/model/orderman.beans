@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:BeanLibrary xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:beans="http://beans" name="Order Management" packageName="tutorial1.orderman">
+  <beans name="Person">
+    <properties name="id" typeName="int"/>
+    <properties name="name" typeName="String" changeable="true"/>
+    <properties name="income" typeName="double" changeable="true"/>
+  </beans>
+</beans:BeanLibrary>

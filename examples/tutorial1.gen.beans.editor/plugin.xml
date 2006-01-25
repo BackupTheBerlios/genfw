@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+ <copyright>
+ </copyright>
+
+ $Id: plugin.xml,v 1.1 2006/01/25 14:34:26 stepper Exp $
+-->
+
+<plugin>
+
+
+  <extension
+    point = "org.eclipse.ui.newWizards">
+    <category
+      id = "org.eclipse.emf.ecore.Wizard.category.ID"
+      name="%_UI_Wizard_category">
+    </category>
+    <wizard
+      id = "tutorial1.gen.beans.presentation.BeansModelWizardID"
+      name = "%_UI_BeansModelWizard_label"
+      class = "tutorial1.gen.beans.presentation.BeansModelWizard"
+      category = "org.eclipse.emf.ecore.Wizard.category.ID"
+      icon = "icons/full/obj16/BeansModelFile.gif">
+      <description>%_UI_BeansModelWizard_description</description>
+      <selection class = "org.eclipse.core.resources.IResource" />
+    </wizard>
+  </extension>
+
+  <extension point = "org.eclipse.ui.editors">
+    <editor
+        id = "tutorial1.gen.beans.presentation.BeansEditorID"
+        name = "%_UI_BeansEditor_label"
+        icon = "icons/full/obj16/BeansModelFile.gif"
+        extensions = "beans"
+        class = "tutorial1.gen.beans.presentation.BeansEditor" 
+        contributorClass="tutorial1.gen.beans.presentation.BeansActionBarContributor" >
+    </editor>
+  </extension>    
+</plugin>

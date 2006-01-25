@@ -1,0 +1,7 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Gen Plug-in
+Bundle-SymbolicName: tutorial1.gen
+Bundle-Version: 1.0.0
+Bundle-Localization: plugin
+Require-Bundle: tutorial1.gen.beans

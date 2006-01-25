@@ -1,0 +1,7 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Tutorial1 Plug-in
+Bundle-SymbolicName: tutorial1
+Bundle-Version: 1.0.0
+Bundle-Localization: plugin
+Export-Package: tutorial1
