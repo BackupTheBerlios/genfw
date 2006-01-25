@@ -1,0 +1,16 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Beanshell Plug-in
+Bundle-SymbolicName: org.beanshell
+Bundle-Version: 2.0.0
+Bundle-Localization: plugin
+Export-Package: bsh,
+ bsh.classpath,
+ bsh.collection,
+ bsh.commands,
+ bsh.org.objectweb.asm,
+ bsh.reflect,
+ bsh.servlet,
+ bsh.util,
+ bsh.util.lib
+Bundle-ClassPath: bsh-2.0b4.jar
