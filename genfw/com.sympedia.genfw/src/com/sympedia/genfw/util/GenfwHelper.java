@@ -109,10 +109,10 @@ public class GenfwHelper
     }
     else
     {
-      System.out.println(String.valueOf(rules.size()) + " active rules");
+      System.out.println(String.valueOf(rules.size()) + " active rules:");
       for (Rule rule : rules)
       {
-        System.out.println("Rule: " + rule.getName());
+        System.out.println(rule.getName());
       }
 
       ContentProvider contentProvider = input.getContentProvider();
@@ -123,7 +123,7 @@ public class GenfwHelper
       }
       else
       {
-        System.out.println(String.valueOf(inputObjects.size()) + " input objects");
+        System.out.println(String.valueOf(inputObjects.size()) + " input objects:");
         processInputObjects(input, inputObjects, rules, monitor);
       }
     }
@@ -161,7 +161,7 @@ public class GenfwHelper
       if (space != -1) label = label.substring(space + 1);
     }
 
-    System.out.println("Processing " + className + " " + label);
+    System.out.println(className + " " + label);
 
     try
     {
@@ -193,7 +193,7 @@ public class GenfwHelper
           }
 
           monitor.subTask("Generating " + targetPath);
-          System.out.println("Generating " + targetPath + "   [" + inputObject + "]");
+          System.out.println("GENERATING " + targetPath + "   [" + inputObject + "]");
           //          System.out.println("Classpath: " + inputObject.getClass().getClassLoader());
 
           Generator generator = rule.getGenerator();
