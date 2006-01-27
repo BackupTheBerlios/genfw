@@ -23,4 +23,4 @@ Export-Package: org.apache.log4j,
  org.apache.log4j.spi,
  org.apache.log4j.varia,
  org.apache.log4j.xml
-Bundle-ClassPath: log4j-1.2.13.jar
+Bundle-ClassPath: lib/log4j-1.2.13.jar

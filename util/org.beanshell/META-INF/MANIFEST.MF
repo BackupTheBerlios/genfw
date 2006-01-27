@@ -13,4 +13,4 @@ Export-Package: bsh,
  bsh.servlet,
  bsh.util,
  bsh.util.lib
-Bundle-ClassPath: bsh-2.0b4.jar
+Bundle-ClassPath: lib/bsh-2.0b4.jar
