@@ -353,6 +353,27 @@ public class EcoreHelper
     return null;
   }
 
+  public static String getBundleId(URI uri)
+  {
+    if ("platform".equals(uri.scheme()))
+    {
+      if (uri.segmentCount() < 3)
+      {
+        return null;
+      }
+
+      String[] segments = uri.segments();
+      if (!"plugin".equals(segments[0]))
+      {
+        return null;
+      }
+
+      return segments[1];
+    }
+
+    return null;
+  }
+
   public static Set<EPackage> getSubPackages(EPackage basePackage, boolean includeBasePackage)
   {
     Set<EPackage> result = new HashSet<EPackage>();

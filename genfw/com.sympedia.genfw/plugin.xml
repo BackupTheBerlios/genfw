@@ -5,10 +5,12 @@
  <copyright>
  </copyright>
 
- $Id: plugin.xml,v 1.1 2006/01/23 10:20:25 stepper Exp $
+ $Id: plugin.xml,v 1.2 2006/01/27 18:16:03 stepper Exp $
 -->
 
 <plugin>
+
+  <extension-point id="externalLibraries" name="GenFw External Libraries" schema="schema/externalLibraries.exsd"/>
 
   <extension point="org.eclipse.emf.ecore.generated_package">
     <package 

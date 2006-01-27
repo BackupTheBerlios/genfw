@@ -33,6 +33,11 @@ public final class GenfwActivator extends EMFPlugin
   public static final String PLUGIN_ID = "com.sympedia.genfw";
 
   /**
+   * @ADDED
+   */
+  public static final String EXTERNAL_LIBRARIES_EXTPOINT = PLUGIN_ID + ".externalLibraries";
+
+  /**
    * Keep track of the singleton.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

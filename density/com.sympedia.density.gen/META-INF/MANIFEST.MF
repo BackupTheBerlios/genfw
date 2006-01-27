@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
-Bundle-SymbolicName: com.sympedia.density.gen
+Bundle-SymbolicName: com.sympedia.density.gen;singleton:=true
 Bundle-Version: 1.0.0
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
@@ -11,3 +11,4 @@ Require-Bundle: com.sympedia.genfw;visibility:=reexport,
  com.sympedia.density.gen.deploy;visibility:=reexport,
  com.sympedia.density.gen.deploytest;visibility:=reexport
 Export-Package: com.sympedia.density.gen
+Bundle-ClassPath: com.sympedia.density.gen.jar

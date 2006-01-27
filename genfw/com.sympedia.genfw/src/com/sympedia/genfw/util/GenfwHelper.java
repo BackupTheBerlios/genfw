@@ -71,6 +71,7 @@ public class GenfwHelper
       {
         Input input = (Input)it.next();
         monitor.subTask("Processing " + input.getFullPath());
+        System.out.println("Processing " + input.getFullPath());
         processInput(input, new SubProgressMonitor(monitor, 1));
       }
     }
@@ -96,11 +97,23 @@ public class GenfwHelper
 
     ContentProvider contentProvider = input.getContentProvider();
     List inputObjects = getAllInputObjects(fullPath, contentProvider);
-
-    if (!inputObjects.isEmpty())
+    if (inputObjects.isEmpty())
     {
+      System.out.println("No input objects");
+    }
+    else
+    {
+      System.out.println(String.valueOf(inputObjects.size()) + " input objects");
       List<Rule> rules = getAllRules(input);
-      processInputObjects(input, inputObjects, rules, monitor);
+      if (rules.isEmpty())
+      {
+        System.out.println("No active rules");
+      }
+      else
+      {
+        System.out.println(String.valueOf(rules.size()) + " rules");
+        processInputObjects(input, inputObjects, rules, monitor);
+      }
     }
   }
 
@@ -127,13 +140,21 @@ public class GenfwHelper
           IProgressMonitor monitor) throws CoreException
   {
     monitor.beginTask("", 3 * rules.size());
-    //    System.out.println("Checking " + inputObject);
+    String label = inputObject.toString();
+    String className = inputObject.getClass().getName();
+    if (label.startsWith(className + "@"))
+    {
+      int space = label.indexOf(' ');
+      if (space != -1) label = label.substring(space + 1);
+    }
+
+    System.out.println("Processing " + className + " " + label);
 
     try
     {
       for (Rule rule : rules)
       {
-        //        System.out.println("Matching " + rule.getLabel());
+        System.out.println("Matching " + rule.getName());
         boolean matching = rule.isMatching(inputObject);
         monitor.worked(1);
 
@@ -160,7 +181,7 @@ public class GenfwHelper
 
           monitor.subTask("Generating " + targetPath);
           System.out.println("Generating " + targetPath + "   [" + inputObject + "]");
-          System.out.println("Classpath: " + inputObject.getClass().getClassLoader());
+          //          System.out.println("Classpath: " + inputObject.getClass().getClassLoader());
 
           Generator generator = rule.getGenerator();
           String result = generator.generate(inputObject, targetPath, new SubProgressMonitor(
@@ -201,6 +222,9 @@ public class GenfwHelper
     for (Iterator it = ruleSets.iterator(); it.hasNext();)
     {
       RuleSet ruleSet = (RuleSet)it.next();
+      System.out.println("Rule Set: " + ruleSet.getName() + " ("
+              + (ruleSet.isDeactivate() ? "in" : "") + "active)");
+
       if (!ruleSet.isDeactivate())
       {
         collectRules(ruleSet, result);
@@ -264,6 +288,8 @@ public class GenfwHelper
     for (Iterator it = ruleSet.getRules().iterator(); it.hasNext();)
     {
       Rule rule = (Rule)it.next();
+      System.out.println("Rule: " + rule.getName() + " (" + (rule.isDeactivate() ? "in" : "")
+              + "active)");
       if (!rule.isDeactivate())
       {
         result.add(rule);

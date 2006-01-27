@@ -12,11 +12,19 @@ package com.sympedia.genfw.util;
 
 
 import com.sympedia.genfw.internal.GenfwActivator;
+import com.sympedia.util.ImplementationError;
+import com.sympedia.util.StringHelper;
 import com.sympedia.util.emf.EcoreHelper;
 
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IConfigurationElement;
+import org.eclipse.core.runtime.IExtension;
+import org.eclipse.core.runtime.IExtensionPoint;
+import org.eclipse.core.runtime.IExtensionRegistry;
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jdt.core.IClasspathEntry;
@@ -34,6 +42,34 @@ import java.util.List;
 
 public class ClasspathHelper
 {
+  public static ClassLoader getClassLoader(Resource resource, ClassLoader parentClassLoader)
+  {
+    if (resource == null) return null;
+    URI uri = resource.getURI();
+
+    String projectName = EcoreHelper.getProjectName(uri);
+    if (projectName != null)
+    {
+      ClassLoader result = getJavaProjectClassLoader(projectName, parentClassLoader);
+      if (result != null)
+      {
+        return result;
+      }
+    }
+
+    String bundleId = EcoreHelper.getBundleId(uri);
+    if (bundleId != null)
+    {
+      ClassLoader result = getBundleClassLoader(bundleId);
+      if (result != null)
+      {
+        return result;
+      }
+    }
+
+    return null;
+  }
+
   public static ClassLoader getJavaProjectClassLoader(String projectName,
           ClassLoader parentClassLoader)
   {
@@ -56,21 +92,21 @@ public class ClasspathHelper
     URL[] array = urls.toArray(new URL[urls.size()]);
     return new URLClassLoader(array, parentClassLoader)
     {
-      @Override
-      public Class<?> loadClass(String name) throws ClassNotFoundException
-      {
-        System.out.println("loadClass: " + name);
-        Class<?> result = super.loadClass(name);
-        System.out.println("-> Loaded: "+name+"  (" + result.getClassLoader()+")");
-        return result;
-      }
-
-      @Override
-      protected Class<?> findClass(String name) throws ClassNotFoundException
-      {
-        System.out.println("findClass: " + name);
-        return super.findClass(name);
-      }
+      //      @Override
+      //      public Class<?> loadClass(String name) throws ClassNotFoundException
+      //      {
+      //        System.out.println("loadClass: " + name);
+      //        Class<?> result = super.loadClass(name);
+      //        System.out.println("-> Loaded: " + name + "  (" + result.getClassLoader() + ")");
+      //        return result;
+      //      }
+      //
+      //      @Override
+      //      protected Class<?> findClass(String name) throws ClassNotFoundException
+      //      {
+      //        System.out.println("findClass: " + name);
+      //        return super.findClass(name);
+      //      }
     };
   }
 
@@ -163,26 +199,43 @@ public class ClasspathHelper
     return null;
   }
 
-  public static ClassLoader getBundleClassLoader(URI uri)
+  public static ClassLoader getBundleClassLoader(String bundleId)
   {
-    return GenfwActivator.class.getClassLoader();
-  }
-
-  public static ClassLoader getClassLoader(Resource resource, ClassLoader parentClassLoader)
-  {
-    if (resource == null)
+    IExtensionRegistry extensionRegistry = Platform.getExtensionRegistry();
+    IExtensionPoint extensionPoint = extensionRegistry
+            .getExtensionPoint(GenfwActivator.EXTERNAL_LIBRARIES_EXTPOINT);
+    if (extensionPoint == null)
     {
-      return null;
+      throw new ImplementationError();
     }
 
-    URI uri = resource.getURI();
-    String projectName = EcoreHelper.getProjectName(uri);
-    ClassLoader result = getJavaProjectClassLoader(projectName, parentClassLoader);
-    if (result != null)
+    IExtension[] extensions = extensionPoint.getExtensions();
+    for (IExtension extension : extensions)
     {
-      return result;
+      GenfwActivator.INSTANCE.log("EXTENSION: " + extension);
+      if (StringHelper.equals(extension.getNamespace(), bundleId))
+      {
+        IConfigurationElement[] configurationElements = extension.getConfigurationElements();
+        for (IConfigurationElement element : configurationElements)
+        {
+          GenfwActivator.INSTANCE.log("ELEMENT: " + element.getName());
+
+          try
+          {
+            Object initializer = element.createExecutableExtension("libraryInitializer");
+            if (initializer != null)
+            {
+              return initializer.getClass().getClassLoader();
+            }
+          }
+          catch (CoreException ex)
+          {
+            GenfwActivator.INSTANCE.log(ex);
+          }
+        }
+      }
     }
 
-    return getBundleClassLoader(uri);
+    return null;
   }
 }
