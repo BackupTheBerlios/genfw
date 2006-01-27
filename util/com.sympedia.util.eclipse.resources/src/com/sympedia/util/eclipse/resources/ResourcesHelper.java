@@ -52,6 +52,23 @@ public class ResourcesHelper
 
   public static final IWorkspaceRoot ROOT = WS.getRoot();
 
+  public static IResource findResourceByLocation(String location)
+  {
+    IPath path = new Path(location);
+    for (int i = 0; i < path.segmentCount(); i++)
+    {
+      IResource resource = ROOT.findMember(path);
+      if (resource != null && resource.exists())
+      {
+        return resource;
+      }
+  
+      path = path.removeFirstSegments(1);
+    }
+  
+    return null;
+  }
+
   public static void writeFile(IFile file, String[] content, IProgressMonitor monitor)
           throws CoreException
   {

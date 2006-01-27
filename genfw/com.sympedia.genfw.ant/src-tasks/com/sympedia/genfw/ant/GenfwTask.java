@@ -11,27 +11,23 @@
 package com.sympedia.genfw.ant;
 
 
-import com.sympedia.genfw.GenApp;
 import com.sympedia.genfw.util.GenfwHelper;
-import com.sympedia.util.emf.EcoreHelper;
-
-import java.io.File;
 
 
 public class GenfwTask extends EclipseTask
 {
-  protected File genapp;
+  protected String genapp;
 
   public GenfwTask()
   {
   }
 
-  public File getGenapp()
+  public String getGenapp()
   {
     return genapp;
   }
 
-  public void setGenapp(File genapp)
+  public void setGenapp(String genapp)
   {
     this.genapp = genapp;
   }
@@ -40,7 +36,6 @@ public class GenfwTask extends EclipseTask
   protected void doExecute() throws Exception
   {
     System.out.println("Generator Application: " + genapp);
-    GenApp root = (GenApp)EcoreHelper.getXMIObject(genapp.getAbsolutePath());
-    GenfwHelper.processGenApp(root, getProgressMonitor());
+    GenfwHelper.processFile(genapp, getProgressMonitor());
   }
 }

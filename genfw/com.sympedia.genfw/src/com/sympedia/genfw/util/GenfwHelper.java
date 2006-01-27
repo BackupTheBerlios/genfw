@@ -31,6 +31,7 @@ import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.SubProgressMonitor;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.plugin.EcorePlugin;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
@@ -48,11 +49,17 @@ public class GenfwHelper
 {
   public static void processFile(IFile file, IProgressMonitor monitor) throws CoreException
   {
+    String path = file.getFullPath().toString();
+    processFile(path, monitor);
+  }
+
+  public static void processFile(String path, IProgressMonitor monitor) throws CoreException
+  {
     ResourceSetImpl rs = new ResourceSetImpl();
+    rs.getURIConverter().getURIMap().putAll(EcorePlugin.computePlatformURIMap());
     Map map = rs.getResourceFactoryRegistry().getExtensionToFactoryMap();
     map.put(Resource.Factory.Registry.DEFAULT_EXTENSION, new XMIResourceFactoryImpl());
 
-    String path = file.getFullPath().toString();
     URI uri = URI.createPlatformResourceURI(path);
     Resource resource = rs.getResource(uri, true);
 
@@ -111,7 +118,12 @@ public class GenfwHelper
       }
       else
       {
-        System.out.println(String.valueOf(rules.size()) + " rules");
+        System.out.println(String.valueOf(rules.size()) + " active rules");
+        for (Rule rule : rules)
+        {
+          System.out.println("Rule: " + rule.getName());
+        }
+
         processInputObjects(input, inputObjects, rules, monitor);
       }
     }
@@ -154,7 +166,7 @@ public class GenfwHelper
     {
       for (Rule rule : rules)
       {
-        System.out.println("Matching " + rule.getName());
+        //        System.out.println("Matching " + rule.getName());
         boolean matching = rule.isMatching(inputObject);
         monitor.worked(1);
 
@@ -222,9 +234,6 @@ public class GenfwHelper
     for (Iterator it = ruleSets.iterator(); it.hasNext();)
     {
       RuleSet ruleSet = (RuleSet)it.next();
-      System.out.println("Rule Set: " + ruleSet.getName() + " ("
-              + (ruleSet.isDeactivate() ? "in" : "") + "active)");
-
       if (!ruleSet.isDeactivate())
       {
         collectRules(ruleSet, result);
@@ -288,8 +297,6 @@ public class GenfwHelper
     for (Iterator it = ruleSet.getRules().iterator(); it.hasNext();)
     {
       Rule rule = (Rule)it.next();
-      System.out.println("Rule: " + rule.getName() + " (" + (rule.isDeactivate() ? "in" : "")
-              + "active)");
       if (!rule.isDeactivate())
       {
         result.add(rule);
