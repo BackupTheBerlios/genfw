@@ -34,7 +34,7 @@ public class GenfwTask extends EclipseTask
 
   protected String genapp;
 
-  protected int traceLevel = TRACE_GENAPP;
+  protected int traceLevel = TRACE_DEFAULT;
 
   public GenfwTask()
   {
