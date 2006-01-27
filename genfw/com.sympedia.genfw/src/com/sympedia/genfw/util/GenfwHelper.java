@@ -102,31 +102,32 @@ public class GenfwHelper
       }
     }
 
-    ContentProvider contentProvider = input.getContentProvider();
-    List inputObjects = getAllInputObjects(fullPath, contentProvider);
-    if (inputObjects.isEmpty())
+    List<Rule> rules = getAllRules(input);
+    if (rules.isEmpty())
     {
-      System.out.println("No input objects");
+      System.out.println("No active rules");
     }
     else
     {
-      System.out.println(String.valueOf(inputObjects.size()) + " input objects");
-      List<Rule> rules = getAllRules(input);
-      if (rules.isEmpty())
+      System.out.println(String.valueOf(rules.size()) + " active rules");
+      for (Rule rule : rules)
       {
-        System.out.println("No active rules");
+        System.out.println("Rule: " + rule.getName());
+      }
+
+      ContentProvider contentProvider = input.getContentProvider();
+      List inputObjects = getAllInputObjects(fullPath, contentProvider);
+      if (inputObjects.isEmpty())
+      {
+        System.out.println("No input objects");
       }
       else
       {
-        System.out.println(String.valueOf(rules.size()) + " active rules");
-        for (Rule rule : rules)
-        {
-          System.out.println("Rule: " + rule.getName());
-        }
-
+        System.out.println(String.valueOf(inputObjects.size()) + " input objects");
         processInputObjects(input, inputObjects, rules, monitor);
       }
     }
+
   }
 
   public static void processInputObjects(Input input, List inputObjects, List<Rule> rules,
