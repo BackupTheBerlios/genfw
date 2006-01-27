@@ -16,7 +16,25 @@ import com.sympedia.genfw.util.GenfwHelper;
 
 public class GenfwTask extends EclipseTask
 {
+  public static final int TRACE_NOTHING = 0;
+
+  public static final int TRACE_GENAPP = 1;
+
+  public static final int TRACE_INPUT = 2;
+
+  public static final int TRACE_GENERATE = 3;
+
+  public static final int TRACE_WRITE = 4;
+
+  public static final int TRACE_INPUTOBJECT = 5;
+
+  public static final int TRACE_RULE = 6;
+
+  public static final int TRACE_DEFAULT = TRACE_WRITE;
+
   protected String genapp;
+
+  protected int traceLevel = TRACE_GENAPP;
 
   public GenfwTask()
   {
@@ -32,10 +50,20 @@ public class GenfwTask extends EclipseTask
     this.genapp = genapp;
   }
 
+  public int getTraceLevel()
+  {
+    return traceLevel;
+  }
+
+  public void setTraceLevel(int traceLevel)
+  {
+    this.traceLevel = traceLevel;
+  }
+
   @Override
   protected void doExecute() throws Exception
   {
-    System.out.println("Generator Application: " + genapp);
-    GenfwHelper.processFile(genapp, getProgressMonitor());
+    if (traceLevel >= TRACE_GENAPP) System.out.println("Generator Application: " + genapp);
+    GenfwHelper.processFile(genapp, traceLevel, getProgressMonitor());
   }
 }

@@ -47,13 +47,31 @@ import java.util.Map;
 
 public class GenfwHelper
 {
-  public static void processFile(IFile file, IProgressMonitor monitor) throws CoreException
+  public static final int TRACE_NOTHING = 0;
+
+  public static final int TRACE_GENAPP = 1;
+
+  public static final int TRACE_INPUT = 2;
+
+  public static final int TRACE_GENERATE = 3;
+
+  public static final int TRACE_WRITE = 4;
+
+  public static final int TRACE_INPUTOBJECT = 5;
+
+  public static final int TRACE_RULE = 6;
+
+  public static final int TRACE_DEFAULT = TRACE_WRITE;
+
+  public static void processFile(IFile file, int traceLevel, IProgressMonitor monitor)
+          throws CoreException
   {
     String path = file.getFullPath().toString();
-    processFile(path, monitor);
+    processFile(path, traceLevel, monitor);
   }
 
-  public static void processFile(String path, IProgressMonitor monitor) throws CoreException
+  public static void processFile(String path, int traceLevel, IProgressMonitor monitor)
+          throws CoreException
   {
     ResourceSetImpl rs = new ResourceSetImpl();
     rs.getURIConverter().getURIMap().putAll(EcorePlugin.computePlatformURIMap());
@@ -64,10 +82,11 @@ public class GenfwHelper
     Resource resource = rs.getResource(uri, true);
 
     GenApp genApp = (GenApp)resource.getContents().get(0);
-    processGenApp(genApp, monitor);
+    processGenApp(genApp, traceLevel, monitor);
   }
 
-  public static void processGenApp(GenApp genApp, IProgressMonitor monitor) throws CoreException
+  public static void processGenApp(GenApp genApp, int traceLevel, IProgressMonitor monitor)
+          throws CoreException
   {
     EList inputs = genApp.getInputs();
     monitor.beginTask("", inputs.size());
@@ -78,8 +97,8 @@ public class GenfwHelper
       {
         Input input = (Input)it.next();
         monitor.subTask("Processing " + input.getFullPath());
-        System.out.println("Processing " + input.getFullPath());
-        processInput(input, new SubProgressMonitor(monitor, 1));
+        if (traceLevel >= TRACE_INPUT) System.out.println("Processing " + input.getFullPath());
+        processInput(input, traceLevel, new SubProgressMonitor(monitor, 1));
       }
     }
     finally
@@ -88,7 +107,8 @@ public class GenfwHelper
     }
   }
 
-  public static void processInput(Input input, IProgressMonitor monitor) throws CoreException
+  public static void processInput(Input input, int traceLevel, IProgressMonitor monitor)
+          throws CoreException
   {
     String fullPath = input.getFullPath();
     if (fullPath != null && !fullPath.startsWith("/"))
@@ -105,33 +125,37 @@ public class GenfwHelper
     List<Rule> rules = getAllRules(input);
     if (rules.isEmpty())
     {
-      System.out.println("No active rules");
+      if (traceLevel >= TRACE_RULE) System.out.println("No active rules");
     }
     else
     {
-      System.out.println(String.valueOf(rules.size()) + " active rules:");
-      for (Rule rule : rules)
+      if (traceLevel >= TRACE_RULE)
       {
-        System.out.println(rule.getName());
+        System.out.println(String.valueOf(rules.size()) + " active rules");
+        for (Rule rule : rules)
+        {
+          System.out.println(rule.getName());
+        }
       }
 
       ContentProvider contentProvider = input.getContentProvider();
       List inputObjects = getAllInputObjects(fullPath, contentProvider);
       if (inputObjects.isEmpty())
       {
-        System.out.println("No input objects");
+        if (traceLevel >= TRACE_INPUTOBJECT) System.out.println("No input objects");
       }
       else
       {
-        System.out.println(String.valueOf(inputObjects.size()) + " input objects:");
-        processInputObjects(input, inputObjects, rules, monitor);
+        if (traceLevel >= TRACE_INPUTOBJECT)
+          System.out.println(String.valueOf(inputObjects.size()) + " input objects");
+        processInputObjects(input, inputObjects, rules, traceLevel, monitor);
       }
     }
 
   }
 
   public static void processInputObjects(Input input, List inputObjects, List<Rule> rules,
-          IProgressMonitor monitor) throws CoreException
+          int traceLevel, IProgressMonitor monitor) throws CoreException
   {
     monitor.beginTask("", inputObjects.size());
 
@@ -140,7 +164,8 @@ public class GenfwHelper
       for (Iterator it = inputObjects.iterator(); it.hasNext();)
       {
         Object inputObject = it.next();
-        processInputObject(input, inputObject, rules, new SubProgressMonitor(monitor, 1));
+        processInputObject(input, inputObject, rules, traceLevel,
+                new SubProgressMonitor(monitor, 1));
       }
     }
     finally
@@ -150,7 +175,7 @@ public class GenfwHelper
   }
 
   public static void processInputObject(Input input, Object inputObject, List<Rule> rules,
-          IProgressMonitor monitor) throws CoreException
+          int traceLevel, IProgressMonitor monitor) throws CoreException
   {
     monitor.beginTask("", 3 * rules.size());
     String label = inputObject.toString();
@@ -161,13 +186,13 @@ public class GenfwHelper
       if (space != -1) label = label.substring(space + 1);
     }
 
-    System.out.println(className + " " + label);
+    if (traceLevel >= TRACE_INPUTOBJECT) System.out.println(className + " " + label);
 
     try
     {
       for (Rule rule : rules)
       {
-        //        System.out.println("Matching " + rule.getName());
+        if (traceLevel >= TRACE_RULE) System.out.println("Matching " + rule.getName());
         boolean matching = rule.isMatching(inputObject);
         monitor.worked(1);
 
@@ -193,8 +218,8 @@ public class GenfwHelper
           }
 
           monitor.subTask("Generating " + targetPath);
-          System.out.println("GENERATING " + targetPath + "   [" + inputObject + "]");
-          //          System.out.println("Classpath: " + inputObject.getClass().getClassLoader());
+          if (traceLevel >= TRACE_GENERATE)
+            System.out.println("GENERATING " + targetPath + "   [" + inputObject + "]");
 
           Generator generator = rule.getGenerator();
           String result = generator.generate(inputObject, targetPath, new SubProgressMonitor(
@@ -206,7 +231,7 @@ public class GenfwHelper
             {
               if (ResourcesHelper.ensureFile(targetPath, result, false, monitor))
               {
-                System.out.println("-> WRITTEN " + targetPath);
+                if (traceLevel >= TRACE_WRITE) System.out.println("-> WRITTEN " + targetPath);
               }
             }
             catch (IOException ex)
