@@ -41,8 +41,6 @@
 
     <title>Introduction</title>
 
-    <para>Hello World!</para>
-
     <para>Let’s assume it’s our task to develop an Eclipse plugin that 
     acts as a library of many JavaBeans, simple Java classes each with 
     a set of properties (member fields plus getters and setters) and a 

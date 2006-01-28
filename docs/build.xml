@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="docs.website" default="update.website" basedir=".">
+
+	<property file="${user.home}/genfw.properties" />
+
+	<target name="init">
+		<tstamp />
+	</target>
+
+	<target name="update.website">
+		<sshexec host="cvs.berlios.de" username="stepper" command="cd genfw/htdocs; cvs -z3 -d:pserver:anonymous@cvs.genfw.berlios.de:/cvsroot/genfw update -P -d" password="${berlios.pwd}" trust="true" />
+	</target>
+
+</project>
