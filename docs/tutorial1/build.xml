@@ -22,6 +22,9 @@
 			<arg value="80" />
 			<arg path="${out.path}" />
 		</exec>
+		<copy todir="${target.dir}">
+			<fileset dir="." includes="images/*" />
+		</copy>
 	</target>
 
 	<target name="publish">
