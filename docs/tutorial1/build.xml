@@ -2,16 +2,18 @@
 <project name="docs.tutorial1" default="generate" basedir=".">
 
 	<property name="file.name" value="SympediaGenFwTutorial1" />
+	<property name="target.dir" value="../website" />
 
 	<target name="generate">
-		<delete file="${file.name}.html" failonerror="false" />
-		<xslt in="${file.name}.xml" out="${file.name}.html" style="../docbook-xsl-1.69.1/html/docbook.xsl" />
+		<property name="out" value="${target.dir}/index.html"/>
+		<delete file="${out}" failonerror="false" />
+		<xslt in="${file.name}.xml" out="${out}" style="../docbook-xsl-1.69.1/html/docbook.xsl" />
 		<exec executable="c:/programme/cygwin/bin/tidy.exe">
 			<arg value="-modify" />
 			<arg value="-indent" />
 			<arg value="-wrap" />
 			<arg value="80" />
-			<arg path="${file.name}.html" />
+			<arg path="${out}" />
 		</exec>
 	</target>
 
