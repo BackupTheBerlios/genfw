@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="docs.tutorial1" default="render" basedir=".">
+<project name="docs.tutorial1" default="publish" basedir=".">
 
 	<property name="file.name" value="SympediaGenFwTutorial1" />
 	<property name="target.dir" value="../website/tutorial1" />
+
+	<property file="${user.home}/genfw.properties" />
 
 	<target name="init">
 		<tstamp />
@@ -28,7 +30,7 @@
 	</target>
 
 	<target name="publish">
-		<sshexec host="shell.berlios.de" username="stepper" command="genfw/update-htdocs.sh" />
+		<sshexec host="cvs.berlios.de" username="stepper" command="genfw/update-htdocs.sh" password="${berlios.pwd}" trust="true" />
 	</target>
 
 </project>
