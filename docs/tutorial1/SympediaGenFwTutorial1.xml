@@ -41,6 +41,8 @@
 
     <title>Introduction</title>
 
+    <para>Hello World!</para>
+
     <para>Let’s assume it’s our task to develop an Eclipse plugin that 
     acts as a library of many JavaBeans, simple Java classes each with 
     a set of properties (member fields plus getters and setters) and a 
@@ -49,7 +51,7 @@
     methods. In order to keep this example simple, our beans will not 
     support inheritance. They will look like this one:</para>
 
-    <programlisting><?dbhtml bgcolor="#EEEEEE" ?><?dbfo bgcolor="#EEEEEE" ?>public class PersonBean 
+    <programlisting>public class PersonBean 
 { 
   protected int id; 
   protected String name; 
@@ -1176,7 +1178,8 @@ public class BeanHelper
     of EMF has to be slightly patched in order to let the Ecore 
     Template generator use the original Ecore templates without 
     invoking CodeGen. Please refer to 
-    <ulink url="http://www.eclipse.org/newsportal/article.php?id=14751&amp;group=eclipse.tools.emf#14751">http://www.eclipse.org/newsportal/article.php?id=14751&amp;group=eclipse.tools.emf#14751</ulink></para>
+    <ulink url="http://www.eclipse.org/newsportal/article.php?id=14751&amp;group=eclipse.tools.emf#14751">
+    http://www.eclipse.org/newsportal/article.php?id=14751&amp;group=eclipse.tools.emf#14751</ulink></para>
 
     <para>You can apply the following patch against the I200601190000 
     version of org.eclipse.emf.codegen.ecore and deploy the plugin to 

@@ -1,20 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="docs.tutorial1" default="generate" basedir=".">
+<project name="docs.tutorial1" default="render" basedir=".">
 
 	<property name="file.name" value="SympediaGenFwTutorial1" />
-	<property name="target.dir" value="../website" />
+	<property name="target.dir" value="../website/tutorial1" />
 
-	<target name="generate">
-		<property name="out" value="${target.dir}/index.html"/>
-		<delete file="${out}" failonerror="false" />
-		<xslt in="${file.name}.xml" out="${out}" style="../docbook-xsl-1.69.1/html/docbook.xsl" />
+	<target name="init">
+		<tstamp />
+		<property name="out.path" value="${target.dir}/${file.name}.html" />
+	</target>
+
+	<target name="clean" depends="init">
+		<delete file="${out.path}" failonerror="false" />
+	</target>
+
+	<target name="render" depends="clean">
+		<xslt in="${file.name}.xml" out="${out.path}" style="../docbook-xsl-1.69.1/html/docbook.xsl" />
 		<exec executable="c:/programme/cygwin/bin/tidy.exe">
 			<arg value="-modify" />
 			<arg value="-indent" />
 			<arg value="-wrap" />
 			<arg value="80" />
-			<arg path="${out}" />
+			<arg path="${out.path}" />
 		</exec>
+	</target>
+
+	<target name="publish">
+		<sshexec host="shell.berlios.de" username="stepper" command="genfw/update-htdocs.sh" />
 	</target>
 
 </project>
