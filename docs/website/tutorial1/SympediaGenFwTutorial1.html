@@ -70,7 +70,7 @@
 
         <dt><span class="sect1"><a href="#N66256">Notes</a></span></dt>
 
-        <dt><span class="appendix"><a href="#N66299">A. Patching
+        <dt><span class="appendix"><a href="#N66302">A. Patching
         CodeGen</a></span></dt>
       </dl>
     </div>
@@ -1142,13 +1142,17 @@ public class BeanHelper
           </li>
 
           <li>
-            <p>If you can explain to me why you would like to deploy the
-            generator project as an externally installed plugin, I could most
-            probably find a way to adapt class loading to a hybrid strategy.
-            Personally I think that the meta models, the templates and the
+            <p>Personally I think that the meta models, the templates and the
             resulting GenLib tend to change often due to new requirements or
-            simply due to maintenance, so I leave this project in my
-            workspace.</p>
+            simply due to maintenance, so I leave this project in my workspace.
+            But sometimes it is practical to deploy a generator library (with
+            all the templates and meta models) as an installed plugin. GenFw
+            class loaders are prepared for this situation. This way it is also
+            possible to use generators out-of-the box that you installed via
+            the Eclipse Update Manager from the internet or an enterprise
+            repository. To refer to these generator libraries use a resource
+            URI like <code class=
+            "code">platform:/plugin/&lt;pluing-id&gt;/&lt;entry-path&gt;</code>.</p>
           </li>
 
           <li>
@@ -1160,7 +1164,8 @@ public class BeanHelper
             (assumingly a JET Template) and then merges the result. You can
             configure a custom merge.xml or leave the property empty to use the
             CodeGen default one. Of course you can even prepend this chain by a
-            Java Formatter (as newer CodeGen versions can do, too).</p>
+            Java Formatter (as newer CodeGen versions can do, too). GenFw uses
+            JMerge 2.0.</p>
           </li>
 
           <li>
@@ -1230,8 +1235,8 @@ public class BeanHelper
     </div>
 
     <div class="appendix" lang="en-EN">
-      <h2 class="title" style="clear: both"><a name="N66299" id=
-      "N66299"></a>A.&nbsp;Patching CodeGen</h2>
+      <h2 class="title" style="clear: both"><a name="N66302" id=
+      "N66302"></a>A.&nbsp;Patching CodeGen</h2>
 
       <p>The current version (2.2.0 I200601190000 as of this writing) of EMF
       has to be slightly patched in order to let the Ecore Template generator

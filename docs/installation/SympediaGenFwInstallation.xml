@@ -87,7 +87,7 @@
 			<graphic fileref="images/NewUpdateSite.gif"/>
 		</figure>
 		
-		<para>Proceed with the <ulink url="/tutorial1/SympediaGenFwTutorial1.html">
+		<para>Proceed with the <ulink url="../tutorial1/SympediaGenFwTutorial1.html">
 			Sympedia GenFw Tutorial 1</ulink>.</para>
 		
 	</sect1>
@@ -100,7 +100,7 @@
     <para>Not available at the moment.</para>
 
     <para>Proceed with the 
-    <ulink url="/tutorial1/SympediaGenFwTutorial1.html">Sympedia GenFw 
+    <ulink url="../tutorial1/SympediaGenFwTutorial1.html">Sympedia GenFw 
     Tutorial 1</ulink>.</para>
 
   </sect1>
@@ -156,7 +156,7 @@
     restart Eclipse to load the installation.</para>
 
     <para>Proceed with the 
-    <ulink url="/tutorial1/SympediaGenFwTutorial1.html">Sympedia GenFw 
+    <ulink url="../tutorial1/SympediaGenFwTutorial1.html">Sympedia GenFw 
     Tutorial 1</ulink>.</para>
 
   </sect1>

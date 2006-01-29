@@ -1098,13 +1098,18 @@ public class BeanHelper
 
       <listitem>
 
-        <para>If you can explain to me why you would like to deploy the 
-        generator project as an externally installed plugin, I could 
-        most probably find a way to adapt class loading to a hybrid 
-        strategy. Personally I think that the meta models, the 
-        templates and the resulting GenLib tend to change often due to 
-        new requirements or simply due to maintenance, so I leave this 
-        project in my workspace.</para>
+        <para>Personally I think that the meta models, the templates 
+        and the resulting GenLib tend to change often due to new 
+        requirements or simply due to maintenance, so I leave this 
+        project in my workspace. But sometimes it is practical to 
+        deploy a generator library (with all the templates and meta 
+        models) as an installed plugin. GenFw class loaders are 
+        prepared for this situation. This way it is also possible to 
+        use generators out-of-the box that you installed via the 
+        Eclipse Update Manager from the internet or an enterprise 
+        repository. To refer to these generator libraries use a 
+        resource URI like 
+        <code>platform:/plugin/&lt;pluing-id&gt;/&lt;entry-path&gt;</code>.</para>
 
       </listitem>
 
@@ -1119,7 +1124,7 @@ public class BeanHelper
         configure a custom merge.xml or leave the property empty to use 
         the CodeGen default one. Of course you can even prepend this 
         chain by a Java Formatter (as newer CodeGen versions can do, 
-        too).</para>
+        too). GenFw uses JMerge 2.0.</para>
 
       </listitem>
 
