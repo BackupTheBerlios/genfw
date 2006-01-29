@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="com.sympedia.genfw.update" default="copy.updatesite" basedir=".">
+
+	<property name="target.dir" value="../docs/website/update" />
+
+	<target name="init">
+		<tstamp />
+	</target>
+
+	<target name="copy.updatesite">
+		<copy todir="${target.dir}" verbose="true">
+			<fileset dir=".">
+				<include name="site.xml" />
+				<include name="web/*" />
+				<include name="features/*.css" />
+				<include name="features/*.jar" />
+				<include name="plugins/*.jar" />
+			</fileset>
+		</copy>
+	</target>
+
+</project>

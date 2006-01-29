@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="com.sympedia.genfw.source" default="build" basedir="..">
+
+	<property name="feature.version" value="1.0.0" />
+
+	<target name="init">
+		<tstamp />
+		<property name="temp.dir" value="temp" />
+		<delete dir="${temp.dir}" failonerror="no" />
+		<mkdir dir="${temp.dir}" />
+	</target>
+
+	<macrodef name="zip.sources">
+		<attribute name="plugin" />
+		<attribute name="version" />
+		<sequential>
+			<mkdir dir="${temp.dir}/@{plugin}" />
+			<copy todir="${temp.dir}/@{plugin}" failonerror="no">
+				<fileset dir="../@{plugin}/src" includes="**/*" />
+			</copy>
+			<copy todir="${temp.dir}/@{plugin}" failonerror="no">
+				<fileset dir="../@{plugin}/src-gen" includes="**/*" />
+			</copy>
+
+			<mkdir dir="src/@{plugin}_@{version}" />
+			<zip destfile="src/@{plugin}_@{version}/src.zip/" whenempty="skip">
+				<fileset dir="${temp.dir}/@{plugin}" includes="**/*" />
+			</zip>
+		</sequential>
+	</macrodef>
+
+	<target name="build" depends="init">
+		<delete dir="src" failonerror="no" />
+		<mkdir dir="src" />
+		<zip.sources version="${feature.version}" plugin="com.sympedia.genfw" />
+		<zip.sources version="${feature.version}" plugin="com.sympedia.genfw.ant" />
+		<zip.sources version="${feature.version}" plugin="com.sympedia.genfw.bsh" />
+		<zip.sources version="${feature.version}" plugin="com.sympedia.genfw.bsh.edit" />
+		<zip.sources version="${feature.version}" plugin="com.sympedia.genfw.edit" />
+		<zip.sources version="${feature.version}" plugin="com.sympedia.genfw.editor" />
+		<zip.sources version="${feature.version}" plugin="com.sympedia.genfw.jdt" />
+		<zip.sources version="${feature.version}" plugin="com.sympedia.genfw.jdt.edit" />
+		<zip.sources version="${feature.version}" plugin="com.sympedia.genfw.jet" />
+		<zip.sources version="${feature.version}" plugin="com.sympedia.genfw.jet.edit" />
+		<zip.sources version="${feature.version}" plugin="com.sympedia.genfw.jmerge" />
+		<zip.sources version="${feature.version}" plugin="com.sympedia.genfw.jmerge.edit" />
+		<zip.sources version="${feature.version}" plugin="com.sympedia.genfw.ui" />
+		<delete dir="${temp.dir}" failonerror="no" />
+	</target>
+
+</project>

@@ -118,6 +118,8 @@ This Agreement is governed by the laws of the State of New York and the intellec
       <import plugin="org.eclipse.emf.ecore.xmi"/>
       <import plugin="org.eclipse.emf.edit.ui"/>
       <import plugin="org.eclipse.ui.ide"/>
+      <import feature="com.sympedia.genfw" version="1.0.0"/>
+      <import plugin="org.eclipse.pde.core"/>
    </requires>
 
    <plugin
@@ -161,5 +163,11 @@ This Agreement is governed by the laws of the State of New York and the intellec
          install-size="0"
          version="0.0.0"
          unpack="false"/>
+
+   <plugin
+         id="tutorial1.source"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"/>
 
 </feature>

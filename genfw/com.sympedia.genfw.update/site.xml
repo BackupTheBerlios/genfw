@@ -6,7 +6,13 @@
    <feature url="features/com.sympedia.genfw_1.0.0.jar" id="com.sympedia.genfw" version="1.0.0">
       <category name="GenFw"/>
    </feature>
+   <feature url="features/com.sympedia.genfw.sdk_1.0.0.jar" id="com.sympedia.genfw.sdk" version="1.0.0">
+      <category name="GenFw"/>
+   </feature>
    <feature url="features/com.sympedia.util_1.0.0.jar" id="com.sympedia.util" version="1.0.0">
+      <category name="GenFw"/>
+   </feature>
+   <feature url="features/com.sympedia.util.sdk_1.0.0.jar" id="com.sympedia.util.sdk" version="1.0.0">
       <category name="GenFw"/>
    </feature>
    <feature url="features/com.sympedia.density.gen_1.0.0.jar" id="com.sympedia.density.gen" version="1.0.0">

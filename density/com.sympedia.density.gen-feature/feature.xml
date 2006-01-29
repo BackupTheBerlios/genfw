@@ -111,11 +111,9 @@ This Agreement is governed by the laws of the State of New York and the intellec
    </license>
 
    <requires>
-      <import feature="com.sympedia.genfw" version="1.0.0"/>
-      <import feature="com.sympedia.util" version="1.0.0"/>
-      <import feature="com.sympedia.genfw" version="1.0.0"/>
       <import plugin="com.sympedia.util.eclipse.resources"/>
       <import plugin="com.sympedia.util.emf"/>
+      <import feature="com.sympedia.genfw" version="1.0.0"/>
       <import plugin="com.sympedia.genfw.edit"/>
       <import plugin="com.sympedia.util.emf.editor"/>
       <import plugin="com.sympedia.util.emf.edit"/>
@@ -124,6 +122,9 @@ This Agreement is governed by the laws of the State of New York and the intellec
       <import plugin="org.eclipse.core.runtime"/>
       <import plugin="org.eclipse.ui"/>
       <import plugin="org.junit"/>
+      <import feature="com.sympedia.util" version="1.0.0"/>
+      <import feature="com.sympedia.genfw" version="1.0.0"/>
+      <import plugin="org.eclipse.pde.core"/>
    </requires>
 
    <plugin
@@ -223,5 +224,11 @@ This Agreement is governed by the laws of the State of New York and the intellec
          install-size="0"
          version="0.0.0"
          unpack="false"/>
+
+   <plugin
+         id="com.sympedia.density.gen.source"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"/>
 
 </feature>
