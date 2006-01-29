@@ -27,6 +27,8 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
 import org.eclipse.ui.IEditorDescriptor;
+import org.eclipse.ui.IEditorPart;
+import org.eclipse.ui.IEditorRegistry;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PartInitException;
@@ -61,27 +63,35 @@ public class UiHelper
     return true;
   }
 
-  public static boolean openDefaultEditor(IFile file)
+  public static IEditorPart openDefaultEditor(IFile file)
   {
-    IWorkbench workbench = PlatformUI.getWorkbench();
-    IWorkbenchPage activePage = workbench.getActiveWorkbenchWindow().getActivePage();
+    return openEditor(file, null);
+  }
 
+  public static IEditorPart openEditor(IFile file, String editorId)
+  {
     try
     {
-      FileEditorInput editorInput = new FileEditorInput(file);
-      String path = file.getFullPath().toString();
-      IEditorDescriptor editor = workbench.getEditorRegistry().getDefaultEditor(path);
-      activePage.openEditor(editorInput, editor.getId());
+      IWorkbench workbench = PlatformUI.getWorkbench();
+      IWorkbenchPage activePage = workbench.getActiveWorkbenchWindow().getActivePage();
+
+      if (editorId == null)
+      {
+        IEditorRegistry editorRegistry = workbench.getEditorRegistry();
+        IEditorDescriptor descriptor = editorRegistry.getDefaultEditor(file.getName());
+        editorId = descriptor.getId();
+      }
+
+      return activePage.openEditor(new FileEditorInput(file), editorId);
     }
-    catch (PartInitException exception)
+    catch (Exception ex)
     {
-      Shell shell = workbench.getActiveWorkbenchWindow().getShell();
-      MessageDialog.openError(shell, "Problem opening the editor for " + file.getFullPath(),
-              exception.toString());
-      return false;
+      ex.printStackTrace();
+      MessageDialog.openError(new Shell(), "Problem opening the editor for " + file.getFullPath(),
+              ex.toString());
     }
 
-    return true;
+    return null;
   }
 
   public static List getTreeItems(Tree tree)
