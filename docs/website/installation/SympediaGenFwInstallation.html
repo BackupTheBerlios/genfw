@@ -1,0 +1,203 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html>
+<head>
+  <meta name="generator" content=
+  "HTML Tidy for Cygwin (vers 1st September 2004), see www.w3.org">
+  <meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+
+  <title>Sympedia GenFw Installation</title>
+  <meta name="generator" content="DocBook XSL Stylesheets V1.69.1">
+  <meta name="description" content=
+  "Sympedia GenFw is a flexible and easy to use framework for software artifact generation. Input models can be associated with generators via extensible rule sets. Additional Content providers, generators and rules can be provided by Eclipse plugins. This article explains the GenFw installation procedure.">
+  </head>
+
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink=
+"#0000FF">
+  <div class="article" lang="en-EN">
+    <div class="titlepage">
+      <div>
+        <div>
+          <h2 class="title"><a name="N65537" id="N65537"></a>Sympedia GenFw
+          Installation</h2>
+        </div>
+
+        <div>
+          <div class="author">
+            <h3 class="author"><span class="firstname">Eike</span> <span class=
+            "surname">Stepper</span></h3><code class="email">&lt;<a href=
+            "mailto:stepper-at-sympedia.com">stepper-at-sympedia.com</a>&gt;</code>
+          </div>
+        </div>
+
+        <div>
+          <p class="pubdate">Saturday, 28 January 2006</p>
+        </div>
+
+        <div>
+          <div class="abstract">
+            <p class="title"><b>Abstract</b></p>
+
+            <p>Sympedia GenFw is a flexible and easy to use framework for
+            software artifact generation. Input models can be associated with
+            generators via extensible rule sets. Additional Content providers,
+            generators and rules can be provided by Eclipse plugins.</p>
+
+            <p>This article explains the GenFw installation procedure.</p>
+          </div>
+        </div>
+      </div>
+      <hr>
+    </div>
+
+    <div class="toc">
+      <p><b>Table of Contents</b></p>
+
+      <dl>
+        <dt><span class="sect1"><a href="#N65561">Prerequisites</a></span></dt>
+
+        <dt><span class="sect1"><a href="#N65605"><img src=
+        "images/UpdateManager.gif"> Eclipse Update Manager</a></span></dt>
+
+        <dt><span class="sect1"><a href="#N65617"><img src=
+        "images/BinaryDownload.gif"> Download Releases</a></span></dt>
+
+        <dt><span class="sect1"><a href="#N65629"><img src=
+        "images/CvsRepository.gif"> Checkout the Sources</a></span></dt>
+      </dl>
+    </div>
+
+    <div class="sect1" lang="en-EN">
+      <div class="titlepage">
+        <div>
+          <div>
+            <h2 class="title" style="clear: both"><a name="N65561" id=
+            "N65561"></a>Prerequisites</h2>
+          </div>
+        </div>
+      </div>
+
+      <p>Be sure that you have the following software properly installed:</p>
+
+      <p><img src="images/Prerequisites.gif"> <a href=
+      "http://download.eclipse.org/eclipse/downloads/" target=
+      "_top">Eclipse</a> <a href=
+      "http://download.eclipse.org/eclipse/downloads/drops/I20060125-0800/index.php"
+      target="_top">3.2 M4 I20060125-0800</a></p>
+
+      <p><img src="images/Prerequisites.gif"> <a href=
+      "http://download.eclipse.org/tools/emf/scripts/downloads.php" target=
+      "_top">EMF</a> <a href=
+      "http://download.eclipse.org/tools/emf/scripts/downloads-viewer.php?s=2.2.0/I200601260027"
+      target="_top">2.2.0 I200601260027</a></p>
+
+      <p><img src="images/Prerequisites.gif"> <a href=
+      "http://download.eclipse.org/tools/gef/downloads/" target="_top">GEF</a>
+      <a href=
+      "http://download.eclipse.org/tools/gef/downloads/drops/I-I20060126-200601260200/index.php"
+      target="_top">3.2 200601260200</a> (only needed if you plan to use the
+      <span class="emphasis"><em>Density Container Debugger</em></span>)</p>
+
+      <p>The concrete versions are the ones I used when writing this.</p>
+    </div>
+
+    <div class="sect1" lang="en-EN">
+      <div class="titlepage">
+        <div>
+          <div>
+            <h2 class="title" style="clear: both"><a name="N65605" id=
+            "N65605"></a><img src="images/UpdateManager.gif"> Eclipse Update
+            Manager</h2>
+          </div>
+        </div>
+      </div>
+
+      <p>Proceed with the <a href="/tutorial1/SympediaGenFwTutorial1.html"
+      target="_top">Sympedia GenFw Tutorial 1</a>.</p>
+    </div>
+
+    <div class="sect1" lang="en-EN">
+      <div class="titlepage">
+        <div>
+          <div>
+            <h2 class="title" style="clear: both"><a name="N65617" id=
+            "N65617"></a><img src="images/BinaryDownload.gif"> Download
+            Releases</h2>
+          </div>
+        </div>
+      </div>
+
+      <p>Proceed with the <a href="/tutorial1/SympediaGenFwTutorial1.html"
+      target="_top">Sympedia GenFw Tutorial 1</a>.</p>
+    </div>
+
+    <div class="sect1" lang="en-EN">
+      <div class="titlepage">
+        <div>
+          <div>
+            <h2 class="title" style="clear: both"><a name="N65629" id=
+            "N65629"></a><img src="images/CvsRepository.gif"> Checkout the
+            Sources</h2>
+          </div>
+        </div>
+      </div>
+
+      <p>GenFw is available through its CVS respository at <a href=
+      "http://developer.berlios.de/cvs/?group_id=5851" target=
+      "_top">http://developer.berlios.de/cvs/?group_id=5851</a></p>
+      <pre class="programlisting">
+    :pserver:anonymous@cvs.genfw.berlios.de:/cvsroot/genfw
+</pre>
+
+      <p>Checkout the following modules from the <code class="code">util</code>
+      component:</p>
+      <pre class="programlisting">
+com.sympedia.util 
+com.sympedia.util.eclipse 
+com.sympedia.util.eclipse.resources 
+com.sympedia.util.eclipse.ui 
+com.sympedia.util.emf 
+com.sympedia.util.emf.edit 
+com.sympedia.util.emf.editor 
+com.sympedia.util-feature 
+org.apache.log4j 
+org.beanshell
+</pre>
+
+      <p>Checkout the following modules from the <code class=
+      "code">genfw</code> component:</p>
+      <pre class="programlisting">
+com.sympedia.genfw 
+com.sympedia.genfw.ant 
+com.sympedia.genfw.bsh 
+com.sympedia.genfw.bsh.edit 
+com.sympedia.genfw.edit 
+com.sympedia.genfw.editor 
+com.sympedia.genfw-feature 
+com.sympedia.genfw.jdt 
+com.sympedia.genfw.jdt.edit 
+com.sympedia.genfw.jet 
+com.sympedia.genfw.jet.edit 
+com.sympedia.genfw.jmerge 
+com.sympedia.genfw.jmerge.edit 
+com.sympedia.genfw.ui
+</pre>
+
+      <p>To deploy GenFw into your Eclipse installation use the menu
+      <span class="emphasis"><em>File | Export... | Deployable
+      Features</em></span> and select</p>
+      <pre class="programlisting">
+com.sympedia.util-feature
+com.sympedia.genfw-feature
+</pre>
+
+      <p>If everything could be exported to the proper location without errors,
+      you may now close the projects you checked out and restart Eclipse to
+      load the installation.</p>
+
+      <p>Proceed with the <a href="/tutorial1/SympediaGenFwTutorial1.html"
+      target="_top">Sympedia GenFw Tutorial 1</a>.</p>
+    </div>
+  </div>
+</body>
+</html>
