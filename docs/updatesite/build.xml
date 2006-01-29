@@ -9,7 +9,7 @@
 	</target>
 
 	<target name="copy.updatesite">
-		<copy todir="${target.dir}">
+		<copy todir="${target.dir}" >
 			<fileset dir="../../com.sympedia.genfw.update">
 				<include name="site.xml" />
 				<include name="web/*" />
