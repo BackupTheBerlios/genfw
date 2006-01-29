@@ -1,0 +1,149 @@
+<?xml version='1.0'?>
+<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.4//EN" "http://www.oasis-open.org/docbook/xml/4.4/docbookx.dtd">
+<article lang="en-EN">
+
+  <title>Sympedia GenFw Installation</title>
+
+  <articleinfo>
+
+    <author>
+
+      <firstname>Eike</firstname>
+      <surname>Stepper</surname>
+      <email>stepper-at-sympedia.com</email>
+
+    </author>
+
+    <pubdate>Saturday, 28 January 2006</pubdate>
+
+    <abstract>
+
+      <para>Sympedia GenFw is a flexible and easy to use framework for 
+      software artifact generation. Input models can be associated with 
+      generators via extensible rule sets. Additional Content 
+      providers, generators and rules can be provided by Eclipse 
+      plugins.</para>
+
+      <para>This article explains the GenFw installation 
+      procedure.</para>
+
+    </abstract>
+
+  </articleinfo>
+
+  <sect1>
+
+    <title>Prerequisites</title>
+
+    <para>Be sure that you have the following software properly 
+    installed:</para>
+
+
+        <para><inlinegraphic fileref="images/Prerequisites.gif"/> 
+        <ulink url="http://download.eclipse.org/eclipse/downloads/">Eclipse</ulink> 
+        <ulink url="http://download.eclipse.org/eclipse/downloads/drops/I20060125-0800/index.php">
+        3.2 M4 I20060125-0800</ulink></para>
+
+
+        <para><inlinegraphic fileref="images/Prerequisites.gif"/> 
+        <ulink url="http://download.eclipse.org/tools/emf/scripts/downloads.php">EMF</ulink> 
+        <ulink url="http://download.eclipse.org/tools/emf/scripts/downloads-viewer.php?s=2.2.0/I200601260027">
+        2.2.0 I200601260027</ulink></para>
+
+
+        <para><inlinegraphic fileref="images/Prerequisites.gif"/> 
+        <ulink url="http://download.eclipse.org/tools/gef/downloads/">GEF</ulink> 
+        <ulink url="http://download.eclipse.org/tools/gef/downloads/drops/I-I20060126-200601260200/index.php">
+        3.2 200601260200</ulink> (only needed if you plan to use the 
+        <emphasis>Density Container Debugger</emphasis>)</para>
+
+
+    <para>The concrete versions are the ones I used when writing 
+    this.</para>
+
+  </sect1>
+
+  <sect1>
+
+    <title><inlinegraphic fileref="images/UpdateManager.gif"/> Eclipse 
+    Update Manager</title>
+
+	<para></para>
+    <para>Proceed with the 
+    <ulink url="/tutorial1/SympediaGenFwTutorial1.html">Sympedia GenFw 
+    Tutorial 1</ulink>.</para>
+
+  </sect1>
+
+  <sect1>
+
+    <title><inlinegraphic fileref="images/BinaryDownload.gif"/> Download Releases</title>
+
+	<para></para>
+
+    <para>Proceed with the 
+    <ulink url="/tutorial1/SympediaGenFwTutorial1.html">Sympedia GenFw 
+    Tutorial 1</ulink>.</para>
+
+  </sect1>
+
+  <sect1>
+
+    <title><inlinegraphic fileref="images/CvsRepository.gif"/> Checkout the Sources</title>
+
+    <para>GenFw is available through its CVS respository at 
+    <ulink url="http://developer.berlios.de/cvs/?group_id=5851">
+    http://developer.berlios.de/cvs/?group_id=5851</ulink></para>
+
+      <programlisting>    :pserver:anonymous@cvs.genfw.berlios.de:/cvsroot/genfw</programlisting>
+
+    <para>Checkout the following modules from the <code>util</code> 
+    component:</para>
+
+      <programlisting>    com.sympedia.util 
+    com.sympedia.util.eclipse 
+    com.sympedia.util.eclipse.resources 
+    com.sympedia.util.eclipse.ui 
+    com.sympedia.util.emf 
+    com.sympedia.util.emf.edit 
+    com.sympedia.util.emf.editor 
+    com.sympedia.util-feature 
+    org.apache.log4j 
+    org.beanshell</programlisting>
+
+    <para>Checkout the following modules from the <code>genfw</code> 
+    component:</para>
+
+      <programlisting>    com.sympedia.genfw 
+    com.sympedia.genfw.ant 
+    com.sympedia.genfw.bsh 
+    com.sympedia.genfw.bsh.edit 
+    com.sympedia.genfw.edit 
+    com.sympedia.genfw.editor 
+    com.sympedia.genfw-feature 
+    com.sympedia.genfw.jdt 
+    com.sympedia.genfw.jdt.edit 
+    com.sympedia.genfw.jet 
+    com.sympedia.genfw.jet.edit 
+    com.sympedia.genfw.jmerge 
+    com.sympedia.genfw.jmerge.edit 
+    com.sympedia.genfw.ui</programlisting>
+
+    <para>To deploy GenFw into your Eclipse installation use the menu 
+    <emphasis>File | Export... | Deployable Features</emphasis> and 
+    select</para>
+
+    <programlisting>    com.sympedia.util-feature
+    com.sympedia.genfw-feature</programlisting>
+    <para>If everything could be exported to the proper location 
+    without errors, you may now close the projects you checked out and 
+    restart Eclipse to load the installation.</para>
+
+    <para>Proceed with the 
+    <ulink url="/tutorial1/SympediaGenFwTutorial1.html">Sympedia GenFw 
+    Tutorial 1</ulink>.</para>
+
+  </sect1>
+
+</article>
+

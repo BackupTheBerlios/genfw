@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="docs.tutorial1" default="render.html" basedir=".">
+<project name="docs.installation" default="render.html" basedir=".">
 
-	<property name="file.name" value="SympediaGenFwTutorial1" />
-	<property name="target.dir" value="../website/tutorial1" />
+	<property name="file.name" value="SympediaGenFwInstallation" />
+	<property name="target.dir" value="../website/installation" />
 
 	<target name="init">
 		<tstamp />
