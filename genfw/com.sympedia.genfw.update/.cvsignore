@@ -8,3 +8,5 @@ runtime
 *.log
 *.tmp
 *.dump
+features
+plugins

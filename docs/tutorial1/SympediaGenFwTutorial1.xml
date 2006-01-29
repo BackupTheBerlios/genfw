@@ -991,9 +991,9 @@ public class BeanHelper
         <programlisting>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt; 
 &lt;project name=&quot;tutorial1.orderman&quot; default=&quot;generate&quot; basedir=&quot;.&quot;&gt; 
  
- &lt;target name=&quot;generate&quot;&gt; 
-  &lt;genfw genapp=&quot;/tutorial.orderman/model/orderman.genapp&quot; tracelevel=&quot;4&quot; /&gt; 
- &lt;/target&gt; 
+  &lt;target name=&quot;generate&quot;&gt; 
+    &lt;genfw genapp=&quot;/tutorial.orderman/model/orderman.genapp&quot; tracelevel=&quot;4&quot; /&gt; 
+  &lt;/target&gt; 
  
 &lt;/project&gt;</programlisting>
       </listitem>

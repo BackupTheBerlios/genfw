@@ -59,10 +59,10 @@
         <dt><span class="sect1"><a href="#N65605"><img src=
         "images/UpdateManager.gif"> Eclipse Update Manager</a></span></dt>
 
-        <dt><span class="sect1"><a href="#N65617"><img src=
+        <dt><span class="sect1"><a href="#N65642"><img src=
         "images/BinaryDownload.gif"> Download Releases</a></span></dt>
 
-        <dt><span class="sect1"><a href="#N65629"><img src=
+        <dt><span class="sect1"><a href="#N65655"><img src=
         "images/CvsRepository.gif"> Checkout the Sources</a></span></dt>
       </dl>
     </div>
@@ -112,18 +112,25 @@
         </div>
       </div>
 
-      <p>Proceed with the <a href="/tutorial1/SympediaGenFwTutorial1.html"
-      target="_top">Sympedia GenFw Tutorial 1</a>.</p>
-    </div>
+      <p>It is rather convenient to use the <span class="emphasis"><em>Eclipse
+      Update Manager</em></span> to install all the needed features and
+      plugins. For this purpose Sympedia GenFw is available through an
+      <span class="emphasis"><em>Eclipse Update Site</em></span>.</p>
 
-    <div class="sect1" lang="en-EN">
-      <div class="titlepage">
+      <p>Name: <code class="code">Sympedia GenFw Update Site</code></p>
+
+      <p>URL: <code class="code"><a href="http://genfw.berlios.de/update"
+      target="_top">http://genfw.berlios.de/update</a></code></p>
+
+      <div class="figure">
+        <a name="N65630" id="N65630"></a>
+
+        <p class="title"><b>Figure&nbsp;1.&nbsp;Configure a New Remote
+        Site</b></p>
+
         <div>
-          <div>
-            <h2 class="title" style="clear: both"><a name="N65617" id=
-            "N65617"></a><img src="images/BinaryDownload.gif"> Download
-            Releases</h2>
-          </div>
+          <img src="images/NewUpdateSite.gif" alt=
+          "Configure a New Remote Site">
         </div>
       </div>
 
@@ -135,8 +142,25 @@
       <div class="titlepage">
         <div>
           <div>
-            <h2 class="title" style="clear: both"><a name="N65629" id=
-            "N65629"></a><img src="images/CvsRepository.gif"> Checkout the
+            <h2 class="title" style="clear: both"><a name="N65642" id=
+            "N65642"></a><img src="images/BinaryDownload.gif"> Download
+            Releases</h2>
+          </div>
+        </div>
+      </div>
+
+      <p>Not available at the moment.</p>
+
+      <p>Proceed with the <a href="/tutorial1/SympediaGenFwTutorial1.html"
+      target="_top">Sympedia GenFw Tutorial 1</a>.</p>
+    </div>
+
+    <div class="sect1" lang="en-EN">
+      <div class="titlepage">
+        <div>
+          <div>
+            <h2 class="title" style="clear: both"><a name="N65655" id=
+            "N65655"></a><img src="images/CvsRepository.gif"> Checkout the
             Sources</h2>
           </div>
         </div>
@@ -152,43 +176,43 @@
       <p>Checkout the following modules from the <code class="code">util</code>
       component:</p>
       <pre class="programlisting">
-com.sympedia.util 
-com.sympedia.util.eclipse 
-com.sympedia.util.eclipse.resources 
-com.sympedia.util.eclipse.ui 
-com.sympedia.util.emf 
-com.sympedia.util.emf.edit 
-com.sympedia.util.emf.editor 
-com.sympedia.util-feature 
-org.apache.log4j 
-org.beanshell
+    com.sympedia.util 
+    com.sympedia.util.eclipse 
+    com.sympedia.util.eclipse.resources 
+    com.sympedia.util.eclipse.ui 
+    com.sympedia.util.emf 
+    com.sympedia.util.emf.edit 
+    com.sympedia.util.emf.editor 
+    com.sympedia.util-feature 
+    org.apache.log4j 
+    org.beanshell
 </pre>
 
       <p>Checkout the following modules from the <code class=
       "code">genfw</code> component:</p>
       <pre class="programlisting">
-com.sympedia.genfw 
-com.sympedia.genfw.ant 
-com.sympedia.genfw.bsh 
-com.sympedia.genfw.bsh.edit 
-com.sympedia.genfw.edit 
-com.sympedia.genfw.editor 
-com.sympedia.genfw-feature 
-com.sympedia.genfw.jdt 
-com.sympedia.genfw.jdt.edit 
-com.sympedia.genfw.jet 
-com.sympedia.genfw.jet.edit 
-com.sympedia.genfw.jmerge 
-com.sympedia.genfw.jmerge.edit 
-com.sympedia.genfw.ui
+    com.sympedia.genfw 
+    com.sympedia.genfw.ant 
+    com.sympedia.genfw.bsh 
+    com.sympedia.genfw.bsh.edit 
+    com.sympedia.genfw.edit 
+    com.sympedia.genfw.editor 
+    com.sympedia.genfw-feature 
+    com.sympedia.genfw.jdt 
+    com.sympedia.genfw.jdt.edit 
+    com.sympedia.genfw.jet 
+    com.sympedia.genfw.jet.edit 
+    com.sympedia.genfw.jmerge 
+    com.sympedia.genfw.jmerge.edit 
+    com.sympedia.genfw.ui
 </pre>
 
       <p>To deploy GenFw into your Eclipse installation use the menu
       <span class="emphasis"><em>File | Export... | Deployable
       Features</em></span> and select</p>
       <pre class="programlisting">
-com.sympedia.util-feature
-com.sympedia.genfw-feature
+    com.sympedia.util-feature
+    com.sympedia.genfw-feature
 </pre>
 
       <p>If everything could be exported to the proper location without errors,

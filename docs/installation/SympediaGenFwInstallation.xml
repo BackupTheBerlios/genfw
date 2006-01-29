@@ -38,37 +38,67 @@
     <para>Be sure that you have the following software properly 
     installed:</para>
 
+    <para><inlinegraphic fileref="images/Prerequisites.gif"/> 
+    <ulink url="http://download.eclipse.org/eclipse/downloads/">
+    Eclipse</ulink> 
+    <ulink url="http://download.eclipse.org/eclipse/downloads/drops/I20060125-0800/index.php">
+    3.2 M4 I20060125-0800</ulink></para>
 
-        <para><inlinegraphic fileref="images/Prerequisites.gif"/> 
-        <ulink url="http://download.eclipse.org/eclipse/downloads/">Eclipse</ulink> 
-        <ulink url="http://download.eclipse.org/eclipse/downloads/drops/I20060125-0800/index.php">
-        3.2 M4 I20060125-0800</ulink></para>
+    <para><inlinegraphic fileref="images/Prerequisites.gif"/> 
+    <ulink url="http://download.eclipse.org/tools/emf/scripts/downloads.php">
+    EMF</ulink> 
+    <ulink url="http://download.eclipse.org/tools/emf/scripts/downloads-viewer.php?s=2.2.0/I200601260027">
+    2.2.0 I200601260027</ulink></para>
 
-
-        <para><inlinegraphic fileref="images/Prerequisites.gif"/> 
-        <ulink url="http://download.eclipse.org/tools/emf/scripts/downloads.php">EMF</ulink> 
-        <ulink url="http://download.eclipse.org/tools/emf/scripts/downloads-viewer.php?s=2.2.0/I200601260027">
-        2.2.0 I200601260027</ulink></para>
-
-
-        <para><inlinegraphic fileref="images/Prerequisites.gif"/> 
-        <ulink url="http://download.eclipse.org/tools/gef/downloads/">GEF</ulink> 
-        <ulink url="http://download.eclipse.org/tools/gef/downloads/drops/I-I20060126-200601260200/index.php">
-        3.2 200601260200</ulink> (only needed if you plan to use the 
-        <emphasis>Density Container Debugger</emphasis>)</para>
-
+    <para><inlinegraphic fileref="images/Prerequisites.gif"/> 
+    <ulink url="http://download.eclipse.org/tools/gef/downloads/">
+    GEF</ulink> 
+    <ulink url="http://download.eclipse.org/tools/gef/downloads/drops/I-I20060126-200601260200/index.php">
+    3.2 200601260200</ulink> (only needed if you plan to use the 
+    <emphasis>Density Container Debugger</emphasis>)</para>
 
     <para>The concrete versions are the ones I used when writing 
     this.</para>
 
   </sect1>
 
+	<sect1>
+		
+		<title><inlinegraphic fileref="images/UpdateManager.gif"/> Eclipse Update
+			Manager</title>
+		
+		<para>It is rather convenient to use the <emphasis>Eclipse Update
+			Manager</emphasis> to install all the needed features and plugins. For this
+			purpose Sympedia GenFw is available through an <emphasis>Eclipse Update
+			Site</emphasis>.</para>
+		
+		<para>Name:
+			<code>Sympedia GenFw Update Site</code></para>
+		
+		<para>URL:
+			<code> <ulink url="http://genfw.berlios.de/update">
+				http://genfw.berlios.de/update</ulink>
+			</code></para>
+		
+		<figure>
+			
+			<title>Configure a New Remote Site</title>
+			
+			<graphic fileref="images/NewUpdateSite.gif"/>
+		</figure>
+		
+		<para>Proceed with the <ulink url="/tutorial1/SympediaGenFwTutorial1.html">
+			Sympedia GenFw Tutorial 1</ulink>.</para>
+		
+	</sect1>
+
   <sect1>
 
-    <title><inlinegraphic fileref="images/UpdateManager.gif"/> Eclipse 
-    Update Manager</title>
+    <title><inlinegraphic fileref="images/BinaryDownload.gif"/> 
+    Download Releases</title>
 
-	<para></para>
+    <para>Not available at the moment.</para>
+
     <para>Proceed with the 
     <ulink url="/tutorial1/SympediaGenFwTutorial1.html">Sympedia GenFw 
     Tutorial 1</ulink>.</para>
@@ -77,30 +107,18 @@
 
   <sect1>
 
-    <title><inlinegraphic fileref="images/BinaryDownload.gif"/> Download Releases</title>
-
-	<para></para>
-
-    <para>Proceed with the 
-    <ulink url="/tutorial1/SympediaGenFwTutorial1.html">Sympedia GenFw 
-    Tutorial 1</ulink>.</para>
-
-  </sect1>
-
-  <sect1>
-
-    <title><inlinegraphic fileref="images/CvsRepository.gif"/> Checkout the Sources</title>
+    <title><inlinegraphic fileref="images/CvsRepository.gif"/> Checkout 
+    the Sources</title>
 
     <para>GenFw is available through its CVS respository at 
     <ulink url="http://developer.berlios.de/cvs/?group_id=5851">
     http://developer.berlios.de/cvs/?group_id=5851</ulink></para>
 
-      <programlisting>    :pserver:anonymous@cvs.genfw.berlios.de:/cvsroot/genfw</programlisting>
-
+    <programlisting>    :pserver:anonymous@cvs.genfw.berlios.de:/cvsroot/genfw</programlisting>
     <para>Checkout the following modules from the <code>util</code> 
     component:</para>
 
-      <programlisting>    com.sympedia.util 
+    <programlisting>    com.sympedia.util 
     com.sympedia.util.eclipse 
     com.sympedia.util.eclipse.resources 
     com.sympedia.util.eclipse.ui 
@@ -110,11 +128,10 @@
     com.sympedia.util-feature 
     org.apache.log4j 
     org.beanshell</programlisting>
-
     <para>Checkout the following modules from the <code>genfw</code> 
     component:</para>
 
-      <programlisting>    com.sympedia.genfw 
+    <programlisting>    com.sympedia.genfw 
     com.sympedia.genfw.ant 
     com.sympedia.genfw.bsh 
     com.sympedia.genfw.bsh.edit 
@@ -128,7 +145,6 @@
     com.sympedia.genfw.jmerge 
     com.sympedia.genfw.jmerge.edit 
     com.sympedia.genfw.ui</programlisting>
-
     <para>To deploy GenFw into your Eclipse installation use the menu 
     <emphasis>File | Export... | Deployable Features</emphasis> and 
     select</para>

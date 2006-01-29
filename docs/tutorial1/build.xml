@@ -11,12 +11,13 @@
 	</target>
 
 	<target name="clean" depends="init">
-		<delete file="${out.path}" failonerror="false" />
+		<delete dir="${target.dir}" failonerror="false" />
 	</target>
 
 	<target name="render.html" depends="clean">
+		<mkdir dir="${target.dir}" />
 		<xslt in="${file.name}.xml" out="${out.path}" style="../docbook-xsl-1.69.1/html/docbook.xsl" />
-		<exec executable="c:/programme/cygwin/bin/tidy.exe">
+		<exec executable="c:/programme/cygwin/bin/tidy.exe" failonerror="no">
 			<arg value="-modify" />
 			<arg value="-indent" />
 			<arg value="-wrap" />
