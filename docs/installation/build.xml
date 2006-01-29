@@ -7,11 +7,15 @@
 	<target name="init">
 		<tstamp />
 		<property name="out.path" value="${target.dir}/${file.name}.html" />
-		<property file="${user.home}/genfw.properties" />
 	</target>
 
 	<target name="clean" depends="init">
-		<delete dir="${target.dir}" failonerror="false" />
+		<delete failonerror="false">
+			<fileset dir="${target.dir}">
+				<include name="**/*.gif" />
+				<include name="**/*.html" />
+			</fileset>
+		</delete>
 	</target>
 
 	<target name="render.html" depends="clean">

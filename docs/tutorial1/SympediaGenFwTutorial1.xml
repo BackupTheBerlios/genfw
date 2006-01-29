@@ -255,7 +255,7 @@ public class PersonBean
 
       <title>UML diagram of the Beans model</title>
 
-      <graphic fileref="images/beansModel.GIF"/>
+      <graphic fileref="images/beansModelImg.gif"/>
     </figure>
 
     <para>The visual designer creates the .ecore file and you have to 
@@ -302,7 +302,7 @@ public class PersonBean
 
           <title>Meta Model generated</title>
 
-          <graphic fileref="images/mmGenerated.GIF"/>
+          <graphic fileref="images/mmGeneratedImg.gif"/>
         </figure>
 
       </listitem>
@@ -359,7 +359,7 @@ public class PersonBean
 
           <title>Instance of the Meta Model created</title>
 
-          <graphic fileref="images/mmFileCreated.GIF"/>
+          <graphic fileref="images/mmFileCreatedImg.gif"/>
         </figure>
 
       </listitem>
@@ -519,7 +519,7 @@ public abstract class &lt;%=bean.getName()%&gt;BeanBase
 
           <title>JET template created</title>
 
-          <graphic fileref="images/templateCreated.GIF"/>
+          <graphic fileref="images/templateCreatedImg.gif"/>
         </figure>
 
         <para>You should verify that the JET compiler has written the 
@@ -628,7 +628,7 @@ public abstract class &lt;%=bean.getName()%&gt;BeanBase
 
           <title>Generator Library created</title>
 
-          <graphic fileref="images/genlibCreated.GIF"/>
+          <graphic fileref="images/genlibCreatedImg.gif"/>
         </figure>
 
         <para>The configuration of the generator library is complete 
@@ -669,7 +669,7 @@ public abstract class &lt;%=bean.getName()%&gt;BeanBase
 
           <title>Generator Application created</title>
 
-          <graphic fileref="images/genappCreated.GIF"/>
+          <graphic fileref="images/genappCreatedImg.gif"/>
         </figure>
 
       </listitem>
@@ -824,7 +824,7 @@ public class StringHelper
 
           <title>Platform plugin created</title>
 
-          <graphic fileref="images/platformCreated.GIF"/>
+          <graphic fileref="images/platformCreatedImg.gif"/>
         </figure>
 
       </listitem>
@@ -960,7 +960,7 @@ public class BeanHelper
 
           <title>Rule that never overwrites existing files</title>
 
-          <graphic fileref="images/initialTemplate.GIF"/>
+          <graphic fileref="images/initialTemplateImg.gif"/>
         </figure>
 
       </listitem>
@@ -1014,7 +1014,7 @@ public class BeanHelper
 
       <title>Generator Applications view</title>
 
-      <graphic fileref="images/genappsView.GIF"/>
+      <graphic fileref="images/genappsViewImg.gif"/>
     </figure>
 
   </sect1>
