@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site>
+   <description url="http://genfw.berlios.de/update">
+      This is the Eclipse update site for Sympedia GenFw.
+   </description>
+   <feature url="features/com.sympedia.util_1.0.0.jar" id="com.sympedia.util" version="1.0.0">
+      <category name="GenFw"/>
+   </feature>
+   <feature url="features/com.sympedia.density.gen_1.0.0.jar" id="com.sympedia.density.gen" version="1.0.0">
+      <category name="Examples"/>
+   </feature>
+   <feature url="features/com.sympedia.genfw_1.0.0.jar" id="com.sympedia.genfw" version="1.0.0">
+      <category name="GenFw"/>
+   </feature>
+   <feature url="features/tutorial1_1.0.0.jar" id="tutorial1" version="1.0.0">
+      <category name="Examples"/>
+   </feature>
+   <category-def name="GenFw" label="Sympedia GenFw"/>
+   <category-def name="Examples" label="Examples"/>
+</site>
