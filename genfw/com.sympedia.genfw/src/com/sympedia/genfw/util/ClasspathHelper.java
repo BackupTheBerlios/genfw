@@ -212,14 +212,11 @@ public class ClasspathHelper
     IExtension[] extensions = extensionPoint.getExtensions();
     for (IExtension extension : extensions)
     {
-      GenfwActivator.INSTANCE.log("EXTENSION: " + extension);
       if (StringHelper.equals(extension.getNamespace(), bundleId))
       {
         IConfigurationElement[] configurationElements = extension.getConfigurationElements();
         for (IConfigurationElement element : configurationElements)
         {
-          GenfwActivator.INSTANCE.log("ELEMENT: " + element.getName());
-
           try
           {
             Object initializer = element.createExecutableExtension("libraryInitializer");

@@ -25,9 +25,7 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
-import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.SubProgressMonitor;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
@@ -36,7 +34,6 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -193,12 +190,34 @@ public class GenfwHelper
       for (Rule rule : rules)
       {
         if (traceLevel >= TRACE_RULE) System.out.println("Matching " + rule.getName());
-        boolean matching = rule.isMatching(inputObject);
+        boolean matching = false;
+
+        try
+        {
+          matching = rule.isMatching(inputObject);
+        }
+        catch (Exception ex)
+        {
+          ex.printStackTrace();
+          GenfwActivator.INSTANCE.log(ex);
+        }
+
         monitor.worked(1);
 
         if (matching)
         {
-          String targetPath = rule.getTargetPath(inputObject);
+          String targetPath = null;
+
+          try
+          {
+            targetPath = rule.getTargetPath(inputObject);
+          }
+          catch (Exception ex)
+          {
+            ex.printStackTrace();
+            GenfwActivator.INSTANCE.log(ex);
+          }
+
           monitor.worked(1);
 
           if (targetPath != null && !targetPath.startsWith("/"))
@@ -222,8 +241,18 @@ public class GenfwHelper
             System.out.println("GENERATING " + targetPath + "   [" + inputObject + "]");
 
           Generator generator = rule.getGenerator();
-          String result = generator.generate(inputObject, targetPath, new SubProgressMonitor(
-                  monitor, 1));
+          String result = null;
+
+          try
+          {
+            result = generator
+                    .generate(inputObject, targetPath, new SubProgressMonitor(monitor, 1));
+          }
+          catch (Exception ex)
+          {
+            ex.printStackTrace();
+            GenfwActivator.INSTANCE.log(ex);
+          }
 
           if (result != null)
           {
@@ -234,10 +263,10 @@ public class GenfwHelper
                 if (traceLevel >= TRACE_WRITE) System.out.println("-> WRITTEN " + targetPath);
               }
             }
-            catch (IOException ex)
+            catch (Exception ex)
             {
-              throw new CoreException(new Status(IStatus.ERROR, GenfwActivator.PLUGIN_ID,
-                      IStatus.ERROR, "Problem while ensuring file content: " + targetPath, ex));
+              ex.printStackTrace();
+              GenfwActivator.INSTANCE.log(ex);
             }
           }
         }

@@ -1,7 +1,8 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Gen Plug-in
-Bundle-SymbolicName: tutorial1.gen
+Bundle-SymbolicName: tutorial1.gen;singleton:=true
 Bundle-Version: 1.0.0
 Bundle-Localization: plugin
-Require-Bundle: tutorial1.gen.beans
+Require-Bundle: com.sympedia.genfw;visibility:=reexport,
+ tutorial1.gen.beans;visibility:=reexport
