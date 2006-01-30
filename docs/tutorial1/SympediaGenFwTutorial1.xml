@@ -1103,14 +1103,53 @@ public class BeanHelper
         requirements or simply due to maintenance, so I leave this 
         project in my workspace. But sometimes it is practical to 
         deploy a generator library (with all the templates and meta 
-        models) as an installed plugin. GenFw class loaders are 
-        prepared for this situation. This way it is also possible to 
+        models) as an installed plugin. This way it is also possible to 
         use generators out-of-the box that you installed via the 
         Eclipse Update Manager from the internet or an enterprise 
         repository. To refer to these generator libraries use a 
         resource URI like 
-        <code>platform:/plugin/&lt;pluing-id&gt;/&lt;entry-path&gt;</code>.</para>
+        <code>platform:/plugin/&lt;pluing-id&gt;/&lt;entry-path&gt;</code>. 
+        However, GenFw class loaders are not prepared out-of-the-box 
+        for this situation! The plugin that you want the generator to 
+        be installed in has to contribute to the 
+        <code>com.sympedia.genfw.externalLibraries</code> 
+        <emphasis>Extension Point</emphasis>:</para>
 
+        <programlisting>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt; 
+&lt;?eclipse version=&quot;3.0&quot;?&gt; 
+ 
+&lt;plugin&gt; 
+ 
+   &lt;extension point=&quot;com.sympedia.genfw.externalLibraries&quot;&gt; 
+      &lt;externalLibrary 
+         libraryInitializer=&quot;tutorial1.gen.internal.BeansLibraryInitializer&quot; 
+         libraryPath=&quot;model/beans.genlib&quot;/&gt; 
+   &lt;/extension&gt; 
+ 
+&lt;/plugin&gt;</programlisting>
+        <para>The referenced <code>BeansLibraryInitializer</code> class 
+        must implement the interface 
+        <code>com.sympedia.genfw.IExternalLibraryInitializer</code>. 
+        The only method to be implemented can safely be left empty, it 
+        is not used for the moment. The class is only needed so that 
+        GenFw can compute the class loader of the contributing plugin 
+        at runtime.</para>
+
+        <programlisting>package tutorial1.gen.internal; 
+ 
+import com.sympedia.genfw.GenLib; 
+import com.sympedia.genfw.IExternalLibraryInitializer; 
+ 
+/** 
+ * This class has to be present only to be referenced from plugin.xml 
+ */ 
+public class BeansLibraryInitializer implements IExternalLibraryInitializer 
+{ 
+  public void initalizeLibrary(GenLib genlib) throws Exception 
+  {
+    // Intentionally left empty
+  } 
+}</programlisting>
       </listitem>
 
       <listitem>
@@ -1210,7 +1249,7 @@ public class BeanHelper
 
   </sect1>
 
-  <appendix>
+  <sect1>
 
     <title>Patching CodeGen</title>
 
@@ -1274,7 +1313,7 @@ diff -u -r1.50 GenPackageImpl.java
 +    if (dependencyHelper == null) dependencyHelper = new DependencyHelper(); 
      return &quot;the&quot; + dependencyHelper.getUniqueName(genPackage); 
    }</programlisting>
-  </appendix>
+  </sect1>
 
 </article>
 

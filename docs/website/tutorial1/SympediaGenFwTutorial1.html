@@ -70,7 +70,7 @@
 
         <dt><span class="sect1"><a href="#N66256">Notes</a></span></dt>
 
-        <dt><span class="appendix"><a href="#N66302">A. Patching
+        <dt><span class="sect1"><a href="#N66322">Patching
         CodeGen</a></span></dt>
       </dl>
     </div>
@@ -1146,13 +1146,55 @@ public class BeanHelper
             resulting GenLib tend to change often due to new requirements or
             simply due to maintenance, so I leave this project in my workspace.
             But sometimes it is practical to deploy a generator library (with
-            all the templates and meta models) as an installed plugin. GenFw
-            class loaders are prepared for this situation. This way it is also
-            possible to use generators out-of-the box that you installed via
-            the Eclipse Update Manager from the internet or an enterprise
-            repository. To refer to these generator libraries use a resource
-            URI like <code class=
-            "code">platform:/plugin/&lt;pluing-id&gt;/&lt;entry-path&gt;</code>.</p>
+            all the templates and meta models) as an installed plugin. This way
+            it is also possible to use generators out-of-the box that you
+            installed via the Eclipse Update Manager from the internet or an
+            enterprise repository. To refer to these generator libraries use a
+            resource URI like <code class=
+            "code">platform:/plugin/&lt;pluing-id&gt;/&lt;entry-path&gt;</code>.
+            However, GenFw class loaders are not prepared out-of-the-box for
+            this situation! The plugin that you want the generator to be
+            installed in has to contribute to the <code class=
+            "code">com.sympedia.genfw.externalLibraries</code> <span class=
+            "emphasis"><em>Extension Point</em></span>:</p>
+            <pre class="programlisting">
+&lt;?xml version="1.0" encoding="UTF-8"?&gt; 
+&lt;?eclipse version="3.0"?&gt; 
+ 
+&lt;plugin&gt; 
+ 
+   &lt;extension point="com.sympedia.genfw.externalLibraries"&gt; 
+      &lt;externalLibrary 
+         libraryInitializer="tutorial1.gen.internal.BeansLibraryInitializer" 
+         libraryPath="model/beans.genlib"/&gt; 
+   &lt;/extension&gt; 
+ 
+&lt;/plugin&gt;
+</pre>
+
+            <p>The referenced <code class="code">BeansLibraryInitializer</code>
+            class must implement the interface <code class=
+            "code">com.sympedia.genfw.IExternalLibraryInitializer</code>. The
+            only method to be implemented can safely be left empty, it is not
+            used for the moment. The class is only needed so that GenFw can
+            compute the class loader of the contributing plugin at runtime.</p>
+            <pre class="programlisting">
+package tutorial1.gen.internal; 
+ 
+import com.sympedia.genfw.GenLib; 
+import com.sympedia.genfw.IExternalLibraryInitializer; 
+ 
+/** 
+ * This class has to be present only to be referenced from plugin.xml 
+ */ 
+public class BeansLibraryInitializer implements IExternalLibraryInitializer 
+{ 
+  public void initalizeLibrary(GenLib genlib) throws Exception 
+  {
+    // Intentionally left empty
+  } 
+}
+</pre>
           </li>
 
           <li>
@@ -1234,9 +1276,15 @@ public class BeanHelper
       </div>
     </div>
 
-    <div class="appendix" lang="en-EN">
-      <h2 class="title" style="clear: both"><a name="N66302" id=
-      "N66302"></a>A.&nbsp;Patching CodeGen</h2>
+    <div class="sect1" lang="en-EN">
+      <div class="titlepage">
+        <div>
+          <div>
+            <h2 class="title" style="clear: both"><a name="N66322" id=
+            "N66322"></a>Patching CodeGen</h2>
+          </div>
+        </div>
+      </div>
 
       <p>The current version (2.2.0 I200601190000 as of this writing) of EMF
       has to be slightly patched in order to let the Ecore Template generator
