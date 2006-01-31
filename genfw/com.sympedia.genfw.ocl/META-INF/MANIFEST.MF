@@ -1,0 +1,16 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: %pluginName
+Bundle-SymbolicName: com.sympedia.genfw.ocl; singleton:=true
+Bundle-Version: 1.0.0
+Bundle-ClassPath: .
+Bundle-Activator: com.sympedia.genfw.ocl.internal.OclActivator$Implementation
+Bundle-Vendor: %providerName
+Bundle-Localization: plugin
+Export-Package: com.sympedia.genfw.ocl,
+ com.sympedia.genfw.ocl.impl,
+ com.sympedia.genfw.ocl.internal,
+ com.sympedia.genfw.ocl.util
+Require-Bundle: com.sympedia.genfw;visibility:=reexport,
+ org.eclipse.emf.ocl;visibility:=reexport
+Eclipse-LazyStart: true

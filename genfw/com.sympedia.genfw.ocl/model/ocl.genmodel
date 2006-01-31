@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/com.sympedia.genfw.ocl/src"
+    editorDirectory="" modelPluginID="com.sympedia.genfw.ocl" modelName="Ocl" modelPluginClass="com.sympedia.genfw.ocl.internal.OclActivator"
+    editorPluginClass="" codeFormatting="true" testsDirectory="" testSuiteClass=""
+    importerID="org.eclipse.emf.importer.ecore" usedGenPackages="../../../plugin/com.sympedia.genfw/model/genfw.genmodel#//genfw">
+  <foreignModel>ocl.ecore</foreignModel>
+  <genPackages prefix="Ocl" basePackage="com.sympedia.genfw" disposableProviderFactory="true"
+      ecorePackage="ocl.ecore#/">
+    <genDataTypes ecoreDataType="ocl.ecore#//EPackageRegistry"/>
+    <genClasses ecoreClass="ocl.ecore#//OclRule">
+      <genOperations ecoreOperation="ocl.ecore#//OclRule/getPackageRegistry"/>
+    </genClasses>
+    <genClasses ecoreClass="ocl.ecore#//ConfigurableOclRule">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ocl.ecore#//ConfigurableOclRule/packages"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="ocl.ecore#//PackageConfiguration">
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference ocl.ecore#//PackageConfiguration/oclRule"/>
+      <genOperations ecoreOperation="ocl.ecore#//PackageConfiguration/getPackage"/>
+    </genClasses>
+    <genClasses ecoreClass="ocl.ecore#//DynamicPackage">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ocl.ecore#//DynamicPackage/ecoreFile"/>
+    </genClasses>
+    <genClasses ecoreClass="ocl.ecore#//StaticPackage">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ocl.ecore#//StaticPackage/nsURI"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

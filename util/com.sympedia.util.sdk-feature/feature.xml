@@ -1,24 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
-      id="com.sympedia.genfw"
+      id="com.sympedia.util.sdk"
       label="%featureName"
       version="1.0.0"
       provider-name="%providerName">
 
-   <description url="http://www.sympedia.com/descriptions/genfw.html">
+   <description url="http://www.sympedia.com/descriptions/util.html">
       %description
    </description>
 
    <copyright url="http://www.sympedia.com/legal/copyright.html">
-      Copyright (c) 2006 Eike Stepper, Fuggerstr. 39, 10777 Berlin,
-Germany.
+      Copyright (c) 2006 Eike Stepper, Fuggerstr. 39, 10777 Berlin, Germany.
 All rights reserved. This program and the accompanying materials
-are made available under the terms of the Eclipse Public License
-v1.0
+are made available under the terms of the Eclipse Public License v1.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v10.html
+
 Contributors:
-Eike Stepper - initial API and implementation
+   Eike Stepper - initial API and implementation
    </copyright>
 
    <license url="http://www.eclipse.org/legal/epl-v10.html">
@@ -111,11 +110,7 @@ This Agreement is governed by the laws of the State of New York and the intellec
    </license>
 
    <includes
-         id="com.sympedia.genfw"
-         version="0.0.0"/>
-
-   <includes
-         id="com.sympedia.util.sdk"
+         id="com.sympedia.util"
          version="0.0.0"/>
 
    <requires>
@@ -123,7 +118,7 @@ This Agreement is governed by the laws of the State of New York and the intellec
    </requires>
 
    <plugin
-         id="com.sympedia.genfw.source"
+         id="com.sympedia.util.source"
          download-size="0"
          install-size="0"
          version="0.0.0"/>

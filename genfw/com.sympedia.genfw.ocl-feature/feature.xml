@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
-      id="com.sympedia.genfw"
+      id="com.sympedia.genfw.ocl"
       label="%featureName"
       version="1.0.0"
       provider-name="%providerName">
@@ -110,22 +110,28 @@ Everyone is permitted to copy and distribute copies of this Agreement, but in or
 This Agreement is governed by the laws of the State of New York and the intellectual property laws of the United States of America. No party to this Agreement will bring a legal action under this Agreement more than one year after the cause of action arose. Each party waives its rights to a jury trial in any resulting litigation.
    </license>
 
-   <includes
-         id="com.sympedia.genfw"
-         version="0.0.0"/>
-
-   <includes
-         id="com.sympedia.util.sdk"
-         version="0.0.0"/>
-
    <requires>
-      <import plugin="org.eclipse.pde.core"/>
+      <import feature="com.sympedia.genfw" version="1.0.0"/>
+      <import feature="org.eclipse.emf.ocl" version="1.0.0"/>
+      <import feature="com.sympedia.genfw" version="1.0.0"/>
+      <import feature="org.eclipse.emf.ocl" version="1.0.0"/>
+      <import plugin="org.eclipse.core.runtime"/>
+      <import plugin="org.eclipse.emf.edit"/>
+      <import plugin="com.sympedia.genfw.edit"/>
    </requires>
 
    <plugin
-         id="com.sympedia.genfw.source"
+         id="com.sympedia.genfw.ocl"
          download-size="0"
          install-size="0"
-         version="0.0.0"/>
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="com.sympedia.genfw.ocl.edit"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
 
 </feature>

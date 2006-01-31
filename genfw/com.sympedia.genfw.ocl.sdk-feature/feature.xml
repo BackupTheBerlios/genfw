@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
-      id="com.sympedia.genfw"
+      id="com.sympedia.genfw.ocl.sdk"
       label="%featureName"
       version="1.0.0"
       provider-name="%providerName">
@@ -111,11 +111,7 @@ This Agreement is governed by the laws of the State of New York and the intellec
    </license>
 
    <includes
-         id="com.sympedia.genfw"
-         version="0.0.0"/>
-
-   <includes
-         id="com.sympedia.util.sdk"
+         id="com.sympedia.genfw.ocl"
          version="0.0.0"/>
 
    <requires>
@@ -123,7 +119,7 @@ This Agreement is governed by the laws of the State of New York and the intellec
    </requires>
 
    <plugin
-         id="com.sympedia.genfw.source"
+         id="com.sympedia.genfw.ocl.source"
          download-size="0"
          install-size="0"
          version="0.0.0"/>
