@@ -221,8 +221,8 @@ public class EqualityHelper
             <pre class="programlisting">
 public interface ContentProvider extends EObject 
 { 
-  public List getRoots(String path); 
-  public List getChildren(Object object); 
+  public List getRoots(String path) throws Exception; 
+  public List getChildren(Object object) throws Exception; 
 }
 </pre>
           </li>
@@ -238,7 +238,7 @@ public interface Generator extends EObject
 { 
   public String generate(Object inputObject, 
                          String targetPath, 
-                         IProgressMonitor monitor) throws CoreException; 
+                         IProgressMonitor monitor) throws Exception; 
 }
 </pre>
           </li>
@@ -251,8 +251,8 @@ public interface Generator extends EObject
             <pre class="programlisting">
 public interface Rule extends EObject 
 { 
-  public boolean isMatching(Object inputObject); 
-  public String getTargetPath(Object inputObject); 
+  public boolean isMatching(Object inputObject) throws Exception; 
+  public String getTargetPath(Object inputObject) throws Exception; 
   public Generator getGenerator(); 
 }
 </pre>
