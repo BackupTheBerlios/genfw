@@ -73,7 +73,7 @@
 
         <dt><span class="sect1"><a href="#N102D2">Notes</a></span></dt>
 
-        <dt><span class="sect1"><a href="#N10315">Patching
+        <dt><span class="sect1"><a href="#N1032A">Patching
         CodeGen</a></span></dt>
       </dl>
     </div>
@@ -1229,11 +1229,12 @@ public class BeansLibraryInitializer implements IExternalLibraryInitializer
             templates and choose to generate the Interface file or the
             Implementation file. Note, that the Ecore templates don&rsquo;t
             expect a pure GenBase instance (the input object ) to be passed as
-            argument. Rather it expects an Object[3] array. That&rsquo;s why
-            the Ecore Template generator is a special subclass of JET Template.
-            Attention: Before you use an Ecore Template generator, you must
-            patch <code class="code">org.eclipse.emf.codegen.ecore</code>, see
-            the last section!</p>
+            argument. Rather it expects an <code class="code">Object[3]</code>
+            array. That&rsquo;s why the Ecore Template generator is a special
+            subclass of JET Template. Attention: Before you use an Ecore
+            Template generator, you must patch <code class=
+            "code">org.eclipse.emf.codegen.ecore</code>, see the last
+            section!</p>
 
             <p>With the EMF Generator you can generate a whole GenPackage.
             Theoretically it is possible to feed the generator with selected
@@ -1260,17 +1261,21 @@ public class BeansLibraryInitializer implements IExternalLibraryInitializer
             qualified class name of the input object (self), which is ways
             faster. But be careful, you can&rsquo;t catch inheritance with this
             trick! So, to let the BeanBaseRule properly match in the above
-            example, you have to specify tutorial1.gen.beans.impl.BeanImpl as
-            Match Class Name, not its interface tutorial1.gen.beans.Bean. In
-            addition the Match Expression is evaluated, but only after the
-            class names have been proven to match. Attention: If you have
-            issues with your generator&rsquo;s classpath, it can happen that
-            you get strange ClassNotFoundExceptions or ClassCastExceptions when
-            evaluating the Match Expression, the Target Path Expression or when
-            template code is invoked. This is almost always a sign that your
-            input objects have been loaded by a class loader different from the
-            one GenFw uses. Check, that your generator (plugin) project
-            properly references your meta model plugins!</p>
+            example, you have to specify <code class=
+            "code">tutorial1.gen.beans.impl.BeanImpl</code> as <span class=
+            "emphasis"><em>Match Class Name</em></span>, not its interface
+            <code class="code">tutorial1.gen.beans.Bean</code>. In addition the
+            <span class="emphasis"><em>Match Expression</em></span> is
+            evaluated, but only after the class names have been proven to
+            match. Attention: If you have issues with your generator&rsquo;s
+            classpath, it can happen that you get strange <code class=
+            "code">ClassNotFoundException</code>s or <code class=
+            "code">ClassCastException</code>s when evaluating the Match
+            Expression, the Target Path Expression or when template code is
+            invoked. This is almost always a sign that your input objects have
+            been loaded by a class loader different from the one GenFw uses.
+            Check, that your generator (plugin) project properly references
+            your meta model plugins!</p>
           </li>
         </ol>
       </div>
@@ -1280,8 +1285,8 @@ public class BeansLibraryInitializer implements IExternalLibraryInitializer
       <div class="titlepage">
         <div>
           <div>
-            <h2 class="title" style="clear: both"><a name="N10315" id=
-            "N10315"></a>Patching CodeGen</h2>
+            <h2 class="title" style="clear: both"><a name="N1032A" id=
+            "N1032A"></a>Patching CodeGen</h2>
           </div>
         </div>
       </div>
