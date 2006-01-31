@@ -11,6 +11,7 @@
 		<copy todir="${target.dir}" verbose="true">
 			<fileset dir=".">
 				<include name="site.xml" />
+				<include name="index.html" />
 				<include name="web/*" />
 				<include name="features/*.css" />
 				<include name="features/*.jar" />
