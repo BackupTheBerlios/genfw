@@ -1038,6 +1038,16 @@ public interface GenfwPackage extends EPackage
   int OUTPUT_STREAM = 23;
 
   /**
+   * The meta object id for the '<em>Exception</em>' data type.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see java.lang.Exception
+   * @see com.sympedia.genfw.impl.GenfwPackageImpl#getException()
+   * @generated
+   */
+  int EXCEPTION = 24;
+
+  /**
    * Returns the meta object for class '{@link com.sympedia.genfw.GenLib <em>Gen Lib</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1630,6 +1640,17 @@ public interface GenfwPackage extends EPackage
   EDataType getOutputStream();
 
   /**
+   * Returns the meta object for data type '{@link java.lang.Exception <em>Exception</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for data type '<em>Exception</em>'.
+   * @see java.lang.Exception
+   * @model instanceClass="java.lang.Exception"
+   * @generated
+   */
+  EDataType getException();
+
+  /**
    * Returns the factory that creates the instances of the model.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -2141,6 +2162,16 @@ public interface GenfwPackage extends EPackage
      * @generated
      */
     EDataType OUTPUT_STREAM = eINSTANCE.getOutputStream();
+
+    /**
+     * The meta object literal for the '<em>Exception</em>' data type.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see java.lang.Exception
+     * @see com.sympedia.genfw.impl.GenfwPackageImpl#getException()
+     * @generated
+     */
+    EDataType EXCEPTION = eINSTANCE.getException();
 
   }
 

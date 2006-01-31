@@ -181,7 +181,7 @@ public class StaticRuleImpl extends RuleImpl implements StaticRule
    * @ADDED
    */
   @Override
-  protected boolean evaluateMatch(Object inputObject)
+  protected boolean evaluateMatch(Object inputObject) throws Exception
   {
     return true;
   }
@@ -190,7 +190,7 @@ public class StaticRuleImpl extends RuleImpl implements StaticRule
    * @ADDED
    */
   @Override
-  public String getTargetPath(Object inputObject)
+  public String getTargetPath(Object inputObject) throws Exception
   {
     String targetPath = getTargetPath();
     return targetPath != null && targetPath.length() != 0 ? targetPath : null;

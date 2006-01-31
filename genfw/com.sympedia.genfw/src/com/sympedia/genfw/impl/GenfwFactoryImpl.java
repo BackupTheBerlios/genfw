@@ -132,6 +132,8 @@ public class GenfwFactoryImpl extends EFactoryImpl implements GenfwFactory
       return createClassLoaderFromString(eDataType, initialValue);
     case GenfwPackage.OUTPUT_STREAM:
       return createOutputStreamFromString(eDataType, initialValue);
+    case GenfwPackage.EXCEPTION:
+      return createExceptionFromString(eDataType, initialValue);
     default:
       throw new IllegalArgumentException("The datatype '" + eDataType.getName()
               + "' is not a valid classifier");
@@ -159,6 +161,8 @@ public class GenfwFactoryImpl extends EFactoryImpl implements GenfwFactory
       return convertClassLoaderToString(eDataType, instanceValue);
     case GenfwPackage.OUTPUT_STREAM:
       return convertOutputStreamToString(eDataType, instanceValue);
+    case GenfwPackage.EXCEPTION:
+      return convertExceptionToString(eDataType, instanceValue);
     default:
       throw new IllegalArgumentException("The datatype '" + eDataType.getName()
               + "' is not a valid classifier");
@@ -402,6 +406,26 @@ public class GenfwFactoryImpl extends EFactoryImpl implements GenfwFactory
    * @generated
    */
   public String convertOutputStreamToString(EDataType eDataType, Object instanceValue)
+  {
+    return super.convertToString(eDataType, instanceValue);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public Exception createExceptionFromString(EDataType eDataType, String initialValue)
+  {
+    return (Exception)super.createFromString(eDataType, initialValue);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public String convertExceptionToString(EDataType eDataType, Object instanceValue)
   {
     return super.convertToString(eDataType, instanceValue);
   }

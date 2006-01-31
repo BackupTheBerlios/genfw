@@ -29,8 +29,6 @@ import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
 import java.lang.reflect.Method;
 
 
@@ -255,57 +253,46 @@ public class EcoreTemplateImpl extends JetTemplateImpl implements EcoreTemplate
    */
   @Override
   public String generate(Object inputObject, String targetPath, IProgressMonitor monitor)
-          throws CoreException
+          throws Exception
   {
-    try
+    GenBase genBase = (GenBase)inputObject;
+    ImportManager importManager = createImportManager(genBase);
+
+    GenModel genModel = genBase.getGenModel();
+    genModel.setCanGenerate(true);
+
+    Method setter = BeanHelper.findMethod(genModel.getClass(), "setImportManager");
+    setter.setAccessible(true);
+    setter.invoke(genModel, new Object[] {importManager});
+    setter.setAccessible(false);
+
+    ClassLoader inputClassLoader = genBase.getClass().getClassLoader();
+    Class template = getTemplate(inputClassLoader);
+    if (template == null)
     {
-      GenBase genBase = (GenBase)inputObject;
-      ImportManager importManager = createImportManager(genBase);
-
-      GenModel genModel = genBase.getGenModel();
-      genModel.setCanGenerate(true);
-
-      Method setter = BeanHelper.findMethod(genModel.getClass(), "setImportManager");
-      setter.setAccessible(true);
-      setter.invoke(genModel, new Object[] {importManager});
-      setter.setAccessible(false);
-
-      ClassLoader inputClassLoader = genBase.getClass().getClassLoader();
-      Class template = getTemplate(inputClassLoader);
-      if (template == null)
-      {
-        throw new CoreException(new Status(IStatus.ERROR, Activator.PLUGIN_ID, IStatus.ERROR,
-                "Template not found for " + this, null));
-      }
-
-      if (!isGenerateInterface() && !isGenerateImplementation())
-      {
-        //              Class shClass = Class.forName("org.eclipse.emf.codegen.ecore.genmodel.impl.GenPackageImpl.SwitchHelper");
-        //              Object switchHelper = shClass.newInstance();
-        //              Field field = BeanHelper.findField(shClass, "switchHelper");
-        //              field.setAccessible(true);
-        //              field.set(genBase, switchHelper);
-        //              field.setAccessible(false);
-
-        String result = callTemplate(template, genBase);
-        return result;
-      }
-      else
-      {
-        Boolean genInterface = new Boolean(isGenerateInterface());
-        Boolean genImplementation = new Boolean(isGenerateImplementation());
-        Object[] argument = new Object[] {genBase, genInterface, genImplementation};
-        String result = callTemplate(template, argument);
-        return result;
-      }
+      throw new CoreException(new Status(IStatus.ERROR, Activator.PLUGIN_ID, IStatus.ERROR,
+              "Template not found for " + this, null));
     }
-    catch (Exception ex)
+
+    if (!isGenerateInterface() && !isGenerateImplementation())
     {
-      ex.printStackTrace();
-      ByteArrayOutputStream stream = new ByteArrayOutputStream();
-      PrintStream printer = new PrintStream(stream);
-      ex.printStackTrace(printer);
-      return stream.toString();
+      //              Class shClass = Class.forName("org.eclipse.emf.codegen.ecore.genmodel.impl.GenPackageImpl.SwitchHelper");
+      //              Object switchHelper = shClass.newInstance();
+      //              Field field = BeanHelper.findField(shClass, "switchHelper");
+      //              field.setAccessible(true);
+      //              field.set(genBase, switchHelper);
+      //              field.setAccessible(false);
+
+      String result = callTemplate(template, genBase);
+      return result;
+    }
+    else
+    {
+      Boolean genInterface = new Boolean(isGenerateInterface());
+      Boolean genImplementation = new Boolean(isGenerateImplementation());
+      Object[] argument = new Object[] {genBase, genInterface, genImplementation};
+      String result = callTemplate(template, argument);
+      return result;
     }
   }
 

@@ -148,7 +148,7 @@ public abstract class GeneratorImpl extends EObjectImpl implements Generator
    * @generated NOT
    */
   public abstract String generate(Object inputObject, String targetPath, IProgressMonitor monitor)
-          throws CoreException;
+          throws Exception;
 
   /**
    * <!-- begin-user-doc -->

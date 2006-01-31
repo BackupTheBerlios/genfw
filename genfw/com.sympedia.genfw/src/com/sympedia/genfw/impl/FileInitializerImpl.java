@@ -63,7 +63,7 @@ public abstract class FileInitializerImpl extends GeneratorImpl implements FileI
    */
   @Override
   public String generate(Object inputObject, String targetPath, IProgressMonitor monitor)
-          throws CoreException
+          throws Exception
   {
     String result = getContent(inputObject, targetPath, monitor);
     if (result == null)

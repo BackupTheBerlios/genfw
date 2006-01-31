@@ -228,6 +228,13 @@ public class GenfwPackageImpl extends EPackageImpl implements GenfwPackage
   private EDataType outputStreamEDataType = null;
 
   /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EDataType exceptionEDataType = null;
+
+  /**
    * Creates an instance of the model <b>Package</b>, registered with
    * {@link org.eclipse.emf.ecore.EPackage.Registry EPackage.Registry} by the package
    * package URI value.
@@ -855,6 +862,16 @@ public class GenfwPackageImpl extends EPackageImpl implements GenfwPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EDataType getException()
+  {
+    return exceptionEDataType;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public GenfwFactory getGenfwFactory()
   {
     return (GenfwFactory)getEFactoryInstance();
@@ -954,6 +971,7 @@ public class GenfwPackageImpl extends EPackageImpl implements GenfwPackage
     iProgressMonitorEDataType = createEDataType(IPROGRESS_MONITOR);
     classLoaderEDataType = createEDataType(CLASS_LOADER);
     outputStreamEDataType = createEDataType(OUTPUT_STREAM);
+    exceptionEDataType = createEDataType(EXCEPTION);
   }
 
   /**
@@ -1026,9 +1044,11 @@ public class GenfwPackageImpl extends EPackageImpl implements GenfwPackage
 
     op = addEOperation(contentProviderEClass, this.getJavaList(), "getRoots", 0, 1);
     addEParameter(op, ecorePackage.getEString(), "path", 0, 1);
+    addEException(op, this.getException());
 
     op = addEOperation(contentProviderEClass, this.getJavaList(), "getChildren", 0, 1);
     addEParameter(op, ecorePackage.getEJavaObject(), "object", 0, 1);
+    addEException(op, this.getException());
 
     initEClass(ecoreContentProviderEClass, EcoreContentProvider.class, "EcoreContentProvider",
             !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -1077,9 +1097,11 @@ public class GenfwPackageImpl extends EPackageImpl implements GenfwPackage
 
     op = addEOperation(ruleEClass, ecorePackage.getEBoolean(), "isMatching", 0, 1);
     addEParameter(op, ecorePackage.getEJavaObject(), "inputObject", 0, 1);
+    addEException(op, this.getException());
 
     op = addEOperation(ruleEClass, ecorePackage.getEString(), "getTargetPath", 0, 1);
     addEParameter(op, ecorePackage.getEJavaObject(), "inputObject", 0, 1);
+    addEException(op, this.getException());
 
     initEClass(staticRuleEClass, StaticRule.class, "StaticRule", !IS_ABSTRACT, !IS_INTERFACE,
             IS_GENERATED_INSTANCE_CLASS);
@@ -1109,7 +1131,7 @@ public class GenfwPackageImpl extends EPackageImpl implements GenfwPackage
     addEParameter(op, ecorePackage.getEJavaObject(), "inputObject", 0, 1);
     addEParameter(op, ecorePackage.getEString(), "targetPath", 0, 1);
     addEParameter(op, this.getIProgressMonitor(), "monitor", 0, 1);
-    addEException(op, this.getCoreException());
+    addEException(op, this.getException());
 
     initEClass(delegatingGeneratorEClass, DelegatingGenerator.class, "DelegatingGenerator",
             IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -1182,6 +1204,8 @@ public class GenfwPackageImpl extends EPackageImpl implements GenfwPackage
     initEDataType(classLoaderEDataType, ClassLoader.class, "ClassLoader", IS_SERIALIZABLE,
             !IS_GENERATED_INSTANCE_CLASS);
     initEDataType(outputStreamEDataType, OutputStream.class, "OutputStream", IS_SERIALIZABLE,
+            !IS_GENERATED_INSTANCE_CLASS);
+    initEDataType(exceptionEDataType, Exception.class, "Exception", IS_SERIALIZABLE,
             !IS_GENERATED_INSTANCE_CLASS);
 
     // Create resource

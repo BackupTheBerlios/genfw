@@ -102,6 +102,6 @@ public interface Generator extends EObject
    * @generated
    */
   String generate(Object inputObject, String targetPath, IProgressMonitor monitor)
-          throws CoreException;
+          throws CoreException, Exception;
 
 } // Generator

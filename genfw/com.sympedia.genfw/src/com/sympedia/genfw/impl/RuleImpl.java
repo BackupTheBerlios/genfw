@@ -15,10 +15,7 @@ import com.sympedia.genfw.Generator;
 import com.sympedia.genfw.GenfwPackage;
 import com.sympedia.genfw.Rule;
 import com.sympedia.genfw.RuleSet;
-import com.sympedia.util.eclipse.resources.ResourcesHelper;
 
-import org.eclipse.core.resources.IResource;
-import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
@@ -368,7 +365,7 @@ public abstract class RuleImpl extends EObjectImpl implements Rule
    * <!-- end-user-doc -->
    * @generated NOT
    */
-  public boolean isMatching(Object inputObject)
+  public boolean isMatching(Object inputObject) throws Exception
   {
     String className = getMatchClassName();
     if (className != null && className.length() != 0)
@@ -392,7 +389,7 @@ public abstract class RuleImpl extends EObjectImpl implements Rule
    * <!-- end-user-doc -->
    * @generated NOT
    */
-  public abstract String getTargetPath(Object inputObject);
+  public abstract String getTargetPath(Object inputObject) throws Exception;
 
   /**
    * <!-- begin-user-doc -->
@@ -593,5 +590,5 @@ public abstract class RuleImpl extends EObjectImpl implements Rule
   /**
    * @ADDED
    */
-  protected abstract boolean evaluateMatch(Object inputObject);
+  protected abstract boolean evaluateMatch(Object inputObject) throws Exception;
 } //RuleImpl

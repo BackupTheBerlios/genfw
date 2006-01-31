@@ -192,7 +192,7 @@ public class JetTemplateImpl extends GeneratorImpl implements JetTemplate
    */
   @Override
   public String generate(Object inputObject, String targetPath, IProgressMonitor monitor)
-          throws CoreException
+          throws Exception
   {
     ClassLoader inputClassLoader = inputObject.getClass().getClassLoader();
     ClassLoader parentClassLoader = getRoot().getClassLoader(inputClassLoader);

@@ -61,14 +61,14 @@ public class GenfwHelper
   public static final int TRACE_DEFAULT = TRACE_WRITE;
 
   public static void processFile(IFile file, int traceLevel, IProgressMonitor monitor)
-          throws CoreException
+          throws Exception
   {
     String path = file.getFullPath().toString();
     processFile(path, traceLevel, monitor);
   }
 
   public static void processFile(String path, int traceLevel, IProgressMonitor monitor)
-          throws CoreException
+          throws Exception
   {
     ResourceSetImpl rs = new ResourceSetImpl();
     rs.getURIConverter().getURIMap().putAll(EcorePlugin.computePlatformURIMap());
@@ -83,7 +83,7 @@ public class GenfwHelper
   }
 
   public static void processGenApp(GenApp genApp, int traceLevel, IProgressMonitor monitor)
-          throws CoreException
+          throws Exception
   {
     EList inputs = genApp.getInputs();
     monitor.beginTask("", inputs.size());
@@ -105,7 +105,7 @@ public class GenfwHelper
   }
 
   public static void processInput(Input input, int traceLevel, IProgressMonitor monitor)
-          throws CoreException
+          throws Exception
   {
     String fullPath = input.getFullPath();
     if (fullPath != null && !fullPath.startsWith("/"))
@@ -323,6 +323,7 @@ public class GenfwHelper
   }
 
   public static List getAllInputObjects(String fullPath, ContentProvider contentProvider)
+          throws Exception
   {
     List result = new ArrayList();
     List rootObjects = contentProvider.getRoots(fullPath);
@@ -336,7 +337,7 @@ public class GenfwHelper
   }
 
   private static void collectInputObjects(Object inputObject, ContentProvider contentProvider,
-          List result)
+          List result) throws Exception
   {
     result.add(inputObject);
     List children = contentProvider.getChildren(inputObject);

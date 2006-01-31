@@ -67,7 +67,7 @@ public class InitialGeneratorImpl extends DelegatingGeneratorImpl implements Ini
    * @generated NOT
    */
   public String generate(Object inputObject, String targetPath, IProgressMonitor monitor)
-          throws CoreException
+          throws Exception
   {
     IResource resource = ResourcesHelper.ROOT.findMember(new Path(targetPath));
     if (resource != null && resource.exists()) return null;

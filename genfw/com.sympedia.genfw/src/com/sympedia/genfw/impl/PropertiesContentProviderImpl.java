@@ -55,19 +55,19 @@ public class PropertiesContentProviderImpl extends ContentProviderImpl implement
    * @ADDED
    */
   @Override
-  public List getRoots(String path)
+  public List getRoots(String path) throws Exception
   {
     // TODO Auto-generated method stub
-    return null;
+    throw new UnsupportedOperationException();
   }
 
   /**
    * @ADDED
    */
   @Override
-  public List getChildren(Object object)
+  public List getChildren(Object object) throws Exception
   {
     // TODO Auto-generated method stub
-    return null;
+    throw new UnsupportedOperationException();
   }
 } //PropertiesContentProviderImpl

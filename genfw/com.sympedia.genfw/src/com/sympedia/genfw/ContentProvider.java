@@ -98,7 +98,7 @@ public interface ContentProvider extends EObject
    *        annotation="http://www.topcased.org/uuid uuid='113671546137561'"
    * @generated
    */
-  List getRoots(String path);
+  List getRoots(String path) throws Exception;
 
   /**
    * <!-- begin-user-doc -->
@@ -107,6 +107,6 @@ public interface ContentProvider extends EObject
    *        annotation="http://www.topcased.org/uuid uuid='113671579192167'"
    * @generated
    */
-  List getChildren(Object object);
+  List getChildren(Object object) throws Exception;
 
 } // ContentProvider

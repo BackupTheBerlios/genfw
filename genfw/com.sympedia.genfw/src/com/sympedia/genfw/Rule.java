@@ -224,7 +224,7 @@ public interface Rule extends EObject
    *        annotation="http://www.topcased.org/uuid uuid='113672105540665'"
    * @generated
    */
-  boolean isMatching(Object inputObject);
+  boolean isMatching(Object inputObject) throws Exception;
 
   /**
    * <!-- begin-user-doc -->
@@ -233,6 +233,6 @@ public interface Rule extends EObject
    *        annotation="http://www.topcased.org/uuid uuid='113672120854669'"
    * @generated
    */
-  String getTargetPath(Object inputObject);
+  String getTargetPath(Object inputObject) throws Exception;
 
 } // Rule

@@ -17,7 +17,6 @@ import com.sympedia.genfw.jdt.JavaFormatter;
 import com.sympedia.genfw.jdt.JdtPackage;
 import com.sympedia.genfw.jdt.internal.JdtActivator;
 
-import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EClass;
@@ -116,7 +115,7 @@ public class JavaFormatterImpl extends DelegatingGeneratorImpl implements JavaFo
    * @generated NOT
    */
   public String generate(Object inputObject, String targetPath, IProgressMonitor monitor)
-          throws CoreException
+          throws Exception
   {
     Generator delegate = getDelegate();
     if (delegate == null) return null;

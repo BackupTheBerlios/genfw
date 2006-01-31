@@ -15,14 +15,9 @@ import com.sympedia.genfw.impl.GeneratorImpl;
 import com.sympedia.genfw.jet.EmfGenerator;
 import com.sympedia.genfw.jet.JetPackage;
 
-import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.codegen.ecore.genmodel.GenBase;
-import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
 import org.eclipse.emf.ecore.EClass;
-
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
 
 
 /**
@@ -61,22 +56,11 @@ public class EmfGeneratorImpl extends GeneratorImpl implements EmfGenerator
    */
   @Override
   public String generate(Object inputObject, String targetPath, IProgressMonitor monitor)
-          throws CoreException
+          throws Exception
   {
-    try
-    {
-      GenBase genBase = (GenBase)inputObject;
-      genBase.getGenModel().setCanGenerate(true);
-      genBase.generate(monitor);
-    }
-    catch (Exception ex)
-    {
-      ex.printStackTrace();
-      ByteArrayOutputStream stream = new ByteArrayOutputStream();
-      PrintStream printer = new PrintStream(stream);
-      ex.printStackTrace(printer);
-    }
-
+    GenBase genBase = (GenBase)inputObject;
+    genBase.getGenModel().setCanGenerate(true);
+    genBase.generate(monitor);
     return null;
   }
 } //EmfGeneratorImpl

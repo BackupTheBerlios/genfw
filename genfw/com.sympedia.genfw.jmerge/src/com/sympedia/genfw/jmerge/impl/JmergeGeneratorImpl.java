@@ -11,11 +11,8 @@
 package com.sympedia.genfw.jmerge.impl;
 
 
-import com.sympedia.genfw.impl.DelegatingGeneratorImpl;
-
-import com.sympedia.genfw.GenLib;
 import com.sympedia.genfw.Generator;
-import com.sympedia.genfw.GenfwPackage;
+import com.sympedia.genfw.impl.DelegatingGeneratorImpl;
 import com.sympedia.genfw.jmerge.JmergeGenerator;
 import com.sympedia.genfw.jmerge.JmergePackage;
 import com.sympedia.genfw.jmerge.internal.JmergeActivator;
@@ -31,12 +28,8 @@ import org.eclipse.emf.codegen.merge.java.JControlModel;
 import org.eclipse.emf.codegen.merge.java.JMerger;
 import org.eclipse.emf.codegen.merge.java.facade.jdom.JDOMFacadeHelper;
 import org.eclipse.emf.common.notify.Notification;
-import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.EObjectImpl;
-import org.eclipse.emf.ecore.util.EcoreUtil;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -132,7 +125,7 @@ public class JmergeGeneratorImpl extends DelegatingGeneratorImpl implements Jmer
    * @generated NOT
    */
   public String generate(Object inputObject, String targetPath, IProgressMonitor monitor)
-          throws CoreException
+          throws Exception
   {
     Generator delegate = getDelegate();
     if (delegate == null) return null;
@@ -140,27 +133,15 @@ public class JmergeGeneratorImpl extends DelegatingGeneratorImpl implements Jmer
     String result = delegate.generate(inputObject, targetPath, monitor);
     if (result == null) return null;
 
-    try
-    {
-      File existingFile = ResourcesHelper.ROOT.getLocation().append(targetPath).toFile();
-      if (!existingFile.exists()) return result;
-      InputStream existingContent = new FileInputStream(existingFile);
+    File existingFile = ResourcesHelper.ROOT.getLocation().append(targetPath).toFile();
+    if (!existingFile.exists()) return result;
+    InputStream existingContent = new FileInputStream(existingFile);
 
-      JMerger merger = getJMerger();
-      merger.setSourceCompilationUnit(merger.createCompilationUnitForContents(result));
-      merger.setTargetCompilationUnit(merger.createCompilationUnitForInputStream(existingContent));
-      merger.merge();
-      return merger.getTargetCompilationUnit().getContents();
-    }
-    catch (CoreException ex)
-    {
-      throw ex;
-    }
-    catch (Exception ex)
-    {
-      throw new CoreException(new Status(IStatus.ERROR, JmergeActivator.PLUGIN_ID, IStatus.ERROR,
-              "Problem while merging: " + targetPath, ex));
-    }
+    JMerger merger = getJMerger();
+    merger.setSourceCompilationUnit(merger.createCompilationUnitForContents(result));
+    merger.setTargetCompilationUnit(merger.createCompilationUnitForInputStream(existingContent));
+    merger.merge();
+    return merger.getTargetCompilationUnit().getContents();
   }
 
   /**

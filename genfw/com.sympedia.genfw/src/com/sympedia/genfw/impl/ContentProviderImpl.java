@@ -147,14 +147,14 @@ public abstract class ContentProviderImpl extends EObjectImpl implements Content
    * <!-- end-user-doc -->
    * @generated NOT
    */
-  public abstract List getRoots(String path);
+  public abstract List getRoots(String path) throws Exception;
 
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated NOT
    */
-  public abstract List getChildren(Object object);
+  public abstract List getChildren(Object object) throws Exception;
 
   /**
    * <!-- begin-user-doc -->

@@ -17,7 +17,6 @@ import com.sympedia.genfw.ProjectInitializer;
 import com.sympedia.util.eclipse.resources.ResourcesHelper;
 
 import org.eclipse.core.resources.IProject;
-import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.ecore.EClass;
 
@@ -60,7 +59,7 @@ public class ProjectInitializerImpl extends GeneratorImpl implements ProjectInit
    */
   @Override
   public String generate(Object inputObject, String targetPath, IProgressMonitor monitor)
-          throws CoreException
+          throws Exception
   {
     if (inputObject instanceof IProjectInitializationProvider)
     {

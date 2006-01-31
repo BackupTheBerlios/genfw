@@ -241,7 +241,7 @@ public abstract class ExpressionBasedRuleImpl extends RuleImpl implements Expres
    * @ADDED
    */
   @Override
-  protected boolean evaluateMatch(Object inputObject)
+  protected boolean evaluateMatch(Object inputObject) throws Exception
   {
     String expr = getMatchExpression();
     if (expr == null || expr.length() == 0) return true;
@@ -251,5 +251,6 @@ public abstract class ExpressionBasedRuleImpl extends RuleImpl implements Expres
   /**
    * @ADDED
    */
-  protected abstract boolean evaluateMatchExpression(Object inputObject, String expr);
+  protected abstract boolean evaluateMatchExpression(Object inputObject, String expr)
+          throws Exception;
 } //ExpressionBasedRuleImpl

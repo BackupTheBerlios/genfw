@@ -12,20 +12,13 @@ package com.sympedia.genfw.impl;
 
 
 import com.sympedia.genfw.EcoreContentProvider;
-import com.sympedia.genfw.GenLib;
 import com.sympedia.genfw.GenfwPackage;
 
-import org.eclipse.emf.common.notify.Notification;
-import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.InternalEObject;
-import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
-import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 
 import java.util.List;
@@ -78,7 +71,7 @@ public class EcoreContentProviderImpl extends ContentProviderImpl implements Eco
    * <!-- end-user-doc -->
    * @generated NOT
    */
-  public List getRoots(String path)
+  public List getRoots(String path) throws Exception
   {
     ResourceSetImpl rs = new ResourceSetImpl();
     Map map = rs.getResourceFactoryRegistry().getExtensionToFactoryMap();
@@ -94,7 +87,7 @@ public class EcoreContentProviderImpl extends ContentProviderImpl implements Eco
    * <!-- end-user-doc -->
    * @generated NOT
    */
-  public List getChildren(Object object)
+  public List getChildren(Object object) throws Exception
   {
     EObject eObject = (EObject)object;
     return eObject.eContents();

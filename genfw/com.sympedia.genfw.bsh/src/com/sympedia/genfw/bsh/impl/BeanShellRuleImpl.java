@@ -207,7 +207,7 @@ public class BeanShellRuleImpl extends ExpressionBasedRuleImpl implements BeanSh
    * @ADDED
    */
   @Override
-  public String getTargetPath(Object inputObject)
+  public String getTargetPath(Object inputObject) throws Exception
   {
     String expr = getTargetPathExpression();
     if (expr == null || expr.length() == 0)
@@ -215,21 +215,14 @@ public class BeanShellRuleImpl extends ExpressionBasedRuleImpl implements BeanSh
       return null;
     }
 
-    try
-    {
-      Interpreter i = getBshInterpreter(inputObject);
-      i.eval("String ___EXPR___() { return " + expr + "; }");
-      i.set("self", inputObject);
+    Interpreter i = getBshInterpreter(inputObject);
+    i.eval("String ___EXPR___() { return " + expr + "; }");
+    i.set("self", inputObject);
 
-      Object result = i.eval("___EXPR___()");
-      if (result instanceof String)
-      {
-        return (String)result;
-      }
-    }
-    catch (Exception ex)
+    Object result = i.eval("___EXPR___()");
+    if (result instanceof String)
     {
-      ex.printStackTrace();
+      return (String)result;
     }
 
     return null;
