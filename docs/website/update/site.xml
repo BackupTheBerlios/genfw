@@ -16,18 +16,18 @@
    <feature url="features/com.sympedia.util.sdk_1.0.0.jar" id="com.sympedia.util.sdk" version="1.0.0">
       <category name="GenFw"/>
    </feature>
-   <feature url="features/com.sympedia.density.gen_1.0.0.jar" id="com.sympedia.density.gen" version="1.0.0">
-      <category name="Examples"/>
-   </feature>
-   <feature url="features/tutorial1_1.0.0.jar" id="tutorial1" version="1.0.0">
-      <category name="Examples"/>
-   </feature>
    <feature url="features/com.sympedia.genfw.ocl_1.0.0.jar" id="com.sympedia.genfw.ocl" version="1.0.0">
       <category name="GenFw"/>
    </feature>
    <feature url="features/com.sympedia.genfw.ocl.sdk_1.0.0.jar" id="com.sympedia.genfw.ocl.sdk" version="1.0.0">
       <category name="GenFw"/>
    </feature>
-   <category-def name="Examples" label="Examples"/>
+   <feature url="features/com.sympedia.density.gen_1.0.0.jar" id="com.sympedia.density.gen" version="1.0.0">
+      <category name="Examples"/>
+   </feature>
+   <feature url="features/tutorial1_1.0.0.jar" id="tutorial1" version="1.0.0">
+      <category name="Examples"/>
+   </feature>
    <category-def name="GenFw" label="Sympedia GenFw"/>
+   <category-def name="Examples" label="Examples"/>
 </site>
