@@ -3,7 +3,21 @@
 
 	<property name="file.name" value="SympediaGenFwTutorial1" />
 	<property name="target.dir" value="../website/tutorial1" />
-	<property name="out.path" value="${target.dir}/${file.name}.html" />
+	<property name="target.html" value="${target.dir}/${file.name}.html" />
+	<property name="target.help" value="../../tutorial1.doc/index.html" />
+
+	<macrodef name="html.tidy">
+		<attribute name="file" />
+		<sequential>
+			<exec executable="c:/programme/cygwin/bin/tidy.exe" failonerror="no">
+				<arg value="-modify" />
+				<arg value="-indent" />
+				<arg value="-wrap" />
+				<arg value="80" />
+				<arg path="@{file}" />
+			</exec>
+		</sequential>
+	</macrodef>
 
 	<macrodef name="sync.images">
 		<attribute name="fromdir" />
@@ -43,25 +57,28 @@
 		</delete>
 	</target>
 
-	<target name="render.html" unless="target.uptodate">
-		<xslt in="${file.name}.xml" out="${out.path}" style="../docbook-xsl-1.69.1/html/docbook.xsl" />
+	<target name="render.html" unless="html.uptodate">
+		<xslt in="${file.name}.xml" out="${target.html}" style="../docbook-xsl-1.69.1/html/docbook.xsl" />
+		<html.tidy file="${target.html}" />
 	</target>
 
-	<target name="format.html" unless="target.uptodate">
-		<exec executable="c:/programme/cygwin/bin/tidy.exe" failonerror="no">
-			<arg value="-modify" />
-			<arg value="-indent" />
-			<arg value="-wrap" />
-			<arg value="80" />
-			<arg path="${out.path}" />
-		</exec>
+	<target name="render.help" unless="help.uptodate">
+		<xslt in="${file.name}.xml" out="${target.help}" style="../docbook-xsl-1.69.1/eclipse/eclipse.xsl">
+			<param name="eclipse.plugin.id" expression="tutorial1.doc" />
+			<param name="eclipse.plugin.name" expression="Tutorial1 Documentation" />
+			<param name="eclipse.plugin.provider" expression="Sympedia.com" />
+		</xslt>
+		<html.tidy file="${target.help}" />
 	</target>
 
 	<target name="regenerate" depends="init">
-		<uptodate property="target.uptodate" srcfile="${file.name}.xml" targetfile="${out.path}" />
+		<uptodate property="html.uptodate" srcfile="${file.name}.xml" targetfile="${target.html}" />
 		<antcall target="render.html" />
-		<antcall target="format.html" />
 		<sync.images fromdir="images" todir="${target.dir}/images" />
+
+		<uptodate property="help.uptodate" srcfile="${file.name}.xml" targetfile="${target.help}" />
+		<antcall target="render.help" />
+		<sync.images fromdir="images" todir="../../tutorial1.doc/images" />
 	</target>
 
 </project>

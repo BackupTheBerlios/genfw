@@ -1,8 +1,8 @@
-<html><head><META http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"><title>Steps</title><meta content="DocBook XSL Stylesheets V1.69.1" name="generator"><link rel="start" href="index.html" title="Sympedia GenFw Tutorial 1"><link rel="up" href="index.html" title="Sympedia GenFw Tutorial 1"><link rel="prev" href="ar01s02.html" title="Concepts"><link rel="next" href="ar01s04.html" title="Notes"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table summary="Navigation header" width="100%"><tr><th align="center" colspan="3">Steps</th></tr><tr><td align="left" width="20%"><a accesskey="p" href="ar01s02.html">Prev</a>&nbsp;</td><th align="center" width="60%">&nbsp;</th><td align="right" width="20%">&nbsp;<a accesskey="n" href="ar01s04.html">Next</a></td></tr></table><hr></div><div class="sect1" lang="en-EN"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="N1007B"></a>Steps</h2></div></div><div></div></div><div class="orderedlist"><ol type="1"><li><p>Create the project <code class="code">tutorial1.gen.beans</code> with 
+<html><head><META http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"><title>Steps</title><meta content="DocBook XSL Stylesheets V1.69.1" name="generator"><link rel="start" href="index.html" title="Sympedia GenFw Tutorial 1"><link rel="up" href="index.html" title="Sympedia GenFw Tutorial 1"><link rel="prev" href="ar01s02.html" title="Concepts"><link rel="next" href="ar01s04.html" title="Notes"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table summary="Navigation header" width="100%"><tr><th align="center" colspan="3">Steps</th></tr><tr><td align="left" width="20%"><a accesskey="p" href="ar01s02.html">Prev</a>&nbsp;</td><th align="center" width="60%">&nbsp;</th><td align="right" width="20%">&nbsp;<a accesskey="n" href="ar01s04.html">Next</a></td></tr></table><hr></div><div class="sect1" lang="en-EN"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="N1007D"></a>Steps</h2></div></div><div></div></div><div class="orderedlist"><ol type="1"><li><p>Create the project <code class="code">tutorial1.gen.beans</code> with 
         the Empty EMF Project wizard.</p></li><li><p>Create a folder <code class="code">model</code> in that project.</p></li><li><p>Create the <code class="code">beans.ecore</code> and the 
         <code class="code">beans.genmodel</code> file (you know how to do 
         this).</p></li><li><p>Generate the meta model plugins with EMF and compare your 
-        workspace with this one:</p><div class="figure"><a name="N10099"></a><p class="title"><b>Figure&nbsp;2.&nbsp;Meta Model generated</b></p><div><img src="images/mmGeneratedImg.gif" alt="Meta Model generated"></div></div></li><li><p>Export the three plugins to the install location of your 
+        workspace with this one:</p><div class="figure"><a name="N1009B"></a><p class="title"><b>Figure&nbsp;2.&nbsp;Meta Model generated</b></p><div><img src="images/mmGeneratedImg.gif" alt="Meta Model generated"></div></div></li><li><p>Export the three plugins to the install location of your 
         Eclipse instance.</p></li><li><p>Close the plugin projects and restart your Eclipse 
         instance.</p></li><li><p>To test the new meta model, create a new Plug-in Project 
         <code class="code">tutorial1.orderman</code>. We don&rsquo;t need an Activator 
@@ -16,7 +16,7 @@
         Library</em></span>. Obviously the model is ready now to be 
         populated with concrete Beans and their BeanProperties. For the 
         PersonBean example introduced at the beginning, it could look 
-        like this:</p><div class="figure"><a name="N100C9"></a><p class="title"><b>Figure&nbsp;3.&nbsp;Instance of the Meta Model created</b></p><div><img src="images/mmFileCreatedImg.gif" alt="Instance of the Meta Model created"></div></div></li><li><p>After saving the model you should have a file with the 
+        like this:</p><div class="figure"><a name="N100CB"></a><p class="title"><b>Figure&nbsp;3.&nbsp;Instance of the Meta Model created</b></p><div><img src="images/mmFileCreatedImg.gif" alt="Instance of the Meta Model created"></div></div></li><li><p>After saving the model you should have a file with the 
         following XML content:</p><pre class="programlisting">&lt;?xml version="1.0" encoding="UTF-8"?&gt; 
 &lt;beans:BeanLibrary xmi:version="2.0"  
     xmlns:xmi="http://www.omg.org/XMI"  
@@ -117,7 +117,7 @@ public abstract class &lt;%=bean.getName()%&gt;BeanBase
         like the fact that the template logic is written in Java (and 
         compiled to Java classes). The above template definition shall 
         produce the base class skeleton with the fields and the 
-        constructor.</p><div class="figure"><a name="N10134"></a><p class="title"><b>Figure&nbsp;4.&nbsp;JET template created</b></p><div><img src="images/templateCreatedImg.gif" alt="JET template created"></div></div><p>You should verify that the JET compiler has written the 
+        constructor.</p><div class="figure"><a name="N10136"></a><p class="title"><b>Figure&nbsp;4.&nbsp;JET template created</b></p><div><img src="images/templateCreatedImg.gif" alt="JET template created"></div></div><p>You should verify that the JET compiler has written the 
         compiled templates to the proper location 
         <code class="code">/tutorial1.gen/src-gen/tutorial1.gen/BeanBaseTemplate.java</code>.</p><p>Note, that the <code class="code">src</code> folder is still empty. We 
         will need it later, when we provide static helper methods that 
@@ -177,7 +177,7 @@ public abstract class &lt;%=bean.getName()%&gt;BeanBase
         statement as <span class="emphasis"><em>Boostrap Code</em></span> for this 
         BeanShellExpression to enable short class names in the 
         expressions (otherwise you should have written <code class="code">self 
-        instanceof tutorial1.gen.beans.Bean</code>).</p><div class="figure"><a name="N101B5"></a><p class="title"><b>Figure&nbsp;5.&nbsp;Generator Library created</b></p><div><img src="images/genlibCreatedImg.gif" alt="Generator Library created"></div></div><p>The configuration of the generator library is complete 
+        instanceof tutorial1.gen.beans.Bean</code>).</p><div class="figure"><a name="N101B7"></a><p class="title"><b>Figure&nbsp;5.&nbsp;Generator Library created</b></p><div><img src="images/genlibCreatedImg.gif" alt="Generator Library created"></div></div><p>The configuration of the generator library is complete 
         for the moment. Think of this genlib file (and the whole 
         <code class="code">tutorial1.gen</code> project together with the meta model 
         plugins) as a reusable asset for generating bean libraries. 
@@ -197,7 +197,7 @@ public abstract class &lt;%=bean.getName()%&gt;BeanBase
         the genlib file, load the <code class="code">beans.genlib</code> resource 
         into the GenApp editor. Now select <code class="code">ECORE</code> as the 
         ContentProvider and <code class="code">BeanRules</code> as a RuleSet to 
-        use.</p><div class="figure"><a name="N101E7"></a><p class="title"><b>Figure&nbsp;6.&nbsp;Generator Application created</b></p><div><img src="images/genappCreatedImg.gif" alt="Generator Application created"></div></div></li><li><p>Recall that in the <code class="code">BeanBaseRule</code> we direcetd 
+        use.</p><div class="figure"><a name="N101E9"></a><p class="title"><b>Figure&nbsp;6.&nbsp;Generator Application created</b></p><div><img src="images/genappCreatedImg.gif" alt="Generator Application created"></div></div></li><li><p>Recall that in the <code class="code">BeanBaseRule</code> we direcetd 
         the output of the generation to the <code class="code">src-gen</code> folder 
         of the GenApp project. Don&rsquo;t forget to add the 
         <code class="code">src-gen</code> source folder to the 
@@ -295,7 +295,7 @@ public class StringHelper
         forget to export the new package in the runtime section of the 
         <code class="code">MANIFEST.MF</code> file.</p></li><li><p>In the 
         <code class="code">tutorial1.orderman/META-INF/MANIFEST.MF</code> file add a 
-        dependency on the new <code class="code">tutorial1</code> plugin.</p><div class="figure"><a name="N10251"></a><p class="title"><b>Figure&nbsp;7.&nbsp;Platform plugin created</b></p><div><img src="images/platformCreatedImg.gif" alt="Platform plugin created"></div></div></li><li><p>Note, that the <code class="code">EqualityHelper</code> class is in a 
+        dependency on the new <code class="code">tutorial1</code> plugin.</p><div class="figure"><a name="N10253"></a><p class="title"><b>Figure&nbsp;7.&nbsp;Platform plugin created</b></p><div><img src="images/platformCreatedImg.gif" alt="Platform plugin created"></div></div></li><li><p>Note, that the <code class="code">EqualityHelper</code> class is in a 
         package different from the package of the generated beans. Add 
         an import statement to template!</p><p>Now the only problem is the missing PersonBean class. We 
         could use the <span class="emphasis"><em>New Class</em></span> wizard to derive 
@@ -384,7 +384,7 @@ public class BeanHelper
         generator named <code class="code">BeanTemplate</code>.</p></li><li><p>To the existing RuleSet add a second BeanShellRule (or 
         copy and edit the first one). The most important thing here is 
         to not forget switching <span class="emphasis"><em>Dont Overwrite</em></span> to 
-        <code class="code">true</code>!!! It should look like this:</p><div class="figure"><a name="N102A1"></a><p class="title"><b>Figure&nbsp;8.&nbsp;Rule that never overwrites existing files</b></p><div><img src="images/initialTemplateImg.gif" alt="Rule that never overwrites existing files"></div></div></li><li><p>Re-generate.</p></li><li><p>Add the business methods to the <code class="code">PersonBean</code> 
+        <code class="code">true</code>!!! It should look like this:</p><div class="figure"><a name="N102A3"></a><p class="title"><b>Figure&nbsp;8.&nbsp;Rule that never overwrites existing files</b></p><div><img src="images/initialTemplateImg.gif" alt="Rule that never overwrites existing files"></div></div></li><li><p>Re-generate.</p></li><li><p>Add the business methods to the <code class="code">PersonBean</code> 
         class. You can be sure that this file will never be touched 
         again by GenFw. Note, that this might become a problem if you 
         decide to change the templates and the relation between 
@@ -406,4 +406,4 @@ public class BeanHelper
     and GenLibs in your workspace and you can open them from here. You 
     can run the <span class="emphasis"><em>Generate</em></span> action on all or selected 
     GenApps from here. You can even switch on a second tree level to 
-    show all the inputs (meta model instances) of the GenApps.</p><div class="figure"><a name="N102CA"></a><p class="title"><b>Figure&nbsp;9.&nbsp;Generator Applications view</b></p><div><img src="images/genappsViewImg.gif" alt="Generator Applications view"></div></div></div><div class="navfooter"><hr><table summary="Navigation footer" width="100%"><tr><td align="left" width="40%"><a accesskey="p" href="ar01s02.html">Prev</a>&nbsp;</td><td align="center" width="20%">&nbsp;</td><td align="right" width="40%">&nbsp;<a accesskey="n" href="ar01s04.html">Next</a></td></tr><tr><td valign="top" align="left" width="40%">Concepts&nbsp;</td><td align="center" width="20%"><a accesskey="h" href="index.html">Home</a></td><td valign="top" align="right" width="40%">&nbsp;Notes</td></tr></table></div></body></html>
+    show all the inputs (meta model instances) of the GenApps.</p><div class="figure"><a name="N102CC"></a><p class="title"><b>Figure&nbsp;9.&nbsp;Generator Applications view</b></p><div><img src="images/genappsViewImg.gif" alt="Generator Applications view"></div></div></div><div class="navfooter"><hr><table summary="Navigation footer" width="100%"><tr><td align="left" width="40%"><a accesskey="p" href="ar01s02.html">Prev</a>&nbsp;</td><td align="center" width="20%">&nbsp;</td><td align="right" width="40%">&nbsp;<a accesskey="n" href="ar01s04.html">Next</a></td></tr><tr><td valign="top" align="left" width="40%">Concepts&nbsp;</td><td align="center" width="20%"><a accesskey="h" href="index.html">Home</a></td><td valign="top" align="right" width="40%">&nbsp;Notes</td></tr></table></div></body></html>
