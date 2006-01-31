@@ -1,0 +1,103 @@
+<html><head><META http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"><title>Sympedia GenFw Tutorial 1</title><meta content="DocBook XSL Stylesheets V1.69.1" name="generator"><meta name="description" content="Sympedia GenFw is a flexible and easy to use framework for 
+      software artifact generation. Input models can be associated with 
+      generators via extensible rule sets. Additional Content 
+      providers, generators and rules can be provided by Eclipse 
+      plugins. In this tutorial I will try to teach you the very basics of 
+      GenFw by walking through a simple example. You are expected to 
+      have some experience in Java programming, Eclipse plugin 
+      development and EMF usage (see 
+      
+      http://www.eclipse.org/emf)."><link rel="start" href="index.html" title="Sympedia GenFw Tutorial 1"><link rel="next" href="ar01s02.html" title="Concepts"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table summary="Navigation header" width="100%"><tr><th align="center" colspan="3">Sympedia GenFw Tutorial 1</th></tr><tr><td align="left" width="20%">&nbsp;</td><th align="center" width="60%">&nbsp;</th><td align="right" width="20%">&nbsp;<a accesskey="n" href="ar01s02.html">Next</a></td></tr></table><hr></div><div class="article" lang="en-EN"><div class="titlepage"><div><div><h2 class="title"><a name="N10001"></a>Sympedia GenFw Tutorial 1</h2></div><div><h3 class="subtitle"><i>Generating JavaBeans</i></h3></div><div><div class="author"><h3 class="author"><span class="firstname">Eike</span> <span class="surname">Stepper</span></h3><code class="email">&lt;<a href="mailto:stepper-at-sympedia.com">stepper-at-sympedia.com</a>&gt;</code></div></div><div><p class="pubdate">Saturday, 28 January 2006</p></div><div><div class="abstract"><p class="title"><b>Abstract</b></p><p>Sympedia GenFw is a flexible and easy to use framework for 
+      software artifact generation. Input models can be associated with 
+      generators via extensible rule sets. Additional Content 
+      providers, generators and rules can be provided by Eclipse 
+      plugins.</p><p>In this tutorial I will try to teach you the very basics of 
+      GenFw by walking through a simple example. You are expected to 
+      have some experience in Java programming, Eclipse plugin 
+      development and EMF usage (see 
+      <a href="http://www.eclipse.org/emf" target="_top">
+      http://www.eclipse.org/emf</a>).</p></div></div></div><div></div><hr></div><div class="toc"><p><b>Table of Contents</b></p><dl><dt><span class="sect1"><a href="index.html#N1001F">Introduction</a></span></dt><dt><span class="sect1"><a href="ar01s02.html">Concepts</a></span></dt><dt><span class="sect1"><a href="ar01s03.html">Steps</a></span></dt><dt><span class="sect1"><a href="ar01s04.html">Notes</a></span></dt><dt><span class="sect1"><a href="ar01s05.html">Patching CodeGen</a></span></dt></dl></div><div class="sect1" lang="en-EN"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="N1001F"></a>Introduction</h2></div></div><div></div></div><p>Let&rsquo;s assume it&rsquo;s our task to develop an Eclipse plugin that 
+    acts as a library of many JavaBeans, simple Java classes each with 
+    a set of properties (member fields plus getters and setters) and a 
+    property change listener for some of these properties. Our beans 
+    shall further provide arbitrary numbers of specific business 
+    methods. In order to keep this example simple, our beans will not 
+    support inheritance. They will look like this one:</p><pre class="programlisting">public class PersonBean 
+{ 
+  protected int id; 
+  protected String name; 
+  protected double income; 
+ 
+  public PersonBean(int id, String name, double income) 
+  { 
+    this.id = id; 
+    this.name = name; 
+    this.income = income; 
+  } 
+ 
+  public int getId() { return id; } 
+  public String getName() { return name; } 
+  public double getIncome() { return income; } 
+   
+  public void setName(String newName) { name = newName; } 
+  public void setIncome(double newIncome) { income = newIncome; } 
+}</pre><p>In fact this is not really a bean that conforms to Sun&rsquo;s 
+    JavaBeans specification, because it does not have a default 
+    constructor. We accept this to better be able to enforce a 
+    changeable policy on the properties. Note, that the id of a 
+    PersonBean can only be set at construction time. To support 
+    property change notification, our beans will contain additional 
+    code:</p><pre class="programlisting">import java.util.ArrayList; 
+import java.util.List; 
+ 
+public class PersonBean 
+{ 
+  private List&lt;Listener&gt; listeners = new ArrayList&lt;Listener&gt;(); 
+ 
+  // [...] 
+ 
+  public void addListener(Listener listener) { listeners.add(listener); } 
+  public void removeListener(Listener listener) { listeners.remove(listener); } 
+ 
+  public interface Listener 
+  { 
+    void notifyNameChanged(PersonBean source, String oldName, String newName); 
+    void notifyIncomeChanged(PersonBean source, double oldIncome, double newIncome); 
+  } 
+}</pre><p>Note, that, since th id can not be changed after construction 
+    time, there is no notifyIdChanged() method in the 
+    PersonBean.Listener interface. Finally all the setters will look 
+    like this to call the registered property change listeners:</p><pre class="programlisting">  public void setName(String newName) 
+  { 
+    String oldName = name; 
+    if (!EqualityHelper.equals(oldName, newName)) 
+    { 
+      name = newName; 
+      for (Listener listener : listeners) 
+        listener.notifyNameChanged(this, oldName, newName); 
+    } 
+  }</pre><p>The EqualityHelper class contains some convenience methods to 
+    blur the syntactic differences between primitive and reference 
+    types that are inherent to the Java programming language:</p><pre class="programlisting">public class EqualityHelper 
+{ 
+  public static boolean equals(boolean a, boolean b) { return a == b; } 
+  public static boolean equals(char a, char b) { return a == b; } 
+  public static boolean equals(byte a, byte b) { return a == b; } 
+  public static boolean equals(short a, short b) { return a == b; } 
+  public static boolean equals(int a, int b) { return a == b; } 
+  public static boolean equals(long a, long b) { return a == b; } 
+  public static boolean equals(float a, float b) { return a == b; } 
+  public static boolean equals(double a, double b) { return a == b; } 
+   
+  public static boolean equals(Object a, Object b) 
+  { 
+    if (a == null) return b == null; 
+    return a.equals(b); 
+  } 
+}</pre><p>We are expected to deliver vast numbers of bean classes each 
+    of them having many properties. Rapidly we come to the conclusion 
+    that it would be a boring and error prone job to code all these 
+    classes by hand. They have so many similarities that we wish to 
+    separately specify the differences and the similarities. We want to 
+    factor out the differences into a meta model file and the 
+    similarities into a set of templates.</p></div></div><div class="navfooter"><hr><table summary="Navigation footer" width="100%"><tr><td align="left" width="40%">&nbsp;</td><td align="center" width="20%">&nbsp;</td><td align="right" width="40%">&nbsp;<a accesskey="n" href="ar01s02.html">Next</a></td></tr><tr><td valign="top" align="left" width="40%">&nbsp;</td><td align="center" width="20%">&nbsp;</td><td valign="top" align="right" width="40%">&nbsp;Concepts</td></tr></table></div></body></html>

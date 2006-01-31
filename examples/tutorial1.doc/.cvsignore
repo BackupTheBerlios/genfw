@@ -1,0 +1,6 @@
+tmp
+dist
+build
+*.log
+*.tmp
+*.dump

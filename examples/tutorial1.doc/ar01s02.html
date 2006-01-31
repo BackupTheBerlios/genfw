@@ -1,0 +1,64 @@
+<html><head><META http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"><title>Concepts</title><meta content="DocBook XSL Stylesheets V1.69.1" name="generator"><link rel="start" href="index.html" title="Sympedia GenFw Tutorial 1"><link rel="up" href="index.html" title="Sympedia GenFw Tutorial 1"><link rel="prev" href="index.html" title="Sympedia GenFw Tutorial 1"><link rel="next" href="ar01s03.html" title="Steps"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table summary="Navigation header" width="100%"><tr><th align="center" colspan="3">Concepts</th></tr><tr><td align="left" width="20%"><a accesskey="p" href="index.html">Prev</a>&nbsp;</td><th align="center" width="60%">&nbsp;</th><td align="right" width="20%">&nbsp;<a accesskey="n" href="ar01s03.html">Next</a></td></tr></table><hr></div><div class="sect1" lang="en-EN"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="N10038"></a>Concepts</h2></div></div><div></div></div><p>Out there are a lot of existing meta model formats and there 
+    are several template engines available so far. Note, that GenFw 
+    does neither provide an own meta model format nor does it provide 
+    an own templating engine. Rather it does provide the necessary 
+    means to integrate existing technologies like Ecore, JET, JMerge 
+    and others. Finally GenFw offers an extensible way to dynamically 
+    associate selected elements of the meta models with specific 
+    generators. To achieve this GenFw currently defines the following 
+    five concepts with simple interfaces:</p><div class="orderedlist"><ol type="1"><li><p>A <span class="emphasis"><em>ContentProvider</em></span> is a facility to 
+        read a file into memory and iterate over the elements (called 
+        input objects) in a tree-like fashion.</p><pre class="programlisting">public interface ContentProvider extends EObject 
+{ 
+  public List getRoots(String path); 
+  public List getChildren(Object object); 
+}</pre></li><li><p>A <span class="emphasis"><em>Generator</em></span> can produce an output 
+        string that depends on a given input object and a target path. 
+        Note, that a generator is not expected to write the output to 
+        the target file. The framework will do so if the generator 
+        returns a non-null result.</p><pre class="programlisting">public interface Generator extends EObject 
+{ 
+  public String generate(Object inputObject, 
+                         String targetPath, 
+                         IProgressMonitor monitor) throws CoreException; 
+}</pre></li><li><p>A <span class="emphasis"><em>Rule</em></span> can decide to invoke a 
+        certain Generator on a given input object. In addition the Rule 
+        is able to compute the target path for the given input 
+        object.</p><pre class="programlisting">public interface Rule extends EObject 
+{ 
+  public boolean isMatching(Object inputObject); 
+  public String getTargetPath(Object inputObject); 
+  public Generator getGenerator(); 
+}</pre></li><li><p>A <span class="emphasis"><em>RuleSet</em></span> is nothing else than a 
+        named container for Rules.</p><pre class="programlisting">public interface RuleSet extends EObject 
+{ 
+  public String getName(); 
+  public EList getRules(); 
+}</pre></li><li><p>An <span class="emphasis"><em>Input</em></span> points to a single meta 
+        model file, associates the ContentProvider to be used when 
+        loading the file into memory (this is often called 
+        instantiation) and specifies a number of RuleSets to apply when 
+        determining the Generators to invoke on the objects in the meta 
+        model.</p><pre class="programlisting">public interface Input extends EObject 
+{ 
+  public String getFullPath(); 
+  public ContentProvider getContentProvider(); 
+  public EList getRuleSets(); 
+}</pre></li></ol></div><p>RuleSets and Inputs are not not expected to be implemented by 
+    you. GenFw provides default implementations for both and usually 
+    there is no need to further subclass them.</p><p>The other three interfaces (ContentProvider, Generator and 
+    Rule) are subject to individual extension. I will explain how to 
+    integrate your own implementations of these concepts in another 
+    tutorial. For many purposes the shipped implementations are 
+    convenient enough.</p><p>So let&rsquo;s see how this framework can help us with our tedious 
+    bean job. We want to use EMF for the specification of the meta 
+    model and the generation of the usual three EMF plugins (model, 
+    edit and editor), so that we can store our bean descriptions in XML 
+    files and modify them with a cool, tree-structured editor. To be 
+    even cooler, you can use a graphical designer for the structure of 
+    the meta model (there has always been the Omondo tool, UMLX is very 
+    young and currently I tend to use Topcased):</p><div class="figure"><a name="N10073"></a><p class="title"><b>Figure&nbsp;1.&nbsp;UML diagram of the Beans model</b></p><div><img src="images/beansModelImg.gif" alt="UML diagram of the Beans model"></div></div><p>The visual designer creates the .ecore file and you have to 
+    create the .genmodel file and invoke the EMF CodeGen generator to 
+    produce the meta model classes (and other artifacts) for you. This 
+    step of generation does not belong to GenFw, it is only necessary 
+    because we decided to use Ecore as the meta model format.</p></div><div class="navfooter"><hr><table summary="Navigation footer" width="100%"><tr><td align="left" width="40%"><a accesskey="p" href="index.html">Prev</a>&nbsp;</td><td align="center" width="20%">&nbsp;</td><td align="right" width="40%">&nbsp;<a accesskey="n" href="ar01s03.html">Next</a></td></tr><tr><td valign="top" align="left" width="40%">Sympedia GenFw Tutorial 1&nbsp;</td><td align="center" width="20%"><a accesskey="h" href="index.html">Home</a></td><td valign="top" align="right" width="40%">&nbsp;Steps</td></tr></table></div></body></html>
