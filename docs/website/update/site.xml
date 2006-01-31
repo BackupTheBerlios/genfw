@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="web/site.xsl"?>
 <site>
    <description url="http://genfw.berlios.de/update">
       This is the Eclipse update site for Sympedia GenFw.
