@@ -111,21 +111,112 @@ This Agreement is governed by the laws of the State of New York and the intellec
    </license>
 
    <includes
-         id="com.sympedia.genfw"
-         version="0.0.0"/>
-
-   <includes
-         id="com.sympedia.util.sdk"
+         id="com.sympedia.util"
          version="0.0.0"/>
 
    <requires>
-      <import plugin="org.eclipse.pde.core"/>
+      <import plugin="com.sympedia.util.emf"/>
+      <import plugin="org.apache.ant"/>
+      <import plugin="org.eclipse.ant.core"/>
+      <import plugin="org.beanshell"/>
+      <import plugin="com.sympedia.util.emf.edit"/>
+      <import plugin="com.sympedia.util.emf.editor"/>
+      <import plugin="org.eclipse.jdt.core"/>
+      <import plugin="org.eclipse.jface.text"/>
+      <import plugin="org.eclipse.core.runtime"/>
+      <import plugin="org.eclipse.emf.edit"/>
+      <import plugin="org.eclipse.emf.codegen.ecore"/>
+      <import plugin="org.eclipse.emf.codegen"/>
    </requires>
 
    <plugin
-         id="com.sympedia.genfw.source"
+         id="com.sympedia.genfw"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="com.sympedia.genfw.ant"
          download-size="0"
          install-size="0"
          version="0.0.0"/>
+
+   <plugin
+         id="com.sympedia.genfw.bsh"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="com.sympedia.genfw.bsh.edit"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="com.sympedia.genfw.edit"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="com.sympedia.genfw.editor"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="com.sympedia.genfw.jdt"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="com.sympedia.genfw.jdt.edit"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="com.sympedia.genfw.jet"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="com.sympedia.genfw.jet.edit"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="com.sympedia.genfw.jmerge"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="com.sympedia.genfw.jmerge.edit"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="com.sympedia.genfw.ui"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
 
 </feature>
