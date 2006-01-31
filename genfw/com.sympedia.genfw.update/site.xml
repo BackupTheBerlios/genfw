@@ -21,6 +21,12 @@
    <feature url="features/tutorial1_1.0.0.jar" id="tutorial1" version="1.0.0">
       <category name="Examples"/>
    </feature>
+   <feature url="features/com.sympedia.genfw.ocl_1.0.0.jar" id="com.sympedia.genfw.ocl" version="1.0.0">
+      <category name="GenFw"/>
+   </feature>
+   <feature url="features/com.sympedia.genfw.ocl.sdk_1.0.0.jar" id="com.sympedia.genfw.ocl.sdk" version="1.0.0">
+      <category name="GenFw"/>
+   </feature>
    <category-def name="Examples" label="Examples"/>
    <category-def name="GenFw" label="Sympedia GenFw"/>
 </site>
