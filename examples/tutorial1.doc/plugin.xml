@@ -1,0 +1,1 @@
+<plugin provider-name="Sympedia.com" version="1.0" id="tutorial1.doc" name="Tutorial1 Documentation"><extension point="org.eclipse.help.toc"><toc primary="true" file="toc.xml"></toc></extension></plugin>
