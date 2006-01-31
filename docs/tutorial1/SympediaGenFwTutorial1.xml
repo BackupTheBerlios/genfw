@@ -1186,23 +1186,16 @@ public class BeansLibraryInitializer implements IExternalLibraryInitializer
         the generator expects a .genmodel file to be used as the 
         Input.</para>
 
-      </listitem>
-
-      <listitem>
-
         <para>With the Ecore Template generator you can generate 
         selected templates and choose to generate the Interface file or 
         the Implementation file. Note, that the Ecore templates don’t 
         expect a pure GenBase instance (the input object ) to be passed 
-        as argument! Rather it expects an Object[3] array. That’s why 
+        as argument. Rather it expects an Object[3] array. That’s why 
         the Ecore Template generator is a special subclass of JET 
         Template. Attention: Before you use an Ecore Template 
-        generator, you must patch org.eclipse.emf.codegen.ecore, see 
-        the appendix!</para>
-
-      </listitem>
-
-      <listitem>
+        generator, you must patch 
+        <code>org.eclipse.emf.codegen.ecore</code>, see the last 
+        section!</para>
 
         <para>With the EMF Generator you can generate a whole 
         GenPackage. Theoretically it is possible to feed the generator 

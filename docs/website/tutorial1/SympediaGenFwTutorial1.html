@@ -73,7 +73,7 @@
 
         <dt><span class="sect1"><a href="#N102D2">Notes</a></span></dt>
 
-        <dt><span class="sect1"><a href="#N10314">Patching
+        <dt><span class="sect1"><a href="#N10315">Patching
         CodeGen</a></span></dt>
       </dl>
     </div>
@@ -1224,20 +1224,17 @@ public class BeansLibraryInitializer implements IExternalLibraryInitializer
             distribution, there are currently two ways: You can use the Ecore
             Template generator or the EMF Generator. In both cases the
             generator expects a .genmodel file to be used as the Input.</p>
-          </li>
 
-          <li>
             <p>With the Ecore Template generator you can generate selected
             templates and choose to generate the Interface file or the
             Implementation file. Note, that the Ecore templates don&rsquo;t
             expect a pure GenBase instance (the input object ) to be passed as
-            argument! Rather it expects an Object[3] array. That&rsquo;s why
+            argument. Rather it expects an Object[3] array. That&rsquo;s why
             the Ecore Template generator is a special subclass of JET Template.
             Attention: Before you use an Ecore Template generator, you must
-            patch org.eclipse.emf.codegen.ecore, see the appendix!</p>
-          </li>
+            patch <code class="code">org.eclipse.emf.codegen.ecore</code>, see
+            the last section!</p>
 
-          <li>
             <p>With the EMF Generator you can generate a whole GenPackage.
             Theoretically it is possible to feed the generator with selected
             GenClassifiers, but unfortunately they will miss some constructs
@@ -1283,8 +1280,8 @@ public class BeansLibraryInitializer implements IExternalLibraryInitializer
       <div class="titlepage">
         <div>
           <div>
-            <h2 class="title" style="clear: both"><a name="N10314" id=
-            "N10314"></a>Patching CodeGen</h2>
+            <h2 class="title" style="clear: both"><a name="N10315" id=
+            "N10315"></a>Patching CodeGen</h2>
           </div>
         </div>
       </div>
