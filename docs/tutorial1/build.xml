@@ -3,6 +3,7 @@
 
 	<property name="file.name" value="SympediaGenFwTutorial1" />
 	<property name="target.dir" value="../website/tutorial1" />
+	<property name="out.path" value="${target.dir}/${file.name}.html" />
 
 	<macrodef name="sync.images">
 		<attribute name="fromdir" />
@@ -31,7 +32,6 @@
 	<target name="init">
 		<tstamp />
 		<mkdir dir="${target.dir}" />
-		<property name="out.path" value="${target.dir}/${file.name}.html" />
 	</target>
 
 	<target name="clean" depends="init">
