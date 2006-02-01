@@ -27,10 +27,10 @@ import org.eclipse.emf.common.util.EList;
  * </p>
  *
  * @see com.sympedia.genfw.GenfwPackage#getStaticFileInitializer()
- * @model
+ * @model annotation="http://www.topcased.org/uuid uuid='1138788227656133'"
  * @generated
  */
-public interface StaticFileInitializer extends FileInitializer
+public interface StaticFileInitializer extends Generator
 {
   /**
    * Returns the value of the '<em><b>Lines</b></em>' containment reference list.
@@ -46,6 +46,7 @@ public interface StaticFileInitializer extends FileInitializer
    * @see com.sympedia.genfw.GenfwPackage#getStaticFileInitializer_Lines()
    * @see com.sympedia.genfw.Line#getStaticFileInitializer
    * @model type="com.sympedia.genfw.Line" opposite="staticFileInitializer" containment="true"
+   *        annotation="http://www.topcased.org/uuid uuid='1138788227656134'"
    * @generated
    */
   EList getLines();

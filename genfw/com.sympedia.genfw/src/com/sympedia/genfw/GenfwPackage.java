@@ -692,6 +692,89 @@ public interface GenfwPackage extends EPackage
   int DELEGATING_GENERATOR_FEATURE_COUNT = GENERATOR_FEATURE_COUNT + 1;
 
   /**
+   * The meta object id for the '{@link com.sympedia.genfw.impl.DomTransformerImpl <em>Dom Transformer</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see com.sympedia.genfw.impl.DomTransformerImpl
+   * @see com.sympedia.genfw.impl.GenfwPackageImpl#getDomTransformer()
+   * @generated
+   */
+  int DOM_TRANSFORMER = 11;
+
+  /**
+   * The feature id for the '<em><b>Root</b></em>' container reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DOM_TRANSFORMER__ROOT = GENERATOR__ROOT;
+
+  /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DOM_TRANSFORMER__NAME = GENERATOR__NAME;
+
+  /**
+   * The feature id for the '<em><b>Transformations</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DOM_TRANSFORMER__TRANSFORMATIONS = GENERATOR_FEATURE_COUNT + 0;
+
+  /**
+   * The number of structural features of the '<em>Dom Transformer</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DOM_TRANSFORMER_FEATURE_COUNT = GENERATOR_FEATURE_COUNT + 1;
+
+  /**
+   * The meta object id for the '{@link com.sympedia.genfw.impl.DomTransformationImpl <em>Dom Transformation</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see com.sympedia.genfw.impl.DomTransformationImpl
+   * @see com.sympedia.genfw.impl.GenfwPackageImpl#getDomTransformation()
+   * @generated
+   */
+  int DOM_TRANSFORMATION = 12;
+
+  /**
+   * The feature id for the '<em><b>Transformer</b></em>' container reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DOM_TRANSFORMATION__TRANSFORMER = 0;
+
+  /**
+   * The feature id for the '<em><b>Label</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DOM_TRANSFORMATION__LABEL = 1;
+
+  /**
+   * The number of structural features of the '<em>Dom Transformation</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DOM_TRANSFORMATION_FEATURE_COUNT = 2;
+
+  /**
    * The meta object id for the '{@link com.sympedia.genfw.impl.InitialGeneratorImpl <em>Initial Generator</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -699,7 +782,7 @@ public interface GenfwPackage extends EPackage
    * @see com.sympedia.genfw.impl.GenfwPackageImpl#getInitialGenerator()
    * @generated
    */
-  int INITIAL_GENERATOR = 11;
+  int INITIAL_GENERATOR = 13;
 
   /**
    * The feature id for the '<em><b>Root</b></em>' container reference.
@@ -738,43 +821,6 @@ public interface GenfwPackage extends EPackage
   int INITIAL_GENERATOR_FEATURE_COUNT = DELEGATING_GENERATOR_FEATURE_COUNT + 0;
 
   /**
-   * The meta object id for the '{@link com.sympedia.genfw.impl.FileInitializerImpl <em>File Initializer</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see com.sympedia.genfw.impl.FileInitializerImpl
-   * @see com.sympedia.genfw.impl.GenfwPackageImpl#getFileInitializer()
-   * @generated
-   */
-  int FILE_INITIALIZER = 12;
-
-  /**
-   * The feature id for the '<em><b>Root</b></em>' container reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int FILE_INITIALIZER__ROOT = GENERATOR__ROOT;
-
-  /**
-   * The feature id for the '<em><b>Name</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int FILE_INITIALIZER__NAME = GENERATOR__NAME;
-
-  /**
-   * The number of structural features of the '<em>File Initializer</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int FILE_INITIALIZER_FEATURE_COUNT = GENERATOR_FEATURE_COUNT + 0;
-
-  /**
    * The meta object id for the '{@link com.sympedia.genfw.impl.StaticFileInitializerImpl <em>Static File Initializer</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -782,7 +828,7 @@ public interface GenfwPackage extends EPackage
    * @see com.sympedia.genfw.impl.GenfwPackageImpl#getStaticFileInitializer()
    * @generated
    */
-  int STATIC_FILE_INITIALIZER = 13;
+  int STATIC_FILE_INITIALIZER = 14;
 
   /**
    * The feature id for the '<em><b>Root</b></em>' container reference.
@@ -791,7 +837,7 @@ public interface GenfwPackage extends EPackage
    * @generated
    * @ordered
    */
-  int STATIC_FILE_INITIALIZER__ROOT = FILE_INITIALIZER__ROOT;
+  int STATIC_FILE_INITIALIZER__ROOT = GENERATOR__ROOT;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -800,7 +846,7 @@ public interface GenfwPackage extends EPackage
    * @generated
    * @ordered
    */
-  int STATIC_FILE_INITIALIZER__NAME = FILE_INITIALIZER__NAME;
+  int STATIC_FILE_INITIALIZER__NAME = GENERATOR__NAME;
 
   /**
    * The feature id for the '<em><b>Lines</b></em>' containment reference list.
@@ -809,7 +855,7 @@ public interface GenfwPackage extends EPackage
    * @generated
    * @ordered
    */
-  int STATIC_FILE_INITIALIZER__LINES = FILE_INITIALIZER_FEATURE_COUNT + 0;
+  int STATIC_FILE_INITIALIZER__LINES = GENERATOR_FEATURE_COUNT + 0;
 
   /**
    * The number of structural features of the '<em>Static File Initializer</em>' class.
@@ -818,7 +864,7 @@ public interface GenfwPackage extends EPackage
    * @generated
    * @ordered
    */
-  int STATIC_FILE_INITIALIZER_FEATURE_COUNT = FILE_INITIALIZER_FEATURE_COUNT + 1;
+  int STATIC_FILE_INITIALIZER_FEATURE_COUNT = GENERATOR_FEATURE_COUNT + 1;
 
   /**
    * The meta object id for the '{@link com.sympedia.genfw.impl.LineImpl <em>Line</em>}' class.
@@ -828,7 +874,7 @@ public interface GenfwPackage extends EPackage
    * @see com.sympedia.genfw.impl.GenfwPackageImpl#getLine()
    * @generated
    */
-  int LINE = 14;
+  int LINE = 15;
 
   /**
    * The feature id for the '<em><b>Content</b></em>' attribute.
@@ -865,7 +911,7 @@ public interface GenfwPackage extends EPackage
    * @see com.sympedia.genfw.impl.GenfwPackageImpl#getProjectInitializer()
    * @generated
    */
-  int PROJECT_INITIALIZER = 15;
+  int PROJECT_INITIALIZER = 16;
 
   /**
    * The feature id for the '<em><b>Root</b></em>' container reference.
@@ -902,7 +948,7 @@ public interface GenfwPackage extends EPackage
    * @see com.sympedia.genfw.impl.GenfwPackageImpl#getProjectInitializationProvider()
    * @generated
    */
-  int PROJECT_INITIALIZATION_PROVIDER = 16;
+  int PROJECT_INITIALIZATION_PROVIDER = 17;
 
   /**
    * The number of structural features of the '<em>Project Initialization Provider</em>' class.
@@ -921,7 +967,7 @@ public interface GenfwPackage extends EPackage
    * @see com.sympedia.genfw.impl.GenfwPackageImpl#getInput()
    * @generated
    */
-  int INPUT = 17;
+  int INPUT = 18;
 
   /**
    * The feature id for the '<em><b>Root</b></em>' container reference.
@@ -985,7 +1031,7 @@ public interface GenfwPackage extends EPackage
    * @see com.sympedia.genfw.impl.GenfwPackageImpl#getIPath()
    * @generated
    */
-  int IPATH = 18;
+  int IPATH = 19;
 
   /**
    * The meta object id for the '<em>Java List</em>' data type.
@@ -995,7 +1041,7 @@ public interface GenfwPackage extends EPackage
    * @see com.sympedia.genfw.impl.GenfwPackageImpl#getJavaList()
    * @generated
    */
-  int JAVA_LIST = 19;
+  int JAVA_LIST = 20;
 
   /**
    * The meta object id for the '<em>Core Exception</em>' data type.
@@ -1005,7 +1051,7 @@ public interface GenfwPackage extends EPackage
    * @see com.sympedia.genfw.impl.GenfwPackageImpl#getCoreException()
    * @generated
    */
-  int CORE_EXCEPTION = 20;
+  int CORE_EXCEPTION = 21;
 
   /**
    * The meta object id for the '<em>IProgress Monitor</em>' data type.
@@ -1015,7 +1061,7 @@ public interface GenfwPackage extends EPackage
    * @see com.sympedia.genfw.impl.GenfwPackageImpl#getIProgressMonitor()
    * @generated
    */
-  int IPROGRESS_MONITOR = 21;
+  int IPROGRESS_MONITOR = 22;
 
   /**
    * The meta object id for the '<em>Class Loader</em>' data type.
@@ -1025,7 +1071,7 @@ public interface GenfwPackage extends EPackage
    * @see com.sympedia.genfw.impl.GenfwPackageImpl#getClassLoader()
    * @generated
    */
-  int CLASS_LOADER = 22;
+  int CLASS_LOADER = 23;
 
   /**
    * The meta object id for the '<em>Output Stream</em>' data type.
@@ -1035,7 +1081,7 @@ public interface GenfwPackage extends EPackage
    * @see com.sympedia.genfw.impl.GenfwPackageImpl#getOutputStream()
    * @generated
    */
-  int OUTPUT_STREAM = 23;
+  int OUTPUT_STREAM = 24;
 
   /**
    * The meta object id for the '<em>Exception</em>' data type.
@@ -1045,7 +1091,17 @@ public interface GenfwPackage extends EPackage
    * @see com.sympedia.genfw.impl.GenfwPackageImpl#getException()
    * @generated
    */
-  int EXCEPTION = 24;
+  int EXCEPTION = 25;
+
+  /**
+   * The meta object id for the '<em>Dom Document</em>' data type.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.w3c.dom.Document
+   * @see com.sympedia.genfw.impl.GenfwPackageImpl#getDomDocument()
+   * @generated
+   */
+  int DOM_DOCUMENT = 26;
 
   /**
    * Returns the meta object for class '{@link com.sympedia.genfw.GenLib <em>Gen Lib</em>}'.
@@ -1411,6 +1467,59 @@ public interface GenfwPackage extends EPackage
   EReference getDelegatingGenerator_Delegate();
 
   /**
+   * Returns the meta object for class '{@link com.sympedia.genfw.DomTransformer <em>Dom Transformer</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Dom Transformer</em>'.
+   * @see com.sympedia.genfw.DomTransformer
+   * @generated
+   */
+  EClass getDomTransformer();
+
+  /**
+   * Returns the meta object for the containment reference list '{@link com.sympedia.genfw.DomTransformer#getTransformations <em>Transformations</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Transformations</em>'.
+   * @see com.sympedia.genfw.DomTransformer#getTransformations()
+   * @see #getDomTransformer()
+   * @generated
+   */
+  EReference getDomTransformer_Transformations();
+
+  /**
+   * Returns the meta object for class '{@link com.sympedia.genfw.DomTransformation <em>Dom Transformation</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Dom Transformation</em>'.
+   * @see com.sympedia.genfw.DomTransformation
+   * @generated
+   */
+  EClass getDomTransformation();
+
+  /**
+   * Returns the meta object for the container reference '{@link com.sympedia.genfw.DomTransformation#getTransformer <em>Transformer</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the container reference '<em>Transformer</em>'.
+   * @see com.sympedia.genfw.DomTransformation#getTransformer()
+   * @see #getDomTransformation()
+   * @generated
+   */
+  EReference getDomTransformation_Transformer();
+
+  /**
+   * Returns the meta object for the attribute '{@link com.sympedia.genfw.DomTransformation#getLabel <em>Label</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Label</em>'.
+   * @see com.sympedia.genfw.DomTransformation#getLabel()
+   * @see #getDomTransformation()
+   * @generated
+   */
+  EAttribute getDomTransformation_Label();
+
+  /**
    * Returns the meta object for class '{@link com.sympedia.genfw.InitialGenerator <em>Initial Generator</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1419,16 +1528,6 @@ public interface GenfwPackage extends EPackage
    * @generated
    */
   EClass getInitialGenerator();
-
-  /**
-   * Returns the meta object for class '{@link com.sympedia.genfw.FileInitializer <em>File Initializer</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>File Initializer</em>'.
-   * @see com.sympedia.genfw.FileInitializer
-   * @generated
-   */
-  EClass getFileInitializer();
 
   /**
    * Returns the meta object for class '{@link com.sympedia.genfw.StaticFileInitializer <em>Static File Initializer</em>}'.
@@ -1635,6 +1734,7 @@ public interface GenfwPackage extends EPackage
    * @return the meta object for data type '<em>Output Stream</em>'.
    * @see java.io.OutputStream
    * @model instanceClass="java.io.OutputStream"
+   *        annotation="http://www.topcased.org/uuid uuid='1138788227671167'" 
    * @generated
    */
   EDataType getOutputStream();
@@ -1646,9 +1746,22 @@ public interface GenfwPackage extends EPackage
    * @return the meta object for data type '<em>Exception</em>'.
    * @see java.lang.Exception
    * @model instanceClass="java.lang.Exception"
+   *        annotation="http://www.topcased.org/uuid uuid='1138788227671168'" 
    * @generated
    */
   EDataType getException();
+
+  /**
+   * Returns the meta object for data type '{@link org.w3c.dom.Document <em>Dom Document</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for data type '<em>Dom Document</em>'.
+   * @see org.w3c.dom.Document
+   * @model instanceClass="org.w3c.dom.Document"
+   *        annotation="http://www.topcased.org/uuid uuid='1138795838842228'" 
+   * @generated
+   */
+  EDataType getDomDocument();
 
   /**
    * Returns the factory that creates the instances of the model.
@@ -1970,6 +2083,50 @@ public interface GenfwPackage extends EPackage
     EReference DELEGATING_GENERATOR__DELEGATE = eINSTANCE.getDelegatingGenerator_Delegate();
 
     /**
+     * The meta object literal for the '{@link com.sympedia.genfw.impl.DomTransformerImpl <em>Dom Transformer</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see com.sympedia.genfw.impl.DomTransformerImpl
+     * @see com.sympedia.genfw.impl.GenfwPackageImpl#getDomTransformer()
+     * @generated
+     */
+    EClass DOM_TRANSFORMER = eINSTANCE.getDomTransformer();
+
+    /**
+     * The meta object literal for the '<em><b>Transformations</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference DOM_TRANSFORMER__TRANSFORMATIONS = eINSTANCE.getDomTransformer_Transformations();
+
+    /**
+     * The meta object literal for the '{@link com.sympedia.genfw.impl.DomTransformationImpl <em>Dom Transformation</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see com.sympedia.genfw.impl.DomTransformationImpl
+     * @see com.sympedia.genfw.impl.GenfwPackageImpl#getDomTransformation()
+     * @generated
+     */
+    EClass DOM_TRANSFORMATION = eINSTANCE.getDomTransformation();
+
+    /**
+     * The meta object literal for the '<em><b>Transformer</b></em>' container reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference DOM_TRANSFORMATION__TRANSFORMER = eINSTANCE.getDomTransformation_Transformer();
+
+    /**
+     * The meta object literal for the '<em><b>Label</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute DOM_TRANSFORMATION__LABEL = eINSTANCE.getDomTransformation_Label();
+
+    /**
      * The meta object literal for the '{@link com.sympedia.genfw.impl.InitialGeneratorImpl <em>Initial Generator</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -1978,16 +2135,6 @@ public interface GenfwPackage extends EPackage
      * @generated
      */
     EClass INITIAL_GENERATOR = eINSTANCE.getInitialGenerator();
-
-    /**
-     * The meta object literal for the '{@link com.sympedia.genfw.impl.FileInitializerImpl <em>File Initializer</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see com.sympedia.genfw.impl.FileInitializerImpl
-     * @see com.sympedia.genfw.impl.GenfwPackageImpl#getFileInitializer()
-     * @generated
-     */
-    EClass FILE_INITIALIZER = eINSTANCE.getFileInitializer();
 
     /**
      * The meta object literal for the '{@link com.sympedia.genfw.impl.StaticFileInitializerImpl <em>Static File Initializer</em>}' class.
@@ -2172,6 +2319,16 @@ public interface GenfwPackage extends EPackage
      * @generated
      */
     EDataType EXCEPTION = eINSTANCE.getException();
+
+    /**
+     * The meta object literal for the '<em>Dom Document</em>' data type.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.w3c.dom.Document
+     * @see com.sympedia.genfw.impl.GenfwPackageImpl#getDomDocument()
+     * @generated
+     */
+    EDataType DOM_DOCUMENT = eINSTANCE.getDomDocument();
 
   }
 

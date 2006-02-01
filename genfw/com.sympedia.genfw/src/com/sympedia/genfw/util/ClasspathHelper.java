@@ -124,7 +124,7 @@ public class ClasspathHelper
             URL url = libFile.toURL();
             if (!urls.contains(url))
             {
-              System.out.println("LIB: " + url);
+              //              System.out.println("LIB: " + url);
               urls.add(url);
             }
             break;
@@ -161,7 +161,7 @@ public class ClasspathHelper
       URL url = outputFolder.toURL();
       if (!urls.contains(url))
       {
-        System.out.println("OUT: " + url);
+        //        System.out.println("OUT: " + url);
         urls.add(url);
       }
     }

@@ -11,6 +11,7 @@
 package com.sympedia.genfw.bsh.util;
 
 
+import com.sympedia.genfw.DomTransformation;
 import com.sympedia.genfw.ExpressionBasedRule;
 import com.sympedia.genfw.Rule;
 import com.sympedia.genfw.bsh.*;
@@ -114,6 +115,14 @@ public class BshSwitch
       if (result == null) result = defaultCase(theEObject);
       return result;
     }
+    case BshPackage.BEAN_SHELL_TRANSFORMATION:
+    {
+      BeanShellTransformation beanShellTransformation = (BeanShellTransformation)theEObject;
+      Object result = caseBeanShellTransformation(beanShellTransformation);
+      if (result == null) result = caseDomTransformation(beanShellTransformation);
+      if (result == null) result = defaultCase(theEObject);
+      return result;
+    }
     default:
       return defaultCase(theEObject);
     }
@@ -131,6 +140,22 @@ public class BshSwitch
    * @generated
    */
   public Object caseBeanShellRule(BeanShellRule object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpretting the object as an instance of '<em>Bean Shell Transformation</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpretting the object as an instance of '<em>Bean Shell Transformation</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public Object caseBeanShellTransformation(BeanShellTransformation object)
   {
     return null;
   }
@@ -163,6 +188,22 @@ public class BshSwitch
    * @generated
    */
   public Object caseExpressionBasedRule(ExpressionBasedRule object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpretting the object as an instance of '<em>Dom Transformation</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpretting the object as an instance of '<em>Dom Transformation</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public Object caseDomTransformation(DomTransformation object)
   {
     return null;
   }

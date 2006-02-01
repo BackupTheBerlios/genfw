@@ -11,6 +11,7 @@
 package com.sympedia.genfw.bsh.util;
 
 
+import com.sympedia.genfw.DomTransformation;
 import com.sympedia.genfw.ExpressionBasedRule;
 import com.sympedia.genfw.Rule;
 import com.sympedia.genfw.bsh.*;
@@ -90,6 +91,11 @@ public class BshAdapterFactory extends AdapterFactoryImpl
       return createBeanShellRuleAdapter();
     }
 
+    public Object caseBeanShellTransformation(BeanShellTransformation object)
+    {
+      return createBeanShellTransformationAdapter();
+    }
+
     public Object caseRule(Rule object)
     {
       return createRuleAdapter();
@@ -98,6 +104,11 @@ public class BshAdapterFactory extends AdapterFactoryImpl
     public Object caseExpressionBasedRule(ExpressionBasedRule object)
     {
       return createExpressionBasedRuleAdapter();
+    }
+
+    public Object caseDomTransformation(DomTransformation object)
+    {
+      return createDomTransformationAdapter();
     }
 
     public Object defaultCase(EObject object)
@@ -135,6 +146,21 @@ public class BshAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
+   * Creates a new adapter for an object of class '{@link com.sympedia.genfw.bsh.BeanShellTransformation <em>Bean Shell Transformation</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see com.sympedia.genfw.bsh.BeanShellTransformation
+   * @generated
+   */
+  public Adapter createBeanShellTransformationAdapter()
+  {
+    return null;
+  }
+
+  /**
    * Creates a new adapter for an object of class '{@link com.sympedia.genfw.Rule <em>Rule</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
@@ -160,6 +186,21 @@ public class BshAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createExpressionBasedRuleAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link com.sympedia.genfw.DomTransformation <em>Dom Transformation</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see com.sympedia.genfw.DomTransformation
+   * @generated
+   */
+  public Adapter createDomTransformationAdapter()
   {
     return null;
   }

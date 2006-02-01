@@ -11,12 +11,12 @@
 package com.sympedia.genfw.impl;
 
 
-import com.sympedia.genfw.StaticRule;
 import com.sympedia.genfw.ContentProvider;
 import com.sympedia.genfw.DelegatingGenerator;
+import com.sympedia.genfw.DomTransformation;
+import com.sympedia.genfw.DomTransformer;
 import com.sympedia.genfw.EcoreContentProvider;
 import com.sympedia.genfw.ExpressionBasedRule;
-import com.sympedia.genfw.FileInitializer;
 import com.sympedia.genfw.GenApp;
 import com.sympedia.genfw.GenLib;
 import com.sympedia.genfw.Generator;
@@ -31,6 +31,7 @@ import com.sympedia.genfw.PropertiesContentProvider;
 import com.sympedia.genfw.Rule;
 import com.sympedia.genfw.RuleSet;
 import com.sympedia.genfw.StaticFileInitializer;
+import com.sympedia.genfw.StaticRule;
 
 import java.io.OutputStream;
 
@@ -49,6 +50,8 @@ import org.eclipse.emf.ecore.EParameter;
 import org.eclipse.emf.ecore.EReference;
 
 import org.eclipse.emf.ecore.impl.EPackageImpl;
+
+import org.w3c.dom.Document;
 
 
 /**
@@ -141,14 +144,21 @@ public class GenfwPackageImpl extends EPackageImpl implements GenfwPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  private EClass initialGeneratorEClass = null;
+  private EClass domTransformerEClass = null;
 
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    */
-  private EClass fileInitializerEClass = null;
+  private EClass domTransformationEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass initialGeneratorEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -233,6 +243,13 @@ public class GenfwPackageImpl extends EPackageImpl implements GenfwPackage
    * @generated
    */
   private EDataType exceptionEDataType = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EDataType domDocumentEDataType = null;
 
   /**
    * Creates an instance of the model <b>Package</b>, registered with
@@ -652,9 +669,9 @@ public class GenfwPackageImpl extends EPackageImpl implements GenfwPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EClass getInitialGenerator()
+  public EClass getDomTransformer()
   {
-    return initialGeneratorEClass;
+    return domTransformerEClass;
   }
 
   /**
@@ -662,9 +679,49 @@ public class GenfwPackageImpl extends EPackageImpl implements GenfwPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EClass getFileInitializer()
+  public EReference getDomTransformer_Transformations()
   {
-    return fileInitializerEClass;
+    return (EReference)domTransformerEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getDomTransformation()
+  {
+    return domTransformationEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getDomTransformation_Transformer()
+  {
+    return (EReference)domTransformationEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getDomTransformation_Label()
+  {
+    return (EAttribute)domTransformationEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getInitialGenerator()
+  {
+    return initialGeneratorEClass;
   }
 
   /**
@@ -872,6 +929,16 @@ public class GenfwPackageImpl extends EPackageImpl implements GenfwPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EDataType getDomDocument()
+  {
+    return domDocumentEDataType;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public GenfwFactory getGenfwFactory()
   {
     return (GenfwFactory)getEFactoryInstance();
@@ -942,9 +1009,14 @@ public class GenfwPackageImpl extends EPackageImpl implements GenfwPackage
     delegatingGeneratorEClass = createEClass(DELEGATING_GENERATOR);
     createEReference(delegatingGeneratorEClass, DELEGATING_GENERATOR__DELEGATE);
 
-    initialGeneratorEClass = createEClass(INITIAL_GENERATOR);
+    domTransformerEClass = createEClass(DOM_TRANSFORMER);
+    createEReference(domTransformerEClass, DOM_TRANSFORMER__TRANSFORMATIONS);
 
-    fileInitializerEClass = createEClass(FILE_INITIALIZER);
+    domTransformationEClass = createEClass(DOM_TRANSFORMATION);
+    createEReference(domTransformationEClass, DOM_TRANSFORMATION__TRANSFORMER);
+    createEAttribute(domTransformationEClass, DOM_TRANSFORMATION__LABEL);
+
+    initialGeneratorEClass = createEClass(INITIAL_GENERATOR);
 
     staticFileInitializerEClass = createEClass(STATIC_FILE_INITIALIZER);
     createEReference(staticFileInitializerEClass, STATIC_FILE_INITIALIZER__LINES);
@@ -972,6 +1044,7 @@ public class GenfwPackageImpl extends EPackageImpl implements GenfwPackage
     classLoaderEDataType = createEDataType(CLASS_LOADER);
     outputStreamEDataType = createEDataType(OUTPUT_STREAM);
     exceptionEDataType = createEDataType(EXCEPTION);
+    domDocumentEDataType = createEDataType(DOM_DOCUMENT);
   }
 
   /**
@@ -1005,9 +1078,9 @@ public class GenfwPackageImpl extends EPackageImpl implements GenfwPackage
     staticRuleEClass.getESuperTypes().add(this.getRule());
     expressionBasedRuleEClass.getESuperTypes().add(this.getRule());
     delegatingGeneratorEClass.getESuperTypes().add(this.getGenerator());
+    domTransformerEClass.getESuperTypes().add(this.getGenerator());
     initialGeneratorEClass.getESuperTypes().add(this.getDelegatingGenerator());
-    fileInitializerEClass.getESuperTypes().add(this.getGenerator());
-    staticFileInitializerEClass.getESuperTypes().add(this.getFileInitializer());
+    staticFileInitializerEClass.getESuperTypes().add(this.getGenerator());
     projectInitializerEClass.getESuperTypes().add(this.getGenerator());
 
     // Initialize classes and features; add operations and parameters
@@ -1139,17 +1212,31 @@ public class GenfwPackageImpl extends EPackageImpl implements GenfwPackage
             1, 1, DelegatingGenerator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
             !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
+    initEClass(domTransformerEClass, DomTransformer.class, "DomTransformer", !IS_ABSTRACT,
+            !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getDomTransformer_Transformations(), this.getDomTransformation(), this
+            .getDomTransformation_Transformer(), "transformations", null, 1, -1,
+            DomTransformer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
+            !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(domTransformationEClass, DomTransformation.class, "DomTransformation", IS_ABSTRACT,
+            !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getDomTransformation_Transformer(), this.getDomTransformer(), this
+            .getDomTransformer_Transformations(), "transformer", null, 1, 1,
+            DomTransformation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
+            !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getDomTransformation_Label(), ecorePackage.getEString(), "label", null, 0, 1,
+            DomTransformation.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_UNSETTABLE,
+            !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
+
+    op = addEOperation(domTransformationEClass, ecorePackage.getEBoolean(), "transform", 0, 1);
+    addEParameter(op, ecorePackage.getEJavaObject(), "inputObject", 0, 1);
+    addEParameter(op, this.getDomDocument(), "document", 0, 1);
+    addEParameter(op, this.getIProgressMonitor(), "monitor", 0, 1);
+    addEException(op, this.getException());
+
     initEClass(initialGeneratorEClass, InitialGenerator.class, "InitialGenerator", !IS_ABSTRACT,
             !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-    initEClass(fileInitializerEClass, FileInitializer.class, "FileInitializer", IS_ABSTRACT,
-            !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-    op = addEOperation(fileInitializerEClass, ecorePackage.getEString(), "getContent", 0, 1);
-    addEParameter(op, ecorePackage.getEJavaObject(), "inputObject", 0, 1);
-    addEParameter(op, ecorePackage.getEString(), "targetPath", 0, 1);
-    addEParameter(op, this.getIProgressMonitor(), "monitor", 0, 1);
-    addEException(op, this.getCoreException());
 
     initEClass(staticFileInitializerEClass, StaticFileInitializer.class, "StaticFileInitializer",
             !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -1207,6 +1294,8 @@ public class GenfwPackageImpl extends EPackageImpl implements GenfwPackage
             !IS_GENERATED_INSTANCE_CLASS);
     initEDataType(exceptionEDataType, Exception.class, "Exception", IS_SERIALIZABLE,
             !IS_GENERATED_INSTANCE_CLASS);
+    initEDataType(domDocumentEDataType, Document.class, "DomDocument", IS_SERIALIZABLE,
+            !IS_GENERATED_INSTANCE_CLASS);
 
     // Create resource
     createResource(eNS_URI);
@@ -1246,12 +1335,14 @@ public class GenfwPackageImpl extends EPackageImpl implements GenfwPackage
     addAnnotation((EParameter)((EOperation)contentProviderEClass.getEOperations().get(1))
             .getEParameters().get(0), source, new String[] {"uuid", "113671579193768"});
     addAnnotation(getContentProvider_Root(), source, new String[] {"uuid", "113672221104652"});
+    addAnnotation(getContentProvider_Name(), source, new String[] {"uuid", "113878822765645"});
     addAnnotation(ecoreContentProviderEClass, source, new String[] {"uuid", "113671583842178"});
     addAnnotation(propertiesContentProviderEClass, source, new String[] {"uuid", "113671672139081"});
     addAnnotation(ruleSetEClass, source, new String[] {"uuid", "113672173296897"});
     addAnnotation(getRuleSet_Rules(), source, new String[] {"uuid", "113672173296898"});
     addAnnotation(getRuleSet_Root(), source, new String[] {"uuid", "1136722211046105"});
     addAnnotation(getRuleSet_Name(), source, new String[] {"uuid", "1136786719500114"});
+    addAnnotation(getRuleSet_Deactivate(), source, new String[] {"uuid", "113878822765664"});
     addAnnotation(ruleEClass, source, new String[] {"uuid", "113672105539064"});
     addAnnotation((EOperation)ruleEClass.getEOperations().get(0), source, new String[] {"uuid",
             "113672105540665"});
@@ -1262,8 +1353,14 @@ public class GenfwPackageImpl extends EPackageImpl implements GenfwPackage
     addAnnotation((EParameter)((EOperation)ruleEClass.getEOperations().get(1)).getEParameters()
             .get(0), source, new String[] {"uuid", "113672289210964"});
     addAnnotation(getRule_RuleSet(), source, new String[] {"uuid", "113672173295375"});
+    addAnnotation(getRule_Name(), source, new String[] {"uuid", "113878822765683"});
+    addAnnotation(getRule_Prerequisites(), source, new String[] {"uuid", "113878822765684"});
     addAnnotation(getRule_Generator(), source, new String[] {"uuid", "113672135642172"});
     addAnnotation(getRule_MatchClassName(), source, new String[] {"uuid", "113716997982888"});
+    addAnnotation(getRule_DontOverwrite(), source, new String[] {"uuid", "113878822765691"});
+    addAnnotation(getRule_Deactivate(), source, new String[] {"uuid", "113878822765692"});
+    addAnnotation(staticRuleEClass, source, new String[] {"uuid", "113878822765693"});
+    addAnnotation(getStaticRule_TargetPath(), source, new String[] {"uuid", "113878822765694"});
     addAnnotation(expressionBasedRuleEClass, source, new String[] {"uuid", "113672129781278"});
     addAnnotation(getExpressionBasedRule_MatchExpression(), source, new String[] {"uuid",
             "113672129782879"});
@@ -1279,7 +1376,36 @@ public class GenfwPackageImpl extends EPackageImpl implements GenfwPackage
     addAnnotation((EParameter)((EOperation)generatorEClass.getEOperations().get(0))
             .getEParameters().get(2), source, new String[] {"uuid", "1136795172375105"});
     addAnnotation(getGenerator_Root(), source, new String[] {"uuid", "113672221104686"});
+    addAnnotation(getGenerator_Name(), source, new String[] {"uuid", "1138788227656122"});
+    addAnnotation(delegatingGeneratorEClass, source, new String[] {"uuid", "1138788227656123"});
+    addAnnotation(getDelegatingGenerator_Delegate(), source, new String[] {"uuid",
+            "1138788227656124"});
     addAnnotation(initialGeneratorEClass, source, new String[] {"uuid", "1137441848828180"});
+    addAnnotation(domTransformerEClass, source, new String[] {"uuid", "1138792484562225"});
+    addAnnotation(getDomTransformer_Transformations(), source, new String[] {"uuid",
+            "1138792632343228"});
+    addAnnotation(domTransformationEClass, source, new String[] {"uuid", "1138792538890228"});
+    addAnnotation((EOperation)domTransformationEClass.getEOperations().get(0), source,
+            new String[] {"uuid", "1138795739467159"});
+    addAnnotation((EParameter)((EOperation)domTransformationEClass.getEOperations().get(0))
+            .getEParameters().get(0), source, new String[] {"uuid", "1138795838842162"});
+    addAnnotation((EParameter)((EOperation)domTransformationEClass.getEOperations().get(0))
+            .getEParameters().get(1), source, new String[] {"uuid", "1138795838842163"});
+    addAnnotation((EParameter)((EOperation)domTransformationEClass.getEOperations().get(0))
+            .getEParameters().get(2), source, new String[] {"uuid", "1138795838842164"});
+    addAnnotation(getDomTransformation_Transformer(), source, new String[] {"uuid",
+            "1138792632343232"});
+    addAnnotation(getDomTransformation_Label(), source, new String[] {"uuid", "1138797323014174"});
+    addAnnotation(staticFileInitializerEClass, source, new String[] {"uuid", "1138788227656133"});
+    addAnnotation(getStaticFileInitializer_Lines(), source, new String[] {"uuid",
+            "1138788227656134"});
+    addAnnotation(lineEClass, source, new String[] {"uuid", "1138788227656135"});
+    addAnnotation(getLine_Content(), source, new String[] {"uuid", "1138788227656136"});
+    addAnnotation(getLine_StaticFileInitializer(), source,
+            new String[] {"uuid", "1138788227656137"});
+    addAnnotation(projectInitializerEClass, source, new String[] {"uuid", "1138788227671138"});
+    addAnnotation(projectInitializationProviderEClass, source, new String[] {"uuid",
+            "1138788227671139"});
     addAnnotation(inputEClass, source, new String[] {"uuid", "11367080429534"});
     addAnnotation(getInput_Root(), source, new String[] {"uuid", "1136887070625153"});
     addAnnotation(getInput_Label(), source, new String[] {"uuid", "1136894756921162"});
@@ -1289,8 +1415,11 @@ public class GenfwPackageImpl extends EPackageImpl implements GenfwPackage
     addAnnotation(classLoaderEDataType, source, new String[] {"uuid", "113670815921825"});
     addAnnotation(iPathEDataType, source, new String[] {"uuid", "113670815921825"});
     addAnnotation(javaListEDataType, source, new String[] {"uuid", "113671579193769"});
+    addAnnotation(outputStreamEDataType, source, new String[] {"uuid", "1138788227671167"});
+    addAnnotation(exceptionEDataType, source, new String[] {"uuid", "1138788227671168"});
     addAnnotation(coreExceptionEDataType, source, new String[] {"uuid", "1136792315343141"});
     addAnnotation(iProgressMonitorEDataType, source, new String[] {"uuid", "1136792315343142"});
+    addAnnotation(domDocumentEDataType, source, new String[] {"uuid", "1138795838842228"});
   }
 
 } //GenfwPackageImpl

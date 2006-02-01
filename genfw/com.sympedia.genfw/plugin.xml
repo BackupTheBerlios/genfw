@@ -5,7 +5,7 @@
  <copyright>
  </copyright>
 
- $Id: plugin.xml,v 1.3 2006/02/01 09:35:56 stepper Exp $
+ $Id: plugin.xml,v 1.4 2006/02/01 16:12:32 stepper Exp $
 -->
 
 <plugin>
@@ -14,6 +14,7 @@
   <extension-point id="contentProviders" name="GenFw Content Providers" schema="schema/contentProviders.exsd"/>
   <extension-point id="generators" name="GenFw Generators" schema="schema/generators.exsd"/>
   <extension-point id="rules" name="GenFw Rules" schema="schema/rules.exsd"/>
+  <extension-point id="domTransformations" name="DOM Transformations" schema="schema/domTransformations.exsd"/>
 
   <extension point="org.eclipse.emf.ecore.generated_package">
     <package 

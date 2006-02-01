@@ -25,6 +25,7 @@ package com.sympedia.genfw;
  *
  * @see com.sympedia.genfw.GenfwPackage#getDelegatingGenerator()
  * @model abstract="true"
+ *        annotation="http://www.topcased.org/uuid uuid='1138788227656123'"
  * @generated
  */
 public interface DelegatingGenerator extends Generator
@@ -41,6 +42,7 @@ public interface DelegatingGenerator extends Generator
    * @see #setDelegate(Generator)
    * @see com.sympedia.genfw.GenfwPackage#getDelegatingGenerator_Delegate()
    * @model required="true"
+   *        annotation="http://www.topcased.org/uuid uuid='1138788227656124'"
    * @generated
    */
   Generator getDelegate();

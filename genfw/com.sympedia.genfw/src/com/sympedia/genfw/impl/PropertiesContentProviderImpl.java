@@ -13,10 +13,16 @@ package com.sympedia.genfw.impl;
 
 import com.sympedia.genfw.GenfwPackage;
 import com.sympedia.genfw.PropertiesContentProvider;
+import com.sympedia.util.eclipse.resources.ResourcesHelper;
 
+import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IResource;
 import org.eclipse.emf.ecore.EClass;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Properties;
 
 
 /**
@@ -57,8 +63,22 @@ public class PropertiesContentProviderImpl extends ContentProviderImpl implement
   @Override
   public List getRoots(String path) throws Exception
   {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException();
+    Properties properties = new Properties();
+    IResource resource = ResourcesHelper.ROOT.findMember(path);
+    if (resource != null && resource.exists())
+    {
+      if (resource instanceof IFile)
+      {
+        IFile file = (IFile)resource;
+        properties.load(file.getContents());
+      }
+      else
+      {
+        throw new IllegalArgumentException("Target path is not a file");
+      }
+    }
+
+    return new ArrayList(properties.entrySet());
   }
 
   /**
@@ -67,7 +87,6 @@ public class PropertiesContentProviderImpl extends ContentProviderImpl implement
   @Override
   public List getChildren(Object object) throws Exception
   {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException();
+    return Collections.EMPTY_LIST;
   }
 } //PropertiesContentProviderImpl

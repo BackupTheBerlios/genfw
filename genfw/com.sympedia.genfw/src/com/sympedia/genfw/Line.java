@@ -30,7 +30,7 @@ import org.eclipse.emf.ecore.EObject;
  * </p>
  *
  * @see com.sympedia.genfw.GenfwPackage#getLine()
- * @model
+ * @model annotation="http://www.topcased.org/uuid uuid='1138788227656135'"
  * @generated
  */
 public interface Line extends EObject
@@ -46,7 +46,7 @@ public interface Line extends EObject
    * @return the value of the '<em>Content</em>' attribute.
    * @see #setContent(String)
    * @see com.sympedia.genfw.GenfwPackage#getLine_Content()
-   * @model
+   * @model annotation="http://www.topcased.org/uuid uuid='1138788227656136'"
    * @generated
    */
   String getContent();
@@ -75,6 +75,7 @@ public interface Line extends EObject
    * @see com.sympedia.genfw.GenfwPackage#getLine_StaticFileInitializer()
    * @see com.sympedia.genfw.StaticFileInitializer#getLines
    * @model opposite="lines" required="true"
+   *        annotation="http://www.topcased.org/uuid uuid='1138788227656137'"
    * @generated
    */
   StaticFileInitializer getStaticFileInitializer();

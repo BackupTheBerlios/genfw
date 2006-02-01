@@ -42,6 +42,15 @@ public interface BshFactory extends EFactory
   BeanShellRule createBeanShellRule();
 
   /**
+   * Returns a new object of class '<em>Bean Shell Transformation</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Bean Shell Transformation</em>'.
+   * @generated
+   */
+  BeanShellTransformation createBeanShellTransformation();
+
+  /**
    * Returns the package supported by this factory.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

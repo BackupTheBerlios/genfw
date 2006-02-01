@@ -30,6 +30,8 @@ import org.eclipse.emf.ecore.impl.EFactoryImpl;
 
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
 
+import org.w3c.dom.Document;
+
 
 /**
  * <!-- begin-user-doc -->
@@ -95,6 +97,8 @@ public class GenfwFactoryImpl extends EFactoryImpl implements GenfwFactory
       return createRuleSet();
     case GenfwPackage.STATIC_RULE:
       return createStaticRule();
+    case GenfwPackage.DOM_TRANSFORMER:
+      return createDomTransformer();
     case GenfwPackage.INITIAL_GENERATOR:
       return createInitialGenerator();
     case GenfwPackage.STATIC_FILE_INITIALIZER:
@@ -134,6 +138,8 @@ public class GenfwFactoryImpl extends EFactoryImpl implements GenfwFactory
       return createOutputStreamFromString(eDataType, initialValue);
     case GenfwPackage.EXCEPTION:
       return createExceptionFromString(eDataType, initialValue);
+    case GenfwPackage.DOM_DOCUMENT:
+      return createDomDocumentFromString(eDataType, initialValue);
     default:
       throw new IllegalArgumentException("The datatype '" + eDataType.getName()
               + "' is not a valid classifier");
@@ -163,6 +169,8 @@ public class GenfwFactoryImpl extends EFactoryImpl implements GenfwFactory
       return convertOutputStreamToString(eDataType, instanceValue);
     case GenfwPackage.EXCEPTION:
       return convertExceptionToString(eDataType, instanceValue);
+    case GenfwPackage.DOM_DOCUMENT:
+      return convertDomDocumentToString(eDataType, instanceValue);
     default:
       throw new IllegalArgumentException("The datatype '" + eDataType.getName()
               + "' is not a valid classifier");
@@ -233,6 +241,17 @@ public class GenfwFactoryImpl extends EFactoryImpl implements GenfwFactory
   {
     StaticRuleImpl staticRule = new StaticRuleImpl();
     return staticRule;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public DomTransformer createDomTransformer()
+  {
+    DomTransformerImpl domTransformer = new DomTransformerImpl();
+    return domTransformer;
   }
 
   /**
@@ -426,6 +445,26 @@ public class GenfwFactoryImpl extends EFactoryImpl implements GenfwFactory
    * @generated
    */
   public String convertExceptionToString(EDataType eDataType, Object instanceValue)
+  {
+    return super.convertToString(eDataType, instanceValue);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public Document createDomDocumentFromString(EDataType eDataType, String initialValue)
+  {
+    return (Document)super.createFromString(eDataType, initialValue);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public String convertDomDocumentToString(EDataType eDataType, Object instanceValue)
   {
     return super.convertToString(eDataType, instanceValue);
   }

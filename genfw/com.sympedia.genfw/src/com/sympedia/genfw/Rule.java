@@ -109,6 +109,7 @@ public interface Rule extends EObject
    * @see #setName(String)
    * @see com.sympedia.genfw.GenfwPackage#getRule_Name()
    * @model id="true" required="true"
+   *        annotation="http://www.topcased.org/uuid uuid='113878822765683'"
    * @generated
    */
   String getName();
@@ -135,6 +136,7 @@ public interface Rule extends EObject
    * @return the value of the '<em>Prerequisites</em>' reference list.
    * @see com.sympedia.genfw.GenfwPackage#getRule_Prerequisites()
    * @model type="com.sympedia.genfw.Rule"
+   *        annotation="http://www.topcased.org/uuid uuid='113878822765684'"
    * @generated
    */
   EList getPrerequisites();
@@ -177,6 +179,7 @@ public interface Rule extends EObject
    * @see #setDontOverwrite(boolean)
    * @see com.sympedia.genfw.GenfwPackage#getRule_DontOverwrite()
    * @model id="true"
+   *        annotation="http://www.topcased.org/uuid uuid='113878822765691'"
    * @generated
    */
   boolean isDontOverwrite();
@@ -203,6 +206,7 @@ public interface Rule extends EObject
    * @see #setDeactivate(boolean)
    * @see com.sympedia.genfw.GenfwPackage#getRule_Deactivate()
    * @model id="true"
+   *        annotation="http://www.topcased.org/uuid uuid='113878822765692'"
    * @generated
    */
   boolean isDeactivate();

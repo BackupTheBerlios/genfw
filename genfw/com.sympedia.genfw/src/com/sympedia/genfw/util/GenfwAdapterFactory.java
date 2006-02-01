@@ -137,14 +137,19 @@ public class GenfwAdapterFactory extends AdapterFactoryImpl
       return createDelegatingGeneratorAdapter();
     }
 
+    public Object caseDomTransformer(DomTransformer object)
+    {
+      return createDomTransformerAdapter();
+    }
+
+    public Object caseDomTransformation(DomTransformation object)
+    {
+      return createDomTransformationAdapter();
+    }
+
     public Object caseInitialGenerator(InitialGenerator object)
     {
       return createInitialGeneratorAdapter();
-    }
-
-    public Object caseFileInitializer(FileInitializer object)
-    {
-      return createFileInitializerAdapter();
     }
 
     public Object caseStaticFileInitializer(StaticFileInitializer object)
@@ -357,6 +362,36 @@ public class GenfwAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
+   * Creates a new adapter for an object of class '{@link com.sympedia.genfw.DomTransformer <em>Dom Transformer</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see com.sympedia.genfw.DomTransformer
+   * @generated
+   */
+  public Adapter createDomTransformerAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link com.sympedia.genfw.DomTransformation <em>Dom Transformation</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see com.sympedia.genfw.DomTransformation
+   * @generated
+   */
+  public Adapter createDomTransformationAdapter()
+  {
+    return null;
+  }
+
+  /**
    * Creates a new adapter for an object of class '{@link com.sympedia.genfw.InitialGenerator <em>Initial Generator</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
@@ -367,21 +402,6 @@ public class GenfwAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createInitialGeneratorAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link com.sympedia.genfw.FileInitializer <em>File Initializer</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see com.sympedia.genfw.FileInitializer
-   * @generated
-   */
-  public Adapter createFileInitializerAdapter()
   {
     return null;
   }

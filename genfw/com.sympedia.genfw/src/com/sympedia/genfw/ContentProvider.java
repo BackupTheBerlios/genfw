@@ -77,6 +77,7 @@ public interface ContentProvider extends EObject
    * @see #setName(String)
    * @see com.sympedia.genfw.GenfwPackage#getContentProvider_Name()
    * @model id="true" required="true"
+   *        annotation="http://www.topcased.org/uuid uuid='113878822765645'"
    * @generated
    */
   String getName();

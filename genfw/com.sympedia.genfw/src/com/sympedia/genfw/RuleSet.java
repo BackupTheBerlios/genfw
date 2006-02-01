@@ -123,6 +123,7 @@ public interface RuleSet extends EObject
    * @see #setDeactivate(boolean)
    * @see com.sympedia.genfw.GenfwPackage#getRuleSet_Deactivate()
    * @model id="true"
+   *        annotation="http://www.topcased.org/uuid uuid='113878822765664'"
    * @generated
    */
   boolean isDeactivate();

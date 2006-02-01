@@ -15,7 +15,6 @@ import com.sympedia.genfw.GenfwPackage;
 import com.sympedia.genfw.Line;
 import com.sympedia.genfw.StaticFileInitializer;
 
-import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
@@ -43,7 +42,7 @@ import java.util.Iterator;
  *
  * @generated
  */
-public class StaticFileInitializerImpl extends FileInitializerImpl implements StaticFileInitializer
+public class StaticFileInitializerImpl extends GeneratorImpl implements StaticFileInitializer
 {
   /**
    * The cached value of the '{@link #getLines() <em>Lines</em>}' containment reference list.
@@ -190,8 +189,8 @@ public class StaticFileInitializerImpl extends FileInitializerImpl implements St
    * @ADDED
    */
   @Override
-  public String getContent(Object inputObject, String targetPath, IProgressMonitor monitor)
-          throws CoreException
+  public String generate(Object inputObject, String targetPath, IProgressMonitor monitor)
+          throws Exception
   {
     ByteArrayOutputStream stream = new ByteArrayOutputStream();
     PrintStream printer = new PrintStream(stream);

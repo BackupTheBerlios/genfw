@@ -21,7 +21,7 @@ import org.eclipse.emf.common.util.EList;
  *
  *
  * @see com.sympedia.genfw.GenfwPackage#getProjectInitializer()
- * @model
+ * @model annotation="http://www.topcased.org/uuid uuid='1138788227671138'"
  * @generated
  */
 public interface ProjectInitializer extends Generator

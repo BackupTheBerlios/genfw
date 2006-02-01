@@ -87,6 +87,15 @@ public interface GenfwFactory extends EFactory
   StaticRule createStaticRule();
 
   /**
+   * Returns a new object of class '<em>Dom Transformer</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Dom Transformer</em>'.
+   * @generated
+   */
+  DomTransformer createDomTransformer();
+
+  /**
    * Returns a new object of class '<em>Initial Generator</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

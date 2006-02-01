@@ -11,6 +11,7 @@ Export-Package: com.sympedia.genfw,
  com.sympedia.genfw.internal,
  com.sympedia.genfw.util
 Require-Bundle: com.sympedia.util.emf;visibility:=reexport,
+ org.apache.xerces;visibility:=reexport,
  org.eclipse.jdt.core;resolution:=optional
 Eclipse-LazyStart: true
 Bundle-Activator: com.sympedia.genfw.internal.GenfwActivator$Implementation

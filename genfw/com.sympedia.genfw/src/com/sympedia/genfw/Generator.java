@@ -79,6 +79,7 @@ public interface Generator extends EObject
    * @see #setName(String)
    * @see com.sympedia.genfw.GenfwPackage#getGenerator_Name()
    * @model id="true" required="true"
+   *        annotation="http://www.topcased.org/uuid uuid='1138788227656122'"
    * @generated
    */
   String getName();

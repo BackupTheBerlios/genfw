@@ -68,6 +68,11 @@ public final class GenfwActivator extends EMFPlugin
   public static final String RULES_EXTPOINT = PLUGIN_ID + ".rules";
 
   /**
+   * @ADDED
+   */
+  public static final String DOM_TRANSFORMATIONS_EXTPOINT = PLUGIN_ID + ".domTransformations";
+
+  /**
    * Keep track of the singleton.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -147,6 +152,11 @@ public final class GenfwActivator extends EMFPlugin
     private List<EClass> rules = new ArrayList<EClass>();
 
     /**
+     * @ADDED
+     */
+    private List<EClass> domTransformations = new ArrayList<EClass>();
+
+    /**
      * Creates an instance.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -191,6 +201,14 @@ public final class GenfwActivator extends EMFPlugin
     public List<EClass> getRules()
     {
       return rules;
+    }
+
+    /**
+     * @ADDED
+     */
+    public List<EClass> getDomTransformations()
+    {
+      return domTransformations;
     }
 
     /**
@@ -247,9 +265,11 @@ public final class GenfwActivator extends EMFPlugin
     private void processExtensions()
     {
       final GenfwPackage genfw = GenfwPackage.eINSTANCE;
-      EClass[] dimensions = {genfw.getContentProvider(), genfw.getGenerator(), genfw.getRule()};
-      String[] extpointIds = {CONTENT_PROVIDERS_EXTPOINT, GENERATORS_EXTPOINT, RULES_EXTPOINT};
-      List[] results = {contentProviders, generators, rules};
+      final EClass[] dimensions = {genfw.getContentProvider(), genfw.getGenerator(),
+              genfw.getRule(), genfw.getDomTransformation()};
+      final String[] extpointIds = {CONTENT_PROVIDERS_EXTPOINT, GENERATORS_EXTPOINT,
+              RULES_EXTPOINT, DOM_TRANSFORMATIONS_EXTPOINT};
+      final List[] results = {contentProviders, generators, rules, domTransformations};
 
       for (int i = 0; i < dimensions.length; i++)
       {

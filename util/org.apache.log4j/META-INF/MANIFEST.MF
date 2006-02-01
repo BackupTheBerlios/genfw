@@ -1,6 +1,6 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: Log4j Plug-in
+Bundle-Name: Log4j Wrapper
 Bundle-SymbolicName: org.apache.log4j
 Bundle-Version: 1.2.13
 Bundle-Localization: plugin

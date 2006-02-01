@@ -14,30 +14,54 @@ package com.sympedia.genfw.bsh.impl;
 import bsh.EvalError;
 import bsh.Interpreter;
 
-import com.sympedia.genfw.bsh.BeanShellRule;
+import com.sympedia.genfw.bsh.BeanShellTransformation;
 import com.sympedia.genfw.bsh.BshPackage;
-import com.sympedia.genfw.impl.ExpressionBasedRuleImpl;
+import com.sympedia.genfw.impl.DomTransformationImpl;
 
+import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.w3c.dom.Document;
 
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Bean Shell Rule</b></em>'.
+ * An implementation of the model object '<em><b>Bean Shell Transformation Rule</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link com.sympedia.genfw.bsh.impl.BeanShellRuleImpl#getBootstrapCode <em>Bootstrap Code</em>}</li>
+ *   <li>{@link com.sympedia.genfw.bsh.impl.BeanShellTransformationImpl#getTransformationCode <em>Transformation Code</em>}</li>
+ *   <li>{@link com.sympedia.genfw.bsh.impl.BeanShellTransformationImpl#getBootstrapCode <em>Bootstrap Code</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public class BeanShellRuleImpl extends ExpressionBasedRuleImpl implements BeanShellRule
+public class BeanShellTransformationImpl extends DomTransformationImpl implements
+        BeanShellTransformation
 {
+  /**
+   * The default value of the '{@link #getTransformationCode() <em>Transformation Code</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getTransformationCode()
+   * @generated
+   * @ordered
+   */
+  protected static final String TRANSFORMATION_CODE_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getTransformationCode() <em>Transformation Code</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getTransformationCode()
+   * @generated
+   * @ordered
+   */
+  protected String transformationCode = TRANSFORMATION_CODE_EDEFAULT;
+
   /**
    * The default value of the '{@link #getBootstrapCode() <em>Bootstrap Code</em>}' attribute.
    * <!-- begin-user-doc -->
@@ -63,7 +87,7 @@ public class BeanShellRuleImpl extends ExpressionBasedRuleImpl implements BeanSh
    * <!-- end-user-doc -->
    * @generated
    */
-  protected BeanShellRuleImpl()
+  protected BeanShellTransformationImpl()
   {
     super();
   }
@@ -75,7 +99,32 @@ public class BeanShellRuleImpl extends ExpressionBasedRuleImpl implements BeanSh
    */
   protected EClass eStaticClass()
   {
-    return BshPackage.Literals.BEAN_SHELL_RULE;
+    return BshPackage.Literals.BEAN_SHELL_TRANSFORMATION;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public String getTransformationCode()
+  {
+    return transformationCode;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setTransformationCode(String newTransformationCode)
+  {
+    String oldTransformationCode = transformationCode;
+    transformationCode = newTransformationCode;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET,
+              BshPackage.BEAN_SHELL_TRANSFORMATION__TRANSFORMATION_CODE, oldTransformationCode,
+              transformationCode));
   }
 
   /**
@@ -99,7 +148,7 @@ public class BeanShellRuleImpl extends ExpressionBasedRuleImpl implements BeanSh
     bootstrapCode = newBootstrapCode;
     if (eNotificationRequired())
       eNotify(new ENotificationImpl(this, Notification.SET,
-              BshPackage.BEAN_SHELL_RULE__BOOTSTRAP_CODE, oldBootstrapCode, bootstrapCode));
+              BshPackage.BEAN_SHELL_TRANSFORMATION__BOOTSTRAP_CODE, oldBootstrapCode, bootstrapCode));
   }
 
   /**
@@ -111,7 +160,9 @@ public class BeanShellRuleImpl extends ExpressionBasedRuleImpl implements BeanSh
   {
     switch (featureID)
     {
-    case BshPackage.BEAN_SHELL_RULE__BOOTSTRAP_CODE:
+    case BshPackage.BEAN_SHELL_TRANSFORMATION__TRANSFORMATION_CODE:
+      return getTransformationCode();
+    case BshPackage.BEAN_SHELL_TRANSFORMATION__BOOTSTRAP_CODE:
       return getBootstrapCode();
     }
     return super.eGet(featureID, resolve, coreType);
@@ -126,7 +177,10 @@ public class BeanShellRuleImpl extends ExpressionBasedRuleImpl implements BeanSh
   {
     switch (featureID)
     {
-    case BshPackage.BEAN_SHELL_RULE__BOOTSTRAP_CODE:
+    case BshPackage.BEAN_SHELL_TRANSFORMATION__TRANSFORMATION_CODE:
+      setTransformationCode((String)newValue);
+      return;
+    case BshPackage.BEAN_SHELL_TRANSFORMATION__BOOTSTRAP_CODE:
       setBootstrapCode((String)newValue);
       return;
     }
@@ -142,7 +196,10 @@ public class BeanShellRuleImpl extends ExpressionBasedRuleImpl implements BeanSh
   {
     switch (featureID)
     {
-    case BshPackage.BEAN_SHELL_RULE__BOOTSTRAP_CODE:
+    case BshPackage.BEAN_SHELL_TRANSFORMATION__TRANSFORMATION_CODE:
+      setTransformationCode(TRANSFORMATION_CODE_EDEFAULT);
+      return;
+    case BshPackage.BEAN_SHELL_TRANSFORMATION__BOOTSTRAP_CODE:
       setBootstrapCode(BOOTSTRAP_CODE_EDEFAULT);
       return;
     }
@@ -158,7 +215,10 @@ public class BeanShellRuleImpl extends ExpressionBasedRuleImpl implements BeanSh
   {
     switch (featureID)
     {
-    case BshPackage.BEAN_SHELL_RULE__BOOTSTRAP_CODE:
+    case BshPackage.BEAN_SHELL_TRANSFORMATION__TRANSFORMATION_CODE:
+      return TRANSFORMATION_CODE_EDEFAULT == null ? transformationCode != null
+              : !TRANSFORMATION_CODE_EDEFAULT.equals(transformationCode);
+    case BshPackage.BEAN_SHELL_TRANSFORMATION__BOOTSTRAP_CODE:
       return BOOTSTRAP_CODE_EDEFAULT == null ? bootstrapCode != null : !BOOTSTRAP_CODE_EDEFAULT
               .equals(bootstrapCode);
     }
@@ -175,7 +235,9 @@ public class BeanShellRuleImpl extends ExpressionBasedRuleImpl implements BeanSh
     if (eIsProxy()) return super.toString();
 
     StringBuffer result = new StringBuffer(super.toString());
-    result.append(" (bootstrapCode: ");
+    result.append(" (transformationCode: ");
+    result.append(transformationCode);
+    result.append(", bootstrapCode: ");
     result.append(bootstrapCode);
     result.append(')');
     return result.toString();
@@ -185,19 +247,35 @@ public class BeanShellRuleImpl extends ExpressionBasedRuleImpl implements BeanSh
    * @ADDED
    */
   @Override
-  public boolean evaluateMatchExpression(Object inputObject, String expr)
+  public String getLabel()
   {
-    try
+    String expr = getTransformationCode();
+    return expr == null ? "" : expr;
+  }
+
+  /**
+   * @ADDED
+   */
+  @Override
+  public boolean transform(Object inputObject, Document document, IProgressMonitor monitor)
+          throws Exception
+  {
+    String expr = getTransformationCode();
+    if (expr == null || expr.length() == 0)
     {
-      Interpreter i = getBshInterpreter(inputObject);
-      i.eval("boolean ___EXPR___() { return " + expr + "; }");
-      i.set("self", inputObject);
-      Object result = i.eval("___EXPR___()");
-      return result != null && result instanceof Boolean && ((Boolean)result).booleanValue();
+      return false;
     }
-    catch (Exception ex)
+
+    Interpreter i = getBshInterpreter(inputObject);
+    i.eval("boolean ___EXPR___() { " + expr + " }");
+    i.set("self", inputObject);
+    i.set("doc", document);
+    i.set("root", document.getDocumentElement());
+
+    Object result = i.eval("___EXPR___()");
+    if (result instanceof Boolean)
     {
-      ex.printStackTrace();
+      return ((Boolean)result).booleanValue();
     }
 
     return false;
@@ -206,35 +284,10 @@ public class BeanShellRuleImpl extends ExpressionBasedRuleImpl implements BeanSh
   /**
    * @ADDED
    */
-  @Override
-  public String getTargetPath(Object inputObject) throws Exception
-  {
-    String expr = getTargetPathExpression();
-    if (expr == null || expr.length() == 0)
-    {
-      return null;
-    }
-
-    Interpreter i = getBshInterpreter(inputObject);
-    i.eval("String ___EXPR___() { return " + expr + "; }");
-    i.set("self", inputObject);
-
-    Object result = i.eval("___EXPR___()");
-    if (result instanceof String)
-    {
-      return (String)result;
-    }
-
-    return null;
-  }
-
-  /**
-   * @ADDED
-   */
   protected Interpreter getBshInterpreter(Object inputObject) throws EvalError
   {
     ClassLoader parentClassLoader = inputObject.getClass().getClassLoader();
-    ClassLoader classLoader = getRuleSet().getRoot().getClassLoader(parentClassLoader);
+    ClassLoader classLoader = getTransformer().getRoot().getClassLoader(parentClassLoader);
     Interpreter i = new Interpreter();
     i.setClassLoader(classLoader);
     i.eval("import com.sympedia.genfw.*;");
@@ -249,4 +302,4 @@ public class BeanShellRuleImpl extends ExpressionBasedRuleImpl implements BeanSh
 
     return i;
   }
-} //BeanShellRuleImpl
+} //BeanShellTransformationRuleImpl

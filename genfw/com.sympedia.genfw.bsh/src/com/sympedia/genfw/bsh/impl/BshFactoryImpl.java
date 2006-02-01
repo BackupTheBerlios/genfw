@@ -81,6 +81,8 @@ public class BshFactoryImpl extends EFactoryImpl implements BshFactory
     {
     case BshPackage.BEAN_SHELL_RULE:
       return createBeanShellRule();
+    case BshPackage.BEAN_SHELL_TRANSFORMATION:
+      return createBeanShellTransformation();
     default:
       throw new IllegalArgumentException("The class '" + eClass.getName()
               + "' is not a valid classifier");
@@ -130,6 +132,17 @@ public class BshFactoryImpl extends EFactoryImpl implements BshFactory
   {
     BeanShellRuleImpl beanShellRule = new BeanShellRuleImpl();
     return beanShellRule;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public BeanShellTransformation createBeanShellTransformation()
+  {
+    BeanShellTransformationImpl beanShellTransformation = new BeanShellTransformationImpl();
+    return beanShellTransformation;
   }
 
   /**

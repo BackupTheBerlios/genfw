@@ -98,6 +98,15 @@ public interface BshPackage extends EPackage
   int BEAN_SHELL_RULE__NAME = GenfwPackage.EXPRESSION_BASED_RULE__NAME;
 
   /**
+   * The feature id for the '<em><b>Prerequisites</b></em>' reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int BEAN_SHELL_RULE__PREREQUISITES = GenfwPackage.EXPRESSION_BASED_RULE__PREREQUISITES;
+
+  /**
    * The feature id for the '<em><b>Generator</b></em>' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -114,6 +123,24 @@ public interface BshPackage extends EPackage
    * @ordered
    */
   int BEAN_SHELL_RULE__MATCH_CLASS_NAME = GenfwPackage.EXPRESSION_BASED_RULE__MATCH_CLASS_NAME;
+
+  /**
+   * The feature id for the '<em><b>Dont Overwrite</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int BEAN_SHELL_RULE__DONT_OVERWRITE = GenfwPackage.EXPRESSION_BASED_RULE__DONT_OVERWRITE;
+
+  /**
+   * The feature id for the '<em><b>Deactivate</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int BEAN_SHELL_RULE__DEACTIVATE = GenfwPackage.EXPRESSION_BASED_RULE__DEACTIVATE;
 
   /**
    * The feature id for the '<em><b>Match Expression</b></em>' attribute.
@@ -152,6 +179,61 @@ public interface BshPackage extends EPackage
   int BEAN_SHELL_RULE_FEATURE_COUNT = GenfwPackage.EXPRESSION_BASED_RULE_FEATURE_COUNT + 1;
 
   /**
+   * The meta object id for the '{@link com.sympedia.genfw.bsh.impl.BeanShellTransformationImpl <em>Bean Shell Transformation</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see com.sympedia.genfw.bsh.impl.BeanShellTransformationImpl
+   * @see com.sympedia.genfw.bsh.impl.BshPackageImpl#getBeanShellTransformation()
+   * @generated
+   */
+  int BEAN_SHELL_TRANSFORMATION = 1;
+
+  /**
+   * The feature id for the '<em><b>Transformer</b></em>' container reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int BEAN_SHELL_TRANSFORMATION__TRANSFORMER = GenfwPackage.DOM_TRANSFORMATION__TRANSFORMER;
+
+  /**
+   * The feature id for the '<em><b>Label</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int BEAN_SHELL_TRANSFORMATION__LABEL = GenfwPackage.DOM_TRANSFORMATION__LABEL;
+
+  /**
+   * The feature id for the '<em><b>Transformation Code</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int BEAN_SHELL_TRANSFORMATION__TRANSFORMATION_CODE = GenfwPackage.DOM_TRANSFORMATION_FEATURE_COUNT + 0;
+
+  /**
+   * The feature id for the '<em><b>Bootstrap Code</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int BEAN_SHELL_TRANSFORMATION__BOOTSTRAP_CODE = GenfwPackage.DOM_TRANSFORMATION_FEATURE_COUNT + 1;
+
+  /**
+   * The number of structural features of the '<em>Bean Shell Transformation</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int BEAN_SHELL_TRANSFORMATION_FEATURE_COUNT = GenfwPackage.DOM_TRANSFORMATION_FEATURE_COUNT + 2;
+
+  /**
    * The meta object id for the '<em>Interpreter</em>' data type.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -159,7 +241,7 @@ public interface BshPackage extends EPackage
    * @see com.sympedia.genfw.bsh.impl.BshPackageImpl#getBshInterpreter()
    * @generated
    */
-  int BSH_INTERPRETER = 1;
+  int BSH_INTERPRETER = 2;
 
   /**
    * Returns the meta object for class '{@link com.sympedia.genfw.bsh.BeanShellRule <em>Bean Shell Rule</em>}'.
@@ -181,6 +263,38 @@ public interface BshPackage extends EPackage
    * @generated
    */
   EAttribute getBeanShellRule_BootstrapCode();
+
+  /**
+   * Returns the meta object for class '{@link com.sympedia.genfw.bsh.BeanShellTransformation <em>Bean Shell Transformation</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Bean Shell Transformation</em>'.
+   * @see com.sympedia.genfw.bsh.BeanShellTransformation
+   * @generated
+   */
+  EClass getBeanShellTransformation();
+
+  /**
+   * Returns the meta object for the attribute '{@link com.sympedia.genfw.bsh.BeanShellTransformation#getTransformationCode <em>Transformation Code</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Transformation Code</em>'.
+   * @see com.sympedia.genfw.bsh.BeanShellTransformation#getTransformationCode()
+   * @see #getBeanShellTransformation()
+   * @generated
+   */
+  EAttribute getBeanShellTransformation_TransformationCode();
+
+  /**
+   * Returns the meta object for the attribute '{@link com.sympedia.genfw.bsh.BeanShellTransformation#getBootstrapCode <em>Bootstrap Code</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Bootstrap Code</em>'.
+   * @see com.sympedia.genfw.bsh.BeanShellTransformation#getBootstrapCode()
+   * @see #getBeanShellTransformation()
+   * @generated
+   */
+  EAttribute getBeanShellTransformation_BootstrapCode();
 
   /**
    * Returns the meta object for data type '{@link bsh.Interpreter <em>Interpreter</em>}'.
@@ -234,6 +348,34 @@ public interface BshPackage extends EPackage
      * @generated
      */
     EAttribute BEAN_SHELL_RULE__BOOTSTRAP_CODE = eINSTANCE.getBeanShellRule_BootstrapCode();
+
+    /**
+     * The meta object literal for the '{@link com.sympedia.genfw.bsh.impl.BeanShellTransformationImpl <em>Bean Shell Transformation</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see com.sympedia.genfw.bsh.impl.BeanShellTransformationImpl
+     * @see com.sympedia.genfw.bsh.impl.BshPackageImpl#getBeanShellTransformation()
+     * @generated
+     */
+    EClass BEAN_SHELL_TRANSFORMATION = eINSTANCE.getBeanShellTransformation();
+
+    /**
+     * The meta object literal for the '<em><b>Transformation Code</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute BEAN_SHELL_TRANSFORMATION__TRANSFORMATION_CODE = eINSTANCE
+            .getBeanShellTransformation_TransformationCode();
+
+    /**
+     * The meta object literal for the '<em><b>Bootstrap Code</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute BEAN_SHELL_TRANSFORMATION__BOOTSTRAP_CODE = eINSTANCE
+            .getBeanShellTransformation_BootstrapCode();
 
     /**
      * The meta object literal for the '<em>Interpreter</em>' data type.

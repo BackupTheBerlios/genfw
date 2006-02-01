@@ -14,6 +14,8 @@
     <genDataTypes ecoreDataType="genfw.ecore#//IProgressMonitor"/>
     <genDataTypes ecoreDataType="genfw.ecore#//ClassLoader"/>
     <genDataTypes ecoreDataType="genfw.ecore#//OutputStream"/>
+    <genDataTypes ecoreDataType="genfw.ecore#//Exception"/>
+    <genDataTypes ecoreDataType="genfw.ecore#//DomDocument"/>
     <genClasses ecoreClass="genfw.ecore#//GenLib">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference genfw.ecore#//GenLib/contentProviders"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference genfw.ecore#//GenLib/generators"/>
@@ -77,14 +79,19 @@
     <genClasses image="false" ecoreClass="genfw.ecore#//DelegatingGenerator">
       <genFeatures createChild="false" ecoreFeature="ecore:EReference genfw.ecore#//DelegatingGenerator/delegate"/>
     </genClasses>
-    <genClasses ecoreClass="genfw.ecore#//InitialGenerator"/>
-    <genClasses image="false" ecoreClass="genfw.ecore#//FileInitializer">
-      <genOperations ecoreOperation="genfw.ecore#//FileInitializer/getContent">
-        <genParameters ecoreParameter="genfw.ecore#//FileInitializer/getContent/inputObject"/>
-        <genParameters ecoreParameter="genfw.ecore#//FileInitializer/getContent/targetPath"/>
-        <genParameters ecoreParameter="genfw.ecore#//FileInitializer/getContent/monitor"/>
+    <genClasses ecoreClass="genfw.ecore#//DomTransformer">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference genfw.ecore#//DomTransformer/transformations"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="genfw.ecore#//DomTransformation">
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference genfw.ecore#//DomTransformation/transformer"/>
+      <genFeatures property="None" createChild="false" ecoreFeature="ecore:EAttribute genfw.ecore#//DomTransformation/label"/>
+      <genOperations ecoreOperation="genfw.ecore#//DomTransformation/transform">
+        <genParameters ecoreParameter="genfw.ecore#//DomTransformation/transform/inputObject"/>
+        <genParameters ecoreParameter="genfw.ecore#//DomTransformation/transform/document"/>
+        <genParameters ecoreParameter="genfw.ecore#//DomTransformation/transform/monitor"/>
       </genOperations>
     </genClasses>
+    <genClasses ecoreClass="genfw.ecore#//InitialGenerator"/>
     <genClasses ecoreClass="genfw.ecore#//StaticFileInitializer">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference genfw.ecore#//StaticFileInitializer/lines"/>
     </genClasses>

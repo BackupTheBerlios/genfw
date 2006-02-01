@@ -15,6 +15,7 @@ import bsh.Interpreter;
 
 import com.sympedia.genfw.GenfwPackage;
 import com.sympedia.genfw.bsh.BeanShellRule;
+import com.sympedia.genfw.bsh.BeanShellTransformation;
 import com.sympedia.genfw.bsh.BshFactory;
 import com.sympedia.genfw.bsh.BshPackage;
 
@@ -39,6 +40,13 @@ public class BshPackageImpl extends EPackageImpl implements BshPackage
    * @generated
    */
   private EClass beanShellRuleEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass beanShellTransformationEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -147,6 +155,36 @@ public class BshPackageImpl extends EPackageImpl implements BshPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EClass getBeanShellTransformation()
+  {
+    return beanShellTransformationEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getBeanShellTransformation_TransformationCode()
+  {
+    return (EAttribute)beanShellTransformationEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getBeanShellTransformation_BootstrapCode()
+  {
+    return (EAttribute)beanShellTransformationEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EDataType getBshInterpreter()
   {
     return bshInterpreterEDataType;
@@ -185,6 +223,10 @@ public class BshPackageImpl extends EPackageImpl implements BshPackage
     beanShellRuleEClass = createEClass(BEAN_SHELL_RULE);
     createEAttribute(beanShellRuleEClass, BEAN_SHELL_RULE__BOOTSTRAP_CODE);
 
+    beanShellTransformationEClass = createEClass(BEAN_SHELL_TRANSFORMATION);
+    createEAttribute(beanShellTransformationEClass, BEAN_SHELL_TRANSFORMATION__TRANSFORMATION_CODE);
+    createEAttribute(beanShellTransformationEClass, BEAN_SHELL_TRANSFORMATION__BOOTSTRAP_CODE);
+
     // Create data types
     bshInterpreterEDataType = createEDataType(BSH_INTERPRETER);
   }
@@ -219,6 +261,7 @@ public class BshPackageImpl extends EPackageImpl implements BshPackage
 
     // Add supertypes to classes
     beanShellRuleEClass.getESuperTypes().add(theGenfwPackage.getExpressionBasedRule());
+    beanShellTransformationEClass.getESuperTypes().add(theGenfwPackage.getDomTransformation());
 
     // Initialize classes and features; add operations and parameters
     initEClass(beanShellRuleEClass, BeanShellRule.class, "BeanShellRule", !IS_ABSTRACT,
@@ -226,6 +269,15 @@ public class BshPackageImpl extends EPackageImpl implements BshPackage
     initEAttribute(getBeanShellRule_BootstrapCode(), ecorePackage.getEString(), "bootstrapCode",
             null, 0, 1, BeanShellRule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
             !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(beanShellTransformationEClass, BeanShellTransformation.class,
+            "BeanShellTransformation", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getBeanShellTransformation_TransformationCode(), ecorePackage.getEString(),
+            "transformationCode", null, 1, 1, BeanShellTransformation.class, !IS_TRANSIENT,
+            !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getBeanShellTransformation_BootstrapCode(), ecorePackage.getEString(),
+            "bootstrapCode", null, 0, 1, BeanShellTransformation.class, !IS_TRANSIENT,
+            !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     // Initialize data types
     initEDataType(bshInterpreterEDataType, Interpreter.class, "BshInterpreter", IS_SERIALIZABLE,
@@ -249,9 +301,14 @@ public class BshPackageImpl extends EPackageImpl implements BshPackage
   {
     String source = "http://www.topcased.org/uuid";
     addAnnotation(this, source, new String[] {"uuid", "11372283250310"});
+    addAnnotation(bshInterpreterEDataType, source, new String[] {"uuid", "11372283250313"});
     addAnnotation(beanShellRuleEClass, source, new String[] {"uuid", "11372283250311"});
     addAnnotation(getBeanShellRule_BootstrapCode(), source, new String[] {"uuid", "11372283250312"});
-    addAnnotation(bshInterpreterEDataType, source, new String[] {"uuid", "11372283250313"});
+    addAnnotation(beanShellTransformationEClass, source, new String[] {"uuid", "113879626546712"});
+    addAnnotation(getBeanShellTransformation_TransformationCode(), source, new String[] {"uuid",
+            "113879629165415"});
+    addAnnotation(getBeanShellTransformation_BootstrapCode(), source, new String[] {"uuid",
+            "113879666923218"});
   }
 
 } //BshPackageImpl

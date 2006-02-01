@@ -183,6 +183,21 @@ public class GenfwSwitch
       if (result == null) result = defaultCase(theEObject);
       return result;
     }
+    case GenfwPackage.DOM_TRANSFORMER:
+    {
+      DomTransformer domTransformer = (DomTransformer)theEObject;
+      Object result = caseDomTransformer(domTransformer);
+      if (result == null) result = caseGenerator(domTransformer);
+      if (result == null) result = defaultCase(theEObject);
+      return result;
+    }
+    case GenfwPackage.DOM_TRANSFORMATION:
+    {
+      DomTransformation domTransformation = (DomTransformation)theEObject;
+      Object result = caseDomTransformation(domTransformation);
+      if (result == null) result = defaultCase(theEObject);
+      return result;
+    }
     case GenfwPackage.INITIAL_GENERATOR:
     {
       InitialGenerator initialGenerator = (InitialGenerator)theEObject;
@@ -192,19 +207,10 @@ public class GenfwSwitch
       if (result == null) result = defaultCase(theEObject);
       return result;
     }
-    case GenfwPackage.FILE_INITIALIZER:
-    {
-      FileInitializer fileInitializer = (FileInitializer)theEObject;
-      Object result = caseFileInitializer(fileInitializer);
-      if (result == null) result = caseGenerator(fileInitializer);
-      if (result == null) result = defaultCase(theEObject);
-      return result;
-    }
     case GenfwPackage.STATIC_FILE_INITIALIZER:
     {
       StaticFileInitializer staticFileInitializer = (StaticFileInitializer)theEObject;
       Object result = caseStaticFileInitializer(staticFileInitializer);
-      if (result == null) result = caseFileInitializer(staticFileInitializer);
       if (result == null) result = caseGenerator(staticFileInitializer);
       if (result == null) result = defaultCase(theEObject);
       return result;
@@ -420,6 +426,38 @@ public class GenfwSwitch
   }
 
   /**
+   * Returns the result of interpretting the object as an instance of '<em>Dom Transformer</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpretting the object as an instance of '<em>Dom Transformer</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public Object caseDomTransformer(DomTransformer object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpretting the object as an instance of '<em>Dom Transformation</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpretting the object as an instance of '<em>Dom Transformation</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public Object caseDomTransformation(DomTransformation object)
+  {
+    return null;
+  }
+
+  /**
    * Returns the result of interpretting the object as an instance of '<em>Initial Generator</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
@@ -431,22 +469,6 @@ public class GenfwSwitch
    * @generated
    */
   public Object caseInitialGenerator(InitialGenerator object)
-  {
-    return null;
-  }
-
-  /**
-   * Returns the result of interpretting the object as an instance of '<em>File Initializer</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpretting the object as an instance of '<em>File Initializer</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public Object caseFileInitializer(FileInitializer object)
   {
     return null;
   }
