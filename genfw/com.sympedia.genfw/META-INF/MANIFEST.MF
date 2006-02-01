@@ -8,6 +8,7 @@ Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Export-Package: com.sympedia.genfw,
  com.sympedia.genfw.impl,
+ com.sympedia.genfw.internal,
  com.sympedia.genfw.util
 Require-Bundle: com.sympedia.util.emf;visibility:=reexport,
  org.eclipse.jdt.core;resolution:=optional

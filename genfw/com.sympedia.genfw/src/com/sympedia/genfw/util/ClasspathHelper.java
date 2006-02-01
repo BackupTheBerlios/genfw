@@ -12,19 +12,11 @@ package com.sympedia.genfw.util;
 
 
 import com.sympedia.genfw.internal.GenfwActivator;
-import com.sympedia.util.ImplementationError;
-import com.sympedia.util.StringHelper;
 import com.sympedia.util.emf.EcoreHelper;
 
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.IConfigurationElement;
-import org.eclipse.core.runtime.IExtension;
-import org.eclipse.core.runtime.IExtensionPoint;
-import org.eclipse.core.runtime.IExtensionRegistry;
 import org.eclipse.core.runtime.IPath;
-import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jdt.core.IClasspathEntry;
@@ -201,38 +193,39 @@ public class ClasspathHelper
 
   public static ClassLoader getBundleClassLoader(String bundleId)
   {
-    IExtensionRegistry extensionRegistry = Platform.getExtensionRegistry();
-    IExtensionPoint extensionPoint = extensionRegistry
-            .getExtensionPoint(GenfwActivator.EXTERNAL_LIBRARIES_EXTPOINT);
-    if (extensionPoint == null)
-    {
-      throw new ImplementationError();
-    }
-
-    IExtension[] extensions = extensionPoint.getExtensions();
-    for (IExtension extension : extensions)
-    {
-      if (StringHelper.equals(extension.getNamespace(), bundleId))
-      {
-        IConfigurationElement[] configurationElements = extension.getConfigurationElements();
-        for (IConfigurationElement element : configurationElements)
-        {
-          try
-          {
-            Object initializer = element.createExecutableExtension("libraryInitializer");
-            if (initializer != null)
-            {
-              return initializer.getClass().getClassLoader();
-            }
-          }
-          catch (CoreException ex)
-          {
-            GenfwActivator.INSTANCE.log(ex);
-          }
-        }
-      }
-    }
-
-    return null;
+    return GenfwActivator.getPlugin().getBundleClassLoaders().get(bundleId);
+    //    IExtensionRegistry extensionRegistry = Platform.getExtensionRegistry();
+    //    IExtensionPoint extensionPoint = extensionRegistry
+    //            .getExtensionPoint(GenfwActivator.EXTERNAL_LIBRARIES_EXTPOINT);
+    //    if (extensionPoint == null)
+    //    {
+    //      throw new ImplementationError();
+    //    }
+    //
+    //    IExtension[] extensions = extensionPoint.getExtensions();
+    //    for (IExtension extension : extensions)
+    //    {
+    //      if (StringHelper.equals(extension.getNamespace(), bundleId))
+    //      {
+    //        IConfigurationElement[] configurationElements = extension.getConfigurationElements();
+    //        for (IConfigurationElement element : configurationElements)
+    //        {
+    //          try
+    //          {
+    //            Object initializer = element.createExecutableExtension("libraryInitializer");
+    //            if (initializer != null)
+    //            {
+    //              return initializer.getClass().getClassLoader();
+    //            }
+    //          }
+    //          catch (CoreException ex)
+    //          {
+    //            GenfwActivator.INSTANCE.log(ex);
+    //          }
+    //        }
+    //      }
+    //    }
+    //
+    //    return null;
   }
 }

@@ -5,7 +5,7 @@
  <copyright>
  </copyright>
 
- $Id: plugin.xml,v 1.1 2006/01/23 10:20:25 stepper Exp $
+ $Id: plugin.xml,v 1.2 2006/02/01 09:35:46 stepper Exp $
 -->
 
 <plugin>
@@ -15,6 +15,19 @@
        uri = "http://www.sympedia.com/2006/genfw/jet" 
        class = "com.sympedia.genfw.jet.JetPackage"
        genModel = "model/jet.genmodel" /> 
+  </extension>
+  
+  <extension
+        point="com.sympedia.genfw.generators">
+     <generator
+           classifierName="JetTemplate"
+           packageURI="http://www.sympedia.com/2006/genfw/jet"/>
+     <generator
+           classifierName="EcoreTemplate"
+           packageURI="http://www.sympedia.com/2006/genfw/jet"/>
+     <generator
+           classifierName="EmfGenerator"
+           packageURI="http://www.sympedia.com/2006/genfw/jet"/>
   </extension>
 
 </plugin>

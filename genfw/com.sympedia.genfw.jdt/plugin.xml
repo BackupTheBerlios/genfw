@@ -5,7 +5,7 @@
  <copyright>
  </copyright>
 
- $Id: plugin.xml,v 1.1 2006/01/23 10:20:25 stepper Exp $
+ $Id: plugin.xml,v 1.2 2006/02/01 09:35:49 stepper Exp $
 -->
 
 <plugin>
@@ -15,6 +15,12 @@
        uri = "http://www.sympedia.com/2006/genfw/jdt" 
        class = "com.sympedia.genfw.jdt.JdtPackage"
        genModel = "model/jdt.genmodel" /> 
+  </extension>
+  <extension
+        point="com.sympedia.genfw.generators">
+     <generator
+           classifierName="JavaFormatter"
+           packageURI="http://www.sympedia.com/2006/genfw/jdt"/>
   </extension>
 
 </plugin>

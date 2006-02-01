@@ -16,6 +16,16 @@
        class = "com.sympedia.genfw.ocl.OclPackage"
        genModel = "model/ocl.genmodel" /> 
   </extension>
+  
+  <extension
+        point="com.sympedia.genfw.rules">
+     <rule
+           classifierName="OclRule"
+           packageURI="http://www.sympedia.com/2006/genfw/ocl"/>
+     <rule
+           classifierName="ConfigurableOclRule"
+           packageURI="http://www.sympedia.com/2006/genfw/ocl"/>
+  </extension>
 
 </plugin>
 

@@ -25,28 +25,33 @@ import java.util.Set;
 
 public class EmfEditHelper
 {
+  public static void collectNewChildDescriptors(Collection newChildDescriptors, EReference feature,
+          Collection<EClass> eClasses)
+  {
+    for (EClass eClass : eClasses)
+    {
+      if (!doesExist(eClass, newChildDescriptors))
+      {
+        try
+        {
+          EFactory factory = eClass.getEPackage().getEFactoryInstance();
+          newChildDescriptors.add(new CommandParameter(null, feature, factory.create(eClass)));
+        }
+        catch (Exception ex)
+        {
+          ex.printStackTrace();
+        }
+      }
+    }
+  }
+
   public static void genericNewChildDescriptors(Collection newChildDescriptors, EReference feature)
   {
     if (feature.getEType() instanceof EClass)
     {
       EClass type = (EClass)feature.getEType();
       Set<EClass> eClasses = EcoreHelper.getAllSubClasses(type, false, false, false);
-
-      for (EClass eClass : eClasses)
-      {
-        if (!doesExist(eClass, newChildDescriptors))
-        {
-          try
-          {
-            EFactory factory = eClass.getEPackage().getEFactoryInstance();
-            newChildDescriptors.add(new CommandParameter(null, feature, factory.create(eClass)));
-          }
-          catch (Exception ex)
-          {
-            ex.printStackTrace();
-          }
-        }
-      }
+      collectNewChildDescriptors(newChildDescriptors, feature, eClasses);
     }
   }
 
