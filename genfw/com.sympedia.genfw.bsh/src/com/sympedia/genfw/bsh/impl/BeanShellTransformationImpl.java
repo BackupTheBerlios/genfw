@@ -50,7 +50,7 @@ public class BeanShellTransformationImpl extends DomTransformationImpl implement
    * @generated
    * @ordered
    */
-  protected static final String TRANSFORMATION_CODE_EDEFAULT = null;
+  protected static final String TRANSFORMATION_CODE_EDEFAULT = "return false;";
 
   /**
    * The cached value of the '{@link #getTransformationCode() <em>Transformation Code</em>}' attribute.
@@ -293,6 +293,7 @@ public class BeanShellTransformationImpl extends DomTransformationImpl implement
     i.eval("import com.sympedia.genfw.*;");
     i.eval("import com.sympedia.util.*;");
     i.eval("import java.util.*;");
+    i.eval("import org.w3c.dom.*;");
 
     String decl = getBootstrapCode();
     if (decl != null && decl.length() != 0)

@@ -29,22 +29,23 @@ import org.eclipse.emf.common.command.CommandStack;
 import org.eclipse.emf.common.command.CommandStackListener;
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.ui.ViewerPane;
+import org.eclipse.emf.common.ui.celleditor.ExtendedDialogCellEditor;
 import org.eclipse.emf.common.ui.viewer.IViewerProvider;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.EValidator;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.edit.EMFEditPlugin;
 import org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain;
 import org.eclipse.emf.edit.domain.EditingDomain;
 import org.eclipse.emf.edit.domain.IEditingDomainProvider;
 import org.eclipse.emf.edit.provider.AdapterFactoryItemDelegator;
 import org.eclipse.emf.edit.provider.ComposedAdapterFactory;
-import org.eclipse.emf.edit.provider.ReflectiveItemProviderAdapterFactory;
-
-import org.eclipse.emf.edit.provider.resource.ResourceItemProviderAdapterFactory;
-
+import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
+import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.ComposedAdapterFactory.Descriptor.Registry;
 import org.eclipse.emf.edit.ui.action.EditingDomainActionBarContributor;
 import org.eclipse.emf.edit.ui.celleditor.AdapterFactoryTreeEditor;
@@ -53,7 +54,10 @@ import org.eclipse.emf.edit.ui.dnd.LocalTransfer;
 import org.eclipse.emf.edit.ui.dnd.ViewerDragAdapter;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryContentProvider;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider;
+import org.eclipse.emf.edit.ui.provider.PropertyDescriptor;
+import org.eclipse.emf.edit.ui.provider.PropertySource;
 import org.eclipse.emf.edit.ui.view.ExtendedPropertySheetPage;
+import org.eclipse.jdt.internal.ui.javaeditor.JavaSourceViewer;
 import org.eclipse.jface.action.IMenuListener;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.IStatusLineManager;
@@ -62,7 +66,9 @@ import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.action.Separator;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.dialogs.ProgressMonitorDialog;
-import org.eclipse.jface.viewers.ColumnWeightData;
+import org.eclipse.jface.text.Document;
+import org.eclipse.jface.text.IDocument;
+import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.ISelectionProvider;
@@ -71,7 +77,6 @@ import org.eclipse.jface.viewers.ListViewer;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.StructuredViewer;
-import org.eclipse.jface.viewers.TableLayout;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.viewers.Viewer;
@@ -81,16 +86,14 @@ import org.eclipse.swt.dnd.DND;
 import org.eclipse.swt.dnd.Transfer;
 import org.eclipse.swt.events.ControlAdapter;
 import org.eclipse.swt.events.ControlEvent;
+import org.eclipse.swt.graphics.Color;
+import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.Point;
-import org.eclipse.swt.layout.FillLayout;
-
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Menu;
-import org.eclipse.swt.widgets.Table;
-import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.Tree;
-import org.eclipse.swt.widgets.TreeColumn;
-
 import org.eclipse.ui.IActionBars;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorPart;
@@ -106,12 +109,12 @@ import org.eclipse.ui.part.MultiPageEditorPart;
 import org.eclipse.ui.views.contentoutline.ContentOutline;
 import org.eclipse.ui.views.contentoutline.ContentOutlinePage;
 import org.eclipse.ui.views.contentoutline.IContentOutlinePage;
+import org.eclipse.ui.views.properties.IPropertyDescriptor;
 import org.eclipse.ui.views.properties.IPropertySheetEntry;
 import org.eclipse.ui.views.properties.IPropertySheetPage;
+import org.eclipse.ui.views.properties.IPropertySource;
 import org.eclipse.ui.views.properties.PropertySheet;
 import org.eclipse.ui.views.properties.PropertySheetPage;
-import com.sympedia.genfw.provider.GenfwItemProviderAdapterFactory;
-
 import org.eclipse.ui.views.properties.PropertySheetSorter;
 
 import java.io.IOException;
@@ -133,6 +136,10 @@ import java.util.List;
 public class GenfwEditor extends MultiPageEditorPart implements IEditingDomainProvider,
         ISelectionProvider, IMenuListener, IViewerProvider, IGotoMarker
 {
+  public static final String CELLEDITOR_URI = "http://www.sympedia.com/2006/celleditor";
+
+  public static final String EDITOR_ID_KEY = "editor.id";
+
   /**
    * This keeps track of the editing domain that is used to track all changes to the model.
    * <!-- begin-user-doc -->
@@ -1028,7 +1035,86 @@ public class GenfwEditor extends MultiPageEditorPart implements IEditingDomainPr
 
     if (propertySheetPage == null)
     {
-      AdapterFactoryContentProvider provider = new AdapterFactoryContentProvider(adapterFactory);
+      AdapterFactoryContentProvider provider = new AdapterFactoryContentProvider(adapterFactory)
+      {
+        protected IPropertySource createPropertySource(Object object,
+                IItemPropertySource itemPropertySource)
+        {
+          return new PropertySource(object, itemPropertySource)
+          {
+            protected IPropertyDescriptor createPropertyDescriptor(
+                    IItemPropertyDescriptor itemPropertyDescriptor)
+            {
+              return new PropertyDescriptor(this.object, itemPropertyDescriptor)
+              {
+                public CellEditor createPropertyEditor(Composite composite)
+                {
+                  Object genericFeature = itemPropertyDescriptor.getFeature(object);
+                  if (genericFeature instanceof EStructuralFeature && object instanceof EObject)
+                  {
+                    final EStructuralFeature feature = (EStructuralFeature)genericFeature;
+                    String editorId = EcoreUtil.getAnnotation(feature, CELLEDITOR_URI,
+                            EDITOR_ID_KEY);
+                    if (editorId != null && editorId.length() != 0)
+                    {
+                      return new ExtendedDialogCellEditor(composite, getEditLabelProvider())
+                      {
+                        protected Object openDialogBox(Control cellEditorWindow)
+                        {
+                          final Display display = cellEditorWindow.getDisplay();
+                          final Font font = new Font(display, "Courier New", 10, SWT.NONE);
+                          final Color color = new Color(display, 255, 0, 0);
+
+                          Object propertyValue = itemPropertyDescriptor.getPropertyValue(object);
+                          String editableValue = propertyValue == null ? null
+                                  : (String)((IItemPropertySource)propertyValue)
+                                          .getEditableValue(object);
+
+                          MultiLineDialog dialog = new MultiLineDialog(cellEditorWindow.getShell(),
+                                  getEditLabelProvider(), (EObject)object, feature, editableValue,
+                                  getDisplayName())
+                          {
+                            private JavaSourceViewer viewer;
+
+                            @Override
+                            protected Control createTextControl(Composite parent)
+                            {
+                              String result = getResult();
+
+                              viewer = new JavaSourceViewer(parent, null, null, false, 0, null);
+                              viewer.setDocument(new Document(result == null ? "" : result));
+                              //viewer.setTextColor(color, 0, 10, false);
+
+                              Control control = viewer.getControl();
+                              control.setFont(font);
+                              return control;
+                            }
+
+                            @Override
+                            protected String getTextValue()
+                            {
+                              IDocument document = viewer.getDocument();
+                              return document.get();
+                            }
+                          };
+
+                          dialog.open();
+                          font.dispose();
+                          color.dispose();
+                          return dialog.getResult();
+                        }
+                      };
+                    }
+                  }
+
+                  return super.createPropertyEditor(composite);
+                }
+              };
+            }
+          };
+        }
+      };
+
       propertySheetPage = new UnsortedPropertySheetPage(editingDomain);
       propertySheetPage.setPropertySourceProvider(provider);
     }

@@ -273,8 +273,9 @@ public class BshPackageImpl extends EPackageImpl implements BshPackage
     initEClass(beanShellTransformationEClass, BeanShellTransformation.class,
             "BeanShellTransformation", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getBeanShellTransformation_TransformationCode(), ecorePackage.getEString(),
-            "transformationCode", null, 1, 1, BeanShellTransformation.class, !IS_TRANSIENT,
-            !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+            "transformationCode", "return false;", 1, 1, BeanShellTransformation.class,
+            !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+            !IS_DERIVED, IS_ORDERED);
     initEAttribute(getBeanShellTransformation_BootstrapCode(), ecorePackage.getEString(),
             "bootstrapCode", null, 0, 1, BeanShellTransformation.class, !IS_TRANSIENT,
             !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -289,6 +290,8 @@ public class BshPackageImpl extends EPackageImpl implements BshPackage
     // Create annotations
     // http://www.topcased.org/uuid
     createUuidAnnotations();
+    // http://www.sympedia.com/2006/celleditor
+    createCelleditorAnnotations();
   }
 
   /**
@@ -309,6 +312,23 @@ public class BshPackageImpl extends EPackageImpl implements BshPackage
             "113879629165415"});
     addAnnotation(getBeanShellTransformation_BootstrapCode(), source, new String[] {"uuid",
             "113879666923218"});
+  }
+
+  /**
+   * Initializes the annotations for <b>http://www.sympedia.com/2006/celleditor</b>.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  protected void createCelleditorAnnotations()
+  {
+    String source = "http://www.sympedia.com/2006/celleditor";
+    addAnnotation(getBeanShellRule_BootstrapCode(), source, new String[] {"editor.id",
+            "com.sympedia.Multiline"});
+    addAnnotation(getBeanShellTransformation_TransformationCode(), source, new String[] {
+            "editor.id", "com.sympedia.Multiline"});
+    addAnnotation(getBeanShellTransformation_BootstrapCode(), source, new String[] {"editor.id",
+            "com.sympedia.Multiline"});
   }
 
 } //BshPackageImpl

@@ -1303,6 +1303,8 @@ public class GenfwPackageImpl extends EPackageImpl implements GenfwPackage
     // Create annotations
     // http://www.topcased.org/uuid
     createUuidAnnotations();
+    // http://www.sympedia.com/2006/celleditor
+    createCelleditorAnnotations();
   }
 
   /**
@@ -1420,6 +1422,21 @@ public class GenfwPackageImpl extends EPackageImpl implements GenfwPackage
     addAnnotation(coreExceptionEDataType, source, new String[] {"uuid", "1136792315343141"});
     addAnnotation(iProgressMonitorEDataType, source, new String[] {"uuid", "1136792315343142"});
     addAnnotation(domDocumentEDataType, source, new String[] {"uuid", "1138795838842228"});
+  }
+
+  /**
+   * Initializes the annotations for <b>http://www.sympedia.com/2006/celleditor</b>.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  protected void createCelleditorAnnotations()
+  {
+    String source = "http://www.sympedia.com/2006/celleditor";
+    addAnnotation(getExpressionBasedRule_MatchExpression(), source, new String[] {"editor.id",
+            "com.sympedia.Multiline"});
+    addAnnotation(getExpressionBasedRule_TargetPathExpression(), source, new String[] {"editor.id",
+            "com.sympedia.Multiline"});
   }
 
 } //GenfwPackageImpl

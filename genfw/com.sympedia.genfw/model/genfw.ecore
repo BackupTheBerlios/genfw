@@ -213,10 +213,16 @@
       <eAnnotations source="http://www.topcased.org/uuid">
         <details key="uuid" value="113672129782879"/>
       </eAnnotations>
+      <eAnnotations source="http://www.sympedia.com/2006/celleditor">
+        <details key="editor.id" value="com.sympedia.Multiline"/>
+      </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="targetPathExpression" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
       <eAnnotations source="http://www.topcased.org/uuid">
         <details key="uuid" value="113672129782880"/>
+      </eAnnotations>
+      <eAnnotations source="http://www.sympedia.com/2006/celleditor">
+        <details key="editor.id" value="com.sympedia.Multiline"/>
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>

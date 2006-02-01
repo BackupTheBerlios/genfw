@@ -9,5 +9,6 @@ Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Export-Package: com.sympedia.genfw.presentation
 Require-Bundle: com.sympedia.genfw.edit;visibility:=reexport,
- com.sympedia.util.emf.editor;visibility:=reexport
+ com.sympedia.util.emf.editor;visibility:=reexport,
+ org.eclipse.jdt.ui
 Eclipse-LazyStart: true

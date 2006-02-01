@@ -35,6 +35,7 @@ public interface BeanShellTransformation extends DomTransformation
 {
   /**
    * Returns the value of the '<em><b>Transformation Code</b></em>' attribute.
+   * The default value is <code>"return false;"</code>.
    * <!-- begin-user-doc -->
    * <p>
    * If the meaning of the '<em>Transformation Code</em>' attribute isn't clear,
@@ -44,8 +45,9 @@ public interface BeanShellTransformation extends DomTransformation
    * @return the value of the '<em>Transformation Code</em>' attribute.
    * @see #setTransformationCode(String)
    * @see com.sympedia.genfw.bsh.BshPackage#getBeanShellTransformation_TransformationCode()
-   * @model required="true"
+   * @model default="return false;" required="true"
    *        annotation="http://www.topcased.org/uuid uuid='113879629165415'"
+   *        annotation="http://www.sympedia.com/2006/celleditor editor.id='com.sympedia.Multiline'"
    * @generated
    */
   String getTransformationCode();
@@ -72,6 +74,7 @@ public interface BeanShellTransformation extends DomTransformation
    * @see #setBootstrapCode(String)
    * @see com.sympedia.genfw.bsh.BshPackage#getBeanShellTransformation_BootstrapCode()
    * @model annotation="http://www.topcased.org/uuid uuid='113879666923218'"
+   *        annotation="http://www.sympedia.com/2006/celleditor editor.id='com.sympedia.Multiline'"
    * @generated
    */
   String getBootstrapCode();

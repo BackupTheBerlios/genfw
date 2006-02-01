@@ -44,6 +44,7 @@ public interface BeanShellRule extends ExpressionBasedRule
    * @see #setBootstrapCode(String)
    * @see com.sympedia.genfw.bsh.BshPackage#getBeanShellRule_BootstrapCode()
    * @model annotation="http://www.topcased.org/uuid uuid='11372283250312'"
+   *        annotation="http://www.sympedia.com/2006/celleditor editor.id='com.sympedia.Multiline'"
    * @generated
    */
   String getBootstrapCode();

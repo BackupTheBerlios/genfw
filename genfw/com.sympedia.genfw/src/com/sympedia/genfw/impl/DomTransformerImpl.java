@@ -206,6 +206,12 @@ public class DomTransformerImpl extends GeneratorImpl implements DomTransformer
           throws Exception
   {
     Document document = getXmlDocument(targetPath);
+    DOMConfiguration config = document.getDomConfig();
+    config.setParameter("element-content-whitespace", Boolean.TRUE);
+    config.setParameter("cdata-sections", Boolean.TRUE);
+    config.setParameter("comments", Boolean.TRUE);
+    config.setParameter("entities", Boolean.TRUE);
+
     boolean touchedAtAll = false;
     boolean modified;
 
@@ -229,8 +235,11 @@ public class DomTransformerImpl extends GeneratorImpl implements DomTransformer
     DOMImplementationLS impl = getDOMImplementationLS();
 
     LSSerializer writer = impl.createLSSerializer();
-    DOMConfiguration config = writer.getDomConfig();
+    config = writer.getDomConfig();
+    config.setParameter("element-content-whitespace", Boolean.TRUE);
+    config.setParameter("cdata-sections", Boolean.TRUE);
     config.setParameter("comments", Boolean.TRUE);
+    config.setParameter("entities", Boolean.TRUE);
 
     ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
     LSOutput output = impl.createLSOutput();
@@ -263,6 +272,11 @@ public class DomTransformerImpl extends GeneratorImpl implements DomTransformer
         LSInput input = impl.createLSInput();
         input.setByteStream(file.getContents());
         LSParser builder = impl.createLSParser(DOMImplementationLS.MODE_SYNCHRONOUS, null);
+        DOMConfiguration config = builder.getDomConfig();
+        config.setParameter("element-content-whitespace", Boolean.TRUE);
+        config.setParameter("cdata-sections", Boolean.TRUE);
+        config.setParameter("comments", Boolean.TRUE);
+        config.setParameter("entities", Boolean.TRUE);
         return builder.parse(input);
       }
       else
@@ -302,7 +316,7 @@ public class DomTransformerImpl extends GeneratorImpl implements DomTransformer
           InstantiationException, IllegalAccessException
   {
     System.setProperty(DOMImplementationRegistry.PROPERTY,
-            "org.apache.xerces.dom.DOMImplementationSourceImpl");
+            "org.apache.xerces.dom.DOMXSImplementationSourceImpl");
     return DOMImplementationRegistry.newInstance();
   }
 } //DomTransformerImpl

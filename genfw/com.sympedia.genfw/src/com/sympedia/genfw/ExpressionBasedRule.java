@@ -43,6 +43,7 @@ public interface ExpressionBasedRule extends Rule
    * @see #setMatchExpression(String)
    * @see com.sympedia.genfw.GenfwPackage#getExpressionBasedRule_MatchExpression()
    * @model annotation="http://www.topcased.org/uuid uuid='113672129782879'"
+   *        annotation="http://www.sympedia.com/2006/celleditor editor.id='com.sympedia.Multiline'"
    * @generated
    */
   String getMatchExpression();
@@ -69,6 +70,7 @@ public interface ExpressionBasedRule extends Rule
    * @see #setTargetPathExpression(String)
    * @see com.sympedia.genfw.GenfwPackage#getExpressionBasedRule_TargetPathExpression()
    * @model annotation="http://www.topcased.org/uuid uuid='113672129782880'"
+   *        annotation="http://www.sympedia.com/2006/celleditor editor.id='com.sympedia.Multiline'"
    * @generated
    */
   String getTargetPathExpression();
