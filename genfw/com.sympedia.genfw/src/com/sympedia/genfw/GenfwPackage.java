@@ -729,13 +729,139 @@ public interface GenfwPackage extends EPackage
   int DOM_TRANSFORMER__TRANSFORMATIONS = GENERATOR_FEATURE_COUNT + 0;
 
   /**
+   * The feature id for the '<em><b>Encoding</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DOM_TRANSFORMER__ENCODING = GENERATOR_FEATURE_COUNT + 1;
+
+  /**
+   * The feature id for the '<em><b>Force Encoding</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DOM_TRANSFORMER__FORCE_ENCODING = GENERATOR_FEATURE_COUNT + 2;
+
+  /**
+   * The feature id for the '<em><b>Namespace URI</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DOM_TRANSFORMER__NAMESPACE_URI = GENERATOR_FEATURE_COUNT + 3;
+
+  /**
+   * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DOM_TRANSFORMER__QUALIFIED_NAME = GENERATOR_FEATURE_COUNT + 4;
+
+  /**
+   * The feature id for the '<em><b>Public ID</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DOM_TRANSFORMER__PUBLIC_ID = GENERATOR_FEATURE_COUNT + 5;
+
+  /**
+   * The feature id for the '<em><b>System ID</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DOM_TRANSFORMER__SYSTEM_ID = GENERATOR_FEATURE_COUNT + 6;
+
+  /**
+   * The feature id for the '<em><b>Force Doc Type</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DOM_TRANSFORMER__FORCE_DOC_TYPE = GENERATOR_FEATURE_COUNT + 7;
+
+  /**
+   * The feature id for the '<em><b>Indent</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DOM_TRANSFORMER__INDENT = GENERATOR_FEATURE_COUNT + 8;
+
+  /**
+   * The feature id for the '<em><b>Indenting</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DOM_TRANSFORMER__INDENTING = GENERATOR_FEATURE_COUNT + 9;
+
+  /**
+   * The feature id for the '<em><b>Line Width</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DOM_TRANSFORMER__LINE_WIDTH = GENERATOR_FEATURE_COUNT + 10;
+
+  /**
+   * The feature id for the '<em><b>Line Separator</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DOM_TRANSFORMER__LINE_SEPARATOR = GENERATOR_FEATURE_COUNT + 11;
+
+  /**
+   * The feature id for the '<em><b>Preserve Empty Attributes</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DOM_TRANSFORMER__PRESERVE_EMPTY_ATTRIBUTES = GENERATOR_FEATURE_COUNT + 12;
+
+  /**
+   * The feature id for the '<em><b>Preserve Space</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DOM_TRANSFORMER__PRESERVE_SPACE = GENERATOR_FEATURE_COUNT + 13;
+
+  /**
+   * The feature id for the '<em><b>Force Formatting</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DOM_TRANSFORMER__FORCE_FORMATTING = GENERATOR_FEATURE_COUNT + 14;
+
+  /**
    * The number of structural features of the '<em>Dom Transformer</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int DOM_TRANSFORMER_FEATURE_COUNT = GENERATOR_FEATURE_COUNT + 1;
+  int DOM_TRANSFORMER_FEATURE_COUNT = GENERATOR_FEATURE_COUNT + 15;
 
   /**
    * The meta object id for the '{@link com.sympedia.genfw.impl.DomTransformationImpl <em>Dom Transformation</em>}' class.
@@ -1488,6 +1614,160 @@ public interface GenfwPackage extends EPackage
   EReference getDomTransformer_Transformations();
 
   /**
+   * Returns the meta object for the attribute '{@link com.sympedia.genfw.DomTransformer#getEncoding <em>Encoding</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Encoding</em>'.
+   * @see com.sympedia.genfw.DomTransformer#getEncoding()
+   * @see #getDomTransformer()
+   * @generated
+   */
+  EAttribute getDomTransformer_Encoding();
+
+  /**
+   * Returns the meta object for the attribute '{@link com.sympedia.genfw.DomTransformer#isForceEncoding <em>Force Encoding</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Force Encoding</em>'.
+   * @see com.sympedia.genfw.DomTransformer#isForceEncoding()
+   * @see #getDomTransformer()
+   * @generated
+   */
+  EAttribute getDomTransformer_ForceEncoding();
+
+  /**
+   * Returns the meta object for the attribute '{@link com.sympedia.genfw.DomTransformer#getQualifiedName <em>Qualified Name</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Qualified Name</em>'.
+   * @see com.sympedia.genfw.DomTransformer#getQualifiedName()
+   * @see #getDomTransformer()
+   * @generated
+   */
+  EAttribute getDomTransformer_QualifiedName();
+
+  /**
+   * Returns the meta object for the attribute '{@link com.sympedia.genfw.DomTransformer#getIndent <em>Indent</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Indent</em>'.
+   * @see com.sympedia.genfw.DomTransformer#getIndent()
+   * @see #getDomTransformer()
+   * @generated
+   */
+  EAttribute getDomTransformer_Indent();
+
+  /**
+   * Returns the meta object for the attribute '{@link com.sympedia.genfw.DomTransformer#isIndenting <em>Indenting</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Indenting</em>'.
+   * @see com.sympedia.genfw.DomTransformer#isIndenting()
+   * @see #getDomTransformer()
+   * @generated
+   */
+  EAttribute getDomTransformer_Indenting();
+
+  /**
+   * Returns the meta object for the attribute '{@link com.sympedia.genfw.DomTransformer#getLineWidth <em>Line Width</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Line Width</em>'.
+   * @see com.sympedia.genfw.DomTransformer#getLineWidth()
+   * @see #getDomTransformer()
+   * @generated
+   */
+  EAttribute getDomTransformer_LineWidth();
+
+  /**
+   * Returns the meta object for the attribute '{@link com.sympedia.genfw.DomTransformer#getLineSeparator <em>Line Separator</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Line Separator</em>'.
+   * @see com.sympedia.genfw.DomTransformer#getLineSeparator()
+   * @see #getDomTransformer()
+   * @generated
+   */
+  EAttribute getDomTransformer_LineSeparator();
+
+  /**
+   * Returns the meta object for the attribute '{@link com.sympedia.genfw.DomTransformer#isPreserveEmptyAttributes <em>Preserve Empty Attributes</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Preserve Empty Attributes</em>'.
+   * @see com.sympedia.genfw.DomTransformer#isPreserveEmptyAttributes()
+   * @see #getDomTransformer()
+   * @generated
+   */
+  EAttribute getDomTransformer_PreserveEmptyAttributes();
+
+  /**
+   * Returns the meta object for the attribute '{@link com.sympedia.genfw.DomTransformer#isPreserveSpace <em>Preserve Space</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Preserve Space</em>'.
+   * @see com.sympedia.genfw.DomTransformer#isPreserveSpace()
+   * @see #getDomTransformer()
+   * @generated
+   */
+  EAttribute getDomTransformer_PreserveSpace();
+
+  /**
+   * Returns the meta object for the attribute '{@link com.sympedia.genfw.DomTransformer#getPublicID <em>Public ID</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Public ID</em>'.
+   * @see com.sympedia.genfw.DomTransformer#getPublicID()
+   * @see #getDomTransformer()
+   * @generated
+   */
+  EAttribute getDomTransformer_PublicID();
+
+  /**
+   * Returns the meta object for the attribute '{@link com.sympedia.genfw.DomTransformer#getSystemID <em>System ID</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>System ID</em>'.
+   * @see com.sympedia.genfw.DomTransformer#getSystemID()
+   * @see #getDomTransformer()
+   * @generated
+   */
+  EAttribute getDomTransformer_SystemID();
+
+  /**
+   * Returns the meta object for the attribute '{@link com.sympedia.genfw.DomTransformer#isForceDocType <em>Force Doc Type</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Force Doc Type</em>'.
+   * @see com.sympedia.genfw.DomTransformer#isForceDocType()
+   * @see #getDomTransformer()
+   * @generated
+   */
+  EAttribute getDomTransformer_ForceDocType();
+
+  /**
+   * Returns the meta object for the attribute '{@link com.sympedia.genfw.DomTransformer#getNamespaceURI <em>Namespace URI</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Namespace URI</em>'.
+   * @see com.sympedia.genfw.DomTransformer#getNamespaceURI()
+   * @see #getDomTransformer()
+   * @generated
+   */
+  EAttribute getDomTransformer_NamespaceURI();
+
+  /**
+   * Returns the meta object for the attribute '{@link com.sympedia.genfw.DomTransformer#isForceFormatting <em>Force Formatting</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Force Formatting</em>'.
+   * @see com.sympedia.genfw.DomTransformer#isForceFormatting()
+   * @see #getDomTransformer()
+   * @generated
+   */
+  EAttribute getDomTransformer_ForceFormatting();
+
+  /**
    * Returns the meta object for class '{@link com.sympedia.genfw.DomTransformation <em>Dom Transformation</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -2099,6 +2379,119 @@ public interface GenfwPackage extends EPackage
      * @generated
      */
     EReference DOM_TRANSFORMER__TRANSFORMATIONS = eINSTANCE.getDomTransformer_Transformations();
+
+    /**
+     * The meta object literal for the '<em><b>Encoding</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute DOM_TRANSFORMER__ENCODING = eINSTANCE.getDomTransformer_Encoding();
+
+    /**
+     * The meta object literal for the '<em><b>Force Encoding</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute DOM_TRANSFORMER__FORCE_ENCODING = eINSTANCE.getDomTransformer_ForceEncoding();
+
+    /**
+     * The meta object literal for the '<em><b>Qualified Name</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute DOM_TRANSFORMER__QUALIFIED_NAME = eINSTANCE.getDomTransformer_QualifiedName();
+
+    /**
+     * The meta object literal for the '<em><b>Indent</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute DOM_TRANSFORMER__INDENT = eINSTANCE.getDomTransformer_Indent();
+
+    /**
+     * The meta object literal for the '<em><b>Indenting</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute DOM_TRANSFORMER__INDENTING = eINSTANCE.getDomTransformer_Indenting();
+
+    /**
+     * The meta object literal for the '<em><b>Line Width</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute DOM_TRANSFORMER__LINE_WIDTH = eINSTANCE.getDomTransformer_LineWidth();
+
+    /**
+     * The meta object literal for the '<em><b>Line Separator</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute DOM_TRANSFORMER__LINE_SEPARATOR = eINSTANCE.getDomTransformer_LineSeparator();
+
+    /**
+     * The meta object literal for the '<em><b>Preserve Empty Attributes</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute DOM_TRANSFORMER__PRESERVE_EMPTY_ATTRIBUTES = eINSTANCE
+            .getDomTransformer_PreserveEmptyAttributes();
+
+    /**
+     * The meta object literal for the '<em><b>Preserve Space</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute DOM_TRANSFORMER__PRESERVE_SPACE = eINSTANCE.getDomTransformer_PreserveSpace();
+
+    /**
+     * The meta object literal for the '<em><b>Public ID</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute DOM_TRANSFORMER__PUBLIC_ID = eINSTANCE.getDomTransformer_PublicID();
+
+    /**
+     * The meta object literal for the '<em><b>System ID</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute DOM_TRANSFORMER__SYSTEM_ID = eINSTANCE.getDomTransformer_SystemID();
+
+    /**
+     * The meta object literal for the '<em><b>Force Doc Type</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute DOM_TRANSFORMER__FORCE_DOC_TYPE = eINSTANCE.getDomTransformer_ForceDocType();
+
+    /**
+     * The meta object literal for the '<em><b>Namespace URI</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute DOM_TRANSFORMER__NAMESPACE_URI = eINSTANCE.getDomTransformer_NamespaceURI();
+
+    /**
+     * The meta object literal for the '<em><b>Force Formatting</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute DOM_TRANSFORMER__FORCE_FORMATTING = eINSTANCE.getDomTransformer_ForceFormatting();
 
     /**
      * The meta object literal for the '{@link com.sympedia.genfw.impl.DomTransformationImpl <em>Dom Transformation</em>}' class.

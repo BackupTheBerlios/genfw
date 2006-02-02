@@ -689,6 +689,146 @@ public class GenfwPackageImpl extends EPackageImpl implements GenfwPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EAttribute getDomTransformer_Encoding()
+  {
+    return (EAttribute)domTransformerEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getDomTransformer_ForceEncoding()
+  {
+    return (EAttribute)domTransformerEClass.getEStructuralFeatures().get(2);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getDomTransformer_QualifiedName()
+  {
+    return (EAttribute)domTransformerEClass.getEStructuralFeatures().get(4);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getDomTransformer_Indent()
+  {
+    return (EAttribute)domTransformerEClass.getEStructuralFeatures().get(8);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getDomTransformer_Indenting()
+  {
+    return (EAttribute)domTransformerEClass.getEStructuralFeatures().get(9);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getDomTransformer_LineWidth()
+  {
+    return (EAttribute)domTransformerEClass.getEStructuralFeatures().get(10);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getDomTransformer_LineSeparator()
+  {
+    return (EAttribute)domTransformerEClass.getEStructuralFeatures().get(11);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getDomTransformer_PreserveEmptyAttributes()
+  {
+    return (EAttribute)domTransformerEClass.getEStructuralFeatures().get(12);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getDomTransformer_PreserveSpace()
+  {
+    return (EAttribute)domTransformerEClass.getEStructuralFeatures().get(13);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getDomTransformer_PublicID()
+  {
+    return (EAttribute)domTransformerEClass.getEStructuralFeatures().get(5);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getDomTransformer_SystemID()
+  {
+    return (EAttribute)domTransformerEClass.getEStructuralFeatures().get(6);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getDomTransformer_ForceDocType()
+  {
+    return (EAttribute)domTransformerEClass.getEStructuralFeatures().get(7);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getDomTransformer_NamespaceURI()
+  {
+    return (EAttribute)domTransformerEClass.getEStructuralFeatures().get(3);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getDomTransformer_ForceFormatting()
+  {
+    return (EAttribute)domTransformerEClass.getEStructuralFeatures().get(14);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EClass getDomTransformation()
   {
     return domTransformationEClass;
@@ -1011,6 +1151,20 @@ public class GenfwPackageImpl extends EPackageImpl implements GenfwPackage
 
     domTransformerEClass = createEClass(DOM_TRANSFORMER);
     createEReference(domTransformerEClass, DOM_TRANSFORMER__TRANSFORMATIONS);
+    createEAttribute(domTransformerEClass, DOM_TRANSFORMER__ENCODING);
+    createEAttribute(domTransformerEClass, DOM_TRANSFORMER__FORCE_ENCODING);
+    createEAttribute(domTransformerEClass, DOM_TRANSFORMER__NAMESPACE_URI);
+    createEAttribute(domTransformerEClass, DOM_TRANSFORMER__QUALIFIED_NAME);
+    createEAttribute(domTransformerEClass, DOM_TRANSFORMER__PUBLIC_ID);
+    createEAttribute(domTransformerEClass, DOM_TRANSFORMER__SYSTEM_ID);
+    createEAttribute(domTransformerEClass, DOM_TRANSFORMER__FORCE_DOC_TYPE);
+    createEAttribute(domTransformerEClass, DOM_TRANSFORMER__INDENT);
+    createEAttribute(domTransformerEClass, DOM_TRANSFORMER__INDENTING);
+    createEAttribute(domTransformerEClass, DOM_TRANSFORMER__LINE_WIDTH);
+    createEAttribute(domTransformerEClass, DOM_TRANSFORMER__LINE_SEPARATOR);
+    createEAttribute(domTransformerEClass, DOM_TRANSFORMER__PRESERVE_EMPTY_ATTRIBUTES);
+    createEAttribute(domTransformerEClass, DOM_TRANSFORMER__PRESERVE_SPACE);
+    createEAttribute(domTransformerEClass, DOM_TRANSFORMER__FORCE_FORMATTING);
 
     domTransformationEClass = createEClass(DOM_TRANSFORMATION);
     createEReference(domTransformationEClass, DOM_TRANSFORMATION__TRANSFORMER);
@@ -1218,6 +1372,48 @@ public class GenfwPackageImpl extends EPackageImpl implements GenfwPackage
             .getDomTransformation_Transformer(), "transformations", null, 1, -1,
             DomTransformer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
             !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getDomTransformer_Encoding(), ecorePackage.getEString(), "encoding", "UTF-8", 0,
+            1, DomTransformer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE,
+            !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getDomTransformer_ForceEncoding(), ecorePackage.getEBoolean(), "forceEncoding",
+            null, 0, 1, DomTransformer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
+            !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getDomTransformer_NamespaceURI(), ecorePackage.getEString(), "namespaceURI",
+            null, 0, 1, DomTransformer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
+            !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getDomTransformer_QualifiedName(), ecorePackage.getEString(), "qualifiedName",
+            "xml", 0, 1, DomTransformer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
+            !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getDomTransformer_PublicID(), ecorePackage.getEString(), "publicID", null, 0, 1,
+            DomTransformer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE,
+            !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getDomTransformer_SystemID(), ecorePackage.getEString(), "systemID", null, 0, 1,
+            DomTransformer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE,
+            !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getDomTransformer_ForceDocType(), ecorePackage.getEBoolean(), "forceDocType",
+            null, 0, 1, DomTransformer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
+            !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getDomTransformer_Indent(), ecorePackage.getEInt(), "indent", "2", 0, 1,
+            DomTransformer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE,
+            !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getDomTransformer_Indenting(), ecorePackage.getEBoolean(), "indenting", "true",
+            0, 1, DomTransformer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE,
+            !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getDomTransformer_LineWidth(), ecorePackage.getEInt(), "lineWidth", "80", 0, 1,
+            DomTransformer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE,
+            !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getDomTransformer_LineSeparator(), ecorePackage.getEString(), "lineSeparator",
+            null, 0, 1, DomTransformer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
+            !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getDomTransformer_PreserveEmptyAttributes(), ecorePackage.getEBoolean(),
+            "preserveEmptyAttributes", "false", 0, 1, DomTransformer.class, !IS_TRANSIENT,
+            !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getDomTransformer_PreserveSpace(), ecorePackage.getEBoolean(), "preserveSpace",
+            "false", 0, 1, DomTransformer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
+            !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getDomTransformer_ForceFormatting(), ecorePackage.getEBoolean(),
+            "forceFormatting", "true", 0, 1, DomTransformer.class, !IS_TRANSIENT, !IS_VOLATILE,
+            IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(domTransformationEClass, DomTransformation.class, "DomTransformation", IS_ABSTRACT,
             !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -1366,8 +1562,16 @@ public class GenfwPackageImpl extends EPackageImpl implements GenfwPackage
     addAnnotation(expressionBasedRuleEClass, source, new String[] {"uuid", "113672129781278"});
     addAnnotation(getExpressionBasedRule_MatchExpression(), source, new String[] {"uuid",
             "113672129782879"});
+    addAnnotation(getExpressionBasedRule_MatchExpression(), 1, "http://www.topcased.org/uuid",
+            new String[] {"uuid", "1138859646437117"});
+    addAnnotation(getExpressionBasedRule_MatchExpression(), 1, "http://www.topcased.org/uuid",
+            new String[] {"uuid", "1138859646437117"});
     addAnnotation(getExpressionBasedRule_TargetPathExpression(), source, new String[] {"uuid",
             "113672129782880"});
+    addAnnotation(getExpressionBasedRule_TargetPathExpression(), 1, "http://www.topcased.org/uuid",
+            new String[] {"uuid", "1138859646437122"});
+    addAnnotation(getExpressionBasedRule_TargetPathExpression(), 1, "http://www.topcased.org/uuid",
+            new String[] {"uuid", "1138859646437122"});
     addAnnotation(generatorEClass, source, new String[] {"uuid", "113672105540666"});
     addAnnotation((EOperation)generatorEClass.getEOperations().get(0), source, new String[] {
             "uuid", "113672120854673"});
@@ -1386,6 +1590,28 @@ public class GenfwPackageImpl extends EPackageImpl implements GenfwPackage
     addAnnotation(domTransformerEClass, source, new String[] {"uuid", "1138792484562225"});
     addAnnotation(getDomTransformer_Transformations(), source, new String[] {"uuid",
             "1138792632343228"});
+    addAnnotation(getDomTransformer_Encoding(), source, new String[] {"uuid", "1138859750437164"});
+    addAnnotation(getDomTransformer_ForceEncoding(), source, new String[] {"uuid",
+            "1138859750437165"});
+    addAnnotation(getDomTransformer_NamespaceURI(), source, new String[] {"uuid",
+            "1138860266515197"});
+    addAnnotation(getDomTransformer_QualifiedName(), source, new String[] {"uuid",
+            "1138859750437166"});
+    addAnnotation(getDomTransformer_PublicID(), source, new String[] {"uuid", "1138860266515194"});
+    addAnnotation(getDomTransformer_SystemID(), source, new String[] {"uuid", "1138860266515195"});
+    addAnnotation(getDomTransformer_ForceDocType(), source, new String[] {"uuid",
+            "1138860266515196"});
+    addAnnotation(getDomTransformer_Indent(), source, new String[] {"uuid", "1138859973281176"});
+    addAnnotation(getDomTransformer_Indenting(), source, new String[] {"uuid", "1138859973281177"});
+    addAnnotation(getDomTransformer_LineWidth(), source, new String[] {"uuid", "1138859973281178"});
+    addAnnotation(getDomTransformer_LineSeparator(), source, new String[] {"uuid",
+            "1138859973281179"});
+    addAnnotation(getDomTransformer_PreserveEmptyAttributes(), source, new String[] {"uuid",
+            "1138859973281180"});
+    addAnnotation(getDomTransformer_PreserveSpace(), source, new String[] {"uuid",
+            "1138859994093191"});
+    addAnnotation(getDomTransformer_ForceFormatting(), source, new String[] {"uuid",
+            "1138860971937209"});
     addAnnotation(domTransformationEClass, source, new String[] {"uuid", "1138792538890228"});
     addAnnotation((EOperation)domTransformationEClass.getEOperations().get(0), source,
             new String[] {"uuid", "1138795739467159"});
@@ -1435,8 +1661,16 @@ public class GenfwPackageImpl extends EPackageImpl implements GenfwPackage
     String source = "http://www.sympedia.com/2006/celleditor";
     addAnnotation(getExpressionBasedRule_MatchExpression(), source, new String[] {"editor.id",
             "com.sympedia.Multiline"});
+    addAnnotation(getExpressionBasedRule_MatchExpression(), 1, "http://www.topcased.org/uuid",
+            new String[] {"uuid", "1138859646437117"});
+    addAnnotation(getExpressionBasedRule_MatchExpression(), 1, "http://www.topcased.org/uuid",
+            new String[] {"uuid", "1138859646437117"});
     addAnnotation(getExpressionBasedRule_TargetPathExpression(), source, new String[] {"editor.id",
             "com.sympedia.Multiline"});
+    addAnnotation(getExpressionBasedRule_TargetPathExpression(), 1, "http://www.topcased.org/uuid",
+            new String[] {"uuid", "1138859646437122"});
+    addAnnotation(getExpressionBasedRule_TargetPathExpression(), 1, "http://www.topcased.org/uuid",
+            new String[] {"uuid", "1138859646437122"});
   }
 
 } //GenfwPackageImpl
