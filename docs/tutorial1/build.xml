@@ -26,7 +26,7 @@
 			<delete dir="temp" failonerror="no" />
 			<mkdir dir="temp" />
 			<echo message="@{todir}" />
-			<copy todir="temp">
+			<copy todir="temp" failonerror="no">
 				<fileset dir="@{todir}" includes="CVS/*" defaultexcludes="no" />
 			</copy>
 
@@ -36,7 +36,7 @@
 			</sync>
 
 			<delete file="@{todir}/CVS" failonerror="no" />
-			<copy todir="@{todir}">
+			<copy todir="@{todir}" failonerror="no">
 				<fileset dir="temp" includes="CVS/*" defaultexcludes="no" />
 			</copy>
 			<delete dir="temp" failonerror="no" />
@@ -58,12 +58,15 @@
 	</target>
 
 	<target name="render.html" unless="html.uptodate">
-		<xslt in="${file.name}.xml" out="${target.html}" style="../docbook-xsl-1.69.1/html/docbook.xsl" />
+		<xslt in="${file.name}.xml" out="${target.html}" style="../docbook-xsl-1.69.1/html/docbook.xsl">
+			<param name="html.stylesheet" expression="genfw.css" />
+		</xslt>
 		<html.tidy file="${target.html}" />
 	</target>
 
 	<target name="render.help" unless="help.uptodate">
 		<xslt in="${file.name}.xml" out="${target.help}" style="../docbook-xsl-1.69.1/eclipse/eclipse.xsl">
+			<param name="html.stylesheet" expression="genfw.css" />
 			<param name="eclipse.plugin.id" expression="tutorial1.doc" />
 			<param name="eclipse.plugin.name" expression="Tutorial1 Documentation" />
 			<param name="eclipse.plugin.provider" expression="Sympedia.com" />
@@ -74,10 +77,12 @@
 	<target name="regenerate" depends="init">
 		<uptodate property="html.uptodate" srcfile="${file.name}.xml" targetfile="${target.html}" />
 		<antcall target="render.html" />
+		<copy file="../genfw.css" todir="${target.dir}"/>
 		<sync.images fromdir="images" todir="${target.dir}/images" />
 
 		<uptodate property="help.uptodate" srcfile="${file.name}.xml" targetfile="${target.help}" />
 		<antcall target="render.help" />
+		<copy file="../genfw.css" todir="../../tutorial1.doc"/>
 		<sync.images fromdir="images" todir="../../tutorial1.doc/images" />
 	</target>
 

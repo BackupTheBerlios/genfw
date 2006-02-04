@@ -115,37 +115,9 @@
     http://developer.berlios.de/cvs/?group_id=5851</ulink></para>
 
     <programlisting>    :pserver:anonymous@cvs.genfw.berlios.de:/cvsroot/genfw</programlisting>
-    <para>Checkout the following modules from the <code>util</code> 
-    component:</para>
-
-    <programlisting>    com.sympedia.util 
-    com.sympedia.util.eclipse 
-    com.sympedia.util.eclipse.resources 
-    com.sympedia.util.eclipse.ui 
-    com.sympedia.util.emf 
-    com.sympedia.util.emf.edit 
-    com.sympedia.util.emf.editor 
-    com.sympedia.util-feature 
-    org.apache.log4j 
-    org.beanshell</programlisting>
-    <para>Checkout the following modules from the <code>genfw</code> 
-    component:</para>
-
-    <programlisting>    com.sympedia.genfw 
-    com.sympedia.genfw.ant 
-    com.sympedia.genfw.bsh 
-    com.sympedia.genfw.bsh.edit 
-    com.sympedia.genfw.edit 
-    com.sympedia.genfw.editor 
-    com.sympedia.genfw-feature 
-    com.sympedia.genfw.jdt 
-    com.sympedia.genfw.jdt.edit 
-    com.sympedia.genfw.jet 
-    com.sympedia.genfw.jet.edit 
-    com.sympedia.genfw.jmerge 
-    com.sympedia.genfw.jmerge.edit 
-    com.sympedia.genfw.ui</programlisting>
-    <para>To deploy GenFw into your Eclipse installation use the menu 
+    <para>Checkout all modules from the <code>util</code> and from the <code>genfw</code> 
+    component.</para>
+	      <para>To deploy GenFw into your Eclipse installation use the menu 
     <emphasis>File | Export... | Deployable Features</emphasis> and 
     select</para>
 

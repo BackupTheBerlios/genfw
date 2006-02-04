@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="docs.tutorial2" default="regenerate" basedir=".">
+
+	<property name="file.name" value="SympediaGenFwTutorial2" />
+	<property name="target.dir" value="../website/tutorial2" />
+	<property name="target.html" value="${target.dir}/${file.name}.html" />
+	<property name="target.help" value="../../tutorial2.doc/index.html" />
+
+	<macrodef name="html.tidy">
+		<attribute name="file" />
+		<sequential>
+			<exec executable="c:/programme/cygwin/bin/tidy.exe" failonerror="no">
+				<arg value="-modify" />
+				<arg value="-indent" />
+				<arg value="-wrap" />
+				<arg value="80" />
+				<arg path="@{file}" />
+			</exec>
+		</sequential>
+	</macrodef>
+
+	<macrodef name="sync.images">
+		<attribute name="fromdir" />
+		<attribute name="todir" />
+		<sequential>
+			<delete dir="temp" failonerror="no" />
+			<mkdir dir="temp" />
+			<echo message="@{todir}" />
+			<copy todir="temp" failonerror="no">
+				<fileset dir="@{todir}" includes="CVS/*" defaultexcludes="no" />
+			</copy>
+
+			<sync todir="@{todir}">
+				<fileset dir="@{fromdir}" includes="*.gif" />
+				<fileset dir="@{fromdir}" includes="*.jpg" />
+			</sync>
+
+			<delete file="@{todir}/CVS" failonerror="no" />
+			<copy todir="@{todir}" failonerror="no">
+				<fileset dir="temp" includes="CVS/*" defaultexcludes="no" />
+			</copy>
+			<delete dir="temp" failonerror="no" />
+		</sequential>
+	</macrodef>
+
+	<target name="init">
+		<tstamp />
+		<mkdir dir="${target.dir}" />
+	</target>
+
+	<target name="clean" depends="init">
+		<delete failonerror="false">
+			<fileset dir="${target.dir}">
+				<include name="**/*.gif" />
+				<include name="**/*.html" />
+			</fileset>
+		</delete>
+	</target>
+
+	<target name="render.html" unless="html.uptodate">
+		<xslt in="${file.name}.xml" out="${target.html}" style="../docbook-xsl-1.69.1/html/docbook.xsl">
+			<param name="html.stylesheet" expression="genfw.css" />
+		</xslt>
+		<html.tidy file="${target.html}" />
+	</target>
+
+	<target name="render.help" unless="help.uptodate">
+		<xslt in="${file.name}.xml" out="${target.help}" style="../docbook-xsl-1.69.1/eclipse/eclipse.xsl">
+			<param name="eclipse.plugin.id" expression="tutorial2.doc" />
+			<param name="eclipse.plugin.name" expression="Tutorial2 Documentation" />
+			<param name="eclipse.plugin.provider" expression="Sympedia.com" />
+		</xslt>
+		<html.tidy file="${target.help}" />
+	</target>
+
+	<target name="regenerate" depends="init">
+		<uptodate property="html.uptodate" srcfile="${file.name}.xml" targetfile="${target.html}" />
+		<antcall target="render.html" />
+		<copy file="../genfw.css" todir="${target.dir}"/>
+		<sync.images fromdir="images" todir="${target.dir}/images" />
+
+		<uptodate property="help.uptodate" srcfile="${file.name}.xml" targetfile="${target.help}" />
+		<antcall target="render.help" />
+		<copy file="../genfw.css" todir="../../tutorial2.doc"/>
+		<sync.images fromdir="images" todir="../../tutorial2.doc/images" />
+	</target>
+
+</project>

@@ -7,7 +7,8 @@
   <meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
 
   <title>Sympedia GenFw Installation</title>
-  <meta name="generator" content="DocBook XSL Stylesheets V1.69.1">
+  <link href="genfw.css" rel="stylesheet" type="text/css">
+  <meta content="DocBook XSL Stylesheets V1.69.1" name="generator">
   <meta name="description" content=
   "Sympedia GenFw is a flexible and easy to use framework for software artifact generation. Input models can be associated with generators via extensible rule sets. Additional Content providers, generators and rules can be provided by Eclipse plugins. This article explains the GenFw installation procedure.">
   </head>
@@ -18,7 +19,7 @@
     <div class="titlepage">
       <div>
         <div>
-          <h2 class="title"><a name="N65537" id="N65537"></a>Sympedia GenFw
+          <h2 class="title"><a name="N10001" id="N10001"></a>Sympedia GenFw
           Installation</h2>
         </div>
 
@@ -54,15 +55,15 @@
       <p><b>Table of Contents</b></p>
 
       <dl>
-        <dt><span class="sect1"><a href="#N65561">Prerequisites</a></span></dt>
+        <dt><span class="sect1"><a href="#N10019">Prerequisites</a></span></dt>
 
-        <dt><span class="sect1"><a href="#N65605"><img src=
+        <dt><span class="sect1"><a href="#N10045"><img src=
         "images/UpdateManager.gif"> Eclipse Update Manager</a></span></dt>
 
-        <dt><span class="sect1"><a href="#N65642"><img src=
+        <dt><span class="sect1"><a href="#N1006A"><img src=
         "images/BinaryDownload.gif"> Download Releases</a></span></dt>
 
-        <dt><span class="sect1"><a href="#N65655"><img src=
+        <dt><span class="sect1"><a href="#N10077"><img src=
         "images/CvsRepository.gif"> Checkout the Sources</a></span></dt>
       </dl>
     </div>
@@ -71,8 +72,8 @@
       <div class="titlepage">
         <div>
           <div>
-            <h2 class="title" style="clear: both"><a name="N65561" id=
-            "N65561"></a>Prerequisites</h2>
+            <h2 class="title" style="clear: both"><a name="N10019" id=
+            "N10019"></a>Prerequisites</h2>
           </div>
         </div>
       </div>
@@ -105,8 +106,8 @@
       <div class="titlepage">
         <div>
           <div>
-            <h2 class="title" style="clear: both"><a name="N65605" id=
-            "N65605"></a><img src="images/UpdateManager.gif"> Eclipse Update
+            <h2 class="title" style="clear: both"><a name="N10045" id=
+            "N10045"></a><img src="images/UpdateManager.gif"> Eclipse Update
             Manager</h2>
           </div>
         </div>
@@ -123,7 +124,7 @@
       target="_top">http://genfw.berlios.de/update</a></code></p>
 
       <div class="figure">
-        <a name="N65630" id="N65630"></a>
+        <a name="N1005E" id="N1005E"></a>
 
         <p class="title"><b>Figure&nbsp;1.&nbsp;Configure a New Remote
         Site</b></p>
@@ -142,8 +143,8 @@
       <div class="titlepage">
         <div>
           <div>
-            <h2 class="title" style="clear: both"><a name="N65642" id=
-            "N65642"></a><img src="images/BinaryDownload.gif"> Download
+            <h2 class="title" style="clear: both"><a name="N1006A" id=
+            "N1006A"></a><img src="images/BinaryDownload.gif"> Download
             Releases</h2>
           </div>
         </div>
@@ -159,8 +160,8 @@
       <div class="titlepage">
         <div>
           <div>
-            <h2 class="title" style="clear: both"><a name="N65655" id=
-            "N65655"></a><img src="images/CvsRepository.gif"> Checkout the
+            <h2 class="title" style="clear: both"><a name="N10077" id=
+            "N10077"></a><img src="images/CvsRepository.gif"> Checkout the
             Sources</h2>
           </div>
         </div>
@@ -173,39 +174,8 @@
     :pserver:anonymous@cvs.genfw.berlios.de:/cvsroot/genfw
 </pre>
 
-      <p>Checkout the following modules from the <code class="code">util</code>
-      component:</p>
-      <pre class="programlisting">
-    com.sympedia.util 
-    com.sympedia.util.eclipse 
-    com.sympedia.util.eclipse.resources 
-    com.sympedia.util.eclipse.ui 
-    com.sympedia.util.emf 
-    com.sympedia.util.emf.edit 
-    com.sympedia.util.emf.editor 
-    com.sympedia.util-feature 
-    org.apache.log4j 
-    org.beanshell
-</pre>
-
-      <p>Checkout the following modules from the <code class=
-      "code">genfw</code> component:</p>
-      <pre class="programlisting">
-    com.sympedia.genfw 
-    com.sympedia.genfw.ant 
-    com.sympedia.genfw.bsh 
-    com.sympedia.genfw.bsh.edit 
-    com.sympedia.genfw.edit 
-    com.sympedia.genfw.editor 
-    com.sympedia.genfw-feature 
-    com.sympedia.genfw.jdt 
-    com.sympedia.genfw.jdt.edit 
-    com.sympedia.genfw.jet 
-    com.sympedia.genfw.jet.edit 
-    com.sympedia.genfw.jmerge 
-    com.sympedia.genfw.jmerge.edit 
-    com.sympedia.genfw.ui
-</pre>
+      <p>Checkout all modules from the <code class="code">util</code> and from
+      the <code class="code">genfw</code> component.</p>
 
       <p>To deploy GenFw into your Eclipse installation use the menu
       <span class="emphasis"><em>File | Export... | Deployable

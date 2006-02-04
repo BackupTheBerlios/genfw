@@ -7,6 +7,7 @@
   <meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
 
   <title>Sympedia GenFw Tutorial 1</title>
+  <link href="genfw.css" rel="stylesheet" type="text/css">
   <meta content="DocBook XSL Stylesheets V1.69.1" name="generator">
   <meta name="description" content=
   "Sympedia GenFw is a flexible and easy to use framework for software artifact generation. Input models can be associated with generators via extensible rule sets. Additional Content providers, generators and rules can be provided by Eclipse plugins. In this tutorial I will try to teach you the very basics of GenFw by walking through a simple example. You are expected to have some experience in Java programming, Eclipse plugin development and EMF usage (see http://www.eclipse.org/emf). This tutorial is also available via Eclipse Help if you installed the Tutorial1 feature.">
@@ -69,11 +70,18 @@
 
         <dt><span class="sect1"><a href="#N1003A">Concepts</a></span></dt>
 
-        <dt><span class="sect1"><a href="#N1007D">Steps</a></span></dt>
+        <dt><span class="sect1"><a href="#N1007D">Preparing the Meta
+        Model</a></span></dt>
 
-        <dt><span class="sect1"><a href="#N102D2">Notes</a></span></dt>
+        <dt><span class="sect1"><a href="#N100D7">Defining the
+        Templates</a></span></dt>
 
-        <dt><span class="sect1"><a href="#N1032A">Patching
+        <dt><span class="sect1"><a href="#N1014C">Configuring the Generator
+        Framework</a></span></dt>
+
+        <dt><span class="sect1"><a href="#N102DE">Notes</a></span></dt>
+
+        <dt><span class="sect1"><a href="#N10336">Patching
         CodeGen</a></span></dt>
       </dl>
     </div>
@@ -219,7 +227,7 @@ public class EqualityHelper
             facility to read a file into memory and iterate over the elements
             (called input objects) in a tree-like fashion.</p>
             <pre class="programlisting">
-public interface ContentProvider extends EObject 
+public interface ContentProvider extends LifeCycle 
 { 
   public List getRoots(String path) throws Exception; 
   public List getChildren(Object object) throws Exception; 
@@ -234,7 +242,7 @@ public interface ContentProvider extends EObject
             the target file. The framework will do so if the generator returns
             a non-null result.</p>
             <pre class="programlisting">
-public interface Generator extends EObject 
+public interface Generator extends LifeCycle 
 { 
   public String generate(Object inputObject, 
                          String targetPath, 
@@ -249,7 +257,7 @@ public interface Generator extends EObject
             Rule is able to compute the target path for the given input
             object.</p>
             <pre class="programlisting">
-public interface Rule extends EObject 
+public interface Rule extends LifeCycle 
 { 
   public boolean isMatching(Object inputObject) throws Exception; 
   public String getTargetPath(Object inputObject) throws Exception; 
@@ -262,7 +270,7 @@ public interface Rule extends EObject
             <p>A <span class="emphasis"><em>RuleSet</em></span> is nothing else
             than a named container for Rules.</p>
             <pre class="programlisting">
-public interface RuleSet extends EObject 
+public interface RuleSet extends LifeCycle 
 { 
   public String getName(); 
   public EList getRules(); 
@@ -278,7 +286,7 @@ public interface RuleSet extends EObject
             determining the Generators to invoke on the objects in the meta
             model.</p>
             <pre class="programlisting">
-public interface Input extends EObject 
+public interface Input extends LifeCycle 
 { 
   public String getFullPath(); 
   public ContentProvider getContentProvider(); 
@@ -331,7 +339,7 @@ public interface Input extends EObject
         <div>
           <div>
             <h2 class="title" style="clear: both"><a name="N1007D" id=
-            "N1007D"></a>Steps</h2>
+            "N1007D"></a>Preparing the Meta Model</h2>
           </div>
         </div>
       </div>
@@ -440,46 +448,59 @@ public interface Input extends EObject
   &lt;/beans&gt; 
 &lt;/beans:BeanLibrary&gt;
 </pre>
-
-            <p>Now that we have a formal description of the beans we want to
-            generate, we have to think about how to specify the similarities of
-            all our bean classes. We decide to use <span class=
-            "emphasis"><em>JET</em></span> templates for that purpose. Support
-            for generation with JET templates comes with the EMF distribution
-            and should be available right now. Maybe you know already that
-            there is a distinction between <span class=
-            "emphasis"><em>JET</em></span> that simply produces text output and
-            <span class="emphasis"><em>JMerge</em></span> that expects this
-            output to be Java source code and merges it with changes you have
-            applied to former generation results. Anyway, we decide not to use
-            JMerge, because we don&rsquo;t like to mix generated code with
-            hand-written code. Rather we like to be sure that our hand-written
-            source is never touched by a generator and that, in the event that
-            something goes wrong, we can simply delete the generated files and
-            let them be re-generated.</p>
-
-            <p>Just recall that the only challenge with hand-written code in
-            our example is caused by the <span class="emphasis"><em>business
-            methods</em></span> requirement. Now you should realize that our
-            beans meta model does not contain the notion of a business method.
-            Of course it would easily be possible to model Java methods and
-            their parameters, but we decide to try another approach. The
-            classes we are generating are abstract super classes of the bean
-            classes we are exposing. We will generate the base classes to the
-            <code class="code">src-gen</code> folder of the project and provide
-            (hand-written) derived classes in the <code class="code">src</code>
-            folder. The derived classes can be augmented with the required
-            business methods, we don&rsquo;t need to write the repeating bean
-            infrastructure ourselves and the generator will never touch our
-            additions.</p>
-
-            <p>JET templates are written in a <span class=
-            "emphasis"><em>JSP</em></span> like syntax and then compiled to
-            Java classes by the JET template compiler. Later these template
-            classes will be loaded by GenFw and used to produce the Java source
-            code for our bean descriptions.</p>
           </li>
+        </ol>
+      </div>
+    </div>
 
+    <div class="sect1" lang="en-EN">
+      <div class="titlepage">
+        <div>
+          <div>
+            <h2 class="title" style="clear: both"><a name="N100D7" id=
+            "N100D7"></a>Defining the Templates</h2>
+          </div>
+        </div>
+      </div>
+
+      <p>Now that we have a formal description of the beans we want to
+      generate, we have to think about how to specify the similarities of all
+      our bean classes. We decide to use <span class=
+      "emphasis"><em>JET</em></span> templates for that purpose. Support for
+      generation with JET templates comes with the EMF distribution and should
+      be available right now. Maybe you know already that there is a
+      distinction between <span class="emphasis"><em>JET</em></span> that
+      simply produces text output and <span class=
+      "emphasis"><em>JMerge</em></span> that expects this output to be Java
+      source code and merges it with changes you have applied to former
+      generation results. Anyway, we decide not to use JMerge, because we
+      don&rsquo;t like to mix generated code with hand-written code. Rather we
+      like to be sure that our hand-written source is never touched by a
+      generator and that, in the event that something goes wrong, we can simply
+      delete the generated files and let them be re-generated.</p>
+
+      <p>Just recall that the only challenge with hand-written code in our
+      example is caused by the <span class="emphasis"><em>business
+      methods</em></span> requirement. Now you should realize that our beans
+      meta model does not contain the notion of a business method. Of course it
+      would easily be possible to model Java methods and their parameters, but
+      we decide to try another approach. The classes we are generating are
+      abstract super classes of the bean classes we are exposing. We will
+      generate the base classes to the <code class="code">src-gen</code> folder
+      of the project and provide (hand-written) derived classes in the
+      <code class="code">src</code> folder. The derived classes can be
+      augmented with the required business methods, we don&rsquo;t need to
+      write the repeating bean infrastructure ourselves and the generator will
+      never touch our additions.</p>
+
+      <p>JET templates are written in a <span class=
+      "emphasis"><em>JSP</em></span> like syntax and then compiled to Java
+      classes by the JET template compiler. Later these template classes will
+      be loaded by GenFw and used to produce the Java source code for our bean
+      descriptions.</p>
+
+      <div class="orderedlist">
+        <ol type="1">
           <li>
             <p>Create the plugin project <code class=
             "code">tutorial1.gen</code> (Java, but no Activator, no UI).</p>
@@ -565,7 +586,7 @@ public abstract class &lt;%=bean.getName()%&gt;BeanBase
             base class skeleton with the fields and the constructor.</p>
 
             <div class="figure">
-              <a name="N10136" id="N10136"></a>
+              <a name="N1013C" id="N1013C"></a>
 
               <p class="title"><b>Figure 4. JET template created</b></p>
 
@@ -582,13 +603,28 @@ public abstract class &lt;%=bean.getName()%&gt;BeanBase
             <p>Note, that the <code class="code">src</code> folder is still
             empty. We will need it later, when we provide static helper methods
             that have to be reachable by the template code.</p>
-
-            <p>Now we have the meta model file and a JET template class. So far
-            nothing special to GenFw has been used. The next steps will show
-            how to configure a GenFw <span class="emphasis"><em>Generator
-            Library</em></span>.</p>
           </li>
+        </ol>
+      </div>
+    </div>
 
+    <div class="sect1" lang="en-EN">
+      <div class="titlepage">
+        <div>
+          <div>
+            <h2 class="title" style="clear: both"><a name="N1014C" id=
+            "N1014C"></a>Configuring the Generator Framework</h2>
+          </div>
+        </div>
+      </div>
+
+      <p>Now we have the meta model file and a JET template class. So far
+      nothing special to GenFw has been used. The next steps will show how to
+      configure a GenFw <span class="emphasis"><em>Generator
+      Library</em></span>.</p>
+
+      <div class="orderedlist">
+        <ol type="1">
           <li>
             <p>Create a <code class="code">model</code> folder in the
             <code class="code">tutorial1.gen</code> project.</p>
@@ -602,19 +638,19 @@ public abstract class &lt;%=bean.getName()%&gt;BeanBase
           </li>
 
           <li>
-            <p>Add an <span class=
-            "emphasis"><em>EcoreContentProvider</em></span> to the GenLib and
-            in the <span class="emphasis"><em>Properties</em></span> view name
-            it <code class="code">ECORE</code>. This enables GenFw to
-            instantiate meta models that have been produced by EMF (i.e. they
-            are in Ecore format). Note, that (with Ecore) it is not necessary
-            to specify which Ecore model exactly has to be understood. In other
-            words, the EcoreContentProvider is stateless (except for its
-            instance id, the name feature).</p>
+            <p>Add an <span class="emphasis"><em>Ecore Instantiator</em></span>
+            to the GenLib and in the <span class=
+            "emphasis"><em>Properties</em></span> view name it <code class=
+            "code">ECORE</code>. This enables GenFw to instantiate meta models
+            that have been produced by EMF (i.e. they are in Ecore format).
+            Note, that (with Ecore) it is not necessary to specify which Ecore
+            model exactly has to be understood. In other words, the Ecore
+            Instantiator is stateless (except for its instance id, the name
+            feature).</p>
           </li>
 
           <li>
-            <p>Add a <span class="emphasis"><em>JETTemplate</em></span> to the
+            <p>Add a <span class="emphasis"><em>JET Template</em></span> to the
             GenLib and in the <span class="emphasis"><em>Properties</em></span>
             view name it <code class="code">BeanBaseTemplate</code> and enter
             the template class name <code class=
@@ -634,12 +670,12 @@ public abstract class &lt;%=bean.getName()%&gt;BeanBase
           </li>
 
           <li>
-            <p>Add a <span class="emphasis"><em>RuleSet</em></span> to the
+            <p>Add a <span class="emphasis"><em>Rule Set</em></span> to the
             GenLib and name it <code class="code">BeanRules</code>.</p>
           </li>
 
           <li>
-            <p>Add a <span class="emphasis"><em>BeanShellRule</em></span> to
+            <p>Add a <span class="emphasis"><em>BeanShell Rule</em></span> to
             the new RuleSet name it <code class="code">BeanBaseRule</code> and
             choose the generator <code class="code">BeanBaseTemplate</code>.
             Now enter the <span class="emphasis"><em>Match
@@ -668,7 +704,7 @@ public abstract class &lt;%=bean.getName()%&gt;BeanBase
             instanceof tutorial1.gen.beans.Bean</code>).</p>
 
             <div class="figure">
-              <a name="N101B7" id="N101B7"></a>
+              <a name="N101C3" id="N101C3"></a>
 
               <p class="title"><b>Figure&nbsp;5.&nbsp;Generator Library
               created</b></p>
@@ -712,7 +748,7 @@ public abstract class &lt;%=bean.getName()%&gt;BeanBase
             RuleSet to use.</p>
 
             <div class="figure">
-              <a name="N101E9" id="N101E9"></a>
+              <a name="N101F5" id="N101F5"></a>
 
               <p class="title"><b>Figure&nbsp;6.&nbsp;Generator Application
               created</b></p>
@@ -871,7 +907,7 @@ public class StringHelper
             plugin.</p>
 
             <div class="figure">
-              <a name="N10253" id="N10253"></a>
+              <a name="N1025F" id="N1025F"></a>
 
               <p class="title"><b>Figure&nbsp;7.&nbsp;Platform plugin
               created</b></p>
@@ -1005,7 +1041,7 @@ public class BeanHelper
             <code class="code">true</code>!!! It should look like this:</p>
 
             <div class="figure">
-              <a name="N102A3" id="N102A3"></a>
+              <a name="N102AF" id="N102AF"></a>
 
               <p class="title"><b>Figure&nbsp;8.&nbsp;Rule that never
               overwrites existing files</b></p>
@@ -1060,7 +1096,7 @@ public class BeanHelper
       show all the inputs (meta model instances) of the GenApps.</p>
 
       <div class="figure">
-        <a name="N102CC" id="N102CC"></a>
+        <a name="N102D8" id="N102D8"></a>
 
         <p class="title"><b>Figure&nbsp;9.&nbsp;Generator Applications
         view</b></p>
@@ -1076,8 +1112,8 @@ public class BeanHelper
       <div class="titlepage">
         <div>
           <div>
-            <h2 class="title" style="clear: both"><a name="N102D2" id=
-            "N102D2"></a>Notes</h2>
+            <h2 class="title" style="clear: both"><a name="N102DE" id=
+            "N102DE"></a>Notes</h2>
           </div>
         </div>
       </div>
@@ -1285,8 +1321,8 @@ public class BeansLibraryInitializer implements IExternalLibraryInitializer
       <div class="titlepage">
         <div>
           <div>
-            <h2 class="title" style="clear: both"><a name="N1032A" id=
-            "N1032A"></a>Patching CodeGen</h2>
+            <h2 class="title" style="clear: both"><a name="N10336" id=
+            "N10336"></a>Patching CodeGen</h2>
           </div>
         </div>
       </div>

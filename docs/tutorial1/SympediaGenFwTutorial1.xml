@@ -166,7 +166,7 @@ public class PersonBean
         read a file into memory and iterate over the elements (called 
         input objects) in a tree-like fashion.</para>
 
-        <programlisting>public interface ContentProvider extends EObject 
+        <programlisting>public interface ContentProvider extends LifeCycle 
 { 
   public List getRoots(String path) throws Exception; 
   public List getChildren(Object object) throws Exception; 
@@ -181,7 +181,7 @@ public class PersonBean
         the target file. The framework will do so if the generator 
         returns a non-null result.</para>
 
-        <programlisting>public interface Generator extends EObject 
+        <programlisting>public interface Generator extends LifeCycle 
 { 
   public String generate(Object inputObject, 
                          String targetPath, 
@@ -196,7 +196,7 @@ public class PersonBean
         is able to compute the target path for the given input 
         object.</para>
 
-        <programlisting>public interface Rule extends EObject 
+        <programlisting>public interface Rule extends LifeCycle 
 { 
   public boolean isMatching(Object inputObject) throws Exception; 
   public String getTargetPath(Object inputObject) throws Exception; 
@@ -209,7 +209,7 @@ public class PersonBean
         <para>A <emphasis>RuleSet</emphasis> is nothing else than a 
         named container for Rules.</para>
 
-        <programlisting>public interface RuleSet extends EObject 
+        <programlisting>public interface RuleSet extends LifeCycle 
 { 
   public String getName(); 
   public EList getRules(); 
@@ -225,7 +225,7 @@ public class PersonBean
         determining the Generators to invoke on the objects in the meta 
         model.</para>
 
-        <programlisting>public interface Input extends EObject 
+        <programlisting>public interface Input extends LifeCycle 
 { 
   public String getFullPath(); 
   public ContentProvider getContentProvider(); 
@@ -271,7 +271,7 @@ public class PersonBean
 
   <sect1>
 
-    <title>Steps</title>
+    <title>Preparing the Meta Model</title>
 
     <orderedlist>
 
@@ -384,45 +384,53 @@ public class PersonBean
     &lt;properties name=&quot;income&quot; typeName=&quot;double&quot; changeable=&quot;true&quot;/&gt; 
   &lt;/beans&gt; 
 &lt;/beans:BeanLibrary&gt;</programlisting>
-        <para>Now that we have a formal description of the beans we 
-        want to generate, we have to think about how to specify the 
-        similarities of all our bean classes. We decide to use 
-        <emphasis>JET</emphasis> templates for that purpose. Support 
-        for generation with JET templates comes with the EMF 
-        distribution and should be available right now. Maybe you know 
-        already that there is a distinction between 
-        <emphasis>JET</emphasis> that simply produces text output and 
-        <emphasis>JMerge</emphasis> that expects this output to be Java 
-        source code and merges it with changes you have applied to 
-        former generation results. Anyway, we decide not to use JMerge, 
-        because we don’t like to mix generated code with hand-written 
-        code. Rather we like to be sure that our hand-written source is 
-        never touched by a generator and that, in the event that 
-        something goes wrong, we can simply delete the generated files 
-        and let them be re-generated.</para>
-
-        <para>Just recall that the only challenge with hand-written 
-        code in our example is caused by the <emphasis>business 
-        methods</emphasis> requirement. Now you should realize that our 
-        beans meta model does not contain the notion of a business 
-        method. Of course it would easily be possible to model Java 
-        methods and their parameters, but we decide to try another 
-        approach. The classes we are generating are abstract super 
-        classes of the bean classes we are exposing. We will generate 
-        the base classes to the <code>src-gen</code> folder of the 
-        project and provide (hand-written) derived classes in the 
-        <code>src</code> folder. The derived classes can be augmented 
-        with the required business methods, we don’t need to write the 
-        repeating bean infrastructure ourselves and the generator will 
-        never touch our additions.</para>
-
-        <para>JET templates are written in a <emphasis>JSP</emphasis> 
-        like syntax and then compiled to Java classes by the JET 
-        template compiler. Later these template classes will be loaded 
-        by GenFw and used to produce the Java source code for our bean 
-        descriptions.</para>
-
       </listitem>
+
+    </orderedlist>
+
+  </sect1>
+
+  <sect1>
+
+    <title>Defining the Templates</title>
+
+    <para>Now that we have a formal description of the beans we want to 
+    generate, we have to think about how to specify the similarities of 
+    all our bean classes. We decide to use <emphasis>JET</emphasis> 
+    templates for that purpose. Support for generation with JET 
+    templates comes with the EMF distribution and should be available 
+    right now. Maybe you know already that there is a distinction 
+    between <emphasis>JET</emphasis> that simply produces text output 
+    and <emphasis>JMerge</emphasis> that expects this output to be Java 
+    source code and merges it with changes you have applied to former 
+    generation results. Anyway, we decide not to use JMerge, because we 
+    don’t like to mix generated code with hand-written code. Rather we 
+    like to be sure that our hand-written source is never touched by a 
+    generator and that, in the event that something goes wrong, we can 
+    simply delete the generated files and let them be 
+    re-generated.</para>
+
+    <para>Just recall that the only challenge with hand-written code in 
+    our example is caused by the <emphasis>business methods</emphasis> 
+    requirement. Now you should realize that our beans meta model does 
+    not contain the notion of a business method. Of course it would 
+    easily be possible to model Java methods and their parameters, but 
+    we decide to try another approach. The classes we are generating 
+    are abstract super classes of the bean classes we are exposing. We 
+    will generate the base classes to the <code>src-gen</code> folder 
+    of the project and provide (hand-written) derived classes in the 
+    <code>src</code> folder. The derived classes can be augmented with 
+    the required business methods, we don’t need to write the repeating 
+    bean infrastructure ourselves and the generator will never touch 
+    our additions.</para>
+
+    <para>JET templates are written in a <emphasis>JSP</emphasis> like 
+    syntax and then compiled to Java classes by the JET template 
+    compiler. Later these template classes will be loaded by GenFw and 
+    used to produce the Java source code for our bean 
+    descriptions.</para>
+
+    <orderedlist>
 
       <listitem>
 
@@ -533,12 +541,22 @@ public abstract class &lt;%=bean.getName()%&gt;BeanBase
         will need it later, when we provide static helper methods that 
         have to be reachable by the template code.</para>
 
-        <para>Now we have the meta model file and a JET template class. 
-        So far nothing special to GenFw has been used. The next steps 
-        will show how to configure a GenFw <emphasis>Generator 
-        Library</emphasis>.</para>
-
       </listitem>
+
+    </orderedlist>
+
+  </sect1>
+
+  <sect1>
+
+    <title>Configuring the Generator Framework</title>
+
+    <para>Now we have the meta model file and a JET template class. So 
+    far nothing special to GenFw has been used. The next steps will 
+    show how to configure a GenFw <emphasis>Generator 
+    Library</emphasis>.</para>
+
+    <orderedlist>
 
       <listitem>
 
@@ -557,20 +575,20 @@ public abstract class &lt;%=bean.getName()%&gt;BeanBase
 
       <listitem>
 
-        <para>Add an <emphasis>EcoreContentProvider</emphasis> to the 
+        <para>Add an <emphasis>Ecore Instantiator</emphasis> to the 
         GenLib and in the <emphasis>Properties</emphasis> view name it 
         <code>ECORE</code>. This enables GenFw to instantiate meta 
         models that have been produced by EMF (i.e. they are in Ecore 
         format). Note, that (with Ecore) it is not necessary to specify 
         which Ecore model exactly has to be understood. In other words, 
-        the EcoreContentProvider is stateless (except for its instance 
+        the Ecore Instantiator is stateless (except for its instance 
         id, the name feature).</para>
 
       </listitem>
 
       <listitem>
 
-        <para>Add a <emphasis>JETTemplate</emphasis> to the GenLib and 
+        <para>Add a <emphasis>JET Template</emphasis> to the GenLib and 
         in the <emphasis>Properties</emphasis> view name it 
         <code>BeanBaseTemplate</code> and enter the template class name 
         <code>tutorial1.gen.BeanBaseTemplate</code>. This enables GenFw 
@@ -592,14 +610,14 @@ public abstract class &lt;%=bean.getName()%&gt;BeanBase
 
       <listitem>
 
-        <para>Add a <emphasis>RuleSet</emphasis> to the GenLib and name 
-        it <code>BeanRules</code>.</para>
+        <para>Add a <emphasis>Rule Set</emphasis> to the GenLib and 
+        name it <code>BeanRules</code>.</para>
 
       </listitem>
 
       <listitem>
 
-        <para>Add a <emphasis>BeanShellRule</emphasis> to the new 
+        <para>Add a <emphasis>BeanShell Rule</emphasis> to the new 
         RuleSet name it <code>BeanBaseRule</code> and choose the 
         generator <code>BeanBaseTemplate</code>. Now enter the 
         <emphasis>Match Expression</emphasis> that can decide for which 

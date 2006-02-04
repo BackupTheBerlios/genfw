@@ -5,6 +5,19 @@
 	<property name="target.dir" value="../website/installation" />
 	<property name="out.path" value="${target.dir}/${file.name}.html" />
 
+	<macrodef name="html.tidy">
+		<attribute name="file" />
+		<sequential>
+			<exec executable="c:/programme/cygwin/bin/tidy.exe" failonerror="no">
+				<arg value="-modify" />
+				<arg value="-indent" />
+				<arg value="-wrap" />
+				<arg value="80" />
+				<arg path="@{file}" />
+			</exec>
+		</sequential>
+	</macrodef>
+
 	<macrodef name="sync.images">
 		<attribute name="fromdir" />
 		<attribute name="todir" />
@@ -12,7 +25,7 @@
 			<delete dir="temp" failonerror="no" />
 			<mkdir dir="temp" />
 			<echo message="@{todir}" />
-			<copy todir="temp">
+			<copy todir="temp" failonerror="no">
 				<fileset dir="@{todir}" includes="CVS/*" defaultexcludes="no" />
 			</copy>
 
@@ -22,7 +35,7 @@
 			</sync>
 
 			<delete file="@{todir}/CVS" failonerror="no" />
-			<copy todir="@{todir}">
+			<copy todir="@{todir}" failonerror="no">
 				<fileset dir="temp" includes="CVS/*" defaultexcludes="no" />
 			</copy>
 			<delete dir="temp" failonerror="no" />
@@ -44,23 +57,16 @@
 	</target>
 
 	<target name="render.html" unless="target.uptodate">
-		<xslt in="${file.name}.xml" out="${out.path}" style="../docbook-xsl-1.69.1/html/docbook.xsl" />
-	</target>
-
-	<target name="format.html" unless="target.uptodate">
-		<exec executable="c:/programme/cygwin/bin/tidy.exe" failonerror="no">
-			<arg value="-modify" />
-			<arg value="-indent" />
-			<arg value="-wrap" />
-			<arg value="80" />
-			<arg path="${out.path}" />
-		</exec>
+		<xslt in="${file.name}.xml" out="${out.path}" style="../docbook-xsl-1.69.1/html/docbook.xsl">
+			<param name="html.stylesheet" expression="genfw.css" />
+		</xslt>
+		<html.tidy file="${out.path}" />
 	</target>
 
 	<target name="regenerate" depends="init">
 		<uptodate property="target.uptodate" srcfile="${file.name}.xml" targetfile="${out.path}" />
 		<antcall target="render.html" />
-		<antcall target="format.html" />
+		<copy file="../genfw.css" todir="${target.dir}"/>
 		<sync.images fromdir="images" todir="${target.dir}/images" />
 	</target>
 
