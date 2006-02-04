@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="test" default="generate" basedir=".">
+
+	<target name="generate">
+		<genfw genapp="/test/Dom.genapp" tracelevel="6"/>
+	</target>
+
+</project>

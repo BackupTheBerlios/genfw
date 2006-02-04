@@ -1,0 +1,268 @@
+<html><head><META http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"><title>Defining the Templates</title><meta content="DocBook XSL Stylesheets V1.69.1" name="generator"><link rel="start" href="index.html" title="Sympedia GenFw Tutorial 2"><link rel="up" href="index.html" title="Sympedia GenFw Tutorial 2"><link rel="prev" href="index.html" title="Sympedia GenFw Tutorial 2"><link rel="next" href="ar01s03.html" title="Configuring the Generator Framework"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table summary="Navigation header" width="100%"><tr><th align="center" colspan="3">Defining the Templates</th></tr><tr><td align="left" width="20%"><a accesskey="p" href="index.html">Prev</a>&nbsp;</td><th align="center" width="60%">&nbsp;</th><td align="right" width="20%">&nbsp;<a accesskey="n" href="ar01s03.html">Next</a></td></tr></table><hr></div><div class="sect1" lang="en-EN"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="N10042"></a>Defining the Templates</h2></div></div><div></div></div><p>We need two <span class="emphasis"><em>JET Template</em></span>s, one for all 
+    the data elements of the extension point and one for the registry 
+    that parses the extension point and instantiates all the data 
+    elements. All the templates and other generator related files will 
+    go into the plugin <code class="code">tutorial2.gen</code>.</p><p>At runtime (of a generator instance) 
+    <code class="code">org.w3c.dom.Element</code> objects will be passed into the 
+    <code class="code">generate()</code> method of the template class. At many 
+    places in the template code we will call methods of the 
+    <span class="emphasis"><em>DOM</em></span> and the <span class="emphasis"><em>XPath</em></span> API. 
+    Some of these calls will be made indirectly through the 
+    <code class="code">ExtPointHelper</code> class that we provide to simplyfy the 
+    template code (and later the GenFw BeanShell Rules).</p><div class="orderedlist"><ol type="1"><li><p>Create the plugin project <code class="code">tutorial2.gen</code> 
+        (Java, but no Activator, no UI).</p></li><li><p>Add the <code class="code">src-gen</code> source folder.</p></li><li><p>Use the New Wizard <span class="emphasis"><em>Convert Projects to JET 
+        Projects</em></span> and select the <code class="code">tutorial2.gen</code> 
+        project for conversion. The <code class="code">templates</code> folder 
+        should appear.</p></li><li><p>Go to the properties of the new project and browse to the 
+        <span class="emphasis"><em>JET Settings</em></span> category. Enter the path of 
+        the <span class="emphasis"><em>Source Container</em></span> to let the JET 
+        compiler produce the template classes in the 
+        <code class="code">src-gen</code> folder.</p></li><li><p>Because the template we will be writing refers to our 
+        meta model, add a dependency on the 
+        <code class="code">org.apache.xalan</code> plugin to the 
+        <span class="emphasis"><em>MANIFEST.MF</em></span> of the 
+        <code class="code">tutorial2.gen</code> project.</p></li><li><p>Now create the template source file 
+        <code class="code">ElementTemplate.javajet</code> in the 
+        <code class="code">templates</code> folder. Editing this file can be much, 
+        much more convenient, if you download and install the 
+        <code class="code">org.eclipse.emf.codegen.jet.editor</code> plugin from the 
+        <span class="emphasis"><em>Merlin Generator</em></span> project.</p><pre class="programlisting">&lt;%@ jet package="tutorial2.gen"  
+        imports="java.util.* com.sympedia.util.* javax.xml.transform.* org.w3c.dom.* org.apache.xpath.*"  
+        class="ElementTemplate"%&gt; 
+&lt;% 
+Element element = (Element)argument; 
+boolean isExtension = ExtPointHelper.isExtension(element); 
+String pluginId = ExtPointHelper.getPluginId(element); 
+String origin = isExtension ? "IExtension" : "IConfigurationElement"; 
+String children = isExtension ? "ConfigurationElements" : "Children"; 
+Set&lt;String&gt; references = ExtPointHelper.getReferences(element); 
+List&lt;Element&gt; attributes = ExtPointHelper.xPathList(element, ".//attribute"); 
+%&gt; 
+package &lt;%=pluginId%&gt;.internal; 
+ 
+import org.eclipse.core.runtime.*; 
+import java.util.*; 
+import java.io.*; 
+ 
+public class &lt;%=ExtPointHelper.getElementClassName(element)%&gt; 
+{ 
+  protected &lt;%=ExtPointHelper.getElementClassName(element)%&gt;(&lt;%=origin%&gt; origin) 
+  { 
+   this.origin = origin; 
+    IConfigurationElement[] configurationElements = origin.get&lt;%=children%&gt;(); 
+    for (IConfigurationElement element : configurationElements) 
+    { 
+      System.out.println("Initializing " + element.getName()); 
+&lt;%for (Iterator&lt;String&gt; it = references.iterator(); it.hasNext();) { 
+  String reference = it.next(); 
+  String capRef = StringHelper.firstToUpper(reference);%&gt; 
+      if ("&lt;%=reference%&gt;".equals(element.getName())) &lt;%=reference%&gt;Elements.add(new &lt;%=capRef%&gt;(element)); 
+&lt;%}%&gt; 
+&lt;%for (Iterator&lt;Element&gt; it = attributes.iterator(); it.hasNext();) { 
+  Element attribute = it.next(); 
+  String name = attribute.getAttribute("name"); 
+  if ("class".equals(name)) name = "clazz"; 
+  String capName = StringHelper.firstToUpper(name); 
+  boolean required = "required".equals(attribute.getAttribute("use")); 
+  if ("boolean".equals(attribute.getAttribute("type"))) {%&gt; 
+      String &lt;%=name%&gt;Str = element.getAttribute("&lt;%=attribute.getAttribute("name")%&gt;"); 
+      if (&lt;%=name%&gt;Str !=null) { &lt;%=name%&gt; = Boolean.parseBoolean(&lt;%=name%&gt;Str); } else { if (&lt;%=required%&gt;) throw new RuntimeException("&lt;%=capName%&gt; is required"); } 
+  &lt;%} else {%&gt;  
+      &lt;%=name%&gt; = element.getAttribute("&lt;%=attribute.getAttribute("name")%&gt;"); 
+      if (&lt;%=required%&gt; &amp;&amp; (&lt;%=name%&gt; == null || &lt;%=name%&gt;.length() == 0)) throw new RuntimeException("&lt;%=capName%&gt; is required"); 
+  &lt;%}%&gt;  
+&lt;%}%&gt; 
+    } 
+  } 
+ 
+  public &lt;%=origin%&gt; getOrigin() { return origin; } 
+  protected &lt;%=origin%&gt; origin; 
+   
+&lt;%for (Iterator&lt;String&gt; it = references.iterator(); it.hasNext();) { 
+  String reference = it.next(); 
+  String capRef = StringHelper.firstToUpper(reference);%&gt; 
+  public List&lt;&lt;%=capRef%&gt;&gt; get&lt;%=capRef%&gt;Elements() { return Collections.unmodifiableList(&lt;%=reference%&gt;Elements); } 
+  protected List&lt;&lt;%=capRef%&gt;&gt; &lt;%=reference%&gt;Elements; 
+ 
+&lt;%}%&gt;  
+&lt;%for (Iterator&lt;Element&gt; it = attributes.iterator(); it.hasNext();) { 
+  Element attribute = it.next(); 
+  String type = attribute.getAttribute("type"); 
+  String name = attribute.getAttribute("name"); 
+  if ("class".equals(name)) name = "clazz"; 
+  String capName = StringHelper.firstToUpper(name); 
+  if ("boolean".equals(type)) {%&gt; 
+  public boolean is&lt;%=capName%&gt;() { return &lt;%=name%&gt;; } 
+  protected boolean &lt;%=name%&gt;; 
+  &lt;%} else { 
+    String kind = ExtPointHelper.getKind(attribute);  
+    if ("java".equals(kind)) { 
+      String interfaceClass = ExtPointHelper.getBasedOn(attribute);%&gt;  
+  public &lt;%=interfaceClass%&gt; get&lt;%=capName%&gt;() throws CoreException { return (&lt;%=interfaceClass%&gt;)origin.createExecutableExtension("&lt;%=name%&gt;"); } 
+  protected String &lt;%=name%&gt;; 
+    &lt;%} else if ("resource".equals(kind)) {%&gt; 
+  public File get&lt;%=capName%&gt;() { return new File(&lt;%=name%&gt;); } 
+  protected String &lt;%=name%&gt;; 
+    &lt;%} else {%&gt; 
+  public String get&lt;%=capName%&gt;() { return &lt;%=name%&gt;; } 
+  protected String &lt;%=name%&gt;; 
+    &lt;%}%&gt;  
+  &lt;%}%&gt;  
+ 
+&lt;%}%&gt; 
+}</pre></li><li><p>If the JET compiler is properly configured, you will get 
+        compile errors because the <code class="code">ExtPointHelper</code> class is 
+        missing. Create it under the <code class="code">src</code> folder in the 
+        <code class="code">tutorial2.gen</code> package.</p><pre class="programlisting">package tutorial2.gen; 
+ 
+import com.sympedia.util.StringHelper; 
+ 
+import org.apache.xpath.XPathAPI; 
+import org.w3c.dom.Element; 
+import org.w3c.dom.Node; 
+import org.w3c.dom.NodeList; 
+import javax.xml.transform.TransformerException; 
+import java.util.ArrayList; 
+import java.util.HashSet; 
+import java.util.List; 
+import java.util.Set; 
+ 
+public class ExtPointHelper 
+{ 
+  private static final String META_ATTRIBUTE_XPATH =  
+    "annotation/appInfo/meta.attribute"; 
+   
+  private static final String META_SCHEMA_XPATH =  
+    "/schema/annotation/appInfo/meta.schema"; 
+ 
+  public static String xPathString(Node context, String expr) 
+  { 
+    try 
+    { 
+      return XPathAPI.eval(context, expr).toString(); 
+    } 
+    catch (TransformerException ex) 
+    { 
+      throw new RuntimeException(ex); 
+    } 
+  } 
+ 
+  public static List&lt;Element&gt; xPathList(Node context, String expr) 
+  { 
+    try 
+    { 
+      List&lt;Element&gt; result = new ArrayList&lt;Element&gt;(); 
+      NodeList list = XPathAPI.eval(context, expr).nodelist(); 
+      for (int i = 0; i &lt; list.getLength(); i++) 
+      { 
+        result.add((Element)list.item(i)); 
+      } 
+ 
+      return result; 
+    } 
+    catch (TransformerException ex) 
+    { 
+      throw new RuntimeException(ex); 
+    } 
+  } 
+ 
+  public static String getElementClassName(Element element) 
+  { 
+    String name = element.getAttribute("name"); 
+    if (!isExtension(element)) return StringHelper.firstToUpper(name); 
+    return StringHelper.firstToUpper(getExtPointId(element)) + "Extension"; 
+  } 
+ 
+  public static String getRegistryClassName(Element element) 
+  { 
+    return StringHelper.firstToUpper(getExtPointId(element)) + "Registry"; 
+  } 
+ 
+  public static boolean isExtension(Element element) 
+  { 
+    String name = element.getAttribute("name"); 
+    return "extension".equals(name); 
+  } 
+ 
+  public static String getPluginId(Element element) 
+  { 
+    return xPathString(element, META_SCHEMA_XPATH + "/@plugin"); 
+  } 
+ 
+  public static String getExtPointId(Element element) 
+  { 
+    return xPathString(element, META_SCHEMA_XPATH + "/@id"); 
+  } 
+ 
+  public static Set&lt;String&gt; getReferences(Element element) 
+  { 
+    Set&lt;String&gt; result = new HashSet&lt;String&gt;(); 
+    for (Element reference : xPathList(element, ".//element")) 
+    { 
+      String target = reference.getAttribute("ref"); 
+      result.add(target); 
+    } 
+ 
+    return result; 
+  } 
+ 
+  public static String getKind(Element element) 
+  { 
+    List&lt;Element&gt; pathList = xPathList(element, META_ATTRIBUTE_XPATH); 
+    if (pathList.size() == 0) return null; 
+    Element metaAttr = pathList.get(0); 
+    return metaAttr.getAttribute("kind"); 
+  } 
+ 
+  public static String getBasedOn(Element element) 
+  { 
+    Element metaAttr = xPathList(element, META_ATTRIBUTE_XPATH).get(0); 
+    String basedOn = metaAttr.getAttribute("basedOn"); 
+    return basedOn == null || basedOn.length() == 0 ? "Object" : basedOn; 
+  } 
+}</pre></li><li><p>Create the other template source file 
+        <code class="code">RegistryTemplate.javajet</code> in the 
+        <code class="code">templates</code> folder.</p><pre class="programlisting">&lt;%@ jet package="tutorial2.gen"  
+        imports="java.util.* com.sympedia.util.* javax.xml.transform.* org.w3c.dom.* org.apache.xpath.*"  
+        class="RegistryTemplate"%&gt; 
+&lt;% 
+Element element = (Element)argument; 
+String pluginId = ExtPointHelper.getPluginId(element); 
+String extPointId = ExtPointHelper.getExtPointId(element); 
+String capId = StringHelper.firstToUpper(extPointId); 
+%&gt; 
+package &lt;%=pluginId%&gt;.internal; 
+ 
+import org.eclipse.core.runtime.*; 
+import java.util.*; 
+ 
+public class &lt;%=ExtPointHelper.getRegistryClassName(element)%&gt; 
+{ 
+  public static final String EXT_POINT_ID = "&lt;%=pluginId%&gt;.&lt;%=extPointId%&gt;"; 
+ 
+  protected List&lt;&lt;%=capId%&gt;Extension&gt; &lt;%=extPointId%&gt;; 
+ 
+  public &lt;%=ExtPointHelper.getRegistryClassName(element)%&gt;() 
+  { 
+    IExtensionRegistry registry = Platform.getExtensionRegistry(); 
+    IExtensionPoint extPoint = registry.getExtensionPoint(EXT_POINT_ID); 
+    IExtension[] extensions = extPoint.getExtensions(); 
+    for (IExtension extension : extensions) 
+    { 
+      try 
+      { 
+        &lt;%=extPointId%&gt;.add(new &lt;%=capId%&gt;Extension(extension)); 
+      } 
+      catch (Exception ex) 
+      { 
+        ex.printStackTrace(); 
+      } 
+    } 
+  } 
+ 
+  public List&lt;&lt;%=capId%&gt;Extension&gt; get&lt;%=capId%&gt;() 
+  { 
+    return Collections.unmodifiableList(&lt;%=extPointId%&gt;); 
+  } 
+}</pre></li><li><p>Verify, that both templates have been compiled to the 
+        <code class="code">src-gen</code> folder without compile errors:</p><div class="figure"><a name="N100C4"></a><p class="title"><b>Figure&nbsp;1.&nbsp;JET templates created</b></p><div><img src="images/templatesCompiled.gif" alt="JET templates created"></div></div></li></ol></div></div><div class="navfooter"><hr><table summary="Navigation footer" width="100%"><tr><td align="left" width="40%"><a accesskey="p" href="index.html">Prev</a>&nbsp;</td><td align="center" width="20%">&nbsp;</td><td align="right" width="40%">&nbsp;<a accesskey="n" href="ar01s03.html">Next</a></td></tr><tr><td valign="top" align="left" width="40%">Sympedia GenFw Tutorial 2&nbsp;</td><td align="center" width="20%"><a accesskey="h" href="index.html">Home</a></td><td valign="top" align="right" width="40%">&nbsp;Configuring the Generator Framework</td></tr></table></div></body></html>

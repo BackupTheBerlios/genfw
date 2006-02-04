@@ -36,7 +36,7 @@ import org.eclipse.emf.ecore.EObject;
  *        annotation="http://www.topcased.org/uuid uuid='113672105540666'"
  * @generated
  */
-public interface Generator extends EObject
+public interface Generator extends LifeCycle
 {
   /**
    * Returns the value of the '<em><b>Root</b></em>' container reference.

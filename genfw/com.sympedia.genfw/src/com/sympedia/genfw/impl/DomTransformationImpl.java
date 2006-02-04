@@ -13,6 +13,7 @@ package com.sympedia.genfw.impl;
 
 import com.sympedia.genfw.DomTransformation;
 import com.sympedia.genfw.DomTransformer;
+import com.sympedia.genfw.GenApp;
 import com.sympedia.genfw.GenfwPackage;
 
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -40,7 +41,7 @@ import org.w3c.dom.Document;
  *
  * @generated
  */
-public abstract class DomTransformationImpl extends EObjectImpl implements DomTransformation
+public abstract class DomTransformationImpl extends LifeCycleImpl implements DomTransformation
 {
   /**
    * The default value of the '{@link #getLabel() <em>Label</em>}' attribute.

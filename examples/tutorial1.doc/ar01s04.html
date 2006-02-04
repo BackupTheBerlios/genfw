@@ -1,149 +1,92 @@
-<html><head><META http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"><title>Notes</title><meta content="DocBook XSL Stylesheets V1.69.1" name="generator"><link rel="start" href="index.html" title="Sympedia GenFw Tutorial 1"><link rel="up" href="index.html" title="Sympedia GenFw Tutorial 1"><link rel="prev" href="ar01s03.html" title="Steps"><link rel="next" href="ar01s05.html" title="Patching CodeGen"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table summary="Navigation header" width="100%"><tr><th align="center" colspan="3">Notes</th></tr><tr><td align="left" width="20%"><a accesskey="p" href="ar01s03.html">Prev</a>&nbsp;</td><th align="center" width="60%">&nbsp;</th><td align="right" width="20%">&nbsp;<a accesskey="n" href="ar01s05.html">Next</a></td></tr></table><hr></div><div class="sect1" lang="en-EN"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="N102D2"></a>Notes</h2></div></div><div></div></div><div class="orderedlist"><ol type="1"><li><p>It is a major design issue in our generated BeanBase 
-        classes that the Listener methods take an instance of the 
-        BeanBase class as the first argument, because it prevents the 
-        callback method from calling the bean&rsquo;s business methods 
-        without down-casting to the derived Bean class. With the 
-        current design it is impossible to pass a Bean-classed instance 
-        to the callbacks. A nifty solution to this problem is the 
-        introduction of generated business interfaces that are 
-        implemented by the BeanBase classes and that all clients of the 
-        bean have to use. These interfaces would have to include 
-        abstract declarations of the business methods, so that the 
-        callback method of the listener can call them directly. The 
-        only reason why I waited to mention this until page 15 is, that 
-        this design would force us to model the abstract syntax of Java 
-        methods and parameters in our beans meta model. Of course it is 
-        feasible, but soon you will recognize that existing meta models 
-        like Ecore itself, UML2 and others already provide all the 
-        necessary infrastructure to model such things. Why should we 
-        invent the wheel again? It could be easier to re-use these 
-        models.</p><p>The Density Generator, for example, currently uses Ecore 
-        to model packages, classes, methods and so on. Because Ecore is 
-        (at least compared to UML2) a rather unexpressive meta model 
-        (it closer relates to MOF than to UML2), I made extensive use 
-        of generic model annotations that are evaluated by the 
-        generator.</p></li><li><p>GenFw never writes files that are not changed, even if a 
-        generator produced new output for that file. If the content is 
-        the same as before, the file will not get a new modification 
-        time stamp. This way there&rsquo;s usually no harm in frequently 
-        using the Generate All action.</p></li><li><p>If you are using JDT&rsquo;s automatic code formatting facility 
-        (maybe even in conjunction with the FormatOnSave plugin), the 
-        physical content of a Java file might change due to generation 
-        even if the logical content is the same. Only the formatting 
-        changes, and changes, and &hellip;</p><p>For these situations GenFw provides a delegating 
-        generator called Java Formatter. This generator first invokes 
-        an arbitrary other generator on the same inpout object and 
-        target path and then formats and returns the results of the 
-        delegate generator. Unfortunately you have to add a Java 
-        Formatter for each template to be delegated to. So far I have 
-        not found another way to handle generator chains.</p></li><li><p>Generator Modularity: You can split your GenLibs and 
-        GenApps as you like and let them refer to elements in the other 
-        files. A GenApp is a GenLib, so you can even cope with a single 
-        GenApp if you want. The only difference between the two is that 
-        Inputs can only be contained in GenApps. The reason is the 
-        possible project-relative path resolution of input files.</p></li><li><p>Personally I think that the meta models, the templates 
-        and the resulting GenLib tend to change often due to new 
-        requirements or simply due to maintenance, so I leave this 
-        project in my workspace. But sometimes it is practical to 
-        deploy a generator library (with all the templates and meta 
-        models) as an installed plugin. This way it is also possible to 
-        use generators out-of-the box that you installed via the 
-        Eclipse Update Manager from the internet or an enterprise 
-        repository. To refer to these generator libraries use a 
-        resource URI like 
-        <code class="code">platform:/plugin/&lt;pluing-id&gt;/&lt;entry-path&gt;</code>. 
-        However, GenFw class loaders are not prepared out-of-the-box 
-        for this situation! The plugin that you want the generator to 
-        be installed in has to contribute to the 
-        <code class="code">com.sympedia.genfw.externalLibraries</code> 
-        <span class="emphasis"><em>Extension Point</em></span>:</p><pre class="programlisting">&lt;?xml version="1.0" encoding="UTF-8"?&gt; 
-&lt;?eclipse version="3.0"?&gt; 
+<html><head><META http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"><title>Defining the Templates</title><meta content="DocBook XSL Stylesheets V1.69.1" name="generator"><link rel="start" href="index.html" title="Sympedia GenFw Tutorial 1"><link rel="up" href="index.html" title="Sympedia GenFw Tutorial 1"><link rel="prev" href="ar01s03.html" title="Preparing the Meta Model"><link rel="next" href="ar01s05.html" title="Configuring the Generator Framework"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table summary="Navigation header" width="100%"><tr><th align="center" colspan="3">Defining the Templates</th></tr><tr><td align="left" width="20%"><a accesskey="p" href="ar01s03.html">Prev</a>&nbsp;</td><th align="center" width="60%">&nbsp;</th><td align="right" width="20%">&nbsp;<a accesskey="n" href="ar01s05.html">Next</a></td></tr></table><hr></div><div class="sect1" lang="en-EN"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="N100D7"></a>Defining the Templates</h2></div></div><div></div></div><p>Now that we have a formal description of the beans we want to 
+    generate, we have to think about how to specify the similarities of 
+    all our bean classes. We decide to use <span class="emphasis"><em>JET</em></span> 
+    templates for that purpose. Support for generation with JET 
+    templates comes with the EMF distribution and should be available 
+    right now. Maybe you know already that there is a distinction 
+    between <span class="emphasis"><em>JET</em></span> that simply produces text output 
+    and <span class="emphasis"><em>JMerge</em></span> that expects this output to be Java 
+    source code and merges it with changes you have applied to former 
+    generation results. Anyway, we decide not to use JMerge, because we 
+    don&rsquo;t like to mix generated code with hand-written code. Rather we 
+    like to be sure that our hand-written source is never touched by a 
+    generator and that, in the event that something goes wrong, we can 
+    simply delete the generated files and let them be 
+    re-generated.</p><p>Just recall that the only challenge with hand-written code in 
+    our example is caused by the <span class="emphasis"><em>business methods</em></span> 
+    requirement. Now you should realize that our beans meta model does 
+    not contain the notion of a business method. Of course it would 
+    easily be possible to model Java methods and their parameters, but 
+    we decide to try another approach. The classes we are generating 
+    are abstract super classes of the bean classes we are exposing. We 
+    will generate the base classes to the <code class="code">src-gen</code> folder 
+    of the project and provide (hand-written) derived classes in the 
+    <code class="code">src</code> folder. The derived classes can be augmented with 
+    the required business methods, we don&rsquo;t need to write the repeating 
+    bean infrastructure ourselves and the generator will never touch 
+    our additions.</p><p>JET templates are written in a <span class="emphasis"><em>JSP</em></span> like 
+    syntax and then compiled to Java classes by the JET template 
+    compiler. Later these template classes will be loaded by GenFw and 
+    used to produce the Java source code for our bean 
+    descriptions.</p><div class="orderedlist"><ol type="1"><li><p>Create the plugin project <code class="code">tutorial1.gen</code> 
+        (Java, but no Activator, no UI).</p></li><li><p>Add the <code class="code">src-gen</code> source folder.</p></li><li><p>Use the New Wizard <span class="emphasis"><em>Convert Projects to JET 
+        Projects</em></span> and select the <code class="code">tutorial1.gen</code> 
+        project for conversion. The <code class="code">templates</code> folder 
+        should appear.</p></li><li><p>Go to the properties of the new project and browse to the 
+        <span class="emphasis"><em>JET Settings</em></span> category. Enter the path of 
+        the <span class="emphasis"><em>Source Container</em></span> to let the JET 
+        compiler produce the template classes in the 
+        <code class="code">src-gen</code> folder.</p></li><li><p>Because the template we will be writing refers to our 
+        meta model, add a dependency on the 
+        <code class="code">tutorial1.gen.beans</code> plugin to the 
+        <span class="emphasis"><em>MANIFEST.MF</em></span> of the 
+        <code class="code">tutorial1.gen</code> project.</p></li><li><p>Now create the template source file 
+        <code class="code">BeanBase.javajet</code> in the <code class="code">templates</code> 
+        folder. Editing this file can be much, much more convenient, if 
+        you download and install the 
+        <code class="code">org.eclipse.emf.codegen.jet.editor</code> plugin from the 
+        <span class="emphasis"><em>Merlin Generator</em></span> project. At the moment 
+        the following content should enable us to quickly continue on 
+        the road to our first generated PersonBean:</p><pre class="programlisting">&lt;%@ jet package="tutorial1.gen"  
+        imports="java.util.* tutorial1.gen.beans.*"  
+        class="BeanBaseTemplate"%&gt; 
+&lt;% 
+Bean bean = (Bean)argument; 
  
-&lt;plugin&gt; 
+StringBuffer buffer = new StringBuffer(); 
+for (Iterator it = bean.getProperties().iterator(); it.hasNext();) 
+{  
+  BeanProperty prop = (BeanProperty)it.next(); 
+  buffer.append(prop.getTypeName()); 
+  buffer.append(" "); 
+  buffer.append(prop.getName()); 
+  if (it.hasNext()) buffer.append(", "); 
+} 
  
-   &lt;extension point="com.sympedia.genfw.externalLibraries"&gt; 
-      &lt;externalLibrary 
-         libraryInitializer="tutorial1.gen.internal.BeansLibraryInitializer" 
-         libraryPath="model/beans.genlib"/&gt; 
-   &lt;/extension&gt; 
+String ctorParams = buffer.toString();  
+%&gt; 
+package &lt;%=bean.getBeanLibrary().getPackageName()%&gt;; 
  
-&lt;/plugin&gt;</pre><p>The referenced <code class="code">BeansLibraryInitializer</code> class 
-        must implement the interface 
-        <code class="code">com.sympedia.genfw.IExternalLibraryInitializer</code>. 
-        The only method to be implemented can safely be left empty, it 
-        is not used for the moment. The class is only needed so that 
-        GenFw can compute the class loader of the contributing plugin 
-        at runtime.</p><pre class="programlisting">package tutorial1.gen.internal; 
- 
-import com.sympedia.genfw.GenLib; 
-import com.sympedia.genfw.IExternalLibraryInitializer; 
- 
-/** 
- * This class has to be present only to be referenced from plugin.xml 
- */ 
-public class BeansLibraryInitializer implements IExternalLibraryInitializer 
+public abstract class &lt;%=bean.getName()%&gt;BeanBase 
 { 
-  public void initalizeLibrary(GenLib genlib) throws Exception 
-  {
-    // Intentionally left empty
+&lt;%for (Iterator it = bean.getProperties().iterator(); it.hasNext();) {  
+  BeanProperty prop = (BeanProperty)it.next();%&gt; 
+  protected &lt;%=prop.getTypeName()%&gt; &lt;%=prop.getName()%&gt;; 
+&lt;%}%&gt; 
+ 
+  public &lt;%=bean.getName()%&gt;BeanBase(&lt;%=ctorParams%&gt;) 
+  { 
+&lt;%for (Iterator it = bean.getProperties().iterator(); it.hasNext();) {  
+  BeanProperty prop = (BeanProperty)it.next();%&gt; 
+    this.&lt;%=prop.getName()%&gt; = &lt;%=prop.getName()%&gt;; 
+&lt;%}%&gt; 
   } 
-}</pre></li><li><p>If I was wrong when I said at the beginning that we don&rsquo;t 
-        like to mix generated code with hand-written code, it&rsquo;s most 
-        certainly because you do like it, nevertheless ;-) Don&rsquo;t worry, 
-        GenFw comes with a JMerge Generator that works similar to the 
-        Java Formatter, it first delegates to another generator 
-        (assumingly a JET Template) and then merges the result. You can 
-        configure a custom merge.xml or leave the property empty to use 
-        the CodeGen default one. Of course you can even prepend this 
-        chain by a Java Formatter (as newer CodeGen versions can do, 
-        too). GenFw uses JMerge 2.0.</p></li><li><p>If a JET Template is too heavy in a certain situation, 
-        you can use a Static File Initializer to produce static 
-        content, line by line.</p></li><li><p>If you want to use the original JET templates of the EMF 
-        distribution, there are currently two ways: You can use the 
-        Ecore Template generator or the EMF Generator. In both cases 
-        the generator expects a .genmodel file to be used as the 
-        Input.</p><p>With the Ecore Template generator you can generate 
-        selected templates and choose to generate the Interface file or 
-        the Implementation file. Note, that the Ecore templates don&rsquo;t 
-        expect a pure GenBase instance (the input object ) to be passed 
-        as argument. Rather it expects an <code class="code">Object[3]</code> array. 
-        That&rsquo;s why the Ecore Template generator is a special subclass 
-        of JET Template. Attention: Before you use an Ecore Template 
-        generator, you must patch 
-        <code class="code">org.eclipse.emf.codegen.ecore</code>, see the last 
-        section!</p><p>With the EMF Generator you can generate a whole 
-        GenPackage. Theoretically it is possible to feed the generator 
-        with selected GenClassifiers, but unfortunately they will miss 
-        some constructs that are only generated by a GenPackage 
-        (Switch, Factory, &hellip;). Generating the GenPackage in addition is 
-        not applicable, because there doesn&rsquo;t seem to be a way to 
-        prevent CodeGen from also iterating over all the contained 
-        elements. This, in turn, would prevent you from overriding 
-        selected templates! The only use for the EMF Generator that I 
-        can see at the moment, is a way to integrate normal EMF 
-        generations (without template overrides) into the GenFw user 
-        interface.</p></li><li><p>After a while you will recognize that the more input 
-        objects you have in your models and the more Rules you have in 
-        your RuleSets the slower the generation will be. If you are 
-        using BeanShellRules, GenFw will instantiate at least one 
-        BeanShell interpreter per input object and Match Expression in 
-        the Rule. This might be subject to further optimization in the 
-        future, but for the moment of being the easiest way to speed up 
-        generation is to specify a Match Class Name. This string value 
-        is tested for equality against the fully qualified class name 
-        of the input object (self), which is ways faster. But be 
-        careful, you can&rsquo;t catch inheritance with this trick! So, to 
-        let the BeanBaseRule properly match in the above example, you 
-        have to specify <code class="code">tutorial1.gen.beans.impl.BeanImpl</code> 
-        as <span class="emphasis"><em>Match Class Name</em></span>, not its interface 
-        <code class="code">tutorial1.gen.beans.Bean</code>. In addition the 
-        <span class="emphasis"><em>Match Expression</em></span> is evaluated, but only 
-        after the class names have been proven to match. Attention: If 
-        you have issues with your generator&rsquo;s classpath, it can happen 
-        that you get strange <code class="code">ClassNotFoundException</code>s or 
-        <code class="code">ClassCastException</code>s when evaluating the Match 
-        Expression, the Target Path Expression or when template code is 
-        invoked. This is almost always a sign that your input objects 
-        have been loaded by a class loader different from the one GenFw 
-        uses. Check, that your generator (plugin) project properly 
-        references your meta model plugins!</p></li></ol></div></div><div class="navfooter"><hr><table summary="Navigation footer" width="100%"><tr><td align="left" width="40%"><a accesskey="p" href="ar01s03.html">Prev</a>&nbsp;</td><td align="center" width="20%">&nbsp;</td><td align="right" width="40%">&nbsp;<a accesskey="n" href="ar01s05.html">Next</a></td></tr><tr><td valign="top" align="left" width="40%">Steps&nbsp;</td><td align="center" width="20%"><a accesskey="h" href="index.html">Home</a></td><td valign="top" align="right" width="40%">&nbsp;Patching CodeGen</td></tr></table></div></body></html>
+}</pre><p>This looks a bit weird, but with more experience you will 
+        like the fact that the template logic is written in Java (and 
+        compiled to Java classes). The above template definition shall 
+        produce the base class skeleton with the fields and the 
+        constructor.</p><div class="figure"><a name="N1013C"></a><p class="title"><b>Figure&nbsp;4.&nbsp;JET template created</b></p><div><img src="images/templateCreatedImg.gif" alt="JET template created"></div></div><p>You should verify that the JET compiler has written the 
+        compiled templates to the proper location 
+        <code class="code">/tutorial1.gen/src-gen/tutorial1.gen/BeanBaseTemplate.java</code>.</p><p>Note, that the <code class="code">src</code> folder is still empty. We 
+        will need it later, when we provide static helper methods that 
+        have to be reachable by the template code.</p></li></ol></div></div><div class="navfooter"><hr><table summary="Navigation footer" width="100%"><tr><td align="left" width="40%"><a accesskey="p" href="ar01s03.html">Prev</a>&nbsp;</td><td align="center" width="20%">&nbsp;</td><td align="right" width="40%">&nbsp;<a accesskey="n" href="ar01s05.html">Next</a></td></tr><tr><td valign="top" align="left" width="40%">Preparing the Meta Model&nbsp;</td><td align="center" width="20%"><a accesskey="h" href="index.html">Home</a></td><td valign="top" align="right" width="40%">&nbsp;Configuring the Generator Framework</td></tr></table></div></body></html>

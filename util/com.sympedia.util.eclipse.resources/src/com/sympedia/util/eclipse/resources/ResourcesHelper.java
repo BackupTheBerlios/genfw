@@ -62,10 +62,10 @@ public class ResourcesHelper
       {
         return resource;
       }
-  
+
       path = path.removeFirstSegments(1);
     }
-  
+
     return null;
   }
 
@@ -620,5 +620,28 @@ public class ResourcesHelper
     {
       return StringHelper.equals(file.getFileExtension(), extension);
     }
+  }
+
+  public static IFile getFile(String path)
+  {
+    if (path == null || path.length() == 0)
+    {
+      throw new IllegalArgumentException("Path not specified");
+    }
+
+    IResource resource = ResourcesHelper.ROOT.findMember(new Path(path));
+    if (resource != null && resource.exists())
+    {
+      if (resource instanceof IFile)
+      {
+        return (IFile)resource;
+      }
+      else
+      {
+        throw new IllegalArgumentException("Not a file: " + path);
+      }
+    }
+
+    throw new IllegalArgumentException("File not found: " + path);
   }
 }

@@ -34,7 +34,7 @@ import org.eclipse.emf.ecore.EObject;
  * @model annotation="http://www.topcased.org/uuid uuid='113672173296897'"
  * @generated
  */
-public interface RuleSet extends EObject
+public interface RuleSet extends LifeCycle
 {
   /**
    * Returns the value of the '<em><b>Rules</b></em>' containment reference list.

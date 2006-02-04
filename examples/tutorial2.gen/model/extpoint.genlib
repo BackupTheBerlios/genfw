@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<com.sympedia.genfw:GenLib xmi:version="2.0" 
+	xmlns:xmi="http://www.omg.org/XMI" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:com.sympedia.genfw="http://www.sympedia.com/2006/genfw" 
+	xmlns:com.sympedia.genfw.bsh="http://www.sympedia.com/2006/genfw/bsh" 
+	xmlns:com.sympedia.genfw.jet="http://www.sympedia.com/2006/genfw/jet">
+  <contentProviders xsi:type="com.sympedia.genfw:DomContentProvider" 
+	  name="DOM"/>
+  <generators xsi:type="com.sympedia.genfw.jet:JetTemplate" 
+	  name="ElementTemplate" 
+	  className="tutorial2.gen.ElementTemplate"/>
+  <generators xsi:type="com.sympedia.genfw.jet:JetTemplate" 
+	  name="RegistryTemplate" 
+	  className="tutorial2.gen.RegistryTemplate"/>
+  <ruleSets name="ExtPointRules">
+    <rules xsi:type="com.sympedia.genfw.bsh:BeanShellRule" 
+		name="ElementRule" 
+		generator="ElementTemplate" 
+		matchExpression="self instanceof Element&#xD;&#xA;&amp;&amp; &quot;element&quot;.equals(self.getTagName())&#xD;&#xA;&amp;&amp; self.hasAttribute(&quot;name&quot;)" 
+		targetPathExpression="&quot;src-gen/&quot;&#xD;&#xA;+ ExtPointHelper.getPluginId(self).replace('.', '/')&#xD;&#xA;+ &quot;/internal/&quot;&#xD;&#xA;+ ExtPointHelper.getElementClassName(self)&#xD;&#xA;+ &quot;.java&quot;" 
+		bootstrapCode="import tutorial2.gen.*;&#xD;&#xA;import org.w3c.dom.*;"/>
+    <rules xsi:type="com.sympedia.genfw.bsh:BeanShellRule" 
+		name="RegistryRule" 
+		generator="RegistryTemplate" 
+		matchExpression="self instanceof Element&#xD;&#xA;&amp;&amp; &quot;schema&quot;.equals(self.getTagName())" 
+		targetPathExpression="&quot;src-gen/&quot;&#xD;&#xA;+ ExtPointHelper.getPluginId(self).replace('.', '/')&#xD;&#xA;+ &quot;/internal/&quot;&#xD;&#xA;+ ExtPointHelper.getRegistryClassName(self)&#xD;&#xA;+ &quot;.java&quot;" 
+		bootstrapCode="import tutorial2.gen.*;&#xD;&#xA;import org.w3c.dom.*;"/>
+  </ruleSets>
+</com.sympedia.genfw:GenLib>

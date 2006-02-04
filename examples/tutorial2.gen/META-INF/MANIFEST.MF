@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Tutorial2 Plug-in
+Bundle-SymbolicName: tutorial2.gen;singleton:=true
+Bundle-Version: 1.0.0
+Bundle-Localization: plugin
+Require-Bundle: com.sympedia.util.eclipse,
+ com.sympedia.genfw,
+ org.apache.xalan

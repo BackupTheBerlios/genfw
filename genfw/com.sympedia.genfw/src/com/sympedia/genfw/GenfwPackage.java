@@ -170,6 +170,25 @@ public interface GenfwPackage extends EPackage
   int GEN_APP_FEATURE_COUNT = GEN_LIB_FEATURE_COUNT + 1;
 
   /**
+   * The meta object id for the '{@link com.sympedia.genfw.impl.LifeCycleImpl <em>Life Cycle</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see com.sympedia.genfw.impl.LifeCycleImpl
+   * @see com.sympedia.genfw.impl.GenfwPackageImpl#getLifeCycle()
+   * @generated
+   */
+  int LIFE_CYCLE = 2;
+
+  /**
+   * The number of structural features of the '<em>Life Cycle</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int LIFE_CYCLE_FEATURE_COUNT = 0;
+
+  /**
    * The meta object id for the '{@link com.sympedia.genfw.impl.ContentProviderImpl <em>Content Provider</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -177,7 +196,7 @@ public interface GenfwPackage extends EPackage
    * @see com.sympedia.genfw.impl.GenfwPackageImpl#getContentProvider()
    * @generated
    */
-  int CONTENT_PROVIDER = 2;
+  int CONTENT_PROVIDER = 3;
 
   /**
    * The feature id for the '<em><b>Root</b></em>' container reference.
@@ -186,7 +205,7 @@ public interface GenfwPackage extends EPackage
    * @generated
    * @ordered
    */
-  int CONTENT_PROVIDER__ROOT = 0;
+  int CONTENT_PROVIDER__ROOT = LIFE_CYCLE_FEATURE_COUNT + 0;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -195,7 +214,7 @@ public interface GenfwPackage extends EPackage
    * @generated
    * @ordered
    */
-  int CONTENT_PROVIDER__NAME = 1;
+  int CONTENT_PROVIDER__NAME = LIFE_CYCLE_FEATURE_COUNT + 1;
 
   /**
    * The number of structural features of the '<em>Content Provider</em>' class.
@@ -204,7 +223,7 @@ public interface GenfwPackage extends EPackage
    * @generated
    * @ordered
    */
-  int CONTENT_PROVIDER_FEATURE_COUNT = 2;
+  int CONTENT_PROVIDER_FEATURE_COUNT = LIFE_CYCLE_FEATURE_COUNT + 2;
 
   /**
    * The meta object id for the '{@link com.sympedia.genfw.impl.EcoreContentProviderImpl <em>Ecore Content Provider</em>}' class.
@@ -214,7 +233,7 @@ public interface GenfwPackage extends EPackage
    * @see com.sympedia.genfw.impl.GenfwPackageImpl#getEcoreContentProvider()
    * @generated
    */
-  int ECORE_CONTENT_PROVIDER = 3;
+  int ECORE_CONTENT_PROVIDER = 4;
 
   /**
    * The feature id for the '<em><b>Root</b></em>' container reference.
@@ -251,7 +270,7 @@ public interface GenfwPackage extends EPackage
    * @see com.sympedia.genfw.impl.GenfwPackageImpl#getPropertiesContentProvider()
    * @generated
    */
-  int PROPERTIES_CONTENT_PROVIDER = 4;
+  int PROPERTIES_CONTENT_PROVIDER = 5;
 
   /**
    * The feature id for the '<em><b>Root</b></em>' container reference.
@@ -288,7 +307,7 @@ public interface GenfwPackage extends EPackage
    * @see com.sympedia.genfw.impl.GenfwPackageImpl#getRuleSet()
    * @generated
    */
-  int RULE_SET = 5;
+  int RULE_SET = 6;
 
   /**
    * The feature id for the '<em><b>Rules</b></em>' containment reference list.
@@ -297,7 +316,7 @@ public interface GenfwPackage extends EPackage
    * @generated
    * @ordered
    */
-  int RULE_SET__RULES = 0;
+  int RULE_SET__RULES = LIFE_CYCLE_FEATURE_COUNT + 0;
 
   /**
    * The feature id for the '<em><b>Root</b></em>' container reference.
@@ -306,7 +325,7 @@ public interface GenfwPackage extends EPackage
    * @generated
    * @ordered
    */
-  int RULE_SET__ROOT = 1;
+  int RULE_SET__ROOT = LIFE_CYCLE_FEATURE_COUNT + 1;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -315,7 +334,7 @@ public interface GenfwPackage extends EPackage
    * @generated
    * @ordered
    */
-  int RULE_SET__NAME = 2;
+  int RULE_SET__NAME = LIFE_CYCLE_FEATURE_COUNT + 2;
 
   /**
    * The feature id for the '<em><b>Deactivate</b></em>' attribute.
@@ -324,7 +343,7 @@ public interface GenfwPackage extends EPackage
    * @generated
    * @ordered
    */
-  int RULE_SET__DEACTIVATE = 3;
+  int RULE_SET__DEACTIVATE = LIFE_CYCLE_FEATURE_COUNT + 3;
 
   /**
    * The number of structural features of the '<em>Rule Set</em>' class.
@@ -333,7 +352,7 @@ public interface GenfwPackage extends EPackage
    * @generated
    * @ordered
    */
-  int RULE_SET_FEATURE_COUNT = 4;
+  int RULE_SET_FEATURE_COUNT = LIFE_CYCLE_FEATURE_COUNT + 4;
 
   /**
    * The meta object id for the '{@link com.sympedia.genfw.impl.RuleImpl <em>Rule</em>}' class.
@@ -343,7 +362,7 @@ public interface GenfwPackage extends EPackage
    * @see com.sympedia.genfw.impl.GenfwPackageImpl#getRule()
    * @generated
    */
-  int RULE = 6;
+  int RULE = 7;
 
   /**
    * The feature id for the '<em><b>Rule Set</b></em>' container reference.
@@ -352,7 +371,7 @@ public interface GenfwPackage extends EPackage
    * @generated
    * @ordered
    */
-  int RULE__RULE_SET = 0;
+  int RULE__RULE_SET = LIFE_CYCLE_FEATURE_COUNT + 0;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -361,7 +380,7 @@ public interface GenfwPackage extends EPackage
    * @generated
    * @ordered
    */
-  int RULE__NAME = 1;
+  int RULE__NAME = LIFE_CYCLE_FEATURE_COUNT + 1;
 
   /**
    * The feature id for the '<em><b>Prerequisites</b></em>' reference list.
@@ -370,7 +389,7 @@ public interface GenfwPackage extends EPackage
    * @generated
    * @ordered
    */
-  int RULE__PREREQUISITES = 2;
+  int RULE__PREREQUISITES = LIFE_CYCLE_FEATURE_COUNT + 2;
 
   /**
    * The feature id for the '<em><b>Generator</b></em>' reference.
@@ -379,7 +398,7 @@ public interface GenfwPackage extends EPackage
    * @generated
    * @ordered
    */
-  int RULE__GENERATOR = 3;
+  int RULE__GENERATOR = LIFE_CYCLE_FEATURE_COUNT + 3;
 
   /**
    * The feature id for the '<em><b>Match Class Name</b></em>' attribute.
@@ -388,7 +407,7 @@ public interface GenfwPackage extends EPackage
    * @generated
    * @ordered
    */
-  int RULE__MATCH_CLASS_NAME = 4;
+  int RULE__MATCH_CLASS_NAME = LIFE_CYCLE_FEATURE_COUNT + 4;
 
   /**
    * The feature id for the '<em><b>Dont Overwrite</b></em>' attribute.
@@ -397,7 +416,7 @@ public interface GenfwPackage extends EPackage
    * @generated
    * @ordered
    */
-  int RULE__DONT_OVERWRITE = 5;
+  int RULE__DONT_OVERWRITE = LIFE_CYCLE_FEATURE_COUNT + 5;
 
   /**
    * The feature id for the '<em><b>Deactivate</b></em>' attribute.
@@ -406,7 +425,7 @@ public interface GenfwPackage extends EPackage
    * @generated
    * @ordered
    */
-  int RULE__DEACTIVATE = 6;
+  int RULE__DEACTIVATE = LIFE_CYCLE_FEATURE_COUNT + 6;
 
   /**
    * The number of structural features of the '<em>Rule</em>' class.
@@ -415,7 +434,7 @@ public interface GenfwPackage extends EPackage
    * @generated
    * @ordered
    */
-  int RULE_FEATURE_COUNT = 7;
+  int RULE_FEATURE_COUNT = LIFE_CYCLE_FEATURE_COUNT + 7;
 
   /**
    * The meta object id for the '{@link com.sympedia.genfw.impl.StaticRuleImpl <em>Static Rule</em>}' class.
@@ -425,7 +444,7 @@ public interface GenfwPackage extends EPackage
    * @see com.sympedia.genfw.impl.GenfwPackageImpl#getStaticRule()
    * @generated
    */
-  int STATIC_RULE = 7;
+  int STATIC_RULE = 8;
 
   /**
    * The feature id for the '<em><b>Rule Set</b></em>' container reference.
@@ -516,7 +535,7 @@ public interface GenfwPackage extends EPackage
    * @see com.sympedia.genfw.impl.GenfwPackageImpl#getExpressionBasedRule()
    * @generated
    */
-  int EXPRESSION_BASED_RULE = 8;
+  int EXPRESSION_BASED_RULE = 9;
 
   /**
    * The feature id for the '<em><b>Rule Set</b></em>' container reference.
@@ -616,7 +635,7 @@ public interface GenfwPackage extends EPackage
    * @see com.sympedia.genfw.impl.GenfwPackageImpl#getGenerator()
    * @generated
    */
-  int GENERATOR = 9;
+  int GENERATOR = 10;
 
   /**
    * The feature id for the '<em><b>Root</b></em>' container reference.
@@ -625,7 +644,7 @@ public interface GenfwPackage extends EPackage
    * @generated
    * @ordered
    */
-  int GENERATOR__ROOT = 0;
+  int GENERATOR__ROOT = LIFE_CYCLE_FEATURE_COUNT + 0;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -634,7 +653,7 @@ public interface GenfwPackage extends EPackage
    * @generated
    * @ordered
    */
-  int GENERATOR__NAME = 1;
+  int GENERATOR__NAME = LIFE_CYCLE_FEATURE_COUNT + 1;
 
   /**
    * The number of structural features of the '<em>Generator</em>' class.
@@ -643,7 +662,7 @@ public interface GenfwPackage extends EPackage
    * @generated
    * @ordered
    */
-  int GENERATOR_FEATURE_COUNT = 2;
+  int GENERATOR_FEATURE_COUNT = LIFE_CYCLE_FEATURE_COUNT + 2;
 
   /**
    * The meta object id for the '{@link com.sympedia.genfw.impl.DelegatingGeneratorImpl <em>Delegating Generator</em>}' class.
@@ -653,7 +672,7 @@ public interface GenfwPackage extends EPackage
    * @see com.sympedia.genfw.impl.GenfwPackageImpl#getDelegatingGenerator()
    * @generated
    */
-  int DELEGATING_GENERATOR = 10;
+  int DELEGATING_GENERATOR = 11;
 
   /**
    * The feature id for the '<em><b>Root</b></em>' container reference.
@@ -699,7 +718,7 @@ public interface GenfwPackage extends EPackage
    * @see com.sympedia.genfw.impl.GenfwPackageImpl#getDomTransformer()
    * @generated
    */
-  int DOM_TRANSFORMER = 11;
+  int DOM_TRANSFORMER = 12;
 
   /**
    * The feature id for the '<em><b>Root</b></em>' container reference.
@@ -871,7 +890,7 @@ public interface GenfwPackage extends EPackage
    * @see com.sympedia.genfw.impl.GenfwPackageImpl#getDomTransformation()
    * @generated
    */
-  int DOM_TRANSFORMATION = 12;
+  int DOM_TRANSFORMATION = 13;
 
   /**
    * The feature id for the '<em><b>Transformer</b></em>' container reference.
@@ -880,7 +899,7 @@ public interface GenfwPackage extends EPackage
    * @generated
    * @ordered
    */
-  int DOM_TRANSFORMATION__TRANSFORMER = 0;
+  int DOM_TRANSFORMATION__TRANSFORMER = LIFE_CYCLE_FEATURE_COUNT + 0;
 
   /**
    * The feature id for the '<em><b>Label</b></em>' attribute.
@@ -889,7 +908,7 @@ public interface GenfwPackage extends EPackage
    * @generated
    * @ordered
    */
-  int DOM_TRANSFORMATION__LABEL = 1;
+  int DOM_TRANSFORMATION__LABEL = LIFE_CYCLE_FEATURE_COUNT + 1;
 
   /**
    * The number of structural features of the '<em>Dom Transformation</em>' class.
@@ -898,7 +917,7 @@ public interface GenfwPackage extends EPackage
    * @generated
    * @ordered
    */
-  int DOM_TRANSFORMATION_FEATURE_COUNT = 2;
+  int DOM_TRANSFORMATION_FEATURE_COUNT = LIFE_CYCLE_FEATURE_COUNT + 2;
 
   /**
    * The meta object id for the '{@link com.sympedia.genfw.impl.InitialGeneratorImpl <em>Initial Generator</em>}' class.
@@ -908,7 +927,7 @@ public interface GenfwPackage extends EPackage
    * @see com.sympedia.genfw.impl.GenfwPackageImpl#getInitialGenerator()
    * @generated
    */
-  int INITIAL_GENERATOR = 13;
+  int INITIAL_GENERATOR = 14;
 
   /**
    * The feature id for the '<em><b>Root</b></em>' container reference.
@@ -954,7 +973,7 @@ public interface GenfwPackage extends EPackage
    * @see com.sympedia.genfw.impl.GenfwPackageImpl#getStaticFileInitializer()
    * @generated
    */
-  int STATIC_FILE_INITIALIZER = 14;
+  int STATIC_FILE_INITIALIZER = 15;
 
   /**
    * The feature id for the '<em><b>Root</b></em>' container reference.
@@ -1000,7 +1019,7 @@ public interface GenfwPackage extends EPackage
    * @see com.sympedia.genfw.impl.GenfwPackageImpl#getLine()
    * @generated
    */
-  int LINE = 15;
+  int LINE = 16;
 
   /**
    * The feature id for the '<em><b>Content</b></em>' attribute.
@@ -1037,7 +1056,7 @@ public interface GenfwPackage extends EPackage
    * @see com.sympedia.genfw.impl.GenfwPackageImpl#getProjectInitializer()
    * @generated
    */
-  int PROJECT_INITIALIZER = 16;
+  int PROJECT_INITIALIZER = 17;
 
   /**
    * The feature id for the '<em><b>Root</b></em>' container reference.
@@ -1074,7 +1093,7 @@ public interface GenfwPackage extends EPackage
    * @see com.sympedia.genfw.impl.GenfwPackageImpl#getProjectInitializationProvider()
    * @generated
    */
-  int PROJECT_INITIALIZATION_PROVIDER = 17;
+  int PROJECT_INITIALIZATION_PROVIDER = 18;
 
   /**
    * The number of structural features of the '<em>Project Initialization Provider</em>' class.
@@ -1093,7 +1112,7 @@ public interface GenfwPackage extends EPackage
    * @see com.sympedia.genfw.impl.GenfwPackageImpl#getInput()
    * @generated
    */
-  int INPUT = 18;
+  int INPUT = 19;
 
   /**
    * The feature id for the '<em><b>Root</b></em>' container reference.
@@ -1102,7 +1121,7 @@ public interface GenfwPackage extends EPackage
    * @generated
    * @ordered
    */
-  int INPUT__ROOT = 0;
+  int INPUT__ROOT = LIFE_CYCLE_FEATURE_COUNT + 0;
 
   /**
    * The feature id for the '<em><b>Label</b></em>' attribute.
@@ -1111,7 +1130,7 @@ public interface GenfwPackage extends EPackage
    * @generated
    * @ordered
    */
-  int INPUT__LABEL = 1;
+  int INPUT__LABEL = LIFE_CYCLE_FEATURE_COUNT + 1;
 
   /**
    * The feature id for the '<em><b>Full Path</b></em>' attribute.
@@ -1120,7 +1139,7 @@ public interface GenfwPackage extends EPackage
    * @generated
    * @ordered
    */
-  int INPUT__FULL_PATH = 2;
+  int INPUT__FULL_PATH = LIFE_CYCLE_FEATURE_COUNT + 2;
 
   /**
    * The feature id for the '<em><b>Content Provider</b></em>' reference.
@@ -1129,7 +1148,7 @@ public interface GenfwPackage extends EPackage
    * @generated
    * @ordered
    */
-  int INPUT__CONTENT_PROVIDER = 3;
+  int INPUT__CONTENT_PROVIDER = LIFE_CYCLE_FEATURE_COUNT + 3;
 
   /**
    * The feature id for the '<em><b>Rule Sets</b></em>' reference list.
@@ -1138,7 +1157,7 @@ public interface GenfwPackage extends EPackage
    * @generated
    * @ordered
    */
-  int INPUT__RULE_SETS = 4;
+  int INPUT__RULE_SETS = LIFE_CYCLE_FEATURE_COUNT + 4;
 
   /**
    * The number of structural features of the '<em>Input</em>' class.
@@ -1147,7 +1166,44 @@ public interface GenfwPackage extends EPackage
    * @generated
    * @ordered
    */
-  int INPUT_FEATURE_COUNT = 5;
+  int INPUT_FEATURE_COUNT = LIFE_CYCLE_FEATURE_COUNT + 5;
+
+  /**
+   * The meta object id for the '{@link com.sympedia.genfw.impl.DomContentProviderImpl <em>Dom Content Provider</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see com.sympedia.genfw.impl.DomContentProviderImpl
+   * @see com.sympedia.genfw.impl.GenfwPackageImpl#getDomContentProvider()
+   * @generated
+   */
+  int DOM_CONTENT_PROVIDER = 20;
+
+  /**
+   * The feature id for the '<em><b>Root</b></em>' container reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DOM_CONTENT_PROVIDER__ROOT = CONTENT_PROVIDER__ROOT;
+
+  /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DOM_CONTENT_PROVIDER__NAME = CONTENT_PROVIDER__NAME;
+
+  /**
+   * The number of structural features of the '<em>Dom Content Provider</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DOM_CONTENT_PROVIDER_FEATURE_COUNT = CONTENT_PROVIDER_FEATURE_COUNT + 0;
 
   /**
    * The meta object id for the '<em>IPath</em>' data type.
@@ -1157,7 +1213,7 @@ public interface GenfwPackage extends EPackage
    * @see com.sympedia.genfw.impl.GenfwPackageImpl#getIPath()
    * @generated
    */
-  int IPATH = 19;
+  int IPATH = 21;
 
   /**
    * The meta object id for the '<em>Java List</em>' data type.
@@ -1167,7 +1223,7 @@ public interface GenfwPackage extends EPackage
    * @see com.sympedia.genfw.impl.GenfwPackageImpl#getJavaList()
    * @generated
    */
-  int JAVA_LIST = 20;
+  int JAVA_LIST = 22;
 
   /**
    * The meta object id for the '<em>Core Exception</em>' data type.
@@ -1177,7 +1233,7 @@ public interface GenfwPackage extends EPackage
    * @see com.sympedia.genfw.impl.GenfwPackageImpl#getCoreException()
    * @generated
    */
-  int CORE_EXCEPTION = 21;
+  int CORE_EXCEPTION = 23;
 
   /**
    * The meta object id for the '<em>IProgress Monitor</em>' data type.
@@ -1187,7 +1243,7 @@ public interface GenfwPackage extends EPackage
    * @see com.sympedia.genfw.impl.GenfwPackageImpl#getIProgressMonitor()
    * @generated
    */
-  int IPROGRESS_MONITOR = 22;
+  int IPROGRESS_MONITOR = 24;
 
   /**
    * The meta object id for the '<em>Class Loader</em>' data type.
@@ -1197,7 +1253,7 @@ public interface GenfwPackage extends EPackage
    * @see com.sympedia.genfw.impl.GenfwPackageImpl#getClassLoader()
    * @generated
    */
-  int CLASS_LOADER = 23;
+  int CLASS_LOADER = 25;
 
   /**
    * The meta object id for the '<em>Output Stream</em>' data type.
@@ -1207,7 +1263,7 @@ public interface GenfwPackage extends EPackage
    * @see com.sympedia.genfw.impl.GenfwPackageImpl#getOutputStream()
    * @generated
    */
-  int OUTPUT_STREAM = 24;
+  int OUTPUT_STREAM = 26;
 
   /**
    * The meta object id for the '<em>Exception</em>' data type.
@@ -1217,7 +1273,7 @@ public interface GenfwPackage extends EPackage
    * @see com.sympedia.genfw.impl.GenfwPackageImpl#getException()
    * @generated
    */
-  int EXCEPTION = 25;
+  int EXCEPTION = 27;
 
   /**
    * The meta object id for the '<em>Dom Document</em>' data type.
@@ -1227,7 +1283,7 @@ public interface GenfwPackage extends EPackage
    * @see com.sympedia.genfw.impl.GenfwPackageImpl#getDomDocument()
    * @generated
    */
-  int DOM_DOCUMENT = 26;
+  int DOM_DOCUMENT = 28;
 
   /**
    * Returns the meta object for class '{@link com.sympedia.genfw.GenLib <em>Gen Lib</em>}'.
@@ -1292,6 +1348,16 @@ public interface GenfwPackage extends EPackage
    * @generated
    */
   EReference getGenApp_Inputs();
+
+  /**
+   * Returns the meta object for class '{@link com.sympedia.genfw.LifeCycle <em>Life Cycle</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Life Cycle</em>'.
+   * @see com.sympedia.genfw.LifeCycle
+   * @generated
+   */
+  EClass getLifeCycle();
 
   /**
    * Returns the meta object for class '{@link com.sympedia.genfw.ContentProvider <em>Content Provider</em>}'.
@@ -1948,6 +2014,16 @@ public interface GenfwPackage extends EPackage
   EReference getInput_RuleSets();
 
   /**
+   * Returns the meta object for class '{@link com.sympedia.genfw.DomContentProvider <em>Dom Content Provider</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Dom Content Provider</em>'.
+   * @see com.sympedia.genfw.DomContentProvider
+   * @generated
+   */
+  EClass getDomContentProvider();
+
+  /**
    * Returns the meta object for data type '{@link org.eclipse.core.runtime.IPath <em>IPath</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -2117,6 +2193,16 @@ public interface GenfwPackage extends EPackage
      * @generated
      */
     EReference GEN_APP__INPUTS = eINSTANCE.getGenApp_Inputs();
+
+    /**
+     * The meta object literal for the '{@link com.sympedia.genfw.impl.LifeCycleImpl <em>Life Cycle</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see com.sympedia.genfw.impl.LifeCycleImpl
+     * @see com.sympedia.genfw.impl.GenfwPackageImpl#getLifeCycle()
+     * @generated
+     */
+    EClass LIFE_CYCLE = eINSTANCE.getLifeCycle();
 
     /**
      * The meta object literal for the '{@link com.sympedia.genfw.impl.ContentProviderImpl <em>Content Provider</em>}' class.
@@ -2642,6 +2728,16 @@ public interface GenfwPackage extends EPackage
      * @generated
      */
     EReference INPUT__RULE_SETS = eINSTANCE.getInput_RuleSets();
+
+    /**
+     * The meta object literal for the '{@link com.sympedia.genfw.impl.DomContentProviderImpl <em>Dom Content Provider</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see com.sympedia.genfw.impl.DomContentProviderImpl
+     * @see com.sympedia.genfw.impl.GenfwPackageImpl#getDomContentProvider()
+     * @generated
+     */
+    EClass DOM_CONTENT_PROVIDER = eINSTANCE.getDomContentProvider();
 
     /**
      * The meta object literal for the '<em>IPath</em>' data type.

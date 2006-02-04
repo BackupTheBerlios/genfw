@@ -39,7 +39,7 @@ import org.eclipse.emf.ecore.EObject;
  *        annotation="http://www.topcased.org/uuid uuid='113672105539064'"
  * @generated
  */
-public interface Rule extends EObject
+public interface Rule extends LifeCycle
 {
   /**
    * Returns the value of the '<em><b>Generator</b></em>' reference.

@@ -22,11 +22,11 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 
 import java.util.Collection;
+import java.util.Iterator;
 
 
 /**
@@ -48,7 +48,7 @@ import java.util.Collection;
  *
  * @generated
  */
-public abstract class RuleImpl extends EObjectImpl implements Rule
+public abstract class RuleImpl extends LifeCycleImpl implements Rule
 {
   /**
    * The default value of the '{@link #getName() <em>Name</em>}' attribute.
@@ -591,4 +591,35 @@ public abstract class RuleImpl extends EObjectImpl implements Rule
    * @ADDED
    */
   protected abstract boolean evaluateMatch(Object inputObject) throws Exception;
+
+  /**
+   * @ADDED
+   */
+  @Override
+  protected void doInitialize() throws Exception
+  {
+    super.doInitialize();
+    getGenerator().initialize(getRuntimeGenApp());
+    for (Iterator it = getPrerequisites().iterator(); it.hasNext();)
+    {
+      Rule rule = (Rule)it.next();
+      rule.initialize(getRuntimeGenApp());
+    }
+  }
+
+  /**
+   * @ADDED
+   */
+  @Override
+  protected void doDispose() throws Exception
+  {
+    getGenerator().dispose(getRuntimeGenApp());
+    for (Iterator it = getPrerequisites().iterator(); it.hasNext();)
+    {
+      Rule rule = (Rule)it.next();
+      rule.dispose(getRuntimeGenApp());
+    }
+
+    super.doDispose();
+  }
 } //RuleImpl

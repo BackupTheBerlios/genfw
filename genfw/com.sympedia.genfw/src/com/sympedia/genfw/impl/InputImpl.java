@@ -23,7 +23,6 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 
@@ -48,7 +47,7 @@ import java.util.Iterator;
  *
  * @generated
  */
-public class InputImpl extends EObjectImpl implements Input
+public class InputImpl extends LifeCycleImpl implements Input
 {
   /**
    * The default value of the '{@link #getLabel() <em>Label</em>}' attribute.
@@ -420,4 +419,34 @@ public class InputImpl extends EObjectImpl implements Input
     return result.toString();
   }
 
+  /**
+   * @ADDED
+   */
+  @Override
+  protected void doInitialize() throws Exception
+  {
+    super.doInitialize();
+    getContentProvider().initialize(getRuntimeGenApp());
+    for (Iterator it = getRuleSets().iterator(); it.hasNext();)
+    {
+      RuleSet ruleSet = (RuleSet)it.next();
+      ruleSet.initialize(getRuntimeGenApp());
+    }
+  }
+
+  /**
+   * @ADDED
+   */
+  @Override
+  protected void doDispose() throws Exception
+  {
+    getContentProvider().dispose(getRuntimeGenApp());
+    for (Iterator it = getRuleSets().iterator(); it.hasNext();)
+    {
+      RuleSet ruleSet = (RuleSet)it.next();
+      ruleSet.dispose(getRuntimeGenApp());
+    }
+
+    super.doDispose();
+  }
 } //InputImpl

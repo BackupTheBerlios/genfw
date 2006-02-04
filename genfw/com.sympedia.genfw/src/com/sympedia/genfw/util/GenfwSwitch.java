@@ -115,10 +115,18 @@ public class GenfwSwitch
       if (result == null) result = defaultCase(theEObject);
       return result;
     }
+    case GenfwPackage.LIFE_CYCLE:
+    {
+      LifeCycle lifeCycle = (LifeCycle)theEObject;
+      Object result = caseLifeCycle(lifeCycle);
+      if (result == null) result = defaultCase(theEObject);
+      return result;
+    }
     case GenfwPackage.CONTENT_PROVIDER:
     {
       ContentProvider contentProvider = (ContentProvider)theEObject;
       Object result = caseContentProvider(contentProvider);
+      if (result == null) result = caseLifeCycle(contentProvider);
       if (result == null) result = defaultCase(theEObject);
       return result;
     }
@@ -127,6 +135,7 @@ public class GenfwSwitch
       EcoreContentProvider ecoreContentProvider = (EcoreContentProvider)theEObject;
       Object result = caseEcoreContentProvider(ecoreContentProvider);
       if (result == null) result = caseContentProvider(ecoreContentProvider);
+      if (result == null) result = caseLifeCycle(ecoreContentProvider);
       if (result == null) result = defaultCase(theEObject);
       return result;
     }
@@ -135,6 +144,7 @@ public class GenfwSwitch
       PropertiesContentProvider propertiesContentProvider = (PropertiesContentProvider)theEObject;
       Object result = casePropertiesContentProvider(propertiesContentProvider);
       if (result == null) result = caseContentProvider(propertiesContentProvider);
+      if (result == null) result = caseLifeCycle(propertiesContentProvider);
       if (result == null) result = defaultCase(theEObject);
       return result;
     }
@@ -142,6 +152,7 @@ public class GenfwSwitch
     {
       RuleSet ruleSet = (RuleSet)theEObject;
       Object result = caseRuleSet(ruleSet);
+      if (result == null) result = caseLifeCycle(ruleSet);
       if (result == null) result = defaultCase(theEObject);
       return result;
     }
@@ -149,6 +160,7 @@ public class GenfwSwitch
     {
       Rule rule = (Rule)theEObject;
       Object result = caseRule(rule);
+      if (result == null) result = caseLifeCycle(rule);
       if (result == null) result = defaultCase(theEObject);
       return result;
     }
@@ -157,6 +169,7 @@ public class GenfwSwitch
       StaticRule staticRule = (StaticRule)theEObject;
       Object result = caseStaticRule(staticRule);
       if (result == null) result = caseRule(staticRule);
+      if (result == null) result = caseLifeCycle(staticRule);
       if (result == null) result = defaultCase(theEObject);
       return result;
     }
@@ -165,6 +178,7 @@ public class GenfwSwitch
       ExpressionBasedRule expressionBasedRule = (ExpressionBasedRule)theEObject;
       Object result = caseExpressionBasedRule(expressionBasedRule);
       if (result == null) result = caseRule(expressionBasedRule);
+      if (result == null) result = caseLifeCycle(expressionBasedRule);
       if (result == null) result = defaultCase(theEObject);
       return result;
     }
@@ -172,6 +186,7 @@ public class GenfwSwitch
     {
       Generator generator = (Generator)theEObject;
       Object result = caseGenerator(generator);
+      if (result == null) result = caseLifeCycle(generator);
       if (result == null) result = defaultCase(theEObject);
       return result;
     }
@@ -180,6 +195,7 @@ public class GenfwSwitch
       DelegatingGenerator delegatingGenerator = (DelegatingGenerator)theEObject;
       Object result = caseDelegatingGenerator(delegatingGenerator);
       if (result == null) result = caseGenerator(delegatingGenerator);
+      if (result == null) result = caseLifeCycle(delegatingGenerator);
       if (result == null) result = defaultCase(theEObject);
       return result;
     }
@@ -188,6 +204,7 @@ public class GenfwSwitch
       DomTransformer domTransformer = (DomTransformer)theEObject;
       Object result = caseDomTransformer(domTransformer);
       if (result == null) result = caseGenerator(domTransformer);
+      if (result == null) result = caseLifeCycle(domTransformer);
       if (result == null) result = defaultCase(theEObject);
       return result;
     }
@@ -195,6 +212,7 @@ public class GenfwSwitch
     {
       DomTransformation domTransformation = (DomTransformation)theEObject;
       Object result = caseDomTransformation(domTransformation);
+      if (result == null) result = caseLifeCycle(domTransformation);
       if (result == null) result = defaultCase(theEObject);
       return result;
     }
@@ -204,6 +222,7 @@ public class GenfwSwitch
       Object result = caseInitialGenerator(initialGenerator);
       if (result == null) result = caseDelegatingGenerator(initialGenerator);
       if (result == null) result = caseGenerator(initialGenerator);
+      if (result == null) result = caseLifeCycle(initialGenerator);
       if (result == null) result = defaultCase(theEObject);
       return result;
     }
@@ -212,6 +231,7 @@ public class GenfwSwitch
       StaticFileInitializer staticFileInitializer = (StaticFileInitializer)theEObject;
       Object result = caseStaticFileInitializer(staticFileInitializer);
       if (result == null) result = caseGenerator(staticFileInitializer);
+      if (result == null) result = caseLifeCycle(staticFileInitializer);
       if (result == null) result = defaultCase(theEObject);
       return result;
     }
@@ -227,6 +247,7 @@ public class GenfwSwitch
       ProjectInitializer projectInitializer = (ProjectInitializer)theEObject;
       Object result = caseProjectInitializer(projectInitializer);
       if (result == null) result = caseGenerator(projectInitializer);
+      if (result == null) result = caseLifeCycle(projectInitializer);
       if (result == null) result = defaultCase(theEObject);
       return result;
     }
@@ -241,6 +262,16 @@ public class GenfwSwitch
     {
       Input input = (Input)theEObject;
       Object result = caseInput(input);
+      if (result == null) result = caseLifeCycle(input);
+      if (result == null) result = defaultCase(theEObject);
+      return result;
+    }
+    case GenfwPackage.DOM_CONTENT_PROVIDER:
+    {
+      DomContentProvider domContentProvider = (DomContentProvider)theEObject;
+      Object result = caseDomContentProvider(domContentProvider);
+      if (result == null) result = caseContentProvider(domContentProvider);
+      if (result == null) result = caseLifeCycle(domContentProvider);
       if (result == null) result = defaultCase(theEObject);
       return result;
     }
@@ -277,6 +308,22 @@ public class GenfwSwitch
    * @generated
    */
   public Object caseGenApp(GenApp object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpretting the object as an instance of '<em>Life Cycle</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpretting the object as an instance of '<em>Life Cycle</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public Object caseLifeCycle(LifeCycle object)
   {
     return null;
   }
@@ -549,6 +596,22 @@ public class GenfwSwitch
    * @generated
    */
   public Object caseInput(Input object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpretting the object as an instance of '<em>Dom Content Provider</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpretting the object as an instance of '<em>Dom Content Provider</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public Object caseDomContentProvider(DomContentProvider object)
   {
     return null;
   }

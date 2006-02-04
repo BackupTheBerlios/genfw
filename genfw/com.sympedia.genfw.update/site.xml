@@ -27,6 +27,9 @@
    <feature url="features/tutorial1_1.0.0.jar" id="tutorial1" version="1.0.0">
       <category name="GenFw Examples"/>
    </feature>
+   <feature url="features/tutorial2_1.0.0.jar" id="tutorial2" version="1.0.0">
+      <category name="GenFw Examples"/>
+   </feature>
    <category-def name="GenFw" label="GenFw"/>
    <category-def name="GenFw Extensions" label="GenFw Extensions"/>
    <category-def name="GenFw Examples" label="GenFw Examples"/>

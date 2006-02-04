@@ -1,0 +1,100 @@
+<html><head><META http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"><title>Configuring the Generator Framework</title><meta content="DocBook XSL Stylesheets V1.69.1" name="generator"><link rel="start" href="index.html" title="Sympedia GenFw Tutorial 2"><link rel="up" href="index.html" title="Sympedia GenFw Tutorial 2"><link rel="prev" href="ar01s02.html" title="Defining the Templates"><link rel="next" href="ar01s04.html" title="Creating a Generator Application"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table summary="Navigation header" width="100%"><tr><th align="center" colspan="3">Configuring the Generator Framework</th></tr><tr><td align="left" width="20%"><a accesskey="p" href="ar01s02.html">Prev</a>&nbsp;</td><th align="center" width="60%">&nbsp;</th><td align="right" width="20%">&nbsp;<a accesskey="n" href="ar01s04.html">Next</a></td></tr></table><hr></div><div class="sect1" lang="en-EN"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="N100CA"></a>Configuring the Generator Framework</h2></div></div><div></div></div><p>As in Tutorial1 we have to configure a reusable GenFw 
+    <span class="emphasis"><em>Generator Library</em></span>.</p><div class="orderedlist"><ol type="1"><li><p>Create a <code class="code">model</code> folder in the 
+        <code class="code">tutorial2.gen</code> project.</p></li><li><p>In the <code class="code">model</code> folder create a new generator 
+        library named <code class="code">extpoint.genlib</code> (<span class="emphasis"><em>New 
+        Wizard | Sympedia Generation | Generator 
+        Library</em></span>).</p></li><li><p>Add a <span class="emphasis"><em>DOM Instantiator</em></span> to the GenLib 
+        and in the <span class="emphasis"><em>Properties</em></span> view name it 
+        <code class="code">DOM</code>. This enables GenFw to instantiate meta models 
+        that have been produced by arbitrary XML tools.</p></li><li><p>Add a <span class="emphasis"><em>JET Template</em></span> to the GenLib and 
+        in the <span class="emphasis"><em>Properties</em></span> view name it 
+        <code class="code">ElementTemplate</code> and enter the template class name 
+        <code class="code">tutorial2.gen.ElementTemplate</code>. This enables GenFw 
+        to load the template class.</p></li><li><p>Add a second <span class="emphasis"><em>JET Template</em></span> to the 
+        GenLib, name it <code class="code">RegistryTemplate</code> and enter the 
+        template class name 
+        <code class="code">tutorial2.gen.RegistryTemplate</code>. It should look 
+        like this now:</p><div class="figure"><a name="N10111"></a><p class="title"><b>Figure&nbsp;2.&nbsp;JET templates configured</b></p><div><img src="images/genlibTemplates.gif" alt="JET templates configured"></div></div></li><li><p>Add a <span class="emphasis"><em>Rule Set</em></span> to the GenLib and 
+        name it <code class="code">ExtPointRules</code>.</p></li><li><p>Add a <span class="emphasis"><em>BeanShell Rule</em></span> to the new 
+        RuleSet, name it <code class="code">ElementRule</code> and choose the 
+        generator <code class="code">ElementTemplate</code>. Now enter the 
+        <span class="emphasis"><em>Match Expression</em></span> that can decide for which 
+        input objects the chosen generator shall be invoked.</p><div class="figure"><a name="N1012F"></a><p class="title"><b>Figure&nbsp;3.&nbsp;Match expression of the ElementRule</b></p><div><img src="images/elementRule.gif" alt="Match expression of the ElementRule"></div></div></li><li><p>Enter the folloing <span class="emphasis"><em>Target Path 
+        Expression</em></span>:</p><div class="figure"><a name="N1013B"></a><p class="title"><b>Figure&nbsp;4.&nbsp;Target path expression of the ElementRule</b></p><div><img src="images/elementRule2.gif" alt="Target path expression of the ElementRule"></div></div></li><li><p>Because we have references to DOM API in our expressions 
+        add the following <span class="emphasis"><em>Bootstrap Code</em></span> to the 
+        BeanShell rule: <code class="code">import tutorial2.gen.*; import 
+        org.w3c.dom.*;</code>.</p></li><li><p>Add a second <span class="emphasis"><em>BeanShell Rule</em></span> to the 
+        new RuleSet, name it <code class="code">RegistryRule</code> and choose the 
+        generator <code class="code">RegistryTemplate</code>. Now enter the 
+        <span class="emphasis"><em>Match Expression</em></span> that can decide for which 
+        input objects the chosen generator shall be invoked.</p><div class="figure"><a name="N10159"></a><p class="title"><b>Figure&nbsp;5.&nbsp;Match expression of the RegistryRule</b></p><div><img src="images/registryRule.gif" alt="Match expression of the RegistryRule"></div></div></li><li><p>Enter the folloing <span class="emphasis"><em>Target Path 
+        Expression</em></span>:</p><div class="figure"><a name="N10165"></a><p class="title"><b>Figure&nbsp;6.&nbsp;Target path expression of the RegistryRule</b></p><div><img src="images/registryRule2.gif" alt="Target path expression of the RegistryRule"></div></div></li><li><p>Again add <span class="emphasis"><em>Bootstrap Code</em></span> to the 
+        rule: <code class="code">import tutorial2.gen.*; import 
+        org.w3c.dom.*;</code>.</p></li><li><p>With a text or XML editor you can verify the content of 
+        the genlib file:</p><pre class="programlisting">&lt;?xml version="1.0" encoding="UTF-8"?&gt; 
+&lt;com.sympedia.genfw:GenLib xmi:version="2.0"  
+ xmlns:xmi="http://www.omg.org/XMI"  
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  
+ xmlns:com.sympedia.genfw="http://www.sympedia.com/2006/genfw"  
+ xmlns:com.sympedia.genfw.bsh="http://www.sympedia.com/2006/genfw/bsh"  
+ xmlns:com.sympedia.genfw.jet="http://www.sympedia.com/2006/genfw/jet"&gt; 
+  &lt;contentProviders xsi:type="com.sympedia.genfw:DomContentProvider"  
+    name="DOM"/&gt; 
+  &lt;generators xsi:type="com.sympedia.genfw.jet:JetTemplate"  
+    name="ElementTemplate"  
+    className="tutorial2.gen.ElementTemplate"/&gt; 
+  &lt;generators xsi:type="com.sympedia.genfw.jet:JetTemplate"  
+    name="RegistryTemplate"  
+    className="tutorial2.gen.RegistryTemplate"/&gt; 
+  &lt;ruleSets name="ExtPointRules"&gt; 
+    &lt;rules xsi:type="com.sympedia.genfw.bsh:BeanShellRule"  
+      name="ElementRule"  
+      generator="ElementTemplate"  
+      matchExpression="self instanceof Element&amp;#xD;&amp;#xA;&amp;amp;&amp;amp; &amp;quot;element&amp;quot;.equals(self.getTagName())&amp;#xD;&amp;#xA;&amp;amp;&amp;amp; self.hasAttribute(&amp;quot;name&amp;quot;)"  
+      targetPathExpression="&amp;quot;src-gen/&amp;quot;&amp;#xD;&amp;#xA;+ ExtPointHelper.getPluginId(self).replace('.', '/')&amp;#xD;&amp;#xA;+ &amp;quot;/internal/&amp;quot;&amp;#xD;&amp;#xA;+ ExtPointHelper.getElementClassName(self)&amp;#xD;&amp;#xA;+ &amp;quot;.java&amp;quot;"  
+      bootstrapCode="import tutorial2.gen.*;&amp;#xD;&amp;#xA;import org.w3c.dom.*;"/&gt; 
+    &lt;rules xsi:type="com.sympedia.genfw.bsh:BeanShellRule"  
+      name="RegistryRule"  
+      generator="RegistryTemplate"  
+      matchExpression="self instanceof Element&amp;#xD;&amp;#xA;&amp;amp;&amp;amp; &amp;quot;schema&amp;quot;.equals(self.getTagName())"  
+      targetPathExpression="&amp;quot;src-gen/&amp;quot;&amp;#xD;&amp;#xA;+ ExtPointHelper.getPluginId(self).replace('.', '/')&amp;#xD;&amp;#xA;+ &amp;quot;/internal/&amp;quot;&amp;#xD;&amp;#xA;+ ExtPointHelper.getRegistryClassName(self)&amp;#xD;&amp;#xA;+ &amp;quot;.java&amp;quot;"  
+      bootstrapCode="import tutorial2.gen.*;&amp;#xD;&amp;#xA;import org.w3c.dom.*;"/&gt; 
+  &lt;/ruleSets&gt; 
+&lt;/com.sympedia.genfw:GenLib&gt;</pre></li><li><p>The last steps in configuring the generator library are 
+        only needed because we decided that we want to deploy our 
+        generator as an Eclipse plugin (rather than as workspace 
+        project). For that purpose we have to contribute to the 
+        <code class="code">com.sympedia.genfw.externalLibraries</code> extension 
+        point in the <code class="code">plugin.xml</code> of our 
+        <code class="code">tutorial2.gen</code> project:</p><pre class="programlisting">&lt;?xml version="1.0" encoding="UTF-8"?&gt; 
+&lt;?eclipse version="3.0"?&gt; 
+ 
+&lt;plugin&gt; 
+ 
+   &lt;extension 
+         point="com.sympedia.genfw.externalLibraries"&gt; 
+      &lt;externalLibrary 
+            libraryInitializer="tutorial2.gen.internal.ExtPointLibraryInitializer" 
+            libraryPath="model/extpoint.genlib"/&gt; 
+   &lt;/extension&gt; 
+ 
+&lt;/plugin&gt;</pre></li><li><p>Create the <code class="code">ExtPointLibraryInitializer</code> class 
+        in the <code class="code">tutorial2.gen.internal</code> package::</p><pre class="programlisting">package tutorial2.gen.internal; 
+ 
+import com.sympedia.genfw.GenLib; 
+import com.sympedia.genfw.IExternalLibraryInitializer; 
+ 
+/** 
+ * This class has to be present only to be referenced from plugin.xml 
+ */ 
+public class ExtPointLibraryInitializer implements IExternalLibraryInitializer 
+{ 
+  public void initalizeLibrary(GenLib genlib) throws Exception 
+  { 
+    // Intentionally left empty 
+  } 
+}</pre><p>As already mentioned in Tutorial 1, the 
+        <code class="code">initalizeLibrary()</code> method is never called with the 
+        current design of GenFw, but the class will be used by GenFw to 
+        instantiate an object that is able to provide the class loader 
+        of the plugin!</p></li></ol></div></div><div class="navfooter"><hr><table summary="Navigation footer" width="100%"><tr><td align="left" width="40%"><a accesskey="p" href="ar01s02.html">Prev</a>&nbsp;</td><td align="center" width="20%">&nbsp;</td><td align="right" width="40%">&nbsp;<a accesskey="n" href="ar01s04.html">Next</a></td></tr><tr><td valign="top" align="left" width="40%">Defining the Templates&nbsp;</td><td align="center" width="20%"><a accesskey="h" href="index.html">Home</a></td><td valign="top" align="right" width="40%">&nbsp;Creating a Generator Application</td></tr></table></div></body></html>

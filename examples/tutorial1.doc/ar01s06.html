@@ -1,0 +1,149 @@
+<html><head><META http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"><title>Notes</title><meta content="DocBook XSL Stylesheets V1.69.1" name="generator"><link rel="start" href="index.html" title="Sympedia GenFw Tutorial 1"><link rel="up" href="index.html" title="Sympedia GenFw Tutorial 1"><link rel="prev" href="ar01s05.html" title="Configuring the Generator Framework"><link rel="next" href="ar01s07.html" title="Patching CodeGen"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table summary="Navigation header" width="100%"><tr><th align="center" colspan="3">Notes</th></tr><tr><td align="left" width="20%"><a accesskey="p" href="ar01s05.html">Prev</a>&nbsp;</td><th align="center" width="60%">&nbsp;</th><td align="right" width="20%">&nbsp;<a accesskey="n" href="ar01s07.html">Next</a></td></tr></table><hr></div><div class="sect1" lang="en-EN"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="N102DE"></a>Notes</h2></div></div><div></div></div><div class="orderedlist"><ol type="1"><li><p>It is a major design issue in our generated BeanBase 
+        classes that the Listener methods take an instance of the 
+        BeanBase class as the first argument, because it prevents the 
+        callback method from calling the bean&rsquo;s business methods 
+        without down-casting to the derived Bean class. With the 
+        current design it is impossible to pass a Bean-classed instance 
+        to the callbacks. A nifty solution to this problem is the 
+        introduction of generated business interfaces that are 
+        implemented by the BeanBase classes and that all clients of the 
+        bean have to use. These interfaces would have to include 
+        abstract declarations of the business methods, so that the 
+        callback method of the listener can call them directly. The 
+        only reason why I waited to mention this until page 15 is, that 
+        this design would force us to model the abstract syntax of Java 
+        methods and parameters in our beans meta model. Of course it is 
+        feasible, but soon you will recognize that existing meta models 
+        like Ecore itself, UML2 and others already provide all the 
+        necessary infrastructure to model such things. Why should we 
+        invent the wheel again? It could be easier to re-use these 
+        models.</p><p>The Density Generator, for example, currently uses Ecore 
+        to model packages, classes, methods and so on. Because Ecore is 
+        (at least compared to UML2) a rather unexpressive meta model 
+        (it closer relates to MOF than to UML2), I made extensive use 
+        of generic model annotations that are evaluated by the 
+        generator.</p></li><li><p>GenFw never writes files that are not changed, even if a 
+        generator produced new output for that file. If the content is 
+        the same as before, the file will not get a new modification 
+        time stamp. This way there&rsquo;s usually no harm in frequently 
+        using the Generate All action.</p></li><li><p>If you are using JDT&rsquo;s automatic code formatting facility 
+        (maybe even in conjunction with the FormatOnSave plugin), the 
+        physical content of a Java file might change due to generation 
+        even if the logical content is the same. Only the formatting 
+        changes, and changes, and &hellip;</p><p>For these situations GenFw provides a delegating 
+        generator called Java Formatter. This generator first invokes 
+        an arbitrary other generator on the same inpout object and 
+        target path and then formats and returns the results of the 
+        delegate generator. Unfortunately you have to add a Java 
+        Formatter for each template to be delegated to. So far I have 
+        not found another way to handle generator chains.</p></li><li><p>Generator Modularity: You can split your GenLibs and 
+        GenApps as you like and let them refer to elements in the other 
+        files. A GenApp is a GenLib, so you can even cope with a single 
+        GenApp if you want. The only difference between the two is that 
+        Inputs can only be contained in GenApps. The reason is the 
+        possible project-relative path resolution of input files.</p></li><li><p>Personally I think that the meta models, the templates 
+        and the resulting GenLib tend to change often due to new 
+        requirements or simply due to maintenance, so I leave this 
+        project in my workspace. But sometimes it is practical to 
+        deploy a generator library (with all the templates and meta 
+        models) as an installed plugin. This way it is also possible to 
+        use generators out-of-the box that you installed via the 
+        Eclipse Update Manager from the internet or an enterprise 
+        repository. To refer to these generator libraries use a 
+        resource URI like 
+        <code class="code">platform:/plugin/&lt;pluing-id&gt;/&lt;entry-path&gt;</code>. 
+        However, GenFw class loaders are not prepared out-of-the-box 
+        for this situation! The plugin that you want the generator to 
+        be installed in has to contribute to the 
+        <code class="code">com.sympedia.genfw.externalLibraries</code> 
+        <span class="emphasis"><em>Extension Point</em></span>:</p><pre class="programlisting">&lt;?xml version="1.0" encoding="UTF-8"?&gt; 
+&lt;?eclipse version="3.0"?&gt; 
+ 
+&lt;plugin&gt; 
+ 
+   &lt;extension point="com.sympedia.genfw.externalLibraries"&gt; 
+      &lt;externalLibrary 
+         libraryInitializer="tutorial1.gen.internal.BeansLibraryInitializer" 
+         libraryPath="model/beans.genlib"/&gt; 
+   &lt;/extension&gt; 
+ 
+&lt;/plugin&gt;</pre><p>The referenced <code class="code">BeansLibraryInitializer</code> class 
+        must implement the interface 
+        <code class="code">com.sympedia.genfw.IExternalLibraryInitializer</code>. 
+        The only method to be implemented can safely be left empty, it 
+        is not used for the moment. The class is only needed so that 
+        GenFw can compute the class loader of the contributing plugin 
+        at runtime.</p><pre class="programlisting">package tutorial1.gen.internal; 
+ 
+import com.sympedia.genfw.GenLib; 
+import com.sympedia.genfw.IExternalLibraryInitializer; 
+ 
+/** 
+ * This class has to be present only to be referenced from plugin.xml 
+ */ 
+public class BeansLibraryInitializer implements IExternalLibraryInitializer 
+{ 
+  public void initalizeLibrary(GenLib genlib) throws Exception 
+  {
+    // Intentionally left empty
+  } 
+}</pre></li><li><p>If I was wrong when I said at the beginning that we don&rsquo;t 
+        like to mix generated code with hand-written code, it&rsquo;s most 
+        certainly because you do like it, nevertheless ;-) Don&rsquo;t worry, 
+        GenFw comes with a JMerge Generator that works similar to the 
+        Java Formatter, it first delegates to another generator 
+        (assumingly a JET Template) and then merges the result. You can 
+        configure a custom merge.xml or leave the property empty to use 
+        the CodeGen default one. Of course you can even prepend this 
+        chain by a Java Formatter (as newer CodeGen versions can do, 
+        too). GenFw uses JMerge 2.0.</p></li><li><p>If a JET Template is too heavy in a certain situation, 
+        you can use a Static File Initializer to produce static 
+        content, line by line.</p></li><li><p>If you want to use the original JET templates of the EMF 
+        distribution, there are currently two ways: You can use the 
+        Ecore Template generator or the EMF Generator. In both cases 
+        the generator expects a .genmodel file to be used as the 
+        Input.</p><p>With the Ecore Template generator you can generate 
+        selected templates and choose to generate the Interface file or 
+        the Implementation file. Note, that the Ecore templates don&rsquo;t 
+        expect a pure GenBase instance (the input object ) to be passed 
+        as argument. Rather it expects an <code class="code">Object[3]</code> array. 
+        That&rsquo;s why the Ecore Template generator is a special subclass 
+        of JET Template. Attention: Before you use an Ecore Template 
+        generator, you must patch 
+        <code class="code">org.eclipse.emf.codegen.ecore</code>, see the last 
+        section!</p><p>With the EMF Generator you can generate a whole 
+        GenPackage. Theoretically it is possible to feed the generator 
+        with selected GenClassifiers, but unfortunately they will miss 
+        some constructs that are only generated by a GenPackage 
+        (Switch, Factory, &hellip;). Generating the GenPackage in addition is 
+        not applicable, because there doesn&rsquo;t seem to be a way to 
+        prevent CodeGen from also iterating over all the contained 
+        elements. This, in turn, would prevent you from overriding 
+        selected templates! The only use for the EMF Generator that I 
+        can see at the moment, is a way to integrate normal EMF 
+        generations (without template overrides) into the GenFw user 
+        interface.</p></li><li><p>After a while you will recognize that the more input 
+        objects you have in your models and the more Rules you have in 
+        your RuleSets the slower the generation will be. If you are 
+        using BeanShellRules, GenFw will instantiate at least one 
+        BeanShell interpreter per input object and Match Expression in 
+        the Rule. This might be subject to further optimization in the 
+        future, but for the moment of being the easiest way to speed up 
+        generation is to specify a Match Class Name. This string value 
+        is tested for equality against the fully qualified class name 
+        of the input object (self), which is ways faster. But be 
+        careful, you can&rsquo;t catch inheritance with this trick! So, to 
+        let the BeanBaseRule properly match in the above example, you 
+        have to specify <code class="code">tutorial1.gen.beans.impl.BeanImpl</code> 
+        as <span class="emphasis"><em>Match Class Name</em></span>, not its interface 
+        <code class="code">tutorial1.gen.beans.Bean</code>. In addition the 
+        <span class="emphasis"><em>Match Expression</em></span> is evaluated, but only 
+        after the class names have been proven to match. Attention: If 
+        you have issues with your generator&rsquo;s classpath, it can happen 
+        that you get strange <code class="code">ClassNotFoundException</code>s or 
+        <code class="code">ClassCastException</code>s when evaluating the Match 
+        Expression, the Target Path Expression or when template code is 
+        invoked. This is almost always a sign that your input objects 
+        have been loaded by a class loader different from the one GenFw 
+        uses. Check, that your generator (plugin) project properly 
+        references your meta model plugins!</p></li></ol></div></div><div class="navfooter"><hr><table summary="Navigation footer" width="100%"><tr><td align="left" width="40%"><a accesskey="p" href="ar01s05.html">Prev</a>&nbsp;</td><td align="center" width="20%">&nbsp;</td><td align="right" width="40%">&nbsp;<a accesskey="n" href="ar01s07.html">Next</a></td></tr><tr><td valign="top" align="left" width="40%">Configuring the Generator Framework&nbsp;</td><td align="center" width="20%"><a accesskey="h" href="index.html">Home</a></td><td valign="top" align="right" width="40%">&nbsp;Patching CodeGen</td></tr></table></div></body></html>

@@ -59,7 +59,7 @@
       <semanticModel xsi:type="di:SimpleSemanticModelElement" typeInfo="Inheritance EditPolicy"/>
     </contained>
     <contained xsi:type="di:GraphNode" position="834,215" size="199,78">
-      <anchorage graphEdge="//@diagrams.0/@contained.4 //@diagrams.0/@contained.5 //@diagrams.0/@contained.7 //@diagrams.0/@contained.9 //@diagrams.0/@contained.34"/>
+      <anchorage graphEdge="//@diagrams.0/@contained.4 //@diagrams.0/@contained.5 //@diagrams.0/@contained.7 //@diagrams.0/@contained.9 //@diagrams.0/@contained.34 //@diagrams.0/@contained.47"/>
       <semanticModel xsi:type="di:EMFSemanticModelBridge">
         <element href="genfw.ecore#//ContentProvider"/>
       </semanticModel>
@@ -109,7 +109,7 @@
       <waypoints>[117, 0, -203, 0]</waypoints>
       <waypoints>[220, 0, -100, 0]</waypoints>
     </contained>
-    <contained xsi:type="di:GraphNode" position="793,348" size="129,40">
+    <contained xsi:type="di:GraphNode" position="807,348" size="129,40">
       <anchorage graphEdge="//@diagrams.0/@contained.7"/>
       <semanticModel xsi:type="di:EMFSemanticModelBridge">
         <element href="genfw.ecore#//EcoreContentProvider"/>
@@ -130,7 +130,7 @@
     <contained xsi:type="di:GraphEdge" anchor="//@diagrams.0/@contained.6/@anchorage.0 //@diagrams.0/@contained.3/@anchorage.0">
       <semanticModel xsi:type="di:SimpleSemanticModelElement" typeInfo="Inheritance EditPolicy"/>
     </contained>
-    <contained xsi:type="di:GraphNode" position="940,348" size="151,40">
+    <contained xsi:type="di:GraphNode" position="949,348" size="151,40">
       <anchorage graphEdge="//@diagrams.0/@contained.9"/>
       <semanticModel xsi:type="di:EMFSemanticModelBridge">
         <element href="genfw.ecore#//PropertiesContentProvider"/>
@@ -701,6 +701,54 @@
       </semanticModel>
       <contained xsi:type="di:EdgeObjectUV" id="cardinalityLabel" uDistance="7" vDistance="-13"/>
       <contained xsi:type="di:EdgeObjectUV" id="nameLabel" uDistance="9" vDistance="11"/>
+    </contained>
+    <contained xsi:type="di:GraphNode" position="161,622" size="109,-1">
+      <semanticModel xsi:type="di:EMFSemanticModelBridge">
+        <element href="genfw.ecore#//LifeCycle"/>
+      </semanticModel>
+      <contained xsi:type="di:GraphNode">
+        <property key="eStructuralFeatureID" value="13"/>
+        <semanticModel xsi:type="di:EMFSemanticModelBridge">
+          <element href="genfw.ecore#//LifeCycle"/>
+        </semanticModel>
+      </contained>
+      <contained xsi:type="di:GraphNode">
+        <property key="eStructuralFeatureID" value="9"/>
+        <semanticModel xsi:type="di:EMFSemanticModelBridge">
+          <element href="genfw.ecore#//LifeCycle"/>
+        </semanticModel>
+        <contained xsi:type="di:GraphNode" position="0,0" size="0,0">
+          <semanticModel xsi:type="di:EMFSemanticModelBridge">
+            <element href="genfw.ecore#//LifeCycle/initialize"/>
+          </semanticModel>
+        </contained>
+        <contained xsi:type="di:GraphNode" position="0,0" size="0,0">
+          <semanticModel xsi:type="di:EMFSemanticModelBridge">
+            <element href="genfw.ecore#//LifeCycle/dispose"/>
+          </semanticModel>
+        </contained>
+      </contained>
+    </contained>
+    <contained xsi:type="di:GraphNode" position="677,348" size="123,-1">
+      <anchorage graphEdge="//@diagrams.0/@contained.47"/>
+      <semanticModel xsi:type="di:EMFSemanticModelBridge">
+        <element href="genfw.ecore#//DomContentProvider"/>
+      </semanticModel>
+      <contained xsi:type="di:GraphNode">
+        <property key="eStructuralFeatureID" value="13"/>
+        <semanticModel xsi:type="di:EMFSemanticModelBridge">
+          <element href="genfw.ecore#//DomContentProvider"/>
+        </semanticModel>
+      </contained>
+      <contained xsi:type="di:GraphNode">
+        <property key="eStructuralFeatureID" value="9"/>
+        <semanticModel xsi:type="di:EMFSemanticModelBridge">
+          <element href="genfw.ecore#//DomContentProvider"/>
+        </semanticModel>
+      </contained>
+    </contained>
+    <contained xsi:type="di:GraphEdge" anchor="//@diagrams.0/@contained.46/@anchorage.0 //@diagrams.0/@contained.3/@anchorage.0">
+      <semanticModel xsi:type="di:SimpleSemanticModelElement" typeInfo="Inheritance EditPolicy"/>
     </contained>
   </diagrams>
 </diagrams:Diagrams>

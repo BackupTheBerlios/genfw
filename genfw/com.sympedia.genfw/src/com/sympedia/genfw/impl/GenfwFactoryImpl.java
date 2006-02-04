@@ -109,6 +109,8 @@ public class GenfwFactoryImpl extends EFactoryImpl implements GenfwFactory
       return createProjectInitializer();
     case GenfwPackage.INPUT:
       return createInput();
+    case GenfwPackage.DOM_CONTENT_PROVIDER:
+      return createDomContentProvider();
     default:
       throw new IllegalArgumentException("The class '" + eClass.getName()
               + "' is not a valid classifier");
@@ -307,6 +309,17 @@ public class GenfwFactoryImpl extends EFactoryImpl implements GenfwFactory
   {
     InputImpl input = new InputImpl();
     return input;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public DomContentProvider createDomContentProvider()
+  {
+    DomContentProviderImpl domContentProvider = new DomContentProviderImpl();
+    return domContentProvider;
   }
 
   /**

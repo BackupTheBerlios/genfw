@@ -34,7 +34,7 @@ import java.util.List;
  *        annotation="http://www.topcased.org/uuid uuid='113671546137560'"
  * @generated
  */
-public interface ContentProvider extends EObject
+public interface ContentProvider extends LifeCycle
 {
   /**
    * Returns the value of the '<em><b>Root</b></em>' container reference.

@@ -1,0 +1,43 @@
+<%@ jet package="tutorial2.gen" 
+        imports="java.util.* com.sympedia.util.* javax.xml.transform.* org.w3c.dom.* org.apache.xpath.*" 
+        class="RegistryTemplate"%>
+<%
+Element element = (Element)argument;
+String pluginId = ExtPointHelper.getPluginId(element);
+String extPointId = ExtPointHelper.getExtPointId(element);
+String capId = StringHelper.firstToUpper(extPointId);
+%>
+package <%=pluginId%>.internal;
+
+import org.eclipse.core.runtime.*;
+import java.util.*;
+
+public class <%=ExtPointHelper.getRegistryClassName(element)%>
+{
+  public static final String EXT_POINT_ID = "<%=pluginId%>.<%=extPointId%>";
+
+  protected List<<%=capId%>Extension> <%=extPointId%>;
+
+  public <%=ExtPointHelper.getRegistryClassName(element)%>()
+  {
+    IExtensionRegistry registry = Platform.getExtensionRegistry();
+    IExtensionPoint extPoint = registry.getExtensionPoint(EXT_POINT_ID);
+    IExtension[] extensions = extPoint.getExtensions();
+    for (IExtension extension : extensions)
+    {
+      try
+      {
+        <%=extPointId%>.add(new <%=capId%>Extension(extension));
+      }
+      catch (Exception ex)
+      {
+        ex.printStackTrace();
+      }
+    }
+  }
+
+  public List<<%=capId%>Extension> get<%=capId%>()
+  {
+    return Collections.unmodifiableList(<%=extPointId%>);
+  }
+}

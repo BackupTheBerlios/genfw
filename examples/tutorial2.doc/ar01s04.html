@@ -1,0 +1,258 @@
+<html><head><META http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"><title>Creating a Generator Application</title><meta content="DocBook XSL Stylesheets V1.69.1" name="generator"><link rel="start" href="index.html" title="Sympedia GenFw Tutorial 2"><link rel="up" href="index.html" title="Sympedia GenFw Tutorial 2"><link rel="prev" href="ar01s03.html" title="Configuring the Generator Framework"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table summary="Navigation header" width="100%"><tr><th align="center" colspan="3">Creating a Generator Application</th></tr><tr><td align="left" width="20%"><a accesskey="p" href="ar01s03.html">Prev</a>&nbsp;</td><th align="center" width="60%">&nbsp;</th><td align="right" width="20%">&nbsp;</td></tr></table><hr></div><div class="sect1" lang="en-EN"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="N1019A"></a>Creating a Generator Application</h2></div></div><div></div></div><p>Now, that the generator library is complete, we want to test 
+    it. For this purpose we come back to the mentioned article. We want 
+    to create an Eclipse plugin that provides the 
+    <span class="emphasis"><em>batch</em></span> extension point and is able to parse and 
+    store its contributions.</p><div class="orderedlist"><ol type="1"><li><p>Create a <span class="emphasis"><em>Launch Configuration</em></span> of 
+        type <span class="emphasis"><em>Eclipse Application</em></span> and verify that 
+        our generator library plugin <code class="code">tutorial2.gen</code> is 
+        started along with all the GenFw plugins. Run the launch 
+        config.</p></li><li><p>Open the <span class="emphasis"><em>Generator Applications</em></span> view 
+        (category <span class="emphasis"><em>Sympedia Generation</em></span>).</p></li><li><p>Create a new Plugin project <code class="code">tutorial2.batch</code> 
+        (Java, Activator, but no UI). Add a source folder 
+        <code class="code">src-gen</code> and copy the Schema file batch.exsd from 
+        the article 
+        <a href="http://www-128.ibm.com/developerworks/library/x-wxxm29.html" target="_top">
+        Working XML: Define and load extension points</a> to the 
+        <code class="code">schema</code> folder (has also to be created). Verify the 
+        schema:</p><div class="figure"><a name="N101CA"></a><p class="title"><b>Figure&nbsp;7.&nbsp;The schema editor of <code class="code">batch.exsd</code></b></p><div><img src="images/schema.gif" alt="The schema editor of batch.exsd"></div></div><p>The left side of the perspective should look like:</p><div class="figure"><a name="N101D4"></a><p class="title"><b>Figure&nbsp;8.&nbsp;Generator application project created</b></p><div><img src="images/schemaCreated.gif" alt="Generator application project created"></div></div></li><li><p>Since the <code class="code">batch.exsd</code> file already serves as 
+        the input for our generation, we can now create the 
+        configuration file of this generator application. Create a 
+        <code class="code">model</code> folder and in that a generator application 
+        (<span class="emphasis"><em>New Wizard | Sympedia Generation | Generator 
+        Application</em></span>) named <code class="code">batch.genapp</code>. Note 
+        that the Generator Applications view is immediately populated 
+        with an entry for our genapp file:</p><div class="figure"><a name="N101E9"></a><p class="title"><b>Figure&nbsp;9.&nbsp;Generator application file created</b></p><div><img src="images/genappCreated.gif" alt="Generator application file created"></div></div></li><li><p>Add an <span class="emphasis"><em>Input</em></span> to the GenApp element 
+        and in the Properties view enter <code class="code">schema/batch.exsd</code> 
+        as the <span class="emphasis"><em>Full Path</em></span>. Since our path is a 
+        relative path, it is appended to the path of the project that 
+        contains the genapp file.</p></li><li><p>Now we have to refer to our generator library in order to 
+        select the <span class="emphasis"><em>Content Provider</em></span> and select our 
+        <code class="code">ExtPointRules</code> <span class="emphasis"><em>Rule Set</em></span>. Open 
+        the popup menu of the editor and choose <span class="emphasis"><em>Load 
+        Resource...</em></span></p><div class="figure"><a name="N10209"></a><p class="title"><b>Figure&nbsp;10.&nbsp;Load the generator library resource from the 
+          <code class="code">tutorial2.gen</code> plugin</b></p><div><img src="images/loadResource.gif" alt="Load the generator library resource from the tutorial2.gen plugin"></div></div></li><li><p>Now you should be able to select the <code class="code">DOM</code> 
+        instantiator and the <code class="code">ExtPointRules</code> rule set.</p><div class="figure"><a name="N1021B"></a><p class="title"><b>Figure&nbsp;11.&nbsp;The complete <code class="code">batch.genapp</code> 
+          configuration</b></p><div><img src="images/genappReady.gif" alt="The complete batch.genapp configuration"></div></div></li><li><p>Save the file and generate the application (Use the 
+        actions in the <span class="emphasis"><em>Generator Applications</em></span> view 
+        or the popup menu in any view that shows IResources). Java 
+        classes should be generated in the <code class="code">src-gen</code> folder 
+        now:</p><div class="figure"><a name="N1022D"></a><p class="title"><b>Figure&nbsp;12.&nbsp;The generated Java classes</b></p><div><img src="images/generated.gif" alt="The generated Java classes"></div></div></li></ol></div><p>That's all!</p><p>Let's have a look at the source code of the generated 
+    classes. Here is the generated <code class="code">BatchRegistry</code> 
+    class:</p><pre class="programlisting">package tutorial2.batch.internal; 
+ 
+import org.eclipse.core.runtime.*; 
+import java.util.*; 
+ 
+public class BatchRegistry 
+{ 
+  public static final String EXT_POINT_ID = "tutorial2.batch.batch"; 
+ 
+  protected List&lt;BatchExtension&gt; batch; 
+ 
+  public BatchRegistry() 
+  { 
+    IExtensionRegistry registry = Platform.getExtensionRegistry(); 
+    IExtensionPoint extPoint = registry.getExtensionPoint(EXT_POINT_ID); 
+    IExtension[] extensions = extPoint.getExtensions(); 
+    for (IExtension extension : extensions) 
+    { 
+      try 
+      { 
+        batch.add(new BatchExtension(extension)); 
+      } 
+      catch (Exception ex) 
+      { 
+        ex.printStackTrace(); 
+      } 
+    } 
+  } 
+ 
+  public List&lt;BatchExtension&gt; getBatch() 
+  { 
+    return Collections.unmodifiableList(batch); 
+  } 
+}</pre><p>This is the generated <code class="code">BatchExtension</code> 
+    class:</p><p>
+
+      <pre class="programlisting">package tutorial2.batch.internal; 
+ 
+import org.eclipse.core.runtime.*; 
+import java.util.*; 
+import java.io.*; 
+ 
+public class BatchExtension 
+{ 
+  protected BatchExtension(IExtension origin) 
+  { 
+   this.origin = origin; 
+    IConfigurationElement[] configurationElements = origin.getConfigurationElements(); 
+    for (IConfigurationElement element : configurationElements) 
+    { 
+      System.out.println("Initializing " + element.getName()); 
+      if ("batch".equals(element.getName())) batchElements.add(new Batch(element));  
+      point = element.getAttribute("point"); 
+      if (true &amp;&amp; (point == null || point.length() == 0))
+        throw new RuntimeException("Point is required");   
+      id = element.getAttribute("id"); 
+      if (false &amp;&amp; (id == null || id.length() == 0))
+        throw new RuntimeException("Id is required");   
+      name = element.getAttribute("name"); 
+      if (false &amp;&amp; (name == null || name.length() == 0))
+        throw new RuntimeException("Name is required");  
+    } 
+  } 
+ 
+  public IExtension getOrigin() { return origin; } 
+  protected IExtension origin; 
+   
+  public List&lt;Batch&gt; getBatchElements()
+    { return Collections.unmodifiableList(batchElements); } 
+  protected List&lt;Batch&gt; batchElements; 
+  
+  public String getPoint() { return point; } 
+  protected String point;   
+ 
+  public String getId() { return id; } 
+  protected String id;   
+ 
+  public String getName() { return name; } 
+  protected String name; 
+} </pre>
+    </p><p>This is the generated <code class="code">Batch</code> class:</p><p>
+
+      <pre class="programlisting">package tutorial2.batch.internal; 
+ 
+import org.eclipse.core.runtime.*; 
+import java.util.*; 
+import java.io.*; 
+ 
+public class Batch 
+{ 
+  protected Batch(IConfigurationElement origin) 
+  { 
+   this.origin = origin; 
+    IConfigurationElement[] configurationElements = origin.getChildren(); 
+    for (IConfigurationElement element : configurationElements) 
+    { 
+      System.out.println("Initializing " + element.getName()); 
+      if ("target".equals(element.getName())) targetElements.add(new Target(element)); 
+      if ("run".equals(element.getName())) runElements.add(new Run(element)); 
+    } 
+  } 
+ 
+  public IConfigurationElement getOrigin() { return origin; } 
+  protected IConfigurationElement origin; 
+   
+  public List&lt;Target&gt; getTargetElements()
+    { return Collections.unmodifiableList(targetElements); } 
+  protected List&lt;Target&gt; targetElements; 
+ 
+  public List&lt;Run&gt; getRunElements()
+    { return Collections.unmodifiableList(runElements); } 
+  protected List&lt;Run&gt; runElements; 
+}</pre>
+    </p><p>This is the generated <code class="code">Run</code> class:</p><p>
+
+      <pre class="programlisting">package tutorial2.batch.internal; 
+ 
+import org.eclipse.core.runtime.*; 
+import java.util.*; 
+import java.io.*; 
+ 
+public class Run 
+{ 
+  protected Run(IConfigurationElement origin) 
+  { 
+   this.origin = origin; 
+    IConfigurationElement[] configurationElements = origin.getChildren(); 
+    for (IConfigurationElement element : configurationElements) 
+    { 
+      System.out.println("Initializing " + element.getName());  
+      clazz = element.getAttribute("class"); 
+      if (true &amp;&amp; (clazz == null || clazz.length() == 0))
+        throw new RuntimeException("Clazz is required");  
+    } 
+  } 
+ 
+  public IConfigurationElement getOrigin() { return origin; } 
+  protected IConfigurationElement origin; 
+    
+  public String getClazz() { return clazz; } 
+  protected String clazz; 
+}</pre>
+    </p><p>This is the generated <code class="code">Target</code> class:</p><p>
+
+      <pre class="programlisting">package tutorial2.batch.internal; 
+ 
+import org.eclipse.core.runtime.*; 
+import java.util.*; 
+import java.io.*; 
+ 
+public class Target 
+{ 
+  protected Target(IConfigurationElement origin) 
+  { 
+   this.origin = origin; 
+    IConfigurationElement[] configurationElements = origin.getChildren(); 
+    for (IConfigurationElement element : configurationElements) 
+    { 
+      System.out.println("Initializing " + element.getName());  
+      pattern = element.getAttribute("pattern"); 
+      if (true &amp;&amp; (pattern == null || pattern.length() == 0))
+        throw new RuntimeException("Pattern is required");  
+      String targetAddedStr = element.getAttribute("targetAdded"); 
+      if (targetAddedStr !=null) { targetAdded = Boolean.parseBoolean(targetAddedStr); }
+        else { if (false) throw new RuntimeException("TargetAdded is required"); }  
+      String targetModifiedStr = element.getAttribute("targetModified"); 
+      if (targetModifiedStr !=null)
+        { targetModified = Boolean.parseBoolean(targetModifiedStr); } else { if (false)
+        throw new RuntimeException("TargetModified is required"); }  
+      String targetRemovedStr = element.getAttribute("targetRemoved"); 
+      if (targetRemovedStr !=null)
+        { targetRemoved = Boolean.parseBoolean(targetRemovedStr); } else { if (false)
+        throw new RuntimeException("TargetRemoved is required"); }  
+      String targetUnchangedStr = element.getAttribute("targetUnchanged"); 
+      if (targetUnchangedStr !=null)
+        { targetUnchanged = Boolean.parseBoolean(targetUnchangedStr); } else { if (false)
+        throw new RuntimeException("TargetUnchanged is required"); }  
+    } 
+  } 
+ 
+  public IConfigurationElement getOrigin() { return origin; } 
+  protected IConfigurationElement origin; 
+    
+  public String getPattern() { return pattern; } 
+  protected String pattern;   
+ 
+  public boolean isTargetAdded() { return targetAdded; } 
+  protected boolean targetAdded;  
+ 
+  public boolean isTargetModified() { return targetModified; } 
+  protected boolean targetModified;  
+ 
+  public boolean isTargetRemoved() { return targetRemoved; } 
+  protected boolean targetRemoved;  
+ 
+  public boolean isTargetUnchanged() { return targetUnchanged; } 
+  protected boolean targetUnchanged; 
+}</pre>
+    </p><p>Note, that in the original schema file the <code class="code">Run</code> 
+    element has an attribute named <code class="code">class</code>. Our generator is 
+    not only smart enough to translate that into <code class="code">public String 
+    getClazz() { return clazz; }</code>, there is also the possibility 
+    to switch the <span class="emphasis"><em>type</em></span> of that attribute from 
+    <code class="code">string</code> to <span class="emphasis"><em>java</em></span> and enter the name 
+    of a java interface as a restriction for that attribute. For 
+    example add the <code class="code">IService</code> interface to the 
+    <code class="code">src</code> folder of the <code class="code">tutorial2.batch</code> project 
+    and enter its full name in the <span class="emphasis"><em>implements</em></span> 
+    restriction field:</p><pre class="programlisting">package tutorial2.batch.internal; 
+ 
+public interface IService 
+{ 
+  // Service methods... 
+}</pre><p>If you regenerate the application you will see the following 
+    in the genrated <code class="code">Run</code> class:</p><pre class="programlisting">  public tutorial2.batch.internal.IService getClazz() throws CoreException
+  {
+    return (tutorial2.batch.internal.IService)origin.createExecutableExtension("clazz");
+  }</pre></div><div class="navfooter"><hr><table summary="Navigation footer" width="100%"><tr><td align="left" width="40%"><a accesskey="p" href="ar01s03.html">Prev</a>&nbsp;</td><td align="center" width="20%">&nbsp;</td><td align="right" width="40%">&nbsp;</td></tr><tr><td valign="top" align="left" width="40%">Configuring the Generator Framework&nbsp;</td><td align="center" width="20%"><a accesskey="h" href="index.html">Home</a></td><td valign="top" align="right" width="40%">&nbsp;</td></tr></table></div></body></html>

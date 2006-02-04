@@ -141,6 +141,15 @@ public interface GenfwFactory extends EFactory
   Input createInput();
 
   /**
+   * Returns a new object of class '<em>Dom Content Provider</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Dom Content Provider</em>'.
+   * @generated
+   */
+  DomContentProvider createDomContentProvider();
+
+  /**
    * Returns the package supported by this factory.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

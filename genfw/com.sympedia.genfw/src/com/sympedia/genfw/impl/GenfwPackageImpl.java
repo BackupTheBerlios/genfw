@@ -13,6 +13,7 @@ package com.sympedia.genfw.impl;
 
 import com.sympedia.genfw.ContentProvider;
 import com.sympedia.genfw.DelegatingGenerator;
+import com.sympedia.genfw.DomContentProvider;
 import com.sympedia.genfw.DomTransformation;
 import com.sympedia.genfw.DomTransformer;
 import com.sympedia.genfw.EcoreContentProvider;
@@ -24,6 +25,7 @@ import com.sympedia.genfw.GenfwFactory;
 import com.sympedia.genfw.GenfwPackage;
 import com.sympedia.genfw.InitialGenerator;
 import com.sympedia.genfw.Input;
+import com.sympedia.genfw.LifeCycle;
 import com.sympedia.genfw.Line;
 import com.sympedia.genfw.ProjectInitializationProvider;
 import com.sympedia.genfw.ProjectInitializer;
@@ -75,6 +77,13 @@ public class GenfwPackageImpl extends EPackageImpl implements GenfwPackage
    * @generated
    */
   private EClass genAppEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass lifeCycleEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -194,6 +203,13 @@ public class GenfwPackageImpl extends EPackageImpl implements GenfwPackage
    * @generated
    */
   private EClass inputEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass domContentProviderEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -382,6 +398,16 @@ public class GenfwPackageImpl extends EPackageImpl implements GenfwPackage
   public EReference getGenApp_Inputs()
   {
     return (EReference)genAppEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getLifeCycle()
+  {
+    return lifeCycleEClass;
   }
 
   /**
@@ -999,6 +1025,16 @@ public class GenfwPackageImpl extends EPackageImpl implements GenfwPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EClass getDomContentProvider()
+  {
+    return domContentProviderEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EDataType getIPath()
   {
     return iPathEDataType;
@@ -1112,6 +1148,8 @@ public class GenfwPackageImpl extends EPackageImpl implements GenfwPackage
     genAppEClass = createEClass(GEN_APP);
     createEReference(genAppEClass, GEN_APP__INPUTS);
 
+    lifeCycleEClass = createEClass(LIFE_CYCLE);
+
     contentProviderEClass = createEClass(CONTENT_PROVIDER);
     createEReference(contentProviderEClass, CONTENT_PROVIDER__ROOT);
     createEAttribute(contentProviderEClass, CONTENT_PROVIDER__NAME);
@@ -1190,6 +1228,8 @@ public class GenfwPackageImpl extends EPackageImpl implements GenfwPackage
     createEReference(inputEClass, INPUT__CONTENT_PROVIDER);
     createEReference(inputEClass, INPUT__RULE_SETS);
 
+    domContentProviderEClass = createEClass(DOM_CONTENT_PROVIDER);
+
     // Create data types
     iPathEDataType = createEDataType(IPATH);
     javaListEDataType = createEDataType(JAVA_LIST);
@@ -1227,15 +1267,22 @@ public class GenfwPackageImpl extends EPackageImpl implements GenfwPackage
 
     // Add supertypes to classes
     genAppEClass.getESuperTypes().add(this.getGenLib());
+    contentProviderEClass.getESuperTypes().add(this.getLifeCycle());
     ecoreContentProviderEClass.getESuperTypes().add(this.getContentProvider());
     propertiesContentProviderEClass.getESuperTypes().add(this.getContentProvider());
+    ruleSetEClass.getESuperTypes().add(this.getLifeCycle());
+    ruleEClass.getESuperTypes().add(this.getLifeCycle());
     staticRuleEClass.getESuperTypes().add(this.getRule());
     expressionBasedRuleEClass.getESuperTypes().add(this.getRule());
+    generatorEClass.getESuperTypes().add(this.getLifeCycle());
     delegatingGeneratorEClass.getESuperTypes().add(this.getGenerator());
     domTransformerEClass.getESuperTypes().add(this.getGenerator());
+    domTransformationEClass.getESuperTypes().add(this.getLifeCycle());
     initialGeneratorEClass.getESuperTypes().add(this.getDelegatingGenerator());
     staticFileInitializerEClass.getESuperTypes().add(this.getGenerator());
     projectInitializerEClass.getESuperTypes().add(this.getGenerator());
+    inputEClass.getESuperTypes().add(this.getLifeCycle());
+    domContentProviderEClass.getESuperTypes().add(this.getContentProvider());
 
     // Initialize classes and features; add operations and parameters
     initEClass(genLibEClass, GenLib.class, "GenLib", !IS_ABSTRACT, !IS_INTERFACE,
@@ -1259,6 +1306,16 @@ public class GenfwPackageImpl extends EPackageImpl implements GenfwPackage
     initEReference(getGenApp_Inputs(), this.getInput(), this.getInput_Root(), "inputs", null, 0,
             -1, GenApp.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
             !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(lifeCycleEClass, LifeCycle.class, "LifeCycle", IS_ABSTRACT, !IS_INTERFACE,
+            IS_GENERATED_INSTANCE_CLASS);
+
+    op = addEOperation(lifeCycleEClass, null, "initialize");
+    addEParameter(op, this.getGenApp(), "genapp", 0, 1);
+    addEException(op, this.getException());
+
+    op = addEOperation(lifeCycleEClass, null, "dispose");
+    addEParameter(op, this.getGenApp(), "genapp", 0, 1);
 
     initEClass(contentProviderEClass, ContentProvider.class, "ContentProvider", IS_ABSTRACT,
             !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -1475,6 +1532,9 @@ public class GenfwPackageImpl extends EPackageImpl implements GenfwPackage
             Input.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
             IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
+    initEClass(domContentProviderEClass, DomContentProvider.class, "DomContentProvider",
+            !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
     // Initialize data types
     initEDataType(iPathEDataType, IPath.class, "IPath", IS_SERIALIZABLE,
             !IS_GENERATED_INSTANCE_CLASS);
@@ -1523,6 +1583,15 @@ public class GenfwPackageImpl extends EPackageImpl implements GenfwPackage
     addAnnotation(getGenLib_RuleSets(), source, new String[] {"uuid", "1136722211062111"});
     addAnnotation(genAppEClass, source, new String[] {"uuid", "1136887070640172"});
     addAnnotation(getGenApp_Inputs(), source, new String[] {"uuid", "1136887070640173"});
+    addAnnotation(lifeCycleEClass, source, new String[] {"uuid", "1138872040968290"});
+    addAnnotation((EOperation)lifeCycleEClass.getEOperations().get(0), source, new String[] {
+            "uuid", "1138872040968291"});
+    addAnnotation((EParameter)((EOperation)lifeCycleEClass.getEOperations().get(0))
+            .getEParameters().get(0), source, new String[] {"uuid", "113887234659333"});
+    addAnnotation((EOperation)lifeCycleEClass.getEOperations().get(1), source, new String[] {
+            "uuid", "1138872040968292"});
+    addAnnotation((EParameter)((EOperation)lifeCycleEClass.getEOperations().get(1))
+            .getEParameters().get(0), source, new String[] {"uuid", "113887234659337"});
     addAnnotation(contentProviderEClass, source, new String[] {"uuid", "113671546137560"});
     addAnnotation((EOperation)contentProviderEClass.getEOperations().get(0), source, new String[] {
             "uuid", "113671546137561"});
@@ -1534,6 +1603,7 @@ public class GenfwPackageImpl extends EPackageImpl implements GenfwPackage
             .getEParameters().get(0), source, new String[] {"uuid", "113671579193768"});
     addAnnotation(getContentProvider_Root(), source, new String[] {"uuid", "113672221104652"});
     addAnnotation(getContentProvider_Name(), source, new String[] {"uuid", "113878822765645"});
+    addAnnotation(domContentProviderEClass, source, new String[] {"uuid", "1138909106468305"});
     addAnnotation(ecoreContentProviderEClass, source, new String[] {"uuid", "113671583842178"});
     addAnnotation(propertiesContentProviderEClass, source, new String[] {"uuid", "113671672139081"});
     addAnnotation(ruleSetEClass, source, new String[] {"uuid", "113672173296897"});

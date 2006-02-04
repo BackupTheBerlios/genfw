@@ -92,6 +92,11 @@ public class GenfwAdapterFactory extends AdapterFactoryImpl
       return createGenAppAdapter();
     }
 
+    public Object caseLifeCycle(LifeCycle object)
+    {
+      return createLifeCycleAdapter();
+    }
+
     public Object caseContentProvider(ContentProvider object)
     {
       return createContentProviderAdapter();
@@ -177,6 +182,11 @@ public class GenfwAdapterFactory extends AdapterFactoryImpl
       return createInputAdapter();
     }
 
+    public Object caseDomContentProvider(DomContentProvider object)
+    {
+      return createDomContentProviderAdapter();
+    }
+
     public Object defaultCase(EObject object)
     {
       return createEObjectAdapter();
@@ -222,6 +232,21 @@ public class GenfwAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createGenAppAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link com.sympedia.genfw.LifeCycle <em>Life Cycle</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see com.sympedia.genfw.LifeCycle
+   * @generated
+   */
+  public Adapter createLifeCycleAdapter()
   {
     return null;
   }
@@ -477,6 +502,21 @@ public class GenfwAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createInputAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link com.sympedia.genfw.DomContentProvider <em>Dom Content Provider</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see com.sympedia.genfw.DomContentProvider
+   * @generated
+   */
+  public Adapter createDomContentProviderAdapter()
   {
     return null;
   }

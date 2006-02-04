@@ -14,6 +14,8 @@ package com.sympedia.genfw.impl;
 import com.sympedia.genfw.DomTransformation;
 import com.sympedia.genfw.DomTransformer;
 import com.sympedia.genfw.GenfwPackage;
+import com.sympedia.genfw.util.DomHelper;
+import com.sympedia.util.StringHelper;
 import com.sympedia.util.eclipse.resources.ResourcesHelper;
 
 import org.apache.xml.serialize.OutputFormat;
@@ -34,12 +36,10 @@ import org.eclipse.emf.ecore.util.InternalEList;
 import org.w3c.dom.DOMImplementation;
 import org.w3c.dom.Document;
 import org.w3c.dom.DocumentType;
-import org.w3c.dom.bootstrap.DOMImplementationRegistry;
-import org.w3c.dom.ls.DOMImplementationLS;
-import org.w3c.dom.ls.LSInput;
-import org.w3c.dom.ls.LSParser;
+import org.w3c.dom.Element;
 
 import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
 import java.util.Collection;
 import java.util.Iterator;
 
@@ -1073,11 +1073,9 @@ public class DomTransformerImpl extends GeneratorImpl implements DomTransformer
       if (resource instanceof IFile)
       {
         IFile file = (IFile)resource;
-        DOMImplementationLS impl = getDOMImplementationLS();
-        LSInput input = impl.createLSInput();
-        input.setByteStream(file.getContents());
-        LSParser builder = impl.createLSParser(DOMImplementationLS.MODE_SYNCHRONOUS, null);
-        Document document = builder.parse(input);
+        InputStream stream = file.getContents();
+
+        Document document = DomHelper.parseDocument(stream);
         document.setUserData(NEWLY_CREATED, Boolean.FALSE, null);
         return document;
       }
@@ -1096,7 +1094,7 @@ public class DomTransformerImpl extends GeneratorImpl implements DomTransformer
   private Document createXmlDocument() throws InstantiationException, IllegalAccessException,
           ClassNotFoundException
   {
-    DOMImplementation impl = getDOMImplementation();
+    DOMImplementation impl = DomHelper.getDOMImplementation();
     String namespaceURI = getNamespaceURI() == null || getNamespaceURI().length() == 0 ? null
             : getNamespaceURI();
     String qualifiedName = getQualifiedName() == null || getQualifiedName().length() == 0 ? "xml"
@@ -1138,36 +1136,5 @@ public class DomTransformerImpl extends GeneratorImpl implements DomTransformer
     }
 
     return format;
-  }
-
-  /**
-   * @ADDED
-   */
-  private DOMImplementationLS getDOMImplementationLS() throws ClassNotFoundException,
-          InstantiationException, IllegalAccessException
-  {
-    DOMImplementationRegistry registry = getDOMImplementationRegistry();
-    return (DOMImplementationLS)registry.getDOMImplementation("LS");
-  }
-
-  /**
-   * @ADDED
-   */
-  private DOMImplementation getDOMImplementation() throws InstantiationException,
-          IllegalAccessException, ClassNotFoundException
-  {
-    DOMImplementationRegistry registry = getDOMImplementationRegistry();
-    return (DOMImplementation)registry.getDOMImplementation("XML");
-  }
-
-  /**
-   * @ADDED
-   */
-  private DOMImplementationRegistry getDOMImplementationRegistry() throws ClassNotFoundException,
-          InstantiationException, IllegalAccessException
-  {
-    System.setProperty(DOMImplementationRegistry.PROPERTY,
-            "org.apache.xerces.dom.DOMXSImplementationSourceImpl");
-    return DOMImplementationRegistry.newInstance();
   }
 } //DomTransformerImpl

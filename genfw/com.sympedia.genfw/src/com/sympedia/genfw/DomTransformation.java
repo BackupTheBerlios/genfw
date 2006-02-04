@@ -36,7 +36,7 @@ import org.w3c.dom.Document;
  *        annotation="http://www.topcased.org/uuid uuid='1138792538890228'"
  * @generated
  */
-public interface DomTransformation extends EObject
+public interface DomTransformation extends LifeCycle
 {
   /**
    * Returns the value of the '<em><b>Transformer</b></em>' container reference.

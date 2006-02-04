@@ -15,14 +15,12 @@ import com.sympedia.genfw.GenLib;
 import com.sympedia.genfw.Generator;
 import com.sympedia.genfw.GenfwPackage;
 
-import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 
 
@@ -40,7 +38,7 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
  *
  * @generated
  */
-public abstract class GeneratorImpl extends EObjectImpl implements Generator
+public abstract class GeneratorImpl extends LifeCycleImpl implements Generator
 {
   /**
    * The default value of the '{@link #getName() <em>Name</em>}' attribute.

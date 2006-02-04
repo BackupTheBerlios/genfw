@@ -50,7 +50,32 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ContentProvider" abstract="true">
+  <eClassifiers xsi:type="ecore:EClass" name="LifeCycle" abstract="true">
+    <eAnnotations source="http://www.topcased.org/uuid">
+      <details key="uuid" value="1138872040968290"/>
+    </eAnnotations>
+    <eOperations name="initialize" eExceptions="#//Exception">
+      <eAnnotations source="http://www.topcased.org/uuid">
+        <details key="uuid" value="1138872040968291"/>
+      </eAnnotations>
+      <eParameters name="genapp" eType="#//GenApp">
+        <eAnnotations source="http://www.topcased.org/uuid">
+          <details key="uuid" value="113887234659333"/>
+        </eAnnotations>
+      </eParameters>
+    </eOperations>
+    <eOperations name="dispose">
+      <eAnnotations source="http://www.topcased.org/uuid">
+        <details key="uuid" value="1138872040968292"/>
+      </eAnnotations>
+      <eParameters name="genapp" eType="#//GenApp">
+        <eAnnotations source="http://www.topcased.org/uuid">
+          <details key="uuid" value="113887234659337"/>
+        </eAnnotations>
+      </eParameters>
+    </eOperations>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ContentProvider" abstract="true" eSuperTypes="#//LifeCycle">
     <eAnnotations source="http://www.topcased.org/uuid">
       <details key="uuid" value="113671546137560"/>
     </eAnnotations>
@@ -87,6 +112,11 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="DomContentProvider" eSuperTypes="#//ContentProvider">
+    <eAnnotations source="http://www.topcased.org/uuid">
+      <details key="uuid" value="1138909106468305"/>
+    </eAnnotations>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="EcoreContentProvider" eSuperTypes="#//ContentProvider">
     <eAnnotations source="http://www.topcased.org/uuid">
       <details key="uuid" value="113671583842178"/>
@@ -97,7 +127,7 @@
       <details key="uuid" value="113671672139081"/>
     </eAnnotations>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="RuleSet">
+  <eClassifiers xsi:type="ecore:EClass" name="RuleSet" eSuperTypes="#//LifeCycle">
     <eAnnotations source="http://www.topcased.org/uuid">
       <details key="uuid" value="113672173296897"/>
     </eAnnotations>
@@ -126,7 +156,7 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Rule" abstract="true">
+  <eClassifiers xsi:type="ecore:EClass" name="Rule" abstract="true" eSuperTypes="#//LifeCycle">
     <eAnnotations source="http://www.topcased.org/uuid">
       <details key="uuid" value="113672105539064"/>
     </eAnnotations>
@@ -232,7 +262,7 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Generator" abstract="true">
+  <eClassifiers xsi:type="ecore:EClass" name="Generator" abstract="true" eSuperTypes="#//LifeCycle">
     <eAnnotations source="http://www.topcased.org/uuid">
       <details key="uuid" value="113672105540666"/>
     </eAnnotations>
@@ -376,7 +406,7 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="DomTransformation" abstract="true">
+  <eClassifiers xsi:type="ecore:EClass" name="DomTransformation" abstract="true" eSuperTypes="#//LifeCycle">
     <eAnnotations source="http://www.topcased.org/uuid">
       <details key="uuid" value="1138792538890228"/>
     </eAnnotations>
@@ -451,7 +481,7 @@
       <details key="uuid" value="1138788227671139"/>
     </eAnnotations>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Input">
+  <eClassifiers xsi:type="ecore:EClass" name="Input" eSuperTypes="#//LifeCycle">
     <eAnnotations source="http://www.topcased.org/uuid">
       <details key="uuid" value="11367080429534"/>
     </eAnnotations>

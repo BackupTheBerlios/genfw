@@ -35,7 +35,7 @@ import org.eclipse.emf.ecore.EObject;
  * @model annotation="http://www.topcased.org/uuid uuid='11367080429534'"
  * @generated
  */
-public interface Input extends EObject
+public interface Input extends LifeCycle
 {
   /**
    * Returns the value of the '<em><b>Content Provider</b></em>' reference.

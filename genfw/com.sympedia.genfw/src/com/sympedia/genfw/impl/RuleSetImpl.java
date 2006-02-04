@@ -22,13 +22,12 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.EObjectImpl;
-import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 import java.util.Collection;
+import java.util.Iterator;
 
 
 /**
@@ -47,7 +46,7 @@ import java.util.Collection;
  *
  * @generated
  */
-public class RuleSetImpl extends EObjectImpl implements RuleSet
+public class RuleSetImpl extends LifeCycleImpl implements RuleSet
 {
   /**
    * The cached value of the '{@link #getRules() <em>Rules</em>}' containment reference list.
@@ -382,4 +381,32 @@ public class RuleSetImpl extends EObjectImpl implements RuleSet
     return result.toString();
   }
 
+  /**
+   * @ADDED
+   */
+  @Override
+  protected void doInitialize() throws Exception
+  {
+    super.doInitialize();
+    for (Iterator it = getRules().iterator(); it.hasNext();)
+    {
+      Rule rule = (Rule)it.next();
+      rule.initialize(getRuntimeGenApp());
+    }
+  }
+
+  /**
+   * @ADDED
+   */
+  @Override
+  protected void doDispose() throws Exception
+  {
+    for (Iterator it = getRules().iterator(); it.hasNext();)
+    {
+      Rule rule = (Rule)it.next();
+      rule.dispose(getRuntimeGenApp());
+    }
+
+    super.doDispose();
+  }
 } //RuleSetImpl

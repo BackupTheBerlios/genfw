@@ -12,6 +12,7 @@ package com.sympedia.genfw.impl;
 
 
 import com.sympedia.genfw.ContentProvider;
+import com.sympedia.genfw.GenApp;
 import com.sympedia.genfw.GenLib;
 import com.sympedia.genfw.GenfwPackage;
 
@@ -40,7 +41,7 @@ import java.util.List;
  *
  * @generated
  */
-public abstract class ContentProviderImpl extends EObjectImpl implements ContentProvider
+public abstract class ContentProviderImpl extends LifeCycleImpl implements ContentProvider
 {
   /**
    * The default value of the '{@link #getName() <em>Name</em>}' attribute.

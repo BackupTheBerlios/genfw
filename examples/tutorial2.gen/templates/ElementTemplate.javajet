@@ -1,0 +1,85 @@
+<%@ jet package="tutorial2.gen" 
+        imports="java.util.* com.sympedia.util.* javax.xml.transform.* org.w3c.dom.* org.apache.xpath.*" 
+        class="ElementTemplate"%>
+<%
+Element element = (Element)argument;
+boolean isExtension = ExtPointHelper.isExtension(element);
+String pluginId = ExtPointHelper.getPluginId(element);
+String origin = isExtension ? "IExtension" : "IConfigurationElement";
+String children = isExtension ? "ConfigurationElements" : "Children";
+Set<String> references = ExtPointHelper.getReferences(element);
+List<Element> attributes = ExtPointHelper.xPathList(element, ".//attribute");
+%>
+package <%=pluginId%>.internal;
+
+import org.eclipse.core.runtime.*;
+import java.util.*;
+import java.io.*;
+
+public class <%=ExtPointHelper.getElementClassName(element)%>
+{
+  protected <%=ExtPointHelper.getElementClassName(element)%>(<%=origin%> origin)
+  {
+  	this.origin = origin;
+    IConfigurationElement[] configurationElements = origin.get<%=children%>();
+    for (IConfigurationElement element : configurationElements)
+    {
+      System.out.println("Initializing " + element.getName());
+<%for (Iterator<String> it = references.iterator(); it.hasNext();) {
+  String reference = it.next();
+  String capRef = StringHelper.firstToUpper(reference);%>
+      if ("<%=reference%>".equals(element.getName())) <%=reference%>Elements.add(new <%=capRef%>(element));
+<%}%>
+<%for (Iterator<Element> it = attributes.iterator(); it.hasNext();) {
+  Element attribute = it.next();
+  String name = attribute.getAttribute("name");
+  if ("class".equals(name)) name = "clazz";
+  String capName = StringHelper.firstToUpper(name);
+  boolean required = "required".equals(attribute.getAttribute("use"));
+  if ("boolean".equals(attribute.getAttribute("type"))) {%>
+      String <%=name%>Str = element.getAttribute("<%=attribute.getAttribute("name")%>");
+      if (<%=name%>Str !=null) { <%=name%> = Boolean.parseBoolean(<%=name%>Str); } else { if (<%=required%>) throw new RuntimeException("<%=capName%> is required"); }
+  <%} else {%> 
+      <%=name%> = element.getAttribute("<%=attribute.getAttribute("name")%>");
+      if (<%=required%> && (<%=name%> == null || <%=name%>.length() == 0)) throw new RuntimeException("<%=capName%> is required");
+  <%}%> 
+<%}%>
+    }
+  }
+
+  public <%=origin%> getOrigin() { return origin; }
+  protected <%=origin%> origin;
+  
+<%for (Iterator<String> it = references.iterator(); it.hasNext();) {
+  String reference = it.next();
+  String capRef = StringHelper.firstToUpper(reference);%>
+  public List<<%=capRef%>> get<%=capRef%>Elements() { return Collections.unmodifiableList(<%=reference%>Elements); }
+  protected List<<%=capRef%>> <%=reference%>Elements;
+
+<%}%> 
+<%for (Iterator<Element> it = attributes.iterator(); it.hasNext();) {
+  Element attribute = it.next();
+  String type = attribute.getAttribute("type");
+  String name = attribute.getAttribute("name");
+  if ("class".equals(name)) name = "clazz";
+  String capName = StringHelper.firstToUpper(name);
+  if ("boolean".equals(type)) {%>
+  public boolean is<%=capName%>() { return <%=name%>; }
+  protected boolean <%=name%>;
+  <%} else {
+    String kind = ExtPointHelper.getKind(attribute); 
+    if ("java".equals(kind)) {
+      String interfaceClass = ExtPointHelper.getBasedOn(attribute);%> 
+  public <%=interfaceClass%> get<%=capName%>() throws CoreException { return (<%=interfaceClass%>)origin.createExecutableExtension("<%=name%>"); }
+  protected String <%=name%>;
+    <%} else if ("resource".equals(kind)) {%>
+  public File get<%=capName%>() { return new File(<%=name%>); }
+  protected String <%=name%>;
+    <%} else {%>
+  public String get<%=capName%>() { return <%=name%>; }
+  protected String <%=name%>;
+    <%}%> 
+  <%}%> 
+
+<%}%>
+}

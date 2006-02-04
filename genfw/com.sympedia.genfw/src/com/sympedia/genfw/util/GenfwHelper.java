@@ -25,6 +25,7 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.OperationCanceledException;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.SubProgressMonitor;
 import org.eclipse.emf.common.util.EList;
@@ -58,6 +59,8 @@ public class GenfwHelper
 
   public static final int TRACE_RULE = 6;
 
+  public static final int TRACE_LIFECYCLE = 7;
+
   public static final int TRACE_DEFAULT = TRACE_WRITE;
 
   public static void processFile(IFile file, int traceLevel, IProgressMonitor monitor)
@@ -70,6 +73,7 @@ public class GenfwHelper
   public static void processFile(String path, int traceLevel, IProgressMonitor monitor)
           throws Exception
   {
+    checkCancelation(monitor);
     ResourceSetImpl rs = new ResourceSetImpl();
     rs.getURIConverter().getURIMap().putAll(EcorePlugin.computePlatformURIMap());
     Map map = rs.getResourceFactoryRegistry().getExtensionToFactoryMap();
@@ -85,17 +89,37 @@ public class GenfwHelper
   public static void processGenApp(GenApp genApp, int traceLevel, IProgressMonitor monitor)
           throws Exception
   {
+    checkCancelation(monitor);
     EList inputs = genApp.getInputs();
-    monitor.beginTask("", inputs.size());
+    monitor.beginTask("", 3 * inputs.size());
 
     try
     {
       for (Iterator it = inputs.iterator(); it.hasNext();)
       {
         Input input = (Input)it.next();
+        monitor.subTask("Initializing " + input.getFullPath());
+        input.initialize(genApp);
+        monitor.worked(1);
+        checkCancelation(monitor);
+      }
+
+      for (Iterator it = inputs.iterator(); it.hasNext();)
+      {
+        Input input = (Input)it.next();
         monitor.subTask("Processing " + input.getFullPath());
         if (traceLevel >= TRACE_INPUT) System.out.println("Processing " + input.getFullPath());
         processInput(input, traceLevel, new SubProgressMonitor(monitor, 1));
+        checkCancelation(monitor);
+      }
+
+      for (Iterator it = inputs.iterator(); it.hasNext();)
+      {
+        Input input = (Input)it.next();
+        monitor.subTask("Disposing " + input.getFullPath());
+        input.dispose(genApp);
+        monitor.worked(1);
+        checkCancelation(monitor);
       }
     }
     finally
@@ -107,6 +131,7 @@ public class GenfwHelper
   public static void processInput(Input input, int traceLevel, IProgressMonitor monitor)
           throws Exception
   {
+    checkCancelation(monitor);
     String fullPath = input.getFullPath();
     if (fullPath != null && !fullPath.startsWith("/"))
     {
@@ -154,6 +179,7 @@ public class GenfwHelper
   public static void processInputObjects(Input input, List inputObjects, List<Rule> rules,
           int traceLevel, IProgressMonitor monitor) throws CoreException
   {
+    checkCancelation(monitor);
     monitor.beginTask("", inputObjects.size());
 
     try
@@ -163,6 +189,7 @@ public class GenfwHelper
         Object inputObject = it.next();
         processInputObject(input, inputObject, rules, traceLevel,
                 new SubProgressMonitor(monitor, 1));
+        checkCancelation(monitor);
       }
     }
     finally
@@ -174,6 +201,7 @@ public class GenfwHelper
   public static void processInputObject(Input input, Object inputObject, List<Rule> rules,
           int traceLevel, IProgressMonitor monitor) throws CoreException
   {
+    checkCancelation(monitor);
     monitor.beginTask("", 3 * rules.size());
     String label = inputObject.toString();
     String className = inputObject.getClass().getName();
@@ -195,6 +223,7 @@ public class GenfwHelper
         try
         {
           matching = rule.isMatching(inputObject);
+          checkCancelation(monitor);
         }
         catch (Exception ex)
         {
@@ -211,6 +240,7 @@ public class GenfwHelper
           try
           {
             targetPath = rule.getTargetPath(inputObject);
+            checkCancelation(monitor);
           }
           catch (Exception ex)
           {
@@ -247,6 +277,7 @@ public class GenfwHelper
           {
             result = generator
                     .generate(inputObject, targetPath, new SubProgressMonitor(monitor, 1));
+            checkCancelation(monitor);
           }
           catch (Exception ex)
           {
@@ -261,6 +292,7 @@ public class GenfwHelper
               if (ResourcesHelper.ensureFile(targetPath, result, false, monitor))
               {
                 if (traceLevel >= TRACE_WRITE) System.out.println("-> WRITTEN " + targetPath);
+                checkCancelation(monitor);
               }
             }
             catch (Exception ex)
@@ -358,5 +390,10 @@ public class GenfwHelper
         result.add(rule);
       }
     }
+  }
+
+  private static void checkCancelation(IProgressMonitor monitor)
+  {
+    if (monitor.isCanceled()) throw new OperationCanceledException();
   }
 }

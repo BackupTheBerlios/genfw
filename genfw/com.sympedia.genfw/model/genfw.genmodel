@@ -27,6 +27,14 @@
     <genClasses ecoreClass="genfw.ecore#//GenApp">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference genfw.ecore#//GenApp/inputs"/>
     </genClasses>
+    <genClasses ecoreClass="genfw.ecore#//LifeCycle">
+      <genOperations ecoreOperation="genfw.ecore#//LifeCycle/initialize">
+        <genParameters ecoreParameter="genfw.ecore#//LifeCycle/initialize/genapp"/>
+      </genOperations>
+      <genOperations ecoreOperation="genfw.ecore#//LifeCycle/dispose">
+        <genParameters ecoreParameter="genfw.ecore#//LifeCycle/dispose/genapp"/>
+      </genOperations>
+    </genClasses>
     <genClasses ecoreClass="genfw.ecore#//ContentProvider">
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference genfw.ecore#//ContentProvider/root"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute genfw.ecore#//ContentProvider/name"/>
@@ -81,6 +89,20 @@
     </genClasses>
     <genClasses ecoreClass="genfw.ecore#//DomTransformer">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference genfw.ecore#//DomTransformer/transformations"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute genfw.ecore#//DomTransformer/encoding"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute genfw.ecore#//DomTransformer/forceEncoding"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute genfw.ecore#//DomTransformer/namespaceURI"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute genfw.ecore#//DomTransformer/qualifiedName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute genfw.ecore#//DomTransformer/publicID"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute genfw.ecore#//DomTransformer/systemID"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute genfw.ecore#//DomTransformer/forceDocType"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute genfw.ecore#//DomTransformer/indent"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute genfw.ecore#//DomTransformer/indenting"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute genfw.ecore#//DomTransformer/lineWidth"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute genfw.ecore#//DomTransformer/lineSeparator"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute genfw.ecore#//DomTransformer/preserveEmptyAttributes"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute genfw.ecore#//DomTransformer/preserveSpace"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute genfw.ecore#//DomTransformer/forceFormatting"/>
     </genClasses>
     <genClasses image="false" ecoreClass="genfw.ecore#//DomTransformation">
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference genfw.ecore#//DomTransformation/transformer"/>
