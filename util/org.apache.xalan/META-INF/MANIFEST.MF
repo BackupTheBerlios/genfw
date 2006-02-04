@@ -53,3 +53,4 @@ Export-Package: org.apache.bcel,
  org.apache.xpath.operations,
  org.apache.xpath.patterns,
  org.apache.xpath.res
+Require-Bundle: org.apache.xerces;visibility:=reexport
