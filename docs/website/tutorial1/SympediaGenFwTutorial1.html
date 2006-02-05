@@ -79,9 +79,15 @@
         <dt><span class="sect1"><a href="#N1014C">Configuring the Generator
         Framework</a></span></dt>
 
-        <dt><span class="sect1"><a href="#N102DE">Notes</a></span></dt>
+        <dt><span class="sect1"><a href="#N101D1">Creating a Generator
+        Application</a></span></dt>
 
-        <dt><span class="sect1"><a href="#N10336">Patching
+        <dt><span class="sect1"><a href="#N1021F">One More
+        Iteration</a></span></dt>
+
+        <dt><span class="sect1"><a href="#N102EA">Notes</a></span></dt>
+
+        <dt><span class="sect1"><a href="#N10342">Patching
         CodeGen</a></span></dt>
       </dl>
     </div>
@@ -724,7 +730,22 @@ public abstract class &lt;%=bean.getName()%&gt;BeanBase
             concrete input files (meta model instances). This will be our last
             trail that follows here.</p>
           </li>
+        </ol>
+      </div>
+    </div>
 
+    <div class="sect1" lang="en-EN">
+      <div class="titlepage">
+        <div>
+          <div>
+            <h2 class="title" style="clear: both"><a name="N101D1" id=
+            "N101D1"></a>Creating a Generator Application</h2>
+          </div>
+        </div>
+      </div>
+
+      <div class="orderedlist">
+        <ol type="1">
           <li>
             <p>Go back to the <code class="code">tutorial1.orderman</code>
             project and in the model folder create a new <span class=
@@ -748,7 +769,7 @@ public abstract class &lt;%=bean.getName()%&gt;BeanBase
             RuleSet to use.</p>
 
             <div class="figure">
-              <a name="N101F5" id="N101F5"></a>
+              <a name="N101FB" id="N101FB"></a>
 
               <p class="title"><b>Figure&nbsp;6.&nbsp;Generator Application
               created</b></p>
@@ -794,7 +815,22 @@ public abstract class PersonBeanBase
 }
 </pre>
           </li>
+        </ol>
+      </div>
+    </div>
 
+    <div class="sect1" lang="en-EN">
+      <div class="titlepage">
+        <div>
+          <div>
+            <h2 class="title" style="clear: both"><a name="N1021F" id=
+            "N1021F"></a>One More Iteration</h2>
+          </div>
+        </div>
+      </div>
+
+      <div class="orderedlist">
+        <ol type="1">
           <li>
             <p>To complete the template (getters, setters and listener
             infrastructure), re-open the <code class=
@@ -907,7 +943,7 @@ public class StringHelper
             plugin.</p>
 
             <div class="figure">
-              <a name="N1025F" id="N1025F"></a>
+              <a name="N1026B" id="N1026B"></a>
 
               <p class="title"><b>Figure&nbsp;7.&nbsp;Platform plugin
               created</b></p>
@@ -1041,7 +1077,7 @@ public class BeanHelper
             <code class="code">true</code>!!! It should look like this:</p>
 
             <div class="figure">
-              <a name="N102AF" id="N102AF"></a>
+              <a name="N102BB" id="N102BB"></a>
 
               <p class="title"><b>Figure&nbsp;8.&nbsp;Rule that never
               overwrites existing files</b></p>
@@ -1096,7 +1132,7 @@ public class BeanHelper
       show all the inputs (meta model instances) of the GenApps.</p>
 
       <div class="figure">
-        <a name="N102D8" id="N102D8"></a>
+        <a name="N102E4" id="N102E4"></a>
 
         <p class="title"><b>Figure&nbsp;9.&nbsp;Generator Applications
         view</b></p>
@@ -1112,8 +1148,8 @@ public class BeanHelper
       <div class="titlepage">
         <div>
           <div>
-            <h2 class="title" style="clear: both"><a name="N102DE" id=
-            "N102DE"></a>Notes</h2>
+            <h2 class="title" style="clear: both"><a name="N102EA" id=
+            "N102EA"></a>Notes</h2>
           </div>
         </div>
       </div>
@@ -1321,8 +1357,8 @@ public class BeansLibraryInitializer implements IExternalLibraryInitializer
       <div class="titlepage">
         <div>
           <div>
-            <h2 class="title" style="clear: both"><a name="N10336" id=
-            "N10336"></a>Patching CodeGen</h2>
+            <h2 class="title" style="clear: both"><a name="N10342" id=
+            "N10342"></a>Patching CodeGen</h2>
           </div>
         </div>
       </div>

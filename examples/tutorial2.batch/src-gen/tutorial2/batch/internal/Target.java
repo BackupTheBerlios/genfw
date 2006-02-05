@@ -16,28 +16,33 @@ import java.io.*;
 
 public class Target
 {
-  protected Target(IConfigurationElement origin)
+  protected Target(Object parent, IConfigurationElement origin)
   {
-  	this.origin = origin;
+  	_origin = origin;
+  	_parent = parent; 
+      pattern = origin.getAttribute("pattern");
+      if (pattern == null || pattern.length() == 0) throw new RuntimeException("Pattern is required"); 
+      String targetAddedStr = origin.getAttribute("targetAdded");
+      if (targetAddedStr != null) { targetAdded = Boolean.parseBoolean(targetAddedStr); } 
+      String targetModifiedStr = origin.getAttribute("targetModified");
+      if (targetModifiedStr != null) { targetModified = Boolean.parseBoolean(targetModifiedStr); } 
+      String targetRemovedStr = origin.getAttribute("targetRemoved");
+      if (targetRemovedStr != null) { targetRemoved = Boolean.parseBoolean(targetRemovedStr); } 
+      String targetUnchangedStr = origin.getAttribute("targetUnchanged");
+      if (targetUnchangedStr != null) { targetUnchanged = Boolean.parseBoolean(targetUnchangedStr); }  
+
     IConfigurationElement[] configurationElements = origin.getChildren();
     for (IConfigurationElement element : configurationElements)
     {
-      System.out.println("Initializing " + element.getName()); 
-      pattern = element.getAttribute("pattern");
-      if (true && (pattern == null || pattern.length() == 0)) throw new RuntimeException("Pattern is required"); 
-      String targetAddedStr = element.getAttribute("targetAdded");
-      if (targetAddedStr !=null) { targetAdded = Boolean.parseBoolean(targetAddedStr); } else { if (false) throw new RuntimeException("TargetAdded is required"); } 
-      String targetModifiedStr = element.getAttribute("targetModified");
-      if (targetModifiedStr !=null) { targetModified = Boolean.parseBoolean(targetModifiedStr); } else { if (false) throw new RuntimeException("TargetModified is required"); } 
-      String targetRemovedStr = element.getAttribute("targetRemoved");
-      if (targetRemovedStr !=null) { targetRemoved = Boolean.parseBoolean(targetRemovedStr); } else { if (false) throw new RuntimeException("TargetRemoved is required"); } 
-      String targetUnchangedStr = element.getAttribute("targetUnchanged");
-      if (targetUnchangedStr !=null) { targetUnchanged = Boolean.parseBoolean(targetUnchangedStr); } else { if (false) throw new RuntimeException("TargetUnchanged is required"); } 
+      System.out.println("Initializing " + element.getName());
     }
   }
 
-  public IConfigurationElement getOrigin() { return origin; }
-  protected IConfigurationElement origin;
+  public IConfigurationElement getOrigin() { return _origin; }
+  protected IConfigurationElement _origin;
+  
+  public Object getParent() { return _parent; }
+  protected Object _parent;
    
   public String getPattern() { return pattern; }
   protected String pattern;  
@@ -54,4 +59,10 @@ public class Target
   public boolean isTargetUnchanged() { return targetUnchanged; }
   protected boolean targetUnchanged; 
 
+  public List getAllElements()
+  {
+    List result = new ArrayList();
+    result.add(this);
+    return result;
+  }
 }

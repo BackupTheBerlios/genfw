@@ -1,0 +1,26 @@
+<html><head><META http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"><title>Notes</title><meta content="DocBook XSL Stylesheets V1.69.1" name="generator"><link rel="start" href="index.html" title="Sympedia GenFw Tutorial 2"><link rel="up" href="index.html" title="Sympedia GenFw Tutorial 2"><link rel="prev" href="ar01s04.html" title="Creating a Generator Application"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table summary="Navigation header" width="100%"><tr><th align="center" colspan="3">Notes</th></tr><tr><td align="left" width="20%"><a accesskey="p" href="ar01s04.html">Prev</a>&nbsp;</td><th align="center" width="60%">&nbsp;</th><td align="right" width="20%">&nbsp;</td></tr></table><hr></div><div class="sect1" lang="en-EN"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="N102A2"></a>Notes</h2></div></div><div></div></div><p>The generated extension registries have some interesting 
+    features:</p><div class="itemizedlist"><ul type="disc"><li><p><span class="emphasis"><em>Dynamic Bundles</em></span></p><p>Our registry classes  for extensions that will be 
+        contributed after the registry instance has been constructed. 
+        The generated registries connect to the Eclipse Extension 
+        Registry listen to change events and update their internal 
+        state accordingly.</p></li><li><p><span class="emphasis"><em>Life Cycle</em></span></p><p>Our registries provide built-in life cycle support and 
+        common points of access. The generated registries implement the 
+        <span class="emphasis"><em>singleton</em></span> pattern, you can access them via 
+        <code class="code">XyzRegistry.INSTANCE</code>. In addition they provide 
+        public <code class="code">initialize()</code> and <code class="code">dispose()</code> 
+        methods, that should typically be called from your plugin 
+        <code class="code">Activator</code>'s <code class="code">start()</code> and 
+        <code class="code">stop()</code> methods. This is especially important, 
+        because, to reflect the <span class="emphasis"><em>Dynamic Bundles</em></span> 
+        requirement, our registries have to connect to and disconnect 
+        from the Eclipse Extension Registry in a controlled way.</p></li><li><p><span class="emphasis"><em>Event Notification</em></span></p><p>The templates in <code class="code">tutorial2.gen</code> provide means 
+        to register client-side listeners to our registries. In 
+        contrast to the Eclipse API for registry change notification, 
+        our generated API is type safe with respect to our generated 
+        extension element classes.</p></li></ul></div><p>Currently there is little logging at all and all that goes to 
+    System.out, System.err respectively. To use this generator in 
+    reality you will have to change the templates according to your 
+    logging strategy.</p><p>If you look into the <code class="code">model</code> folder of the 
+    <code class="code">com.sympedia.genfw</code> plugin, you'll find the 
+    <code class="code">extpoints.genapp</code> file. With this Generator Application 
+    I have generated GenFw's own extension points.</p></div><div class="navfooter"><hr><table summary="Navigation footer" width="100%"><tr><td align="left" width="40%"><a accesskey="p" href="ar01s04.html">Prev</a>&nbsp;</td><td align="center" width="20%">&nbsp;</td><td align="right" width="40%">&nbsp;</td></tr><tr><td valign="top" align="left" width="40%">Creating a Generator Application&nbsp;</td><td align="center" width="20%"><a accesskey="h" href="index.html">Home</a></td><td valign="top" align="right" width="40%">&nbsp;</td></tr></table></div></body></html>

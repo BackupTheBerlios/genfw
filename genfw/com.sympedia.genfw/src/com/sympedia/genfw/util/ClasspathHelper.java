@@ -52,7 +52,7 @@ public class ClasspathHelper
     String bundleId = EcoreHelper.getBundleId(uri);
     if (bundleId != null)
     {
-      ClassLoader result = getBundleClassLoader(bundleId);
+      ClassLoader result = GenfwActivator.getPlugin().getBundleClassLoader(bundleId);
       if (result != null)
       {
         return result;
@@ -189,43 +189,5 @@ public class ClasspathHelper
     }
 
     return null;
-  }
-
-  public static ClassLoader getBundleClassLoader(String bundleId)
-  {
-    return GenfwActivator.getPlugin().getBundleClassLoaders().get(bundleId);
-    //    IExtensionRegistry extensionRegistry = Platform.getExtensionRegistry();
-    //    IExtensionPoint extensionPoint = extensionRegistry
-    //            .getExtensionPoint(GenfwActivator.EXTERNAL_LIBRARIES_EXTPOINT);
-    //    if (extensionPoint == null)
-    //    {
-    //      throw new ImplementationError();
-    //    }
-    //
-    //    IExtension[] extensions = extensionPoint.getExtensions();
-    //    for (IExtension extension : extensions)
-    //    {
-    //      if (StringHelper.equals(extension.getNamespace(), bundleId))
-    //      {
-    //        IConfigurationElement[] configurationElements = extension.getConfigurationElements();
-    //        for (IConfigurationElement element : configurationElements)
-    //        {
-    //          try
-    //          {
-    //            Object initializer = element.createExecutableExtension("libraryInitializer");
-    //            if (initializer != null)
-    //            {
-    //              return initializer.getClass().getClassLoader();
-    //            }
-    //          }
-    //          catch (CoreException ex)
-    //          {
-    //            GenfwActivator.INSTANCE.log(ex);
-    //          }
-    //        }
-    //      }
-    //    }
-    //
-    //    return null;
   }
 }

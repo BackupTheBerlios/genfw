@@ -16,28 +16,31 @@ import java.io.*;
 
 public class BatchExtension
 {
-  protected BatchExtension(IExtension origin)
+  protected BatchExtension(Object parent, IExtension origin)
   {
-  	this.origin = origin;
+  	_origin = origin;
+  	_parent = parent;
+    id = origin.getSimpleIdentifier();   
+    name = origin.getLabel();  
+    point = origin.getExtensionPointUniqueIdentifier();
+    if (point == null || point.length() == 0) throw new RuntimeException("Point is required");
+
     IConfigurationElement[] configurationElements = origin.getConfigurationElements();
     for (IConfigurationElement element : configurationElements)
     {
       System.out.println("Initializing " + element.getName());
-      if ("batch".equals(element.getName())) batchElements.add(new Batch(element)); 
-      point = element.getAttribute("point");
-      if (true && (point == null || point.length() == 0)) throw new RuntimeException("Point is required");  
-      id = element.getAttribute("id");
-      if (false && (id == null || id.length() == 0)) throw new RuntimeException("Id is required");  
-      name = element.getAttribute("name");
-      if (false && (name == null || name.length() == 0)) throw new RuntimeException("Name is required"); 
+      if ("batch".equals(element.getName())) batchElements.add(new Batch(this, element));
     }
   }
 
-  public IExtension getOrigin() { return origin; }
-  protected IExtension origin;
+  public IExtension getOrigin() { return _origin; }
+  protected IExtension _origin;
+  
+  public Object getParent() { return _parent; }
+  protected Object _parent;
   
   public List<Batch> getBatchElements() { return Collections.unmodifiableList(batchElements); }
-  protected List<Batch> batchElements;
+  protected List<Batch> batchElements = new ArrayList<Batch>();
  
   public String getPoint() { return point; }
   protected String point;  
@@ -48,4 +51,11 @@ public class BatchExtension
   public String getName() { return name; }
   protected String name;  
 
+  public List getAllElements()
+  {
+    List result = new ArrayList();
+    result.add(this);
+    for (Batch element : batchElements) result.addAll(element.getAllElements());
+    return result;
+  }
 }

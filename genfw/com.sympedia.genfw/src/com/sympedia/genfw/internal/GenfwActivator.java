@@ -11,16 +11,11 @@
 package com.sympedia.genfw.internal;
 
 
-import com.sympedia.genfw.GenfwPackage;
+import com.sympedia.genfw.IExternalLibraryInitializer;
 import com.sympedia.genfw.util.GenAppManager;
 import com.sympedia.util.BeanHelper;
 import com.sympedia.util.ImplementationError;
 
-import org.eclipse.core.runtime.IConfigurationElement;
-import org.eclipse.core.runtime.IExtension;
-import org.eclipse.core.runtime.IExtensionPoint;
-import org.eclipse.core.runtime.IExtensionRegistry;
-import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.common.EMFPlugin;
 import org.eclipse.emf.common.util.ResourceLocator;
 import org.eclipse.emf.ecore.EClass;
@@ -29,9 +24,7 @@ import org.eclipse.emf.ecore.EPackage;
 import org.osgi.framework.BundleContext;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 
 /**
@@ -46,31 +39,6 @@ public final class GenfwActivator extends EMFPlugin
    * @ADDED
    */
   public static final String PLUGIN_ID = "com.sympedia.genfw";
-
-  /**
-   * @ADDED
-   */
-  public static final String EXTERNAL_LIBRARIES_EXTPOINT = PLUGIN_ID + ".externalLibraries";
-
-  /**
-   * @ADDED
-   */
-  public static final String CONTENT_PROVIDERS_EXTPOINT = PLUGIN_ID + ".contentProviders";
-
-  /**
-   * @ADDED
-   */
-  public static final String GENERATORS_EXTPOINT = PLUGIN_ID + ".generators";
-
-  /**
-   * @ADDED
-   */
-  public static final String RULES_EXTPOINT = PLUGIN_ID + ".rules";
-
-  /**
-   * @ADDED
-   */
-  public static final String DOM_TRANSFORMATIONS_EXTPOINT = PLUGIN_ID + ".domTransformations";
 
   /**
    * Keep track of the singleton.
@@ -132,31 +100,6 @@ public final class GenfwActivator extends EMFPlugin
   public static class Implementation extends EclipsePlugin
   {
     /**
-     * @ADDED
-     */
-    private Map<String, ClassLoader> bundleClassLoaders = new HashMap<String, ClassLoader>();
-
-    /**
-     * @ADDED
-     */
-    private List<EClass> contentProviders = new ArrayList<EClass>();
-
-    /**
-     * @ADDED
-     */
-    private List<EClass> generators = new ArrayList<EClass>();
-
-    /**
-     * @ADDED
-     */
-    private List<EClass> rules = new ArrayList<EClass>();
-
-    /**
-     * @ADDED
-     */
-    private List<EClass> domTransformations = new ArrayList<EClass>();
-
-    /**
      * Creates an instance.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -174,9 +117,28 @@ public final class GenfwActivator extends EMFPlugin
     /**
      * @ADDED
      */
-    public Map<String, ClassLoader> getBundleClassLoaders()
+    public ClassLoader getBundleClassLoader(String bundleId)
     {
-      return bundleClassLoaders;
+      for (ExternalLibrary library : ExternalLibrariesRegistry.INSTANCE
+              .getAllExternalLibraryElements())
+      {
+        if (library.getOrigin().getNamespace().equals(bundleId))
+        {
+          try
+          {
+            IExternalLibraryInitializer initializer = library.getLibraryInitializer();
+            if (initializer == null) throw new ImplementationError();
+            ClassLoader classLoader = initializer.getClass().getClassLoader();
+            return classLoader;
+          }
+          catch (Exception ex)
+          {
+            log(ex);
+          }
+        }
+      }
+
+      return null;
     }
 
     /**
@@ -184,7 +146,14 @@ public final class GenfwActivator extends EMFPlugin
      */
     public List<EClass> getContentProviders()
     {
-      return contentProviders;
+      List<EClass> result = new ArrayList<EClass>();
+      for (ContentProvider element : ContentProvidersRegistry.INSTANCE
+              .getAllContentProviderElements())
+      {
+        result.add(getEClass(element.getClassifierName(), element.getPackageURI()));
+      }
+
+      return result;
     }
 
     /**
@@ -192,7 +161,13 @@ public final class GenfwActivator extends EMFPlugin
      */
     public List<EClass> getGenerators()
     {
-      return generators;
+      List<EClass> result = new ArrayList<EClass>();
+      for (Generator element : GeneratorsRegistry.INSTANCE.getAllGeneratorElements())
+      {
+        result.add(getEClass(element.getClassifierName(), element.getPackageURI()));
+      }
+
+      return result;
     }
 
     /**
@@ -200,7 +175,13 @@ public final class GenfwActivator extends EMFPlugin
      */
     public List<EClass> getRules()
     {
-      return rules;
+      List<EClass> result = new ArrayList<EClass>();
+      for (Rule element : RulesRegistry.INSTANCE.getAllRuleElements())
+      {
+        result.add(getEClass(element.getClassifierName(), element.getPackageURI()));
+      }
+
+      return result;
     }
 
     /**
@@ -208,7 +189,14 @@ public final class GenfwActivator extends EMFPlugin
      */
     public List<EClass> getDomTransformations()
     {
-      return domTransformations;
+      List<EClass> result = new ArrayList<EClass>();
+      for (DomTransformation element : DomTransformationsRegistry.INSTANCE
+              .getAllDomTransformationElements())
+      {
+        result.add(getEClass(element.getClassifierName(), element.getPackageURI()));
+      }
+
+      return result;
     }
 
     /**
@@ -218,8 +206,11 @@ public final class GenfwActivator extends EMFPlugin
     public void start(BundleContext context) throws Exception
     {
       super.start(context);
-      processExternalLibraries();
-      processExtensions();
+      ContentProvidersRegistry.INSTANCE.initialize();
+      DomTransformationsRegistry.INSTANCE.initialize();
+      ExternalLibrariesRegistry.INSTANCE.initialize();
+      GeneratorsRegistry.INSTANCE.initialize();
+      RulesRegistry.INSTANCE.initialize();
     }
 
     /**
@@ -229,131 +220,48 @@ public final class GenfwActivator extends EMFPlugin
     public void stop(BundleContext context) throws Exception
     {
       BeanHelper.dispose(GenAppManager.INSTANCE);
+      ContentProvidersRegistry.INSTANCE.dispose();
+      DomTransformationsRegistry.INSTANCE.dispose();
+      ExternalLibrariesRegistry.INSTANCE.dispose();
+      GeneratorsRegistry.INSTANCE.dispose();
+      RulesRegistry.INSTANCE.dispose();
       super.stop(context);
     }
 
     /**
      * @ADDED
      */
-    private void processExternalLibraries()
+    private EClass getEClass(String classifierName, String packageURI)
     {
-      IExtension[] extensions = getExtensions(EXTERNAL_LIBRARIES_EXTPOINT);
-      for (IExtension extension : extensions)
+      try
       {
-        IConfigurationElement[] configurationElements = extension.getConfigurationElements();
-        for (IConfigurationElement element : configurationElements)
+        EPackage ePackage = EPackage.Registry.INSTANCE.getEPackage(packageURI);
+        if (ePackage == null)
         {
-          try
-          {
-            Object initializer = element.createExecutableExtension("libraryInitializer");
-            if (initializer == null) throw new ImplementationError();
-            ClassLoader classLoader = initializer.getClass().getClassLoader();
-            String bundleId = extension.getNamespace();
-            bundleClassLoaders.put(bundleId, classLoader);
-          }
-          catch (Exception ex)
-          {
-            GenfwActivator.INSTANCE.log(ex);
-          }
+          throw new IllegalArgumentException("Package " + packageURI
+                  + " not found in global registry");
         }
-      }
-    }
 
-    /**
-     * @ADDED
-     */
-    private void processExtensions()
-    {
-      final GenfwPackage genfw = GenfwPackage.eINSTANCE;
-      final EClass[] dimensions = {genfw.getContentProvider(), genfw.getGenerator(),
-              genfw.getRule(), genfw.getDomTransformation()};
-      final String[] extpointIds = {CONTENT_PROVIDERS_EXTPOINT, GENERATORS_EXTPOINT,
-              RULES_EXTPOINT, DOM_TRANSFORMATIONS_EXTPOINT};
-      final List[] results = {contentProviders, generators, rules, domTransformations};
-
-      for (int i = 0; i < dimensions.length; i++)
-      {
-        processExtensions(dimensions[i], extpointIds[i], results[i]);
-      }
-    }
-
-    /**
-     * @ADDED
-     */
-    private void processExtensions(EClass dimension, String extpointId, List<EClass> result)
-    {
-      IExtension[] extensions = getExtensions(extpointId);
-      for (IExtension extension : extensions)
-      {
-        IConfigurationElement[] configurationElements = extension.getConfigurationElements();
-        for (IConfigurationElement element : configurationElements)
+        EClassifier classifier = ePackage.getEClassifier(classifierName);
+        if (classifier == null)
         {
-          try
-          {
-            String classifierName = getAttribute(element, "classifierName");
-            String packageURI = getAttribute(element, "packageURI");
-
-            EPackage ePackage = EPackage.Registry.INSTANCE.getEPackage(packageURI);
-            if (ePackage == null)
-            {
-              throw new IllegalArgumentException("Package " + packageURI
-                      + " not found in global registry");
-            }
-
-            EClassifier classifier = ePackage.getEClassifier(classifierName);
-            if (classifier == null)
-            {
-              throw new IllegalArgumentException("Classifier " + classifierName
-                      + " not found in package" + ePackage.getName());
-            }
-
-            if (!(classifier instanceof EClass))
-            {
-              throw new IllegalArgumentException("Classifier " + classifierName
-                      + " is not an EClass");
-            }
-
-            EClass eClass = (EClass)classifier;
-            if (!dimension.isSuperTypeOf(eClass))
-            {
-              throw new IllegalArgumentException("Class " + classifierName + " does not implement "
-                      + dimension.getName());
-            }
-
-            result.add(eClass);
-          }
-          catch (Exception ex)
-          {
-            GenfwActivator.INSTANCE.log(ex);
-          }
+          throw new IllegalArgumentException("Classifier " + classifierName
+                  + " not found in package" + ePackage.getName());
         }
+
+        if (!(classifier instanceof EClass))
+        {
+          throw new IllegalArgumentException("Classifier " + classifierName + " is not an EClass");
+        }
+
+        return (EClass)classifier;
       }
-    }
-
-    /**
-     * @ADDED
-     */
-    private IExtension[] getExtensions(String extpointID)
-    {
-      IExtensionRegistry extensionRegistry = Platform.getExtensionRegistry();
-      IExtensionPoint extensionPoint = extensionRegistry.getExtensionPoint(extpointID);
-      if (extensionPoint == null) throw new ImplementationError();
-      return extensionPoint.getExtensions();
-    }
-
-    /**
-     * @ADDED
-     */
-    private String getAttribute(IConfigurationElement element, String name)
-    {
-      String value = element.getAttribute(name);
-      if (value == null || value.length() == 0)
+      catch (Exception ex)
       {
-        throw new IllegalArgumentException("Attribute " + element.getName() + "." + name
-                + " is not set");
+        log(ex);
       }
 
-      return value;
+      return null;
     }
   }
 }

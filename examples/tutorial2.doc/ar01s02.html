@@ -46,9 +46,34 @@ import java.io.*;
  
 public class &lt;%=ExtPointHelper.getElementClassName(element)%&gt; 
 { 
-  protected &lt;%=ExtPointHelper.getElementClassName(element)%&gt;(&lt;%=origin%&gt; origin) 
+  protected &lt;%=ExtPointHelper.getElementClassName(element)%&gt;(Object parent, &lt;%=origin%&gt; origin) 
   { 
-   this.origin = origin; 
+   _origin = origin; 
+   _parent = parent; 
+&lt;%if (isExtension) {%&gt; 
+    id = origin.getSimpleIdentifier();    
+    name = origin.getLabel();   
+    point = origin.getExtensionPointUniqueIdentifier(); 
+    if (point == null || point.length() == 0) throw new RuntimeException("Point is required"); 
+&lt;%} else {    
+  for (Iterator&lt;Element&gt; it = attributes.iterator(); it.hasNext();) { 
+    Element attribute = it.next(); 
+    String name = attribute.getAttribute("name"); 
+    if ("class".equals(name)) name = "clazz"; 
+    String capName = StringHelper.firstToUpper(name); 
+    boolean required = "required".equals(attribute.getAttribute("use")); 
+    if ("boolean".equals(attribute.getAttribute("type"))) {%&gt; 
+      String &lt;%=name%&gt;Str = origin.getAttribute("&lt;%=attribute.getAttribute("name")%&gt;"); 
+      if (&lt;%=name%&gt;Str != null) { &lt;%=name%&gt; = Boolean.parseBoolean(&lt;%=name%&gt;Str); }&lt;%if (required) {%&gt; else throw new RuntimeException("&lt;%=capName%&gt; is required");&lt;%}%&gt;  
+    &lt;%} else {%&gt;  
+      &lt;%=name%&gt; = origin.getAttribute("&lt;%=attribute.getAttribute("name")%&gt;"); 
+      &lt;%if (required) {%&gt; 
+      if (&lt;%=name%&gt; == null || &lt;%=name%&gt;.length() == 0) throw new RuntimeException("&lt;%=capName%&gt; is required"); 
+      &lt;%}%&gt;  
+    &lt;%}%&gt; 
+  &lt;%}%&gt;  
+&lt;%}%&gt; 
+ 
     IConfigurationElement[] configurationElements = origin.get&lt;%=children%&gt;(); 
     for (IConfigurationElement element : configurationElements) 
     { 
@@ -56,33 +81,22 @@ public class &lt;%=ExtPointHelper.getElementClassName(element)%&gt;
 &lt;%for (Iterator&lt;String&gt; it = references.iterator(); it.hasNext();) { 
   String reference = it.next(); 
   String capRef = StringHelper.firstToUpper(reference);%&gt; 
-      if ("&lt;%=reference%&gt;".equals(element.getName())) &lt;%=reference%&gt;Elements.add(new &lt;%=capRef%&gt;(element)); 
-&lt;%}%&gt; 
-&lt;%for (Iterator&lt;Element&gt; it = attributes.iterator(); it.hasNext();) { 
-  Element attribute = it.next(); 
-  String name = attribute.getAttribute("name"); 
-  if ("class".equals(name)) name = "clazz"; 
-  String capName = StringHelper.firstToUpper(name); 
-  boolean required = "required".equals(attribute.getAttribute("use")); 
-  if ("boolean".equals(attribute.getAttribute("type"))) {%&gt; 
-      String &lt;%=name%&gt;Str = element.getAttribute("&lt;%=attribute.getAttribute("name")%&gt;"); 
-      if (&lt;%=name%&gt;Str !=null) { &lt;%=name%&gt; = Boolean.parseBoolean(&lt;%=name%&gt;Str); } else { if (&lt;%=required%&gt;) throw new RuntimeException("&lt;%=capName%&gt; is required"); } 
-  &lt;%} else {%&gt;  
-      &lt;%=name%&gt; = element.getAttribute("&lt;%=attribute.getAttribute("name")%&gt;"); 
-      if (&lt;%=required%&gt; &amp;&amp; (&lt;%=name%&gt; == null || &lt;%=name%&gt;.length() == 0)) throw new RuntimeException("&lt;%=capName%&gt; is required"); 
-  &lt;%}%&gt;  
+      if ("&lt;%=reference%&gt;".equals(element.getName())) &lt;%=reference%&gt;Elements.add(new &lt;%=capRef%&gt;(this, element)); 
 &lt;%}%&gt; 
     } 
   } 
  
-  public &lt;%=origin%&gt; getOrigin() { return origin; } 
-  protected &lt;%=origin%&gt; origin; 
+  public &lt;%=origin%&gt; getOrigin() { return _origin; } 
+  protected &lt;%=origin%&gt; _origin; 
+   
+  public Object getParent() { return _parent; } 
+  protected Object _parent; 
    
 &lt;%for (Iterator&lt;String&gt; it = references.iterator(); it.hasNext();) { 
   String reference = it.next(); 
   String capRef = StringHelper.firstToUpper(reference);%&gt; 
   public List&lt;&lt;%=capRef%&gt;&gt; get&lt;%=capRef%&gt;Elements() { return Collections.unmodifiableList(&lt;%=reference%&gt;Elements); } 
-  protected List&lt;&lt;%=capRef%&gt;&gt; &lt;%=reference%&gt;Elements; 
+  protected List&lt;&lt;%=capRef%&gt;&gt; &lt;%=reference%&gt;Elements = new ArrayList&lt;&lt;%=capRef%&gt;&gt;(); 
  
 &lt;%}%&gt;  
 &lt;%for (Iterator&lt;Element&gt; it = attributes.iterator(); it.hasNext();) { 
@@ -98,7 +112,7 @@ public class &lt;%=ExtPointHelper.getElementClassName(element)%&gt;
     String kind = ExtPointHelper.getKind(attribute);  
     if ("java".equals(kind)) { 
       String interfaceClass = ExtPointHelper.getBasedOn(attribute);%&gt;  
-  public &lt;%=interfaceClass%&gt; get&lt;%=capName%&gt;() throws CoreException { return (&lt;%=interfaceClass%&gt;)origin.createExecutableExtension("&lt;%=name%&gt;"); } 
+  public &lt;%=interfaceClass%&gt; get&lt;%=capName%&gt;() throws CoreException { return (&lt;%=interfaceClass%&gt;)_origin.createExecutableExtension("&lt;%=name%&gt;"); } 
   protected String &lt;%=name%&gt;; 
     &lt;%} else if ("resource".equals(kind)) {%&gt; 
   public File get&lt;%=capName%&gt;() { return new File(&lt;%=name%&gt;); } 
@@ -110,116 +124,127 @@ public class &lt;%=ExtPointHelper.getElementClassName(element)%&gt;
   &lt;%}%&gt;  
  
 &lt;%}%&gt; 
+  public List getAllElements() 
+  { 
+    List result = new ArrayList(); 
+    result.add(this); 
+&lt;%for (Iterator&lt;String&gt; it = references.iterator(); it.hasNext();) { 
+  String reference = it.next(); 
+  String capRef = StringHelper.firstToUpper(reference);%&gt; 
+    for (&lt;%=capRef%&gt; element : &lt;%=reference%&gt;Elements) result.addAll(element.getAllElements()); 
+&lt;%}%&gt; 
+    return result; 
+  } 
 }</pre></li><li><p>If the JET compiler is properly configured, you will get 
         compile errors because the <code class="code">ExtPointHelper</code> class is 
         missing. Create it under the <code class="code">src</code> folder in the 
-        <code class="code">tutorial2.gen</code> package.</p><pre class="programlisting">package tutorial2.gen; 
- 
-import com.sympedia.util.StringHelper; 
- 
-import org.apache.xpath.XPathAPI; 
-import org.w3c.dom.Element; 
-import org.w3c.dom.Node; 
-import org.w3c.dom.NodeList; 
-import javax.xml.transform.TransformerException; 
-import java.util.ArrayList; 
-import java.util.HashSet; 
-import java.util.List; 
-import java.util.Set; 
- 
-public class ExtPointHelper 
-{ 
-  private static final String META_ATTRIBUTE_XPATH =  
-    "annotation/appInfo/meta.attribute"; 
-   
-  private static final String META_SCHEMA_XPATH =  
-    "/schema/annotation/appInfo/meta.schema"; 
- 
-  public static String xPathString(Node context, String expr) 
-  { 
-    try 
-    { 
-      return XPathAPI.eval(context, expr).toString(); 
-    } 
-    catch (TransformerException ex) 
-    { 
-      throw new RuntimeException(ex); 
-    } 
-  } 
- 
-  public static List&lt;Element&gt; xPathList(Node context, String expr) 
-  { 
-    try 
-    { 
-      List&lt;Element&gt; result = new ArrayList&lt;Element&gt;(); 
-      NodeList list = XPathAPI.eval(context, expr).nodelist(); 
-      for (int i = 0; i &lt; list.getLength(); i++) 
-      { 
-        result.add((Element)list.item(i)); 
-      } 
- 
-      return result; 
-    } 
-    catch (TransformerException ex) 
-    { 
-      throw new RuntimeException(ex); 
-    } 
-  } 
- 
-  public static String getElementClassName(Element element) 
-  { 
-    String name = element.getAttribute("name"); 
-    if (!isExtension(element)) return StringHelper.firstToUpper(name); 
-    return StringHelper.firstToUpper(getExtPointId(element)) + "Extension"; 
-  } 
- 
-  public static String getRegistryClassName(Element element) 
-  { 
-    return StringHelper.firstToUpper(getExtPointId(element)) + "Registry"; 
-  } 
- 
-  public static boolean isExtension(Element element) 
-  { 
-    String name = element.getAttribute("name"); 
-    return "extension".equals(name); 
-  } 
- 
-  public static String getPluginId(Element element) 
-  { 
-    return xPathString(element, META_SCHEMA_XPATH + "/@plugin"); 
-  } 
- 
-  public static String getExtPointId(Element element) 
-  { 
-    return xPathString(element, META_SCHEMA_XPATH + "/@id"); 
-  } 
- 
-  public static Set&lt;String&gt; getReferences(Element element) 
-  { 
-    Set&lt;String&gt; result = new HashSet&lt;String&gt;(); 
-    for (Element reference : xPathList(element, ".//element")) 
-    { 
-      String target = reference.getAttribute("ref"); 
-      result.add(target); 
-    } 
- 
-    return result; 
-  } 
- 
-  public static String getKind(Element element) 
-  { 
-    List&lt;Element&gt; pathList = xPathList(element, META_ATTRIBUTE_XPATH); 
-    if (pathList.size() == 0) return null; 
-    Element metaAttr = pathList.get(0); 
-    return metaAttr.getAttribute("kind"); 
-  } 
- 
-  public static String getBasedOn(Element element) 
-  { 
-    Element metaAttr = xPathList(element, META_ATTRIBUTE_XPATH).get(0); 
-    String basedOn = metaAttr.getAttribute("basedOn"); 
-    return basedOn == null || basedOn.length() == 0 ? "Object" : basedOn; 
-  } 
+        <code class="code">tutorial2.gen</code> package.</p><pre class="programlisting">package tutorial2.gen;
+
+import com.sympedia.util.StringHelper;
+import org.apache.xpath.XPathAPI;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import javax.xml.transform.TransformerException;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+public class ExtPointHelper
+{
+  private static final String META_ATTRIBUTE_XPATH = "annotation/appInfo/meta.attribute";
+
+  private static final String META_SCHEMA_XPATH = "/schema/annotation/appInfo/meta.schema";
+
+  public static String xPathString(Node context, String expr)
+  {
+    try
+    {
+      return XPathAPI.eval(context, expr).toString();
+    }
+    catch (TransformerException ex)
+    {
+      throw new RuntimeException(ex);
+    }
+  }
+
+  public static List&lt;Element&gt; xPathList(Node context, String expr)
+  {
+    try
+    {
+      List&lt;Element&gt; result = new ArrayList&lt;Element&gt;();
+      NodeList list = XPathAPI.eval(context, expr).nodelist();
+      for (int i = 0; i &lt; list.getLength(); i++)
+      {
+        result.add((Element)list.item(i));
+      }
+
+      return result;
+    }
+    catch (TransformerException ex)
+    {
+      throw new RuntimeException(ex);
+    }
+  }
+
+  public static String getElementClassName(Element element)
+  {
+    String name = element.getAttribute("name");
+    if (!isExtension(element)) return StringHelper.firstToUpper(name);
+    return StringHelper.firstToUpper(getExtPointId(element)) + "Extension";
+  }
+
+  public static String getRegistryClassName(Element element)
+  {
+    return StringHelper.firstToUpper(getExtPointId(element)) + "Registry";
+  }
+
+  public static boolean isExtension(Element element)
+  {
+    String name = element.getAttribute("name");
+    return "extension".equals(name);
+  }
+
+  public static String getPluginId(Element element)
+  {
+    return xPathString(element, META_SCHEMA_XPATH + "/@plugin");
+  }
+
+  public static String getExtPointId(Element element)
+  {
+    return xPathString(element, META_SCHEMA_XPATH + "/@id");
+  }
+
+  public static Set&lt;String&gt; getReferences(Element element)
+  {
+    Set&lt;String&gt; result = new HashSet&lt;String&gt;();
+    for (Element reference : xPathList(element, ".//element"))
+    {
+      String target = reference.getAttribute("ref");
+      if (target != null &amp;&amp; target.length() != 0)
+      {
+        result.add(target);
+      }
+    }
+
+    return result;
+  }
+
+  public static String getKind(Element element)
+  {
+    List&lt;Element&gt; pathList = xPathList(element, META_ATTRIBUTE_XPATH);
+    if (pathList.size() == 0) return null;
+    Element metaAttr = pathList.get(0);
+    return metaAttr.getAttribute("kind");
+  }
+
+  public static String getBasedOn(Element element)
+  {
+    Element metaAttr = xPathList(element, META_ATTRIBUTE_XPATH).get(0);
+    String basedOn = metaAttr.getAttribute("basedOn");
+    return basedOn == null || basedOn.length() == 0 ? "Object" : basedOn;
+  }
 }</pre></li><li><p>Create the other template source file 
         <code class="code">RegistryTemplate.javajet</code> in the 
         <code class="code">templates</code> folder.</p><pre class="programlisting">&lt;%@ jet package="tutorial2.gen"  
@@ -230,39 +255,211 @@ Element element = (Element)argument;
 String pluginId = ExtPointHelper.getPluginId(element); 
 String extPointId = ExtPointHelper.getExtPointId(element); 
 String capId = StringHelper.firstToUpper(extPointId); 
+String extName = capId + "Extension"; 
+String className = ExtPointHelper.getRegistryClassName(element); 
+Set&lt;String&gt; references = ExtPointHelper.getReferences(element); 
 %&gt; 
 package &lt;%=pluginId%&gt;.internal; 
  
 import org.eclipse.core.runtime.*; 
 import java.util.*; 
  
-public class &lt;%=ExtPointHelper.getRegistryClassName(element)%&gt; 
+public class &lt;%=className%&gt; implements IRegistryChangeListener 
 { 
   public static final String EXT_POINT_ID = "&lt;%=pluginId%&gt;.&lt;%=extPointId%&gt;"; 
  
-  protected List&lt;&lt;%=capId%&gt;Extension&gt; &lt;%=extPointId%&gt;; 
+  public static final &lt;%=className%&gt; INSTANCE = new &lt;%=className%&gt;(); 
  
-  public &lt;%=ExtPointHelper.getRegistryClassName(element)%&gt;() 
+  private List&lt;&lt;%=extName%&gt;&gt; &lt;%=extPointId%&gt; = new ArrayList&lt;&lt;%=extName%&gt;&gt;(); 
+ 
+  private List&lt;Listener&gt; listeners = new ArrayList&lt;Listener&gt;(); 
+ 
+  private boolean initialized = false; 
+ 
+  public &lt;%=className%&gt;() 
   { 
-    IExtensionRegistry registry = Platform.getExtensionRegistry(); 
-    IExtensionPoint extPoint = registry.getExtensionPoint(EXT_POINT_ID); 
-    IExtension[] extensions = extPoint.getExtensions(); 
-    for (IExtension extension : extensions) 
+  } 
+ 
+  public List&lt;&lt;%=extName%&gt;&gt; get&lt;%=capId%&gt;() 
+  { 
+    return Collections.unmodifiableList(&lt;%=extPointId%&gt;); 
+  } 
+ 
+  public List getAllElements() 
+  { 
+    List result = new ArrayList(); 
+    for (&lt;%=extName%&gt; extension : &lt;%=extPointId%&gt;) 
     { 
-      try 
+      result.addAll(extension.getAllElements()); 
+    } 
+     
+    return result; 
+  } 
+ 
+&lt;%for (Iterator&lt;String&gt; it = references.iterator(); it.hasNext();) { 
+  String reference = it.next(); 
+  String capRef = StringHelper.firstToUpper(reference);%&gt; 
+  public List&lt;&lt;%=capRef%&gt;&gt; getAll&lt;%=capRef%&gt;Elements() 
+  { 
+    List elements = getAllElements(); 
+    return (List&lt;&lt;%=capRef%&gt;&gt;)filter(elements, &lt;%=capRef%&gt;.class); 
+  } 
+   
+&lt;%}%&gt; 
+  public synchronized void initialize() 
+  { 
+    if (!initialized) 
+    { 
+      initialized = true; 
+      ChangeEvent event = new ChangeEvent(); 
+       
+      IExtensionRegistry registry = Platform.getExtensionRegistry(); 
+      IExtensionPoint extPoint = registry.getExtensionPoint(EXT_POINT_ID); 
+      IExtension[] extensions = extPoint.getExtensions(); 
+      for (IExtension extension : extensions) 
       { 
-        &lt;%=extPointId%&gt;.add(new &lt;%=capId%&gt;Extension(extension)); 
+        addExtension(extension, event); 
       } 
-      catch (Exception ex) 
-      { 
-        ex.printStackTrace(); 
-      } 
+       
+      event.dispatch(); 
+      registry.addRegistryChangeListener(this); 
     } 
   } 
  
-  public List&lt;&lt;%=capId%&gt;Extension&gt; get&lt;%=capId%&gt;() 
+  public synchronized void dispose() 
   { 
-    return Collections.unmodifiableList(&lt;%=extPointId%&gt;); 
+    if (initialized) 
+    {     
+      Platform.getExtensionRegistry().removeRegistryChangeListener(this); 
+      &lt;%=extPointId%&gt;.clear(); 
+      initialized = false; 
+    } 
+  } 
+ 
+  public void registryChanged(IRegistryChangeEvent eclipseEvent) 
+  { 
+    ChangeEvent event = new ChangeEvent(); 
+    IExtensionDelta[] extensionDeltas = eclipseEvent.getExtensionDeltas(); 
+    for (int i = 0; i &lt; extensionDeltas.length; i++) 
+    { 
+      IExtensionDelta delta = extensionDeltas[i]; 
+      if (EXT_POINT_ID.equals(delta.getExtensionPoint().getUniqueIdentifier())) 
+      { 
+        IExtension extension = delta.getExtension(); 
+        int kind = delta.getKind(); 
+        switch (kind) 
+        { 
+          case IExtensionDelta.ADDED: 
+            addExtension(extension, event); 
+            break; 
+          case IExtensionDelta.REMOVED: 
+            removeExtension(extension, event); 
+            break; 
+        } 
+      } 
+    } 
+     
+    event.dispatch(); 
+  } 
+ 
+  private void addExtension(IExtension origin, ChangeEvent event) 
+  { 
+    try 
+    { 
+      &lt;%=extName%&gt; extension = new &lt;%=extName%&gt;(null, origin); 
+      &lt;%=extPointId%&gt;.add(extension); 
+      event.addExtension(extension); 
+    } 
+    catch (Exception ex) 
+    { 
+      ex.printStackTrace(); 
+    } 
+  }    
+ 
+  private void removeExtension(IExtension origin, ChangeEvent event) 
+  { 
+    &lt;%=extName%&gt;[] extensions = &lt;%=extPointId%&gt;.toArray(new &lt;%=extName%&gt;[&lt;%=extPointId%&gt;.size()]); 
+    for (&lt;%=extName%&gt; extension : extensions) 
+    { 
+      if (extension.getOrigin().equals(origin)) 
+      { 
+        &lt;%=extPointId%&gt;.remove(extension); 
+        event.removeExtension(extension); 
+        break; 
+      } 
+    }  
+  }    
+ 
+  private List filter(List items, Class baseClass) 
+  { 
+    List result = new ArrayList(); 
+    for (Object item : items) 
+    { 
+      Class c = item.getClass(); 
+      if (baseClass == null || baseClass.isAssignableFrom(c)) 
+      { 
+        result.add(item); 
+      } 
+    } 
+     
+    return result; 
+  } 
+   
+  public class ChangeEvent 
+  { 
+    private List&lt;&lt;%=extName%&gt;&gt; added = new ArrayList&lt;&lt;%=extName%&gt;&gt;(); 
+ 
+    private List&lt;&lt;%=extName%&gt;&gt; removed = new ArrayList&lt;&lt;%=extName%&gt;&gt;(); 
+     
+    private ChangeEvent() 
+    { 
+    } 
+     
+    public &lt;%=className%&gt; getSource() 
+    { 
+      return &lt;%=className%&gt;.this; 
+    } 
+     
+    public &lt;%=extName%&gt;[] getAddedExtensions() 
+    { 
+      return added.toArray(new &lt;%=extName%&gt;[added.size()]); 
+    } 
+     
+    public &lt;%=extName%&gt;[] getRemovedExtensions() 
+    { 
+      return removed.toArray(new &lt;%=extName%&gt;[removed.size()]); 
+    } 
+     
+    private void addExtension(&lt;%=extName%&gt; extension) 
+    { 
+      added.add(extension); 
+    } 
+     
+    private void removeExtension(&lt;%=extName%&gt; extension) 
+    { 
+      removed.add(extension); 
+    } 
+     
+    private void dispatch() 
+    { 
+      if (added.isEmpty() &amp;&amp; removed.isEmpty()) return; 
+      for (Listener listener : listeners) 
+      { 
+        try 
+        { 
+          listener.notify&lt;%=capId%&gt;RegistryChanged(this); 
+        } 
+        catch (Exception ex) 
+        { 
+          ex.printStackTrace(); 
+        } 
+      } 
+    } 
+  } 
+   
+  public interface Listener 
+  { 
+    public void notify&lt;%=capId%&gt;RegistryChanged(ChangeEvent event); 
   } 
 }</pre></li><li><p>Verify, that both templates have been compiled to the 
         <code class="code">src-gen</code> folder without compile errors:</p><div class="figure"><a name="N100C4"></a><p class="title"><b>Figure&nbsp;1.&nbsp;JET templates created</b></p><div><img src="images/templatesCompiled.gif" alt="JET templates created"></div></div></li></ol></div></div><div class="navfooter"><hr><table summary="Navigation footer" width="100%"><tr><td align="left" width="40%"><a accesskey="p" href="index.html">Prev</a>&nbsp;</td><td align="center" width="20%">&nbsp;</td><td align="right" width="40%">&nbsp;<a accesskey="n" href="ar01s03.html">Next</a></td></tr><tr><td valign="top" align="left" width="40%">Sympedia GenFw Tutorial 2&nbsp;</td><td align="center" width="20%"><a accesskey="h" href="index.html">Home</a></td><td valign="top" align="right" width="40%">&nbsp;Configuring the Generator Framework</td></tr></table></div></body></html>

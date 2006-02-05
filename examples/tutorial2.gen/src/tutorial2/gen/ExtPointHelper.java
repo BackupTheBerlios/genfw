@@ -97,7 +97,10 @@ public class ExtPointHelper
     for (Element reference : xPathList(element, ".//element"))
     {
       String target = reference.getAttribute("ref");
-      result.add(target);
+      if (target != null && target.length() != 0)
+      {
+        result.add(target);
+      }
     }
 
     return result;

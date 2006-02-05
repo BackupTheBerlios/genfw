@@ -16,25 +16,38 @@ import java.io.*;
 
 public class Batch
 {
-  protected Batch(IConfigurationElement origin)
+  protected Batch(Object parent, IConfigurationElement origin)
   {
-  	this.origin = origin;
+  	_origin = origin;
+  	_parent = parent; 
+
     IConfigurationElement[] configurationElements = origin.getChildren();
     for (IConfigurationElement element : configurationElements)
     {
       System.out.println("Initializing " + element.getName());
-      if ("target".equals(element.getName())) targetElements.add(new Target(element));
-      if ("run".equals(element.getName())) runElements.add(new Run(element));
+      if ("target".equals(element.getName())) targetElements.add(new Target(this, element));
+      if ("run".equals(element.getName())) runElements.add(new Run(this, element));
     }
   }
 
-  public IConfigurationElement getOrigin() { return origin; }
-  protected IConfigurationElement origin;
+  public IConfigurationElement getOrigin() { return _origin; }
+  protected IConfigurationElement _origin;
+  
+  public Object getParent() { return _parent; }
+  protected Object _parent;
   
   public List<Target> getTargetElements() { return Collections.unmodifiableList(targetElements); }
-  protected List<Target> targetElements;
+  protected List<Target> targetElements = new ArrayList<Target>();
 
   public List<Run> getRunElements() { return Collections.unmodifiableList(runElements); }
-  protected List<Run> runElements;
+  protected List<Run> runElements = new ArrayList<Run>();
  
+  public List getAllElements()
+  {
+    List result = new ArrayList();
+    result.add(this);
+    for (Target element : targetElements) result.addAll(element.getAllElements());
+    for (Run element : runElements) result.addAll(element.getAllElements());
+    return result;
+  }
 }

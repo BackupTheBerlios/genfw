@@ -663,6 +663,16 @@ public abstract class &lt;%=bean.getName()%&gt;BeanBase
 
       </listitem>
 
+    </orderedlist>
+
+  </sect1>
+
+  <sect1>
+
+    <title>Creating a Generator Application</title>
+
+    <orderedlist>
+
       <listitem>
 
         <para>Go back to the <code>tutorial1.orderman</code> project 
@@ -729,6 +739,16 @@ public abstract class PersonBeanBase
   } 
 }</programlisting>
       </listitem>
+
+    </orderedlist>
+
+  </sect1>
+
+  <sect1>
+
+    <title>One More Iteration</title>
+
+    <orderedlist>
 
       <listitem>
 

@@ -6,38 +6,210 @@ Element element = (Element)argument;
 String pluginId = ExtPointHelper.getPluginId(element);
 String extPointId = ExtPointHelper.getExtPointId(element);
 String capId = StringHelper.firstToUpper(extPointId);
+String extName = capId + "Extension";
+String className = ExtPointHelper.getRegistryClassName(element);
+Set<String> references = ExtPointHelper.getReferences(element);
 %>
 package <%=pluginId%>.internal;
 
 import org.eclipse.core.runtime.*;
 import java.util.*;
 
-public class <%=ExtPointHelper.getRegistryClassName(element)%>
+public class <%=className%> implements IRegistryChangeListener
 {
   public static final String EXT_POINT_ID = "<%=pluginId%>.<%=extPointId%>";
 
-  protected List<<%=capId%>Extension> <%=extPointId%>;
+  public static final <%=className%> INSTANCE = new <%=className%>();
 
-  public <%=ExtPointHelper.getRegistryClassName(element)%>()
+  private List<<%=extName%>> <%=extPointId%> = new ArrayList<<%=extName%>>();
+
+  private List<Listener> listeners = new ArrayList<Listener>();
+
+  private boolean initialized = false;
+
+  public <%=className%>()
   {
-    IExtensionRegistry registry = Platform.getExtensionRegistry();
-    IExtensionPoint extPoint = registry.getExtensionPoint(EXT_POINT_ID);
-    IExtension[] extensions = extPoint.getExtensions();
-    for (IExtension extension : extensions)
+  }
+
+  public List<<%=extName%>> get<%=capId%>()
+  {
+    return Collections.unmodifiableList(<%=extPointId%>);
+  }
+
+  public List getAllElements()
+  {
+    List result = new ArrayList();
+    for (<%=extName%> extension : <%=extPointId%>)
     {
-      try
+      result.addAll(extension.getAllElements());
+    }
+    
+    return result;
+  }
+
+<%for (Iterator<String> it = references.iterator(); it.hasNext();) {
+  String reference = it.next();
+  String capRef = StringHelper.firstToUpper(reference);%>
+  public List<<%=capRef%>> getAll<%=capRef%>Elements()
+  {
+    List elements = getAllElements();
+    return (List<<%=capRef%>>)filter(elements, <%=capRef%>.class);
+  }
+  
+<%}%>
+  public synchronized void initialize()
+  {
+    if (!initialized)
+    {
+      initialized = true;
+      ChangeEvent event = new ChangeEvent();
+      
+      IExtensionRegistry registry = Platform.getExtensionRegistry();
+      IExtensionPoint extPoint = registry.getExtensionPoint(EXT_POINT_ID);
+      IExtension[] extensions = extPoint.getExtensions();
+      for (IExtension extension : extensions)
       {
-        <%=extPointId%>.add(new <%=capId%>Extension(extension));
+        addExtension(extension, event);
       }
-      catch (Exception ex)
-      {
-        ex.printStackTrace();
-      }
+      
+      event.dispatch();
+      registry.addRegistryChangeListener(this);
     }
   }
 
-  public List<<%=capId%>Extension> get<%=capId%>()
+  public synchronized void dispose()
   {
-    return Collections.unmodifiableList(<%=extPointId%>);
+    if (initialized)
+    {    
+      Platform.getExtensionRegistry().removeRegistryChangeListener(this);
+      <%=extPointId%>.clear();
+      initialized = false;
+    }
+  }
+
+  public void registryChanged(IRegistryChangeEvent eclipseEvent)
+  {
+    ChangeEvent event = new ChangeEvent();
+    IExtensionDelta[] extensionDeltas = eclipseEvent.getExtensionDeltas();
+    for (int i = 0; i < extensionDeltas.length; i++)
+    {
+      IExtensionDelta delta = extensionDeltas[i];
+      if (EXT_POINT_ID.equals(delta.getExtensionPoint().getUniqueIdentifier()))
+      {
+        IExtension extension = delta.getExtension();
+        int kind = delta.getKind();
+        switch (kind)
+        {
+          case IExtensionDelta.ADDED:
+            addExtension(extension, event);
+            break;
+          case IExtensionDelta.REMOVED:
+            removeExtension(extension, event);
+            break;
+        }
+      }
+    }
+    
+    event.dispatch();
+  }
+
+  private void addExtension(IExtension origin, ChangeEvent event)
+  {
+    try
+    {
+      <%=extName%> extension = new <%=extName%>(null, origin);
+      <%=extPointId%>.add(extension);
+      event.addExtension(extension);
+    }
+    catch (Exception ex)
+    {
+      ex.printStackTrace();
+    }
+  }   
+
+  private void removeExtension(IExtension origin, ChangeEvent event)
+  {
+    <%=extName%>[] extensions = <%=extPointId%>.toArray(new <%=extName%>[<%=extPointId%>.size()]);
+    for (<%=extName%> extension : extensions)
+    {
+      if (extension.getOrigin().equals(origin))
+      {
+        <%=extPointId%>.remove(extension);
+        event.removeExtension(extension);
+        break;
+      }
+    } 
+  }   
+
+  private List filter(List items, Class baseClass)
+  {
+    List result = new ArrayList();
+    for (Object item : items)
+    {
+      Class c = item.getClass();
+      if (baseClass == null || baseClass.isAssignableFrom(c))
+      {
+        result.add(item);
+      }
+    }
+    
+    return result;
+  }
+  
+  public class ChangeEvent
+  {
+    private List<<%=extName%>> added = new ArrayList<<%=extName%>>();
+
+    private List<<%=extName%>> removed = new ArrayList<<%=extName%>>();
+    
+    private ChangeEvent()
+    {
+    }
+    
+    public <%=className%> getSource()
+    {
+      return <%=className%>.this;
+    }
+    
+    public <%=extName%>[] getAddedExtensions()
+    {
+      return added.toArray(new <%=extName%>[added.size()]);
+    }
+    
+    public <%=extName%>[] getRemovedExtensions()
+    {
+      return removed.toArray(new <%=extName%>[removed.size()]);
+    }
+    
+    private void addExtension(<%=extName%> extension)
+    {
+      added.add(extension);
+    }
+    
+    private void removeExtension(<%=extName%> extension)
+    {
+      removed.add(extension);
+    }
+    
+    private void dispatch()
+    {
+      if (added.isEmpty() && removed.isEmpty()) return;
+      for (Listener listener : listeners)
+      {
+        try
+        {
+          listener.notify<%=capId%>RegistryChanged(this);
+        }
+        catch (Exception ex)
+        {
+          ex.printStackTrace();
+        }
+      }
+    }
+  }
+  
+  public interface Listener
+  {
+    public void notify<%=capId%>RegistryChanged(ChangeEvent event);
   }
 }

@@ -236,9 +236,34 @@ import java.io.*;
  
 public class &lt;%=ExtPointHelper.getElementClassName(element)%&gt; 
 { 
-  protected &lt;%=ExtPointHelper.getElementClassName(element)%&gt;(&lt;%=origin%&gt; origin) 
+  protected &lt;%=ExtPointHelper.getElementClassName(element)%&gt;(Object parent, &lt;%=origin%&gt; origin) 
   { 
-   this.origin = origin; 
+   _origin = origin; 
+   _parent = parent; 
+&lt;%if (isExtension) {%&gt; 
+    id = origin.getSimpleIdentifier();    
+    name = origin.getLabel();   
+    point = origin.getExtensionPointUniqueIdentifier(); 
+    if (point == null || point.length() == 0) throw new RuntimeException(&quot;Point is required&quot;); 
+&lt;%} else {    
+  for (Iterator&lt;Element&gt; it = attributes.iterator(); it.hasNext();) { 
+    Element attribute = it.next(); 
+    String name = attribute.getAttribute(&quot;name&quot;); 
+    if (&quot;class&quot;.equals(name)) name = &quot;clazz&quot;; 
+    String capName = StringHelper.firstToUpper(name); 
+    boolean required = &quot;required&quot;.equals(attribute.getAttribute(&quot;use&quot;)); 
+    if (&quot;boolean&quot;.equals(attribute.getAttribute(&quot;type&quot;))) {%&gt; 
+      String &lt;%=name%&gt;Str = origin.getAttribute(&quot;&lt;%=attribute.getAttribute(&quot;name&quot;)%&gt;&quot;); 
+      if (&lt;%=name%&gt;Str != null) { &lt;%=name%&gt; = Boolean.parseBoolean(&lt;%=name%&gt;Str); }&lt;%if (required) {%&gt; else throw new RuntimeException(&quot;&lt;%=capName%&gt; is required&quot;);&lt;%}%&gt;  
+    &lt;%} else {%&gt;  
+      &lt;%=name%&gt; = origin.getAttribute(&quot;&lt;%=attribute.getAttribute(&quot;name&quot;)%&gt;&quot;); 
+      &lt;%if (required) {%&gt; 
+      if (&lt;%=name%&gt; == null || &lt;%=name%&gt;.length() == 0) throw new RuntimeException(&quot;&lt;%=capName%&gt; is required&quot;); 
+      &lt;%}%&gt;  
+    &lt;%}%&gt; 
+  &lt;%}%&gt;  
+&lt;%}%&gt; 
+ 
     IConfigurationElement[] configurationElements = origin.get&lt;%=children%&gt;(); 
     for (IConfigurationElement element : configurationElements) 
     { 
@@ -246,33 +271,22 @@ public class &lt;%=ExtPointHelper.getElementClassName(element)%&gt;
 &lt;%for (Iterator&lt;String&gt; it = references.iterator(); it.hasNext();) { 
   String reference = it.next(); 
   String capRef = StringHelper.firstToUpper(reference);%&gt; 
-      if (&quot;&lt;%=reference%&gt;&quot;.equals(element.getName())) &lt;%=reference%&gt;Elements.add(new &lt;%=capRef%&gt;(element)); 
-&lt;%}%&gt; 
-&lt;%for (Iterator&lt;Element&gt; it = attributes.iterator(); it.hasNext();) { 
-  Element attribute = it.next(); 
-  String name = attribute.getAttribute(&quot;name&quot;); 
-  if (&quot;class&quot;.equals(name)) name = &quot;clazz&quot;; 
-  String capName = StringHelper.firstToUpper(name); 
-  boolean required = &quot;required&quot;.equals(attribute.getAttribute(&quot;use&quot;)); 
-  if (&quot;boolean&quot;.equals(attribute.getAttribute(&quot;type&quot;))) {%&gt; 
-      String &lt;%=name%&gt;Str = element.getAttribute(&quot;&lt;%=attribute.getAttribute(&quot;name&quot;)%&gt;&quot;); 
-      if (&lt;%=name%&gt;Str !=null) { &lt;%=name%&gt; = Boolean.parseBoolean(&lt;%=name%&gt;Str); } else { if (&lt;%=required%&gt;) throw new RuntimeException(&quot;&lt;%=capName%&gt; is required&quot;); } 
-  &lt;%} else {%&gt;  
-      &lt;%=name%&gt; = element.getAttribute(&quot;&lt;%=attribute.getAttribute(&quot;name&quot;)%&gt;&quot;); 
-      if (&lt;%=required%&gt; &amp;&amp; (&lt;%=name%&gt; == null || &lt;%=name%&gt;.length() == 0)) throw new RuntimeException(&quot;&lt;%=capName%&gt; is required&quot;); 
-  &lt;%}%&gt;  
+      if (&quot;&lt;%=reference%&gt;&quot;.equals(element.getName())) &lt;%=reference%&gt;Elements.add(new &lt;%=capRef%&gt;(this, element)); 
 &lt;%}%&gt; 
     } 
   } 
  
-  public &lt;%=origin%&gt; getOrigin() { return origin; } 
-  protected &lt;%=origin%&gt; origin; 
+  public &lt;%=origin%&gt; getOrigin() { return _origin; } 
+  protected &lt;%=origin%&gt; _origin; 
+   
+  public Object getParent() { return _parent; } 
+  protected Object _parent; 
    
 &lt;%for (Iterator&lt;String&gt; it = references.iterator(); it.hasNext();) { 
   String reference = it.next(); 
   String capRef = StringHelper.firstToUpper(reference);%&gt; 
   public List&lt;&lt;%=capRef%&gt;&gt; get&lt;%=capRef%&gt;Elements() { return Collections.unmodifiableList(&lt;%=reference%&gt;Elements); } 
-  protected List&lt;&lt;%=capRef%&gt;&gt; &lt;%=reference%&gt;Elements; 
+  protected List&lt;&lt;%=capRef%&gt;&gt; &lt;%=reference%&gt;Elements = new ArrayList&lt;&lt;%=capRef%&gt;&gt;(); 
  
 &lt;%}%&gt;  
 &lt;%for (Iterator&lt;Element&gt; it = attributes.iterator(); it.hasNext();) { 
@@ -288,7 +302,7 @@ public class &lt;%=ExtPointHelper.getElementClassName(element)%&gt;
     String kind = ExtPointHelper.getKind(attribute);  
     if (&quot;java&quot;.equals(kind)) { 
       String interfaceClass = ExtPointHelper.getBasedOn(attribute);%&gt;  
-  public &lt;%=interfaceClass%&gt; get&lt;%=capName%&gt;() throws CoreException { return (&lt;%=interfaceClass%&gt;)origin.createExecutableExtension(&quot;&lt;%=name%&gt;&quot;); } 
+  public &lt;%=interfaceClass%&gt; get&lt;%=capName%&gt;() throws CoreException { return (&lt;%=interfaceClass%&gt;)_origin.createExecutableExtension(&quot;&lt;%=name%&gt;&quot;); } 
   protected String &lt;%=name%&gt;; 
     &lt;%} else if (&quot;resource&quot;.equals(kind)) {%&gt; 
   public File get&lt;%=capName%&gt;() { return new File(&lt;%=name%&gt;); } 
@@ -300,6 +314,17 @@ public class &lt;%=ExtPointHelper.getElementClassName(element)%&gt;
   &lt;%}%&gt;  
  
 &lt;%}%&gt; 
+  public List getAllElements() 
+  { 
+    List result = new ArrayList(); 
+    result.add(this); 
+&lt;%for (Iterator&lt;String&gt; it = references.iterator(); it.hasNext();) { 
+  String reference = it.next(); 
+  String capRef = StringHelper.firstToUpper(reference);%&gt; 
+    for (&lt;%=capRef%&gt; element : &lt;%=reference%&gt;Elements) result.addAll(element.getAllElements()); 
+&lt;%}%&gt; 
+    return result; 
+  } 
 }</programlisting>
       </listitem>
 
@@ -310,113 +335,113 @@ public class &lt;%=ExtPointHelper.getElementClassName(element)%&gt;
         missing. Create it under the <code>src</code> folder in the 
         <code>tutorial2.gen</code> package.</para>
 
-        <programlisting>package tutorial2.gen; 
- 
-import com.sympedia.util.StringHelper; 
- 
-import org.apache.xpath.XPathAPI; 
-import org.w3c.dom.Element; 
-import org.w3c.dom.Node; 
-import org.w3c.dom.NodeList; 
-import javax.xml.transform.TransformerException; 
-import java.util.ArrayList; 
-import java.util.HashSet; 
-import java.util.List; 
-import java.util.Set; 
- 
-public class ExtPointHelper 
-{ 
-  private static final String META_ATTRIBUTE_XPATH =  
-    &quot;annotation/appInfo/meta.attribute&quot;; 
-   
-  private static final String META_SCHEMA_XPATH =  
-    &quot;/schema/annotation/appInfo/meta.schema&quot;; 
- 
-  public static String xPathString(Node context, String expr) 
-  { 
-    try 
-    { 
-      return XPathAPI.eval(context, expr).toString(); 
-    } 
-    catch (TransformerException ex) 
-    { 
-      throw new RuntimeException(ex); 
-    } 
-  } 
- 
-  public static List&lt;Element&gt; xPathList(Node context, String expr) 
-  { 
-    try 
-    { 
-      List&lt;Element&gt; result = new ArrayList&lt;Element&gt;(); 
-      NodeList list = XPathAPI.eval(context, expr).nodelist(); 
-      for (int i = 0; i &lt; list.getLength(); i++) 
-      { 
-        result.add((Element)list.item(i)); 
-      } 
- 
-      return result; 
-    } 
-    catch (TransformerException ex) 
-    { 
-      throw new RuntimeException(ex); 
-    } 
-  } 
- 
-  public static String getElementClassName(Element element) 
-  { 
-    String name = element.getAttribute(&quot;name&quot;); 
-    if (!isExtension(element)) return StringHelper.firstToUpper(name); 
-    return StringHelper.firstToUpper(getExtPointId(element)) + &quot;Extension&quot;; 
-  } 
- 
-  public static String getRegistryClassName(Element element) 
-  { 
-    return StringHelper.firstToUpper(getExtPointId(element)) + &quot;Registry&quot;; 
-  } 
- 
-  public static boolean isExtension(Element element) 
-  { 
-    String name = element.getAttribute(&quot;name&quot;); 
-    return &quot;extension&quot;.equals(name); 
-  } 
- 
-  public static String getPluginId(Element element) 
-  { 
-    return xPathString(element, META_SCHEMA_XPATH + &quot;/@plugin&quot;); 
-  } 
- 
-  public static String getExtPointId(Element element) 
-  { 
-    return xPathString(element, META_SCHEMA_XPATH + &quot;/@id&quot;); 
-  } 
- 
-  public static Set&lt;String&gt; getReferences(Element element) 
-  { 
-    Set&lt;String&gt; result = new HashSet&lt;String&gt;(); 
-    for (Element reference : xPathList(element, &quot;.//element&quot;)) 
-    { 
-      String target = reference.getAttribute(&quot;ref&quot;); 
-      result.add(target); 
-    } 
- 
-    return result; 
-  } 
- 
-  public static String getKind(Element element) 
-  { 
-    List&lt;Element&gt; pathList = xPathList(element, META_ATTRIBUTE_XPATH); 
-    if (pathList.size() == 0) return null; 
-    Element metaAttr = pathList.get(0); 
-    return metaAttr.getAttribute(&quot;kind&quot;); 
-  } 
- 
-  public static String getBasedOn(Element element) 
-  { 
-    Element metaAttr = xPathList(element, META_ATTRIBUTE_XPATH).get(0); 
-    String basedOn = metaAttr.getAttribute(&quot;basedOn&quot;); 
-    return basedOn == null || basedOn.length() == 0 ? &quot;Object&quot; : basedOn; 
-  } 
+        <programlisting>package tutorial2.gen;
+
+import com.sympedia.util.StringHelper;
+import org.apache.xpath.XPathAPI;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import javax.xml.transform.TransformerException;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+public class ExtPointHelper
+{
+  private static final String META_ATTRIBUTE_XPATH = &quot;annotation/appInfo/meta.attribute&quot;;
+
+  private static final String META_SCHEMA_XPATH = &quot;/schema/annotation/appInfo/meta.schema&quot;;
+
+  public static String xPathString(Node context, String expr)
+  {
+    try
+    {
+      return XPathAPI.eval(context, expr).toString();
+    }
+    catch (TransformerException ex)
+    {
+      throw new RuntimeException(ex);
+    }
+  }
+
+  public static List&lt;Element&gt; xPathList(Node context, String expr)
+  {
+    try
+    {
+      List&lt;Element&gt; result = new ArrayList&lt;Element&gt;();
+      NodeList list = XPathAPI.eval(context, expr).nodelist();
+      for (int i = 0; i &lt; list.getLength(); i++)
+      {
+        result.add((Element)list.item(i));
+      }
+
+      return result;
+    }
+    catch (TransformerException ex)
+    {
+      throw new RuntimeException(ex);
+    }
+  }
+
+  public static String getElementClassName(Element element)
+  {
+    String name = element.getAttribute(&quot;name&quot;);
+    if (!isExtension(element)) return StringHelper.firstToUpper(name);
+    return StringHelper.firstToUpper(getExtPointId(element)) + &quot;Extension&quot;;
+  }
+
+  public static String getRegistryClassName(Element element)
+  {
+    return StringHelper.firstToUpper(getExtPointId(element)) + &quot;Registry&quot;;
+  }
+
+  public static boolean isExtension(Element element)
+  {
+    String name = element.getAttribute(&quot;name&quot;);
+    return &quot;extension&quot;.equals(name);
+  }
+
+  public static String getPluginId(Element element)
+  {
+    return xPathString(element, META_SCHEMA_XPATH + &quot;/@plugin&quot;);
+  }
+
+  public static String getExtPointId(Element element)
+  {
+    return xPathString(element, META_SCHEMA_XPATH + &quot;/@id&quot;);
+  }
+
+  public static Set&lt;String&gt; getReferences(Element element)
+  {
+    Set&lt;String&gt; result = new HashSet&lt;String&gt;();
+    for (Element reference : xPathList(element, &quot;.//element&quot;))
+    {
+      String target = reference.getAttribute(&quot;ref&quot;);
+      if (target != null &amp;&amp; target.length() != 0)
+      {
+        result.add(target);
+      }
+    }
+
+    return result;
+  }
+
+  public static String getKind(Element element)
+  {
+    List&lt;Element&gt; pathList = xPathList(element, META_ATTRIBUTE_XPATH);
+    if (pathList.size() == 0) return null;
+    Element metaAttr = pathList.get(0);
+    return metaAttr.getAttribute(&quot;kind&quot;);
+  }
+
+  public static String getBasedOn(Element element)
+  {
+    Element metaAttr = xPathList(element, META_ATTRIBUTE_XPATH).get(0);
+    String basedOn = metaAttr.getAttribute(&quot;basedOn&quot;);
+    return basedOn == null || basedOn.length() == 0 ? &quot;Object&quot; : basedOn;
+  }
 }</programlisting>
       </listitem>
 
@@ -434,39 +459,211 @@ Element element = (Element)argument;
 String pluginId = ExtPointHelper.getPluginId(element); 
 String extPointId = ExtPointHelper.getExtPointId(element); 
 String capId = StringHelper.firstToUpper(extPointId); 
+String extName = capId + &quot;Extension&quot;; 
+String className = ExtPointHelper.getRegistryClassName(element); 
+Set&lt;String&gt; references = ExtPointHelper.getReferences(element); 
 %&gt; 
 package &lt;%=pluginId%&gt;.internal; 
  
 import org.eclipse.core.runtime.*; 
 import java.util.*; 
  
-public class &lt;%=ExtPointHelper.getRegistryClassName(element)%&gt; 
+public class &lt;%=className%&gt; implements IRegistryChangeListener 
 { 
   public static final String EXT_POINT_ID = &quot;&lt;%=pluginId%&gt;.&lt;%=extPointId%&gt;&quot;; 
  
-  protected List&lt;&lt;%=capId%&gt;Extension&gt; &lt;%=extPointId%&gt;; 
+  public static final &lt;%=className%&gt; INSTANCE = new &lt;%=className%&gt;(); 
  
-  public &lt;%=ExtPointHelper.getRegistryClassName(element)%&gt;() 
+  private List&lt;&lt;%=extName%&gt;&gt; &lt;%=extPointId%&gt; = new ArrayList&lt;&lt;%=extName%&gt;&gt;(); 
+ 
+  private List&lt;Listener&gt; listeners = new ArrayList&lt;Listener&gt;(); 
+ 
+  private boolean initialized = false; 
+ 
+  public &lt;%=className%&gt;() 
   { 
-    IExtensionRegistry registry = Platform.getExtensionRegistry(); 
-    IExtensionPoint extPoint = registry.getExtensionPoint(EXT_POINT_ID); 
-    IExtension[] extensions = extPoint.getExtensions(); 
-    for (IExtension extension : extensions) 
+  } 
+ 
+  public List&lt;&lt;%=extName%&gt;&gt; get&lt;%=capId%&gt;() 
+  { 
+    return Collections.unmodifiableList(&lt;%=extPointId%&gt;); 
+  } 
+ 
+  public List getAllElements() 
+  { 
+    List result = new ArrayList(); 
+    for (&lt;%=extName%&gt; extension : &lt;%=extPointId%&gt;) 
     { 
-      try 
+      result.addAll(extension.getAllElements()); 
+    } 
+     
+    return result; 
+  } 
+ 
+&lt;%for (Iterator&lt;String&gt; it = references.iterator(); it.hasNext();) { 
+  String reference = it.next(); 
+  String capRef = StringHelper.firstToUpper(reference);%&gt; 
+  public List&lt;&lt;%=capRef%&gt;&gt; getAll&lt;%=capRef%&gt;Elements() 
+  { 
+    List elements = getAllElements(); 
+    return (List&lt;&lt;%=capRef%&gt;&gt;)filter(elements, &lt;%=capRef%&gt;.class); 
+  } 
+   
+&lt;%}%&gt; 
+  public synchronized void initialize() 
+  { 
+    if (!initialized) 
+    { 
+      initialized = true; 
+      ChangeEvent event = new ChangeEvent(); 
+       
+      IExtensionRegistry registry = Platform.getExtensionRegistry(); 
+      IExtensionPoint extPoint = registry.getExtensionPoint(EXT_POINT_ID); 
+      IExtension[] extensions = extPoint.getExtensions(); 
+      for (IExtension extension : extensions) 
       { 
-        &lt;%=extPointId%&gt;.add(new &lt;%=capId%&gt;Extension(extension)); 
+        addExtension(extension, event); 
       } 
-      catch (Exception ex) 
-      { 
-        ex.printStackTrace(); 
-      } 
+       
+      event.dispatch(); 
+      registry.addRegistryChangeListener(this); 
     } 
   } 
  
-  public List&lt;&lt;%=capId%&gt;Extension&gt; get&lt;%=capId%&gt;() 
+  public synchronized void dispose() 
   { 
-    return Collections.unmodifiableList(&lt;%=extPointId%&gt;); 
+    if (initialized) 
+    {     
+      Platform.getExtensionRegistry().removeRegistryChangeListener(this); 
+      &lt;%=extPointId%&gt;.clear(); 
+      initialized = false; 
+    } 
+  } 
+ 
+  public void registryChanged(IRegistryChangeEvent eclipseEvent) 
+  { 
+    ChangeEvent event = new ChangeEvent(); 
+    IExtensionDelta[] extensionDeltas = eclipseEvent.getExtensionDeltas(); 
+    for (int i = 0; i &lt; extensionDeltas.length; i++) 
+    { 
+      IExtensionDelta delta = extensionDeltas[i]; 
+      if (EXT_POINT_ID.equals(delta.getExtensionPoint().getUniqueIdentifier())) 
+      { 
+        IExtension extension = delta.getExtension(); 
+        int kind = delta.getKind(); 
+        switch (kind) 
+        { 
+          case IExtensionDelta.ADDED: 
+            addExtension(extension, event); 
+            break; 
+          case IExtensionDelta.REMOVED: 
+            removeExtension(extension, event); 
+            break; 
+        } 
+      } 
+    } 
+     
+    event.dispatch(); 
+  } 
+ 
+  private void addExtension(IExtension origin, ChangeEvent event) 
+  { 
+    try 
+    { 
+      &lt;%=extName%&gt; extension = new &lt;%=extName%&gt;(null, origin); 
+      &lt;%=extPointId%&gt;.add(extension); 
+      event.addExtension(extension); 
+    } 
+    catch (Exception ex) 
+    { 
+      ex.printStackTrace(); 
+    } 
+  }    
+ 
+  private void removeExtension(IExtension origin, ChangeEvent event) 
+  { 
+    &lt;%=extName%&gt;[] extensions = &lt;%=extPointId%&gt;.toArray(new &lt;%=extName%&gt;[&lt;%=extPointId%&gt;.size()]); 
+    for (&lt;%=extName%&gt; extension : extensions) 
+    { 
+      if (extension.getOrigin().equals(origin)) 
+      { 
+        &lt;%=extPointId%&gt;.remove(extension); 
+        event.removeExtension(extension); 
+        break; 
+      } 
+    }  
+  }    
+ 
+  private List filter(List items, Class baseClass) 
+  { 
+    List result = new ArrayList(); 
+    for (Object item : items) 
+    { 
+      Class c = item.getClass(); 
+      if (baseClass == null || baseClass.isAssignableFrom(c)) 
+      { 
+        result.add(item); 
+      } 
+    } 
+     
+    return result; 
+  } 
+   
+  public class ChangeEvent 
+  { 
+    private List&lt;&lt;%=extName%&gt;&gt; added = new ArrayList&lt;&lt;%=extName%&gt;&gt;(); 
+ 
+    private List&lt;&lt;%=extName%&gt;&gt; removed = new ArrayList&lt;&lt;%=extName%&gt;&gt;(); 
+     
+    private ChangeEvent() 
+    { 
+    } 
+     
+    public &lt;%=className%&gt; getSource() 
+    { 
+      return &lt;%=className%&gt;.this; 
+    } 
+     
+    public &lt;%=extName%&gt;[] getAddedExtensions() 
+    { 
+      return added.toArray(new &lt;%=extName%&gt;[added.size()]); 
+    } 
+     
+    public &lt;%=extName%&gt;[] getRemovedExtensions() 
+    { 
+      return removed.toArray(new &lt;%=extName%&gt;[removed.size()]); 
+    } 
+     
+    private void addExtension(&lt;%=extName%&gt; extension) 
+    { 
+      added.add(extension); 
+    } 
+     
+    private void removeExtension(&lt;%=extName%&gt; extension) 
+    { 
+      removed.add(extension); 
+    } 
+     
+    private void dispatch() 
+    { 
+      if (added.isEmpty() &amp;&amp; removed.isEmpty()) return; 
+      for (Listener listener : listeners) 
+      { 
+        try 
+        { 
+          listener.notify&lt;%=capId%&gt;RegistryChanged(this); 
+        } 
+        catch (Exception ex) 
+        { 
+          ex.printStackTrace(); 
+        } 
+      } 
+    } 
+  } 
+   
+  public interface Listener 
+  { 
+    public void notify&lt;%=capId%&gt;RegistryChanged(ChangeEvent event); 
   } 
 }</programlisting>
       </listitem>
@@ -881,33 +1078,210 @@ public class ExtPointLibraryInitializer implements IExternalLibraryInitializer
 import org.eclipse.core.runtime.*; 
 import java.util.*; 
  
-public class BatchRegistry 
+public class BatchRegistry implements IRegistryChangeListener 
 { 
   public static final String EXT_POINT_ID = &quot;tutorial2.batch.batch&quot;; 
  
-  protected List&lt;BatchExtension&gt; batch; 
+  public static final BatchRegistry INSTANCE = new BatchRegistry(); 
+ 
+  private List&lt;BatchExtension&gt; batch = new ArrayList&lt;BatchExtension&gt;(); 
+ 
+  private List&lt;Listener&gt; listeners = new ArrayList&lt;Listener&gt;(); 
+ 
+  private boolean initialized = false; 
  
   public BatchRegistry() 
   { 
-    IExtensionRegistry registry = Platform.getExtensionRegistry(); 
-    IExtensionPoint extPoint = registry.getExtensionPoint(EXT_POINT_ID); 
-    IExtension[] extensions = extPoint.getExtensions(); 
-    for (IExtension extension : extensions) 
-    { 
-      try 
-      { 
-        batch.add(new BatchExtension(extension)); 
-      } 
-      catch (Exception ex) 
-      { 
-        ex.printStackTrace(); 
-      } 
-    } 
   } 
  
   public List&lt;BatchExtension&gt; getBatch() 
   { 
     return Collections.unmodifiableList(batch); 
+  } 
+ 
+  public List getAllElements() 
+  { 
+    List result = new ArrayList(); 
+    for (BatchExtension extension : batch) 
+    { 
+      result.addAll(extension.getAllElements()); 
+    } 
+     
+    return result; 
+  } 
+ 
+  public List&lt;Target&gt; getAllTargetElements() 
+  { 
+    List elements = getAllElements(); 
+    return (List&lt;Target&gt;)filter(elements, Target.class); 
+  } 
+   
+  public List&lt;Run&gt; getAllRunElements() 
+  { 
+    List elements = getAllElements(); 
+    return (List&lt;Run&gt;)filter(elements, Run.class); 
+  } 
+   
+  public List&lt;Batch&gt; getAllBatchElements() 
+  { 
+    List elements = getAllElements(); 
+    return (List&lt;Batch&gt;)filter(elements, Batch.class); 
+  } 
+   
+  public synchronized void initialize() 
+  { 
+    if (!initialized) 
+    { 
+      initialized = true; 
+      ChangeEvent event = new ChangeEvent(); 
+       
+      IExtensionRegistry registry = Platform.getExtensionRegistry(); 
+      IExtensionPoint extPoint = registry.getExtensionPoint(EXT_POINT_ID); 
+      IExtension[] extensions = extPoint.getExtensions(); 
+      for (IExtension extension : extensions) 
+      { 
+        addExtension(extension, event); 
+      } 
+       
+      event.dispatch(); 
+      registry.addRegistryChangeListener(this); 
+    } 
+  } 
+ 
+  public synchronized void dispose() 
+  { 
+    if (initialized) 
+    {     
+      Platform.getExtensionRegistry().removeRegistryChangeListener(this); 
+      batch.clear(); 
+      initialized = false; 
+    } 
+  } 
+ 
+  public void registryChanged(IRegistryChangeEvent eclipseEvent) 
+  { 
+    ChangeEvent event = new ChangeEvent(); 
+    IExtensionDelta[] extensionDeltas = eclipseEvent.getExtensionDeltas(); 
+    for (int i = 0; i &lt; extensionDeltas.length; i++) 
+    { 
+      IExtensionDelta delta = extensionDeltas[i]; 
+      if (EXT_POINT_ID.equals(delta.getExtensionPoint().getUniqueIdentifier())) 
+      { 
+        IExtension extension = delta.getExtension(); 
+        int kind = delta.getKind(); 
+        switch (kind) 
+        { 
+          case IExtensionDelta.ADDED: 
+            addExtension(extension, event); 
+            break; 
+          case IExtensionDelta.REMOVED: 
+            removeExtension(extension, event); 
+            break; 
+        } 
+      } 
+    } 
+     
+    event.dispatch(); 
+  } 
+ 
+  private void addExtension(IExtension origin, ChangeEvent event) 
+  { 
+    try 
+    { 
+      BatchExtension extension = new BatchExtension(null, origin); 
+      batch.add(extension); 
+      event.addExtension(extension); 
+    } 
+    catch (Exception ex) 
+    { 
+      ex.printStackTrace(); 
+    } 
+  }    
+ 
+  private void removeExtension(IExtension origin, ChangeEvent event) 
+  { 
+    BatchExtension[] extensions = batch.toArray(new BatchExtension[batch.size()]); 
+    for (BatchExtension extension : extensions) 
+    { 
+      if (extension.getOrigin().equals(origin)) 
+      { 
+        batch.remove(extension); 
+        event.removeExtension(extension); 
+        break; 
+      } 
+    }  
+  }    
+ 
+  private List filter(List items, Class baseClass) 
+  { 
+    List result = new ArrayList(); 
+    for (Object item : items) 
+    { 
+      Class c = item.getClass(); 
+      if (baseClass == null || baseClass.isAssignableFrom(c)) 
+      { 
+        result.add(item); 
+      } 
+    } 
+     
+    return result; 
+  } 
+   
+  public class ChangeEvent 
+  { 
+    private List&lt;BatchExtension&gt; added = new ArrayList&lt;BatchExtension&gt;(); 
+ 
+    private List&lt;BatchExtension&gt; removed = new ArrayList&lt;BatchExtension&gt;(); 
+     
+    private ChangeEvent() 
+    { 
+    } 
+     
+    public BatchRegistry getSource() 
+    { 
+      return BatchRegistry.this; 
+    } 
+     
+    public BatchExtension[] getAddedExtensions() 
+    { 
+      return added.toArray(new BatchExtension[added.size()]); 
+    } 
+     
+    public BatchExtension[] getRemovedExtensions() 
+    { 
+      return removed.toArray(new BatchExtension[removed.size()]); 
+    } 
+     
+    private void addExtension(BatchExtension extension) 
+    { 
+      added.add(extension); 
+    } 
+     
+    private void removeExtension(BatchExtension extension) 
+    { 
+      removed.add(extension); 
+    } 
+     
+    private void dispatch() 
+    { 
+      if (added.isEmpty() &amp;&amp; removed.isEmpty()) return; 
+      for (Listener listener : listeners) 
+      { 
+        try 
+        { 
+          listener.notifyBatchRegistryChanged(this); 
+        } 
+        catch (Exception ex) 
+        { 
+          ex.printStackTrace(); 
+        } 
+      } 
+    } 
+  } 
+   
+  public interface Listener 
+  { 
+    public void notifyBatchRegistryChanged(ChangeEvent event); 
   } 
 }</programlisting>
     <para>This is the generated <code>BatchExtension</code> 
@@ -923,32 +1297,31 @@ import java.io.*;
  
 public class BatchExtension 
 { 
-  protected BatchExtension(IExtension origin) 
+  protected BatchExtension(Object parent, IExtension origin) 
   { 
-   this.origin = origin; 
+   _origin = origin; 
+   _parent = parent; 
+    id = origin.getSimpleIdentifier();    
+    name = origin.getLabel();   
+    point = origin.getExtensionPointUniqueIdentifier(); 
+    if (point == null || point.length() == 0) throw new RuntimeException(&quot;Point is required&quot;); 
+ 
     IConfigurationElement[] configurationElements = origin.getConfigurationElements(); 
     for (IConfigurationElement element : configurationElements) 
     { 
       System.out.println(&quot;Initializing &quot; + element.getName()); 
-      if (&quot;batch&quot;.equals(element.getName())) batchElements.add(new Batch(element));  
-      point = element.getAttribute(&quot;point&quot;); 
-      if (true &amp;&amp; (point == null || point.length() == 0))
-        throw new RuntimeException(&quot;Point is required&quot;);   
-      id = element.getAttribute(&quot;id&quot;); 
-      if (false &amp;&amp; (id == null || id.length() == 0))
-        throw new RuntimeException(&quot;Id is required&quot;);   
-      name = element.getAttribute(&quot;name&quot;); 
-      if (false &amp;&amp; (name == null || name.length() == 0))
-        throw new RuntimeException(&quot;Name is required&quot;);  
+      if (&quot;batch&quot;.equals(element.getName())) batchElements.add(new Batch(this, element)); 
     } 
   } 
  
-  public IExtension getOrigin() { return origin; } 
-  protected IExtension origin; 
+  public IExtension getOrigin() { return _origin; } 
+  protected IExtension _origin; 
    
-  public List&lt;Batch&gt; getBatchElements()
-    { return Collections.unmodifiableList(batchElements); } 
-  protected List&lt;Batch&gt; batchElements; 
+  public Object getParent() { return _parent; } 
+  protected Object _parent; 
+   
+  public List&lt;Batch&gt; getBatchElements() { return Collections.unmodifiableList(batchElements); } 
+  protected List&lt;Batch&gt; batchElements = new ArrayList&lt;Batch&gt;(); 
   
   public String getPoint() { return point; } 
   protected String point;   
@@ -957,8 +1330,16 @@ public class BatchExtension
   protected String id;   
  
   public String getName() { return name; } 
-  protected String name; 
-} </programlisting>
+  protected String name;   
+ 
+  public List getAllElements() 
+  { 
+    List result = new ArrayList(); 
+    result.add(this); 
+    for (Batch element : batchElements) result.addAll(element.getAllElements()); 
+    return result; 
+  } 
+}</programlisting>
     </para>
 
     <para>This is the generated <code>Batch</code> class:</para>
@@ -973,28 +1354,40 @@ import java.io.*;
  
 public class Batch 
 { 
-  protected Batch(IConfigurationElement origin) 
+  protected Batch(Object parent, IConfigurationElement origin) 
   { 
-   this.origin = origin; 
+   _origin = origin; 
+   _parent = parent;  
+ 
     IConfigurationElement[] configurationElements = origin.getChildren(); 
     for (IConfigurationElement element : configurationElements) 
     { 
       System.out.println(&quot;Initializing &quot; + element.getName()); 
-      if (&quot;target&quot;.equals(element.getName())) targetElements.add(new Target(element)); 
-      if (&quot;run&quot;.equals(element.getName())) runElements.add(new Run(element)); 
+      if (&quot;target&quot;.equals(element.getName())) targetElements.add(new Target(this, element)); 
+      if (&quot;run&quot;.equals(element.getName())) runElements.add(new Run(this, element)); 
     } 
   } 
  
-  public IConfigurationElement getOrigin() { return origin; } 
-  protected IConfigurationElement origin; 
+  public IConfigurationElement getOrigin() { return _origin; } 
+  protected IConfigurationElement _origin; 
    
-  public List&lt;Target&gt; getTargetElements()
-    { return Collections.unmodifiableList(targetElements); } 
-  protected List&lt;Target&gt; targetElements; 
+  public Object getParent() { return _parent; } 
+  protected Object _parent; 
+   
+  public List&lt;Target&gt; getTargetElements() { return Collections.unmodifiableList(targetElements); } 
+  protected List&lt;Target&gt; targetElements = new ArrayList&lt;Target&gt;(); 
  
-  public List&lt;Run&gt; getRunElements()
-    { return Collections.unmodifiableList(runElements); } 
-  protected List&lt;Run&gt; runElements; 
+  public List&lt;Run&gt; getRunElements() { return Collections.unmodifiableList(runElements); } 
+  protected List&lt;Run&gt; runElements = new ArrayList&lt;Run&gt;(); 
+  
+  public List getAllElements() 
+  { 
+    List result = new ArrayList(); 
+    result.add(this); 
+    for (Target element : targetElements) result.addAll(element.getAllElements()); 
+    for (Run element : runElements) result.addAll(element.getAllElements()); 
+    return result; 
+  } 
 }</programlisting>
     </para>
 
@@ -1010,24 +1403,35 @@ import java.io.*;
  
 public class Run 
 { 
-  protected Run(IConfigurationElement origin) 
+  protected Run(Object parent, IConfigurationElement origin) 
   { 
-   this.origin = origin; 
+   _origin = origin; 
+   _parent = parent;  
+   clazz = origin.getAttribute(&quot;class&quot;); 
+   if (clazz == null || clazz.length() == 0) throw new RuntimeException(&quot;Clazz is required&quot;);   
+ 
     IConfigurationElement[] configurationElements = origin.getChildren(); 
     for (IConfigurationElement element : configurationElements) 
     { 
-      System.out.println(&quot;Initializing &quot; + element.getName());  
-      clazz = element.getAttribute(&quot;class&quot;); 
-      if (true &amp;&amp; (clazz == null || clazz.length() == 0))
-        throw new RuntimeException(&quot;Clazz is required&quot;);  
+      System.out.println(&quot;Initializing &quot; + element.getName()); 
     } 
   } 
  
-  public IConfigurationElement getOrigin() { return origin; } 
-  protected IConfigurationElement origin; 
-    
-  public String getClazz() { return clazz; } 
-  protected String clazz; 
+  public IConfigurationElement getOrigin() { return _origin; } 
+  protected IConfigurationElement _origin; 
+   
+  public Object getParent() { return _parent; } 
+  protected Object _parent; 
+     
+  public tutorial2.batch.internal.IService getClazz() throws CoreException { return (tutorial2.batch.internal.IService)_origin.createExecutableExtension(&quot;clazz&quot;); } 
+  protected String clazz;   
+ 
+  public List getAllElements() 
+  { 
+    List result = new ArrayList(); 
+    result.add(this); 
+    return result; 
+  } 
 }</programlisting>
     </para>
 
@@ -1043,36 +1447,33 @@ import java.io.*;
  
 public class Target 
 { 
-  protected Target(IConfigurationElement origin) 
+  protected Target(Object parent, IConfigurationElement origin) 
   { 
-   this.origin = origin; 
+   _origin = origin; 
+   _parent = parent;  
+   pattern = origin.getAttribute(&quot;pattern&quot;); 
+   if (pattern == null || pattern.length() == 0) throw new RuntimeException(&quot;Pattern is required&quot;);  
+   String targetAddedStr = origin.getAttribute(&quot;targetAdded&quot;); 
+   if (targetAddedStr != null) { targetAdded = Boolean.parseBoolean(targetAddedStr); }  
+   String targetModifiedStr = origin.getAttribute(&quot;targetModified&quot;); 
+   if (targetModifiedStr != null) { targetModified = Boolean.parseBoolean(targetModifiedStr); }  
+   String targetRemovedStr = origin.getAttribute(&quot;targetRemoved&quot;); 
+   if (targetRemovedStr != null) { targetRemoved = Boolean.parseBoolean(targetRemovedStr); }  
+   String targetUnchangedStr = origin.getAttribute(&quot;targetUnchanged&quot;); 
+   if (targetUnchangedStr != null) { targetUnchanged = Boolean.parseBoolean(targetUnchangedStr); }   
+ 
     IConfigurationElement[] configurationElements = origin.getChildren(); 
     for (IConfigurationElement element : configurationElements) 
     { 
-      System.out.println(&quot;Initializing &quot; + element.getName());  
-      pattern = element.getAttribute(&quot;pattern&quot;); 
-      if (true &amp;&amp; (pattern == null || pattern.length() == 0))
-        throw new RuntimeException(&quot;Pattern is required&quot;);  
-      String targetAddedStr = element.getAttribute(&quot;targetAdded&quot;); 
-      if (targetAddedStr !=null) { targetAdded = Boolean.parseBoolean(targetAddedStr); }
-        else { if (false) throw new RuntimeException(&quot;TargetAdded is required&quot;); }  
-      String targetModifiedStr = element.getAttribute(&quot;targetModified&quot;); 
-      if (targetModifiedStr !=null)
-        { targetModified = Boolean.parseBoolean(targetModifiedStr); } else { if (false)
-        throw new RuntimeException(&quot;TargetModified is required&quot;); }  
-      String targetRemovedStr = element.getAttribute(&quot;targetRemoved&quot;); 
-      if (targetRemovedStr !=null)
-        { targetRemoved = Boolean.parseBoolean(targetRemovedStr); } else { if (false)
-        throw new RuntimeException(&quot;TargetRemoved is required&quot;); }  
-      String targetUnchangedStr = element.getAttribute(&quot;targetUnchanged&quot;); 
-      if (targetUnchangedStr !=null)
-        { targetUnchanged = Boolean.parseBoolean(targetUnchangedStr); } else { if (false)
-        throw new RuntimeException(&quot;TargetUnchanged is required&quot;); }  
+      System.out.println(&quot;Initializing &quot; + element.getName()); 
     } 
   } 
  
-  public IConfigurationElement getOrigin() { return origin; } 
-  protected IConfigurationElement origin; 
+  public IConfigurationElement getOrigin() { return _origin; } 
+  protected IConfigurationElement _origin; 
+   
+  public Object getParent() { return _parent; } 
+  protected Object _parent; 
     
   public String getPattern() { return pattern; } 
   protected String pattern;   
@@ -1087,8 +1488,15 @@ public class Target
   protected boolean targetRemoved;  
  
   public boolean isTargetUnchanged() { return targetUnchanged; } 
-  protected boolean targetUnchanged; 
-}</programlisting>
+  protected boolean targetUnchanged;  
+ 
+  public List getAllElements() 
+  { 
+    List result = new ArrayList(); 
+    result.add(this); 
+    return result; 
+  } 
+} </programlisting>
     </para>
 
     <para>Note, that in the original schema file the <code>Run</code> 
@@ -1110,15 +1518,80 @@ public interface IService
   // Service methods... 
 }</programlisting>
     <para>If you regenerate the application you will see the following 
-    in the genrated <code>Run</code> class:</para>
+    in the generated <code>Run</code> class:</para>
 
     <programlisting>  public tutorial2.batch.internal.IService getClazz() throws CoreException
   {
     return (tutorial2.batch.internal.IService)origin.createExecutableExtension(&quot;clazz&quot;);
   }</programlisting>
     <para>Now you can create a <code>BatchRegistry</code> object in the 
-    <code>start()</code> of your plugin <code>Activator</code> class 
-    and throw it away in the <code>stop()</code> method.</para>
+    <code>start()</code> method of your plugin <code>Activator</code> 
+    class and throw it away in the <code>stop()</code> method.</para>
+
+  </sect1>
+
+  <sect1>
+
+    <title>Notes</title>
+
+    <para>The generated extension registries have some interesting 
+    features:</para>
+
+    <itemizedlist>
+
+      <listitem>
+
+        <para><emphasis>Dynamic Bundles</emphasis></para>
+
+        <para>Our registry classes  for extensions that will be 
+        contributed after the registry instance has been constructed. 
+        The generated registries connect to the Eclipse Extension 
+        Registry listen to change events and update their internal 
+        state accordingly.</para>
+
+      </listitem>
+
+      <listitem>
+
+        <para><emphasis>Life Cycle</emphasis></para>
+
+        <para>Our registries provide built-in life cycle support and 
+        common points of access. The generated registries implement the 
+        <emphasis>singleton</emphasis> pattern, you can access them via 
+        <code>XyzRegistry.INSTANCE</code>. In addition they provide 
+        public <code>initialize()</code> and <code>dispose()</code> 
+        methods, that should typically be called from your plugin 
+        <code>Activator</code>&apos;s <code>start()</code> and 
+        <code>stop()</code> methods. This is especially important, 
+        because, to reflect the <emphasis>Dynamic Bundles</emphasis> 
+        requirement, our registries have to connect to and disconnect 
+        from the Eclipse Extension Registry in a controlled way.</para>
+
+      </listitem>
+
+      <listitem>
+
+        <para><emphasis>Event Notification</emphasis></para>
+
+        <para>The templates in <code>tutorial2.gen</code> provide means 
+        to register client-side listeners to our registries. In 
+        contrast to the Eclipse API for registry change notification, 
+        our generated API is type safe with respect to our generated 
+        extension element classes.</para>
+
+      </listitem>
+
+    </itemizedlist>
+
+    <para>Currently there is little logging at all and all that goes to 
+    System.out, System.err respectively. To use this generator in 
+    reality you will have to change the templates according to your 
+    logging strategy.</para>
+
+    <para>If you look into the <code>model</code> folder of the 
+    <code>com.sympedia.genfw</code> plugin, you&apos;ll find the 
+    <code>extpoints.genapp</code> file. With this Generator Application 
+    I have generated GenFw&apos;s own extension points.</para>
 
   </sect1>
 
