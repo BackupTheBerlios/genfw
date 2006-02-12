@@ -3,7 +3,6 @@ package com.sympedia.density.util;
 
 import com.sympedia.density.*;
 
-/* Hello World */
 public interface IMap extends IComponent, java.util.Map
 {
   /////////////////////////////////////////////////////////////////////////////////////

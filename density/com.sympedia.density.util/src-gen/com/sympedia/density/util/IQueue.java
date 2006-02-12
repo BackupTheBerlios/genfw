@@ -3,7 +3,6 @@ package com.sympedia.density.util;
 
 import com.sympedia.density.*;
 
-/* Hello World */
 public interface IQueue extends com.sympedia.density.util.ICollection, java.util.Queue
 {
   /////////////////////////////////////////////////////////////////////////////////////

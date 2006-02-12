@@ -19,7 +19,6 @@ package <%=GenUtil.getFullPackageName(ePackage)%>;
 
 import com.sympedia.density.*;
 
-
 public interface I<%=eClass.getName()%><%=GenUtil.getInterfaceExtendsClause(eClass)%>
 {
 <%EList enumDefs = GenUtil.getEnumDefs(eClass); 

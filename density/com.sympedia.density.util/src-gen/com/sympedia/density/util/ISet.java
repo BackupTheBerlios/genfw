@@ -3,7 +3,6 @@ package com.sympedia.density.util;
 
 import com.sympedia.density.*;
 
-/* Hello World */
 public interface ISet extends com.sympedia.density.util.ICollection, java.util.Set
 {
   /////////////////////////////////////////////////////////////////////////////////////

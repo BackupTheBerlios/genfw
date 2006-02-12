@@ -3,7 +3,6 @@ package com.sympedia.density.util.concurrent;
 
 import com.sympedia.density.*;
 
-/* Hello World */
 public interface IThreadPoolExecutor extends com.sympedia.density.util.concurrent.IExecutorService
 {
   /////////////////////////////////////////////////////////////////////////////////////

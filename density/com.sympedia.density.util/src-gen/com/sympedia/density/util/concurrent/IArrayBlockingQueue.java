@@ -3,7 +3,6 @@ package com.sympedia.density.util.concurrent;
 
 import com.sympedia.density.*;
 
-/* Hello World */
 public interface IArrayBlockingQueue extends com.sympedia.density.util.concurrent.IBlockingQueue
 {
   /////////////////////////////////////////////////////////////////////////////////////

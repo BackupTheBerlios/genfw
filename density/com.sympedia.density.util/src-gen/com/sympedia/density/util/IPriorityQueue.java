@@ -3,7 +3,6 @@ package com.sympedia.density.util;
 
 import com.sympedia.density.*;
 
-/* Hello World */
 public interface IPriorityQueue extends com.sympedia.density.util.IQueue
 {
   /////////////////////////////////////////////////////////////////////////////////////
