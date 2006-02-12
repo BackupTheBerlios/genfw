@@ -1543,10 +1543,10 @@ public interface IService
 
         <para><emphasis>Dynamic Bundles</emphasis></para>
 
-        <para>Our registry classes  for extensions that will be 
+        <para>Our registry classes care for extensions that will be 
         contributed after the registry instance has been constructed. 
         The generated registries connect to the Eclipse Extension 
-        Registry listen to change events and update their internal 
+        Registry, listen to change events and update their internal 
         state accordingly.</para>
 
       </listitem>
