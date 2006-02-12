@@ -17,6 +17,8 @@ import java.io.OutputStream;
 
 import java.util.List;
 
+import java.util.Set;
+
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -109,6 +111,8 @@ public class GenfwFactoryImpl extends EFactoryImpl implements GenfwFactory
       return createProjectInitializer();
     case GenfwPackage.INPUT:
       return createInput();
+    case GenfwPackage.CONTEXT:
+      return createContext();
     case GenfwPackage.DOM_CONTENT_PROVIDER:
       return createDomContentProvider();
     default:
@@ -142,6 +146,8 @@ public class GenfwFactoryImpl extends EFactoryImpl implements GenfwFactory
       return createExceptionFromString(eDataType, initialValue);
     case GenfwPackage.DOM_DOCUMENT:
       return createDomDocumentFromString(eDataType, initialValue);
+    case GenfwPackage.PATH_SET:
+      return createPathSetFromString(eDataType, initialValue);
     default:
       throw new IllegalArgumentException("The datatype '" + eDataType.getName()
               + "' is not a valid classifier");
@@ -173,6 +179,8 @@ public class GenfwFactoryImpl extends EFactoryImpl implements GenfwFactory
       return convertExceptionToString(eDataType, instanceValue);
     case GenfwPackage.DOM_DOCUMENT:
       return convertDomDocumentToString(eDataType, instanceValue);
+    case GenfwPackage.PATH_SET:
+      return convertPathSetToString(eDataType, instanceValue);
     default:
       throw new IllegalArgumentException("The datatype '" + eDataType.getName()
               + "' is not a valid classifier");
@@ -309,6 +317,17 @@ public class GenfwFactoryImpl extends EFactoryImpl implements GenfwFactory
   {
     InputImpl input = new InputImpl();
     return input;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public Context createContext()
+  {
+    ContextImpl context = new ContextImpl();
+    return context;
   }
 
   /**
@@ -487,6 +506,26 @@ public class GenfwFactoryImpl extends EFactoryImpl implements GenfwFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  public Set createPathSetFromString(EDataType eDataType, String initialValue)
+  {
+    return (Set)super.createFromString(eDataType, initialValue);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public String convertPathSetToString(EDataType eDataType, Object instanceValue)
+  {
+    return super.convertToString(eDataType, instanceValue);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public GenfwPackage getGenfwPackage()
   {
     return (GenfwPackage)getEPackage();
@@ -503,4 +542,13 @@ public class GenfwFactoryImpl extends EFactoryImpl implements GenfwFactory
     return GenfwPackage.eINSTANCE;
   }
 
+  /**
+   * @ADDED
+   */
+  public Context createContext(GenApp runtime)
+  {
+    ContextImpl context = new ContextImpl();
+    context.setRuntime(runtime);
+    return context;
+  }
 } //GenfwFactoryImpl

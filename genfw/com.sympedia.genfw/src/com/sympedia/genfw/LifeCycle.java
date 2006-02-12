@@ -30,19 +30,27 @@ public interface LifeCycle extends EObject
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @model genappAnnotation="http://www.topcased.org/uuid uuid='113887234659333'"
+   * @model contextAnnotation="http://www.topcased.org/uuid uuid='113887234659333'"
    *        annotation="http://www.topcased.org/uuid uuid='1138872040968291'"
    * @generated
    */
-  void initialize(GenApp genapp) throws Exception;
+  void initialize(Context context) throws Exception;
 
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @model genappAnnotation="http://www.topcased.org/uuid uuid='113887234659337'"
-   *        annotation="http://www.topcased.org/uuid uuid='1138872040968292'"
+   * @model annotation="http://www.topcased.org/uuid uuid='1138872040968292'"
    * @generated
    */
-  void dispose(GenApp genapp);
+  void dispose();
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @model kind="operation"
+   *        annotation="http://www.topcased.org/uuid uuid='113967189568739'"
+   * @generated
+   */
+  GenLib getRoot();
 
 } // LifeCycle

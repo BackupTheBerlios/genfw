@@ -55,7 +55,7 @@ public class EmfGeneratorImpl extends GeneratorImpl implements EmfGenerator
    * @ADDED
    */
   @Override
-  public String generate(Object inputObject, String targetPath, IProgressMonitor monitor)
+  public String doGenerate(Object inputObject, String targetPath, IProgressMonitor monitor)
           throws Exception
   {
     GenBase genBase = (GenBase)inputObject;

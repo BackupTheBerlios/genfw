@@ -11,15 +11,13 @@
 package com.sympedia.genfw.ui.internal.actions;
 
 
-import com.sympedia.genfw.ui.internal.Activator;
+import com.sympedia.genfw.ui.internal.GenfwUiActivator;
 import com.sympedia.genfw.util.GenfwHelper;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.core.runtime.IStatus;
-import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.SubProgressMonitor;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.dialogs.MessageDialog;
@@ -90,10 +88,7 @@ public class GenerateAction implements IObjectActionDelegate
               }
               catch (Exception ex)
               {
-                ex.printStackTrace();
-                Activator.getDefault().getLog().log(
-                        new Status(IStatus.ERROR, Activator.PLUGIN_ID, IStatus.ERROR,
-                                "Problem while processing " + file.getFullPath(), ex));
+                GenfwUiActivator.INSTANCE.log(ex);
               }
             }
           }
@@ -108,10 +103,7 @@ public class GenerateAction implements IObjectActionDelegate
     }
     catch (Exception ex)
     {
-      ex.printStackTrace();
-      Activator.getDefault().getLog().log(
-              new Status(IStatus.ERROR, Activator.PLUGIN_ID, IStatus.ERROR,
-                      "Problem while processing " + files, ex));
+      GenfwUiActivator.INSTANCE.log(ex);
       showMessage(ex.toString());
     }
   }

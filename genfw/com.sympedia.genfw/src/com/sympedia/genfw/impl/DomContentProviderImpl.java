@@ -64,6 +64,7 @@ public class DomContentProviderImpl extends ContentProviderImpl implements DomCo
   @Override
   public List getRoots(String path) throws Exception
   {
+    getContext().addInputPath(path);
     IFile file = ResourcesHelper.getFile(path);
     Document document = DomHelper.parseDocument(file.getContents());
     return Collections.singletonList(document);

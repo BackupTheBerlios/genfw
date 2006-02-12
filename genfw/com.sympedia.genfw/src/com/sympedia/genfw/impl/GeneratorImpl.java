@@ -145,7 +145,21 @@ public abstract class GeneratorImpl extends LifeCycleImpl implements Generator
    * <!-- end-user-doc -->
    * @generated NOT
    */
-  public abstract String generate(Object inputObject, String targetPath, IProgressMonitor monitor)
+  public final String generate(Object inputObject, String targetPath, IProgressMonitor monitor)
+          throws Exception
+  {
+    if (targetPath != null)
+    {
+      getContext().addTargetPath(targetPath);
+    }
+    
+    return doGenerate(inputObject, targetPath, monitor);
+  }
+
+  /**
+   * @ADDED
+   */
+  public abstract String doGenerate(Object inputObject, String targetPath, IProgressMonitor monitor)
           throws Exception;
 
   /**

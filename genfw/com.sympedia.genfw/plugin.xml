@@ -1,13 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.0"?>
 
-<!--
- <copyright>
- </copyright>
-
- $Id: plugin.xml,v 1.4 2006/02/01 16:12:32 stepper Exp $
--->
-
 <plugin>
 
   <extension-point id="externalLibraries" name="GenFw External Libraries" schema="schema/externalLibraries.exsd"/>
@@ -21,6 +14,21 @@
        uri = "http://www.sympedia.com/2006/genfw" 
        class = "com.sympedia.genfw.GenfwPackage"
        genModel = "model/genfw.genmodel" /> 
+  </extension>
+
+  <extension point="org.eclipse.core.resources.natures"
+  	id="nature" name="Sympedia GenFw Nature">
+    <runtime>
+      <run class="com.sympedia.genfw.internal.GenfwNature"/>
+    </runtime>
+    <builder id="com.sympedia.genfw.builder"/>
+  </extension>
+  
+  <extension point="org.eclipse.core.resources.builders"
+  	id="builder" name="Sympedia GenFw Builder">
+    <builder hasNature="true" isConfigurable="false">
+      <run class="com.sympedia.genfw.internal.GenfwBuilder"/>
+    </builder>
   </extension>
 
 </plugin>

@@ -58,9 +58,10 @@ public class ProjectInitializerImpl extends GeneratorImpl implements ProjectInit
    * @ADDED
    */
   @Override
-  public String generate(Object inputObject, String targetPath, IProgressMonitor monitor)
+  public String doGenerate(Object inputObject, String targetPath, IProgressMonitor monitor)
           throws Exception
   {
+    getContext().addTargetPath(targetPath + "/.project");
     if (inputObject instanceof IProjectInitializationProvider)
     {
       IProjectInitializationProvider provider = (IProjectInitializationProvider)inputObject;

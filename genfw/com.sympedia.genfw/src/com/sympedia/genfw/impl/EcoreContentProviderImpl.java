@@ -13,7 +13,9 @@ package com.sympedia.genfw.impl;
 
 import com.sympedia.genfw.EcoreContentProvider;
 import com.sympedia.genfw.GenfwPackage;
+import com.sympedia.util.emf.EcoreHelper;
 
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
@@ -21,6 +23,7 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -73,6 +76,7 @@ public class EcoreContentProviderImpl extends ContentProviderImpl implements Eco
    */
   public List getRoots(String path) throws Exception
   {
+    getContext().addInputPath(path);
     ResourceSetImpl rs = new ResourceSetImpl();
     Map map = rs.getResourceFactoryRegistry().getExtensionToFactoryMap();
     map.put(Resource.Factory.Registry.DEFAULT_EXTENSION, new XMIResourceFactoryImpl());
@@ -90,7 +94,37 @@ public class EcoreContentProviderImpl extends ContentProviderImpl implements Eco
   public List getChildren(Object object) throws Exception
   {
     EObject eObject = (EObject)object;
-    return eObject.eContents();
+    EList inputObjects = eObject.eContents();
+    scanInputObjects(inputObjects);
+    return inputObjects;
   }
 
+  /**
+   * @ADDED
+   */
+  private void scanInputObjects(EList list)
+  {
+    for (Iterator it = list.iterator(); it.hasNext();)
+    {
+      EObject object = (EObject)it.next();
+      scanCrossReferences(object.eCrossReferences());
+    }
+  }
+
+  /**
+   * @ADDED
+   */
+  private void scanCrossReferences(EList list)
+  {
+    for (Iterator it = list.iterator(); it.hasNext();)
+    {
+      EObject object = (EObject)it.next();
+      Resource resource = object.eResource();
+      if (resource != null)
+      {
+        String fullPath = EcoreHelper.getFullPath(resource.getURI());
+        getContext().addInputPath(fullPath.toString());
+      }
+    }
+  }
 } //EcoreContentProviderImpl

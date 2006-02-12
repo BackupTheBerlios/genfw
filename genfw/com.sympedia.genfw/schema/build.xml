@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="tutorial1.orderman" default="generate" basedir=".">
+
+	<target name="generate">
+		<genfw genapp="/com.sympedia.genfw/schema/extpoints.genapp" tracelevel="4"/>
+	</target>
+
+</project>

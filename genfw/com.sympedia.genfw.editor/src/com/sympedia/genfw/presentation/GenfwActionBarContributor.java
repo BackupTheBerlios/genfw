@@ -14,6 +14,7 @@ package com.sympedia.genfw.presentation;
 import org.eclipse.emf.common.ui.viewer.IViewerProvider;
 import org.eclipse.emf.edit.domain.EditingDomain;
 import org.eclipse.emf.edit.domain.IEditingDomainProvider;
+import org.eclipse.emf.edit.ui.action.ControlAction;
 import org.eclipse.emf.edit.ui.action.CreateChildAction;
 import org.eclipse.emf.edit.ui.action.CreateSiblingAction;
 import org.eclipse.emf.edit.ui.action.EditingDomainActionBarContributor;
@@ -163,6 +164,7 @@ public class GenfwActionBarContributor extends EditingDomainActionBarContributor
   {
     loadResourceAction = new LoadResourceAction();
     validateAction = new ValidateAction();
+    controlAction = new ControlAction();
   }
 
   /**

@@ -141,6 +141,15 @@ public interface GenfwFactory extends EFactory
   Input createInput();
 
   /**
+   * Returns a new object of class '<em>Context</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Context</em>'.
+   * @generated
+   */
+  Context createContext();
+
+  /**
    * Returns a new object of class '<em>Dom Content Provider</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -158,4 +167,8 @@ public interface GenfwFactory extends EFactory
    */
   GenfwPackage getGenfwPackage();
 
+  /**
+   * @ADDED
+   */
+  Context createContext(GenApp runtime);
 } //GenfwFactory

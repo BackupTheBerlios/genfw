@@ -12,6 +12,7 @@ package com.sympedia.genfw.impl;
 
 
 import com.sympedia.genfw.ContentProvider;
+import com.sympedia.genfw.Context;
 import com.sympedia.genfw.DelegatingGenerator;
 import com.sympedia.genfw.DomContentProvider;
 import com.sympedia.genfw.DomTransformation;
@@ -38,6 +39,8 @@ import com.sympedia.genfw.StaticRule;
 import java.io.OutputStream;
 
 import java.util.List;
+
+import java.util.Set;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
@@ -209,6 +212,13 @@ public class GenfwPackageImpl extends EPackageImpl implements GenfwPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  private EClass contextEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   private EClass domContentProviderEClass = null;
 
   /**
@@ -266,6 +276,13 @@ public class GenfwPackageImpl extends EPackageImpl implements GenfwPackage
    * @generated
    */
   private EDataType domDocumentEDataType = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EDataType pathSetEDataType = null;
 
   /**
    * Creates an instance of the model <b>Package</b>, registered with
@@ -1025,6 +1042,26 @@ public class GenfwPackageImpl extends EPackageImpl implements GenfwPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EClass getContext()
+  {
+    return contextEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getContext_Runtime()
+  {
+    return (EReference)contextEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EClass getDomContentProvider()
   {
     return domContentProviderEClass;
@@ -1108,6 +1145,16 @@ public class GenfwPackageImpl extends EPackageImpl implements GenfwPackage
   public EDataType getDomDocument()
   {
     return domDocumentEDataType;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EDataType getPathSet()
+  {
+    return pathSetEDataType;
   }
 
   /**
@@ -1228,6 +1275,9 @@ public class GenfwPackageImpl extends EPackageImpl implements GenfwPackage
     createEReference(inputEClass, INPUT__CONTENT_PROVIDER);
     createEReference(inputEClass, INPUT__RULE_SETS);
 
+    contextEClass = createEClass(CONTEXT);
+    createEReference(contextEClass, CONTEXT__RUNTIME);
+
     domContentProviderEClass = createEClass(DOM_CONTENT_PROVIDER);
 
     // Create data types
@@ -1239,6 +1289,7 @@ public class GenfwPackageImpl extends EPackageImpl implements GenfwPackage
     outputStreamEDataType = createEDataType(OUTPUT_STREAM);
     exceptionEDataType = createEDataType(EXCEPTION);
     domDocumentEDataType = createEDataType(DOM_DOCUMENT);
+    pathSetEDataType = createEDataType(PATH_SET);
   }
 
   /**
@@ -1311,11 +1362,12 @@ public class GenfwPackageImpl extends EPackageImpl implements GenfwPackage
             IS_GENERATED_INSTANCE_CLASS);
 
     op = addEOperation(lifeCycleEClass, null, "initialize");
-    addEParameter(op, this.getGenApp(), "genapp", 0, 1);
+    addEParameter(op, this.getContext(), "context", 0, 1);
     addEException(op, this.getException());
 
-    op = addEOperation(lifeCycleEClass, null, "dispose");
-    addEParameter(op, this.getGenApp(), "genapp", 0, 1);
+    addEOperation(lifeCycleEClass, null, "dispose");
+
+    addEOperation(lifeCycleEClass, this.getGenLib(), "getRoot", 0, 1);
 
     initEClass(contentProviderEClass, ContentProvider.class, "ContentProvider", IS_ABSTRACT,
             !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -1532,6 +1584,22 @@ public class GenfwPackageImpl extends EPackageImpl implements GenfwPackage
             Input.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
             IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
+    initEClass(contextEClass, Context.class, "Context", !IS_ABSTRACT, !IS_INTERFACE,
+            IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getContext_Runtime(), this.getGenApp(), null, "runtime", null, 0, 1,
+            Context.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE,
+            !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
+
+    op = addEOperation(contextEClass, null, "addInputPath");
+    addEParameter(op, ecorePackage.getEString(), "fullPath", 0, 1);
+
+    op = addEOperation(contextEClass, null, "addTargetPath");
+    addEParameter(op, ecorePackage.getEString(), "fullPath", 0, 1);
+
+    addEOperation(contextEClass, this.getPathSet(), "getInputPaths", 0, 1);
+
+    addEOperation(contextEClass, this.getPathSet(), "getTargetPaths", 0, 1);
+
     initEClass(domContentProviderEClass, DomContentProvider.class, "DomContentProvider",
             !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
@@ -1551,6 +1619,8 @@ public class GenfwPackageImpl extends EPackageImpl implements GenfwPackage
     initEDataType(exceptionEDataType, Exception.class, "Exception", IS_SERIALIZABLE,
             !IS_GENERATED_INSTANCE_CLASS);
     initEDataType(domDocumentEDataType, Document.class, "DomDocument", IS_SERIALIZABLE,
+            !IS_GENERATED_INSTANCE_CLASS);
+    initEDataType(pathSetEDataType, Set.class, "PathSet", IS_SERIALIZABLE,
             !IS_GENERATED_INSTANCE_CLASS);
 
     // Create resource
@@ -1590,8 +1660,22 @@ public class GenfwPackageImpl extends EPackageImpl implements GenfwPackage
             .getEParameters().get(0), source, new String[] {"uuid", "113887234659333"});
     addAnnotation((EOperation)lifeCycleEClass.getEOperations().get(1), source, new String[] {
             "uuid", "1138872040968292"});
-    addAnnotation((EParameter)((EOperation)lifeCycleEClass.getEOperations().get(1))
-            .getEParameters().get(0), source, new String[] {"uuid", "113887234659337"});
+    addAnnotation((EOperation)lifeCycleEClass.getEOperations().get(2), source, new String[] {
+            "uuid", "113967189568739"});
+    addAnnotation(contextEClass, source, new String[] {"uuid", "1139667148578308"});
+    addAnnotation((EOperation)contextEClass.getEOperations().get(0), source, new String[] {"uuid",
+            "1139669390750308"});
+    addAnnotation((EParameter)((EOperation)contextEClass.getEOperations().get(0)).getEParameters()
+            .get(0), source, new String[] {"uuid", "1139669532859311"});
+    addAnnotation((EOperation)contextEClass.getEOperations().get(1), source, new String[] {"uuid",
+            "1139669390750309"});
+    addAnnotation((EParameter)((EOperation)contextEClass.getEOperations().get(1)).getEParameters()
+            .get(0), source, new String[] {"uuid", "1139669532859315"});
+    addAnnotation((EOperation)contextEClass.getEOperations().get(2), source, new String[] {"uuid",
+            "1139669390750310"});
+    addAnnotation((EOperation)contextEClass.getEOperations().get(3), source, new String[] {"uuid",
+            "1139669390750311"});
+    addAnnotation(getContext_Runtime(), source, new String[] {"uuid", "1139667207078311"});
     addAnnotation(contentProviderEClass, source, new String[] {"uuid", "113671546137560"});
     addAnnotation((EOperation)contentProviderEClass.getEOperations().get(0), source, new String[] {
             "uuid", "113671546137561"});
@@ -1718,6 +1802,7 @@ public class GenfwPackageImpl extends EPackageImpl implements GenfwPackage
     addAnnotation(coreExceptionEDataType, source, new String[] {"uuid", "1136792315343141"});
     addAnnotation(iProgressMonitorEDataType, source, new String[] {"uuid", "1136792315343142"});
     addAnnotation(domDocumentEDataType, source, new String[] {"uuid", "1138795838842228"});
+    addAnnotation(pathSetEDataType, source, new String[] {"uuid", "1139669433312323"});
   }
 
   /**

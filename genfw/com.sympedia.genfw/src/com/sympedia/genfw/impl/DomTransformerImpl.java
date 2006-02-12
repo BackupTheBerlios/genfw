@@ -1022,7 +1022,7 @@ public class DomTransformerImpl extends GeneratorImpl implements DomTransformer
    * @ADDED
    */
   @Override
-  public String generate(Object inputObject, String targetPath, IProgressMonitor monitor)
+  public String doGenerate(Object inputObject, String targetPath, IProgressMonitor monitor)
           throws Exception
   {
     Document document = getXmlDocument(targetPath);

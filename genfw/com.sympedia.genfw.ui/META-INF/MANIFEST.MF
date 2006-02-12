@@ -3,8 +3,11 @@ Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
 Bundle-SymbolicName: com.sympedia.genfw.ui;singleton:=true
 Bundle-Version: 1.0.0
-Bundle-Activator: com.sympedia.genfw.ui.internal.Activator
+Bundle-Activator: com.sympedia.genfw.ui.internal.GenfwUiActivator$Implementation
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Require-Bundle: com.sympedia.genfw.editor;visibility:=reexport
 Eclipse-LazyStart: true
+Export-Package: com.sympedia.genfw.ui.internal,
+ com.sympedia.genfw.ui.internal.actions,
+ com.sympedia.genfw.ui.internal.views

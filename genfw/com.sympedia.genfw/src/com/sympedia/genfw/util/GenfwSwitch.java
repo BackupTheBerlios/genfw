@@ -266,6 +266,13 @@ public class GenfwSwitch
       if (result == null) result = defaultCase(theEObject);
       return result;
     }
+    case GenfwPackage.CONTEXT:
+    {
+      Context context = (Context)theEObject;
+      Object result = caseContext(context);
+      if (result == null) result = defaultCase(theEObject);
+      return result;
+    }
     case GenfwPackage.DOM_CONTENT_PROVIDER:
     {
       DomContentProvider domContentProvider = (DomContentProvider)theEObject;
@@ -596,6 +603,22 @@ public class GenfwSwitch
    * @generated
    */
   public Object caseInput(Input object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpretting the object as an instance of '<em>Context</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpretting the object as an instance of '<em>Context</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public Object caseContext(Context object)
   {
     return null;
   }

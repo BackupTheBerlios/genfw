@@ -58,7 +58,7 @@
       <eAnnotations source="http://www.topcased.org/uuid">
         <details key="uuid" value="1138872040968291"/>
       </eAnnotations>
-      <eParameters name="genapp" eType="#//GenApp">
+      <eParameters name="context" eType="#//Context">
         <eAnnotations source="http://www.topcased.org/uuid">
           <details key="uuid" value="113887234659333"/>
         </eAnnotations>
@@ -68,12 +68,53 @@
       <eAnnotations source="http://www.topcased.org/uuid">
         <details key="uuid" value="1138872040968292"/>
       </eAnnotations>
-      <eParameters name="genapp" eType="#//GenApp">
+    </eOperations>
+    <eOperations name="getRoot" eType="#//GenLib">
+      <eAnnotations source="http://www.topcased.org/uuid">
+        <details key="uuid" value="113967189568739"/>
+      </eAnnotations>
+    </eOperations>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Context">
+    <eAnnotations source="http://www.topcased.org/uuid">
+      <details key="uuid" value="1139667148578308"/>
+    </eAnnotations>
+    <eOperations name="addInputPath">
+      <eAnnotations source="http://www.topcased.org/uuid">
+        <details key="uuid" value="1139669390750308"/>
+      </eAnnotations>
+      <eParameters name="fullPath" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
         <eAnnotations source="http://www.topcased.org/uuid">
-          <details key="uuid" value="113887234659337"/>
+          <details key="uuid" value="1139669532859311"/>
         </eAnnotations>
       </eParameters>
     </eOperations>
+    <eOperations name="addTargetPath">
+      <eAnnotations source="http://www.topcased.org/uuid">
+        <details key="uuid" value="1139669390750309"/>
+      </eAnnotations>
+      <eParameters name="fullPath" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+        <eAnnotations source="http://www.topcased.org/uuid">
+          <details key="uuid" value="1139669532859315"/>
+        </eAnnotations>
+      </eParameters>
+    </eOperations>
+    <eOperations name="getInputPaths" eType="#//PathSet">
+      <eAnnotations source="http://www.topcased.org/uuid">
+        <details key="uuid" value="1139669390750310"/>
+      </eAnnotations>
+    </eOperations>
+    <eOperations name="getTargetPaths" eType="#//PathSet">
+      <eAnnotations source="http://www.topcased.org/uuid">
+        <details key="uuid" value="1139669390750311"/>
+      </eAnnotations>
+    </eOperations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="runtime" eType="#//GenApp"
+        changeable="false" volatile="true" transient="true" derived="true" resolveProxies="false">
+      <eAnnotations source="http://www.topcased.org/uuid">
+        <details key="uuid" value="1139667207078311"/>
+      </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ContentProvider" abstract="true" eSuperTypes="#//LifeCycle">
     <eAnnotations source="http://www.topcased.org/uuid">
@@ -553,6 +594,11 @@
   <eClassifiers xsi:type="ecore:EDataType" name="DomDocument" instanceClassName="org.w3c.dom.Document">
     <eAnnotations source="http://www.topcased.org/uuid">
       <details key="uuid" value="1138795838842228"/>
+    </eAnnotations>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EDataType" name="PathSet" instanceClassName="java.util.Set">
+    <eAnnotations source="http://www.topcased.org/uuid">
+      <details key="uuid" value="1139669433312323"/>
     </eAnnotations>
   </eClassifiers>
 </ecore:EPackage>

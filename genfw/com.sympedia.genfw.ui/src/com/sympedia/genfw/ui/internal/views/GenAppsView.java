@@ -11,7 +11,7 @@
 package com.sympedia.genfw.ui.internal.views;
 
 
-import com.sympedia.genfw.ui.internal.Activator;
+import com.sympedia.genfw.ui.internal.GenfwUiActivator;
 import com.sympedia.genfw.ui.internal.actions.GenerateAction;
 import com.sympedia.genfw.ui.internal.actions.GenerateAllAction;
 import com.sympedia.genfw.util.GenAppManager;
@@ -85,7 +85,8 @@ public class GenAppsView extends ResourceNavigator implements ISelectionChangedL
     });
 
     showInputsAction.setToolTipText("Show inputs");
-    showInputsAction.setImageDescriptor(Activator.getImageDescriptor("icons/ShowInputs.gif"));
+    showInputsAction.setImageDescriptor(GenfwUiActivator.getPlugin().getImageRegistry()
+            .getDescriptor("icons/ShowInputs.gif"));
 
     super.createPartControl(parent);
     UiHelper.removeNavigationActions(manager);
@@ -178,7 +179,8 @@ public class GenAppsView extends ResourceNavigator implements ISelectionChangedL
   {
     public LocalGenerate()
     {
-      super("Generate", Activator.getImageDescriptor("icons/GenApp.gif"));
+      super("Generate", GenfwUiActivator.getPlugin().getImageRegistry().getDescriptor(
+              "icons/GenApp.gif"));
       setToolTipText("Generate selected applications");
     }
 
@@ -193,7 +195,8 @@ public class GenAppsView extends ResourceNavigator implements ISelectionChangedL
   {
     public LocalGenerateAll()
     {
-      super("Generate All", Activator.getImageDescriptor("icons/GenerateAll.gif"));
+      super("Generate All", GenfwUiActivator.getPlugin().getImageRegistry().getDescriptor(
+              "icons/GenerateAll.gif"));
       setToolTipText("Generate all applications");
     }
 

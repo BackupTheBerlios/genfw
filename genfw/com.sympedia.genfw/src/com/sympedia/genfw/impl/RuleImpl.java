@@ -11,6 +11,7 @@
 package com.sympedia.genfw.impl;
 
 
+import com.sympedia.genfw.GenLib;
 import com.sympedia.genfw.Generator;
 import com.sympedia.genfw.GenfwPackage;
 import com.sympedia.genfw.Rule;
@@ -599,11 +600,11 @@ public abstract class RuleImpl extends LifeCycleImpl implements Rule
   protected void doInitialize() throws Exception
   {
     super.doInitialize();
-    getGenerator().initialize(getRuntimeGenApp());
+    getGenerator().initialize(getContext());
     for (Iterator it = getPrerequisites().iterator(); it.hasNext();)
     {
       Rule rule = (Rule)it.next();
-      rule.initialize(getRuntimeGenApp());
+      rule.initialize(getContext());
     }
   }
 
@@ -613,13 +614,22 @@ public abstract class RuleImpl extends LifeCycleImpl implements Rule
   @Override
   protected void doDispose() throws Exception
   {
-    getGenerator().dispose(getRuntimeGenApp());
+    getGenerator().dispose();
     for (Iterator it = getPrerequisites().iterator(); it.hasNext();)
     {
       Rule rule = (Rule)it.next();
-      rule.dispose(getRuntimeGenApp());
+      rule.dispose();
     }
 
     super.doDispose();
+  }
+
+  /**
+   * @ADDED
+   */
+  @Override
+  public GenLib getRoot()
+  {
+    return getRuleSet().getRoot();
   }
 } //RuleImpl

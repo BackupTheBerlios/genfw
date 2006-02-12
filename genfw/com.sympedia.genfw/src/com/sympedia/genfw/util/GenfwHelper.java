@@ -12,8 +12,10 @@ package com.sympedia.genfw.util;
 
 
 import com.sympedia.genfw.ContentProvider;
+import com.sympedia.genfw.Context;
 import com.sympedia.genfw.GenApp;
 import com.sympedia.genfw.Generator;
+import com.sympedia.genfw.GenfwFactory;
 import com.sympedia.genfw.Input;
 import com.sympedia.genfw.Rule;
 import com.sympedia.genfw.RuleSet;
@@ -63,14 +65,14 @@ public class GenfwHelper
 
   public static final int TRACE_DEFAULT = TRACE_WRITE;
 
-  public static void processFile(IFile file, int traceLevel, IProgressMonitor monitor)
+  public static Context processFile(IFile file, int traceLevel, IProgressMonitor monitor)
           throws Exception
   {
     String path = file.getFullPath().toString();
-    processFile(path, traceLevel, monitor);
+    return processFile(path, traceLevel, monitor);
   }
 
-  public static void processFile(String path, int traceLevel, IProgressMonitor monitor)
+  public static Context processFile(String path, int traceLevel, IProgressMonitor monitor)
           throws Exception
   {
     checkCancelation(monitor);
@@ -83,10 +85,10 @@ public class GenfwHelper
     Resource resource = rs.getResource(uri, true);
 
     GenApp genApp = (GenApp)resource.getContents().get(0);
-    processGenApp(genApp, traceLevel, monitor);
+    return processGenApp(genApp, traceLevel, monitor);
   }
 
-  public static void processGenApp(GenApp genApp, int traceLevel, IProgressMonitor monitor)
+  public static Context processGenApp(GenApp genApp, int traceLevel, IProgressMonitor monitor)
           throws Exception
   {
     checkCancelation(monitor);
@@ -95,11 +97,13 @@ public class GenfwHelper
 
     try
     {
+      Context context = GenfwFactory.eINSTANCE.createContext(genApp);
+
       for (Iterator it = inputs.iterator(); it.hasNext();)
       {
         Input input = (Input)it.next();
         monitor.subTask("Initializing " + input.getFullPath());
-        input.initialize(genApp);
+        input.initialize(context);
         monitor.worked(1);
         checkCancelation(monitor);
       }
@@ -117,10 +121,12 @@ public class GenfwHelper
       {
         Input input = (Input)it.next();
         monitor.subTask("Disposing " + input.getFullPath());
-        input.dispose(genApp);
+        input.dispose();
         monitor.worked(1);
         checkCancelation(monitor);
       }
+
+      return context;
     }
     finally
     {
@@ -391,6 +397,27 @@ public class GenfwHelper
       }
     }
   }
+
+  //  private static void postProcessContext(Context context)
+  //  {
+  //    Set<IPath> paths = new HashSet<IPath>();
+  //    for (Iterator it = context.getInputPaths().iterator(); it.hasNext();)
+  //    {
+  //      String str = (String)it.next();
+  //      if (str != null) paths.add(new Path(str));
+  //    }
+  //
+  //    for (Iterator it = context.getTargetPaths().iterator(); it.hasNext();)
+  //    {
+  //      String str = (String)it.next();
+  //      if (str != null) paths.add(new Path(str));
+  //    }
+  //
+  //    for (IPath path : paths)
+  //    {
+  //      System.out.println("XREF: " + path);
+  //    }
+  //  }
 
   private static void checkCancelation(IProgressMonitor monitor)
   {

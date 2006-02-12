@@ -426,11 +426,11 @@ public class InputImpl extends LifeCycleImpl implements Input
   protected void doInitialize() throws Exception
   {
     super.doInitialize();
-    getContentProvider().initialize(getRuntimeGenApp());
+    getContentProvider().initialize(getContext());
     for (Iterator it = getRuleSets().iterator(); it.hasNext();)
     {
       RuleSet ruleSet = (RuleSet)it.next();
-      ruleSet.initialize(getRuntimeGenApp());
+      ruleSet.initialize(getContext());
     }
   }
 
@@ -440,11 +440,11 @@ public class InputImpl extends LifeCycleImpl implements Input
   @Override
   protected void doDispose() throws Exception
   {
-    getContentProvider().dispose(getRuntimeGenApp());
+    getContentProvider().dispose();
     for (Iterator it = getRuleSets().iterator(); it.hasNext();)
     {
       RuleSet ruleSet = (RuleSet)it.next();
-      ruleSet.dispose(getRuntimeGenApp());
+      ruleSet.dispose();
     }
 
     super.doDispose();

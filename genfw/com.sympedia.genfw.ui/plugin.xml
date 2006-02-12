@@ -21,11 +21,65 @@
                enablesFor="*"
                icon="icons/GenApp.gif"
                id="com.sympedia.genfw.ui.newAction"
+               menubarPath="com.sympedia.genfw.ui.menu1/group1"
                label="Generate"
+               tooltip="Generate"
+               state="true"
+               style="push"/>
+      </objectContribution>
+      <objectContribution
+            adaptable="true"
+            id="com.sympedia.genfw.ui.contribution2"
+            nameFilter="*"
+            objectClass="org.eclipse.core.resources.IProject">
+         <menu
+               id="com.sympedia.genfw.ui.menu1"
+               label="Sympedia Generation"
+               path="additions">
+            <separator name="group1"/>
+         </menu>
+         <action
+               class="com.sympedia.genfw.ui.internal.actions.AddNatureAction"
+               enablesFor="1"
+               id="com.sympedia.genfw.ui.AddNatureAction"
+               label="Add GenFw Nature"
                menubarPath="com.sympedia.genfw.ui.menu1/group1"
                state="true"
                style="push"
-               tooltip="Generate"/>
+               tooltip="Add GenFw Nature"/>
+         <visibility>
+            <not>
+              <objectState
+                    name="projectNature"
+                    value="com.sympedia.genfw.nature"/>
+            </not>
+         </visibility>
+      </objectContribution>
+      <objectContribution
+            adaptable="true"
+            id="com.sympedia.genfw.ui.contribution3"
+            nameFilter="*"
+            objectClass="org.eclipse.core.resources.IProject">
+         <menu
+               id="com.sympedia.genfw.ui.menu1"
+               label="Sympedia Generation"
+               path="additions">
+            <separator name="group1"/>
+         </menu>
+         <action
+               class="com.sympedia.genfw.ui.internal.actions.RemoveNatureAction"
+               enablesFor="1"
+               id="com.sympedia.genfw.ui.RemoveNatureAction"
+               label="Remove GenFw Nature"
+               menubarPath="com.sympedia.genfw.ui.menu1/group1"
+               state="true"
+               style="push"
+               tooltip="Remove GenFw Nature"/>
+         <visibility>
+              <objectState
+                    name="projectNature"
+                    value="com.sympedia.genfw.nature"/>
+         </visibility>
       </objectContribution>
    </extension>
    

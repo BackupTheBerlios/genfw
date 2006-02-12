@@ -124,7 +124,7 @@ public class JmergeGeneratorImpl extends DelegatingGeneratorImpl implements Jmer
    * <!-- end-user-doc -->
    * @generated NOT
    */
-  public String generate(Object inputObject, String targetPath, IProgressMonitor monitor)
+  public String doGenerate(Object inputObject, String targetPath, IProgressMonitor monitor)
           throws Exception
   {
     Generator delegate = getDelegate();

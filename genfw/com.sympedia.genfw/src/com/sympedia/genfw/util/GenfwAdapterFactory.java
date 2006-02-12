@@ -182,6 +182,11 @@ public class GenfwAdapterFactory extends AdapterFactoryImpl
       return createInputAdapter();
     }
 
+    public Object caseContext(Context object)
+    {
+      return createContextAdapter();
+    }
+
     public Object caseDomContentProvider(DomContentProvider object)
     {
       return createDomContentProviderAdapter();
@@ -502,6 +507,21 @@ public class GenfwAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createInputAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link com.sympedia.genfw.Context <em>Context</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see com.sympedia.genfw.Context
+   * @generated
+   */
+  public Adapter createContextAdapter()
   {
     return null;
   }

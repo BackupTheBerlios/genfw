@@ -189,7 +189,7 @@ public class StaticFileInitializerImpl extends GeneratorImpl implements StaticFi
    * @ADDED
    */
   @Override
-  public String generate(Object inputObject, String targetPath, IProgressMonitor monitor)
+  public String doGenerate(Object inputObject, String targetPath, IProgressMonitor monitor)
           throws Exception
   {
     ByteArrayOutputStream stream = new ByteArrayOutputStream();

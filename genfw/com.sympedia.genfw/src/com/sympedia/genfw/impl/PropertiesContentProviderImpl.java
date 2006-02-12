@@ -63,6 +63,7 @@ public class PropertiesContentProviderImpl extends ContentProviderImpl implement
   @Override
   public List getRoots(String path) throws Exception
   {
+    getContext().addInputPath(path);
     Properties properties = new Properties();
     IResource resource = ResourcesHelper.ROOT.findMember(path);
     if (resource != null && resource.exists())

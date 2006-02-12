@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
 Bundle-SymbolicName: com.sympedia.util.eclipse.ui
 Bundle-Version: 1.0.0
-Bundle-Activator: com.sympedia.util.eclipse.ui.internal.Activator
+Bundle-Activator: com.sympedia.util.eclipse.ui.internal.UtilEclipseUiActivator$Implementation
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Require-Bundle: com.sympedia.util.eclipse.resources;visibility:=reexport,

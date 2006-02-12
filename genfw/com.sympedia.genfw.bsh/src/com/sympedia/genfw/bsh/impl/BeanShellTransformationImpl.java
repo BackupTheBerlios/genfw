@@ -14,6 +14,7 @@ package com.sympedia.genfw.bsh.impl;
 import bsh.EvalError;
 import bsh.Interpreter;
 
+import com.sympedia.genfw.GenLib;
 import com.sympedia.genfw.bsh.BeanShellTransformation;
 import com.sympedia.genfw.bsh.BshPackage;
 import com.sympedia.genfw.impl.DomTransformationImpl;
@@ -287,7 +288,7 @@ public class BeanShellTransformationImpl extends DomTransformationImpl implement
   protected Interpreter getBshInterpreter(Object inputObject) throws EvalError
   {
     ClassLoader parentClassLoader = inputObject.getClass().getClassLoader();
-    ClassLoader classLoader = getTransformer().getRoot().getClassLoader(parentClassLoader);
+    ClassLoader classLoader = getRoot().getClassLoader(parentClassLoader);
     Interpreter i = new Interpreter();
     i.setClassLoader(classLoader);
     i.eval("import com.sympedia.genfw.*;");
@@ -302,5 +303,13 @@ public class BeanShellTransformationImpl extends DomTransformationImpl implement
     }
 
     return i;
+  }
+  /**
+   * @ADDED
+   */
+  @Override
+  public GenLib getRoot()
+  {
+    return getTransformer().getRoot();
   }
 } //BeanShellTransformationRuleImpl

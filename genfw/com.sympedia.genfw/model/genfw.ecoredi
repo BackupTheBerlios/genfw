@@ -702,7 +702,7 @@
       <contained xsi:type="di:EdgeObjectUV" id="cardinalityLabel" uDistance="7" vDistance="-13"/>
       <contained xsi:type="di:EdgeObjectUV" id="nameLabel" uDistance="9" vDistance="11"/>
     </contained>
-    <contained xsi:type="di:GraphNode" position="161,622" size="109,-1">
+    <contained xsi:type="di:GraphNode" position="226,619" size="110,-1">
       <semanticModel xsi:type="di:EMFSemanticModelBridge">
         <element href="genfw.ecore#//LifeCycle"/>
       </semanticModel>
@@ -727,6 +727,11 @@
             <element href="genfw.ecore#//LifeCycle/dispose"/>
           </semanticModel>
         </contained>
+        <contained xsi:type="di:GraphNode" position="0,0" size="0,0">
+          <semanticModel xsi:type="di:EMFSemanticModelBridge">
+            <element href="genfw.ecore#//LifeCycle/getRoot"/>
+          </semanticModel>
+        </contained>
       </contained>
     </contained>
     <contained xsi:type="di:GraphNode" position="677,348" size="123,-1">
@@ -749,6 +754,43 @@
     </contained>
     <contained xsi:type="di:GraphEdge" anchor="//@diagrams.0/@contained.46/@anchorage.0 //@diagrams.0/@contained.3/@anchorage.0">
       <semanticModel xsi:type="di:SimpleSemanticModelElement" typeInfo="Inheritance EditPolicy"/>
+    </contained>
+    <contained xsi:type="di:GraphNode" position="24,608" size="157,-1">
+      <semanticModel xsi:type="di:EMFSemanticModelBridge">
+        <element href="genfw.ecore#//Context"/>
+      </semanticModel>
+      <contained xsi:type="di:GraphNode">
+        <property key="eStructuralFeatureID" value="13"/>
+        <semanticModel xsi:type="di:EMFSemanticModelBridge">
+          <element href="genfw.ecore#//Context"/>
+        </semanticModel>
+      </contained>
+      <contained xsi:type="di:GraphNode">
+        <property key="eStructuralFeatureID" value="9"/>
+        <semanticModel xsi:type="di:EMFSemanticModelBridge">
+          <element href="genfw.ecore#//Context"/>
+        </semanticModel>
+        <contained xsi:type="di:GraphNode" position="0,0" size="0,0">
+          <semanticModel xsi:type="di:EMFSemanticModelBridge">
+            <element href="genfw.ecore#//Context/addInputPath"/>
+          </semanticModel>
+        </contained>
+        <contained xsi:type="di:GraphNode" position="0,0" size="0,0">
+          <semanticModel xsi:type="di:EMFSemanticModelBridge">
+            <element href="genfw.ecore#//Context/addTargetPath"/>
+          </semanticModel>
+        </contained>
+        <contained xsi:type="di:GraphNode" position="0,0" size="0,0">
+          <semanticModel xsi:type="di:EMFSemanticModelBridge">
+            <element href="genfw.ecore#//Context/getInputPaths"/>
+          </semanticModel>
+        </contained>
+        <contained xsi:type="di:GraphNode" position="0,0" size="0,0">
+          <semanticModel xsi:type="di:EMFSemanticModelBridge">
+            <element href="genfw.ecore#//Context/getTargetPaths"/>
+          </semanticModel>
+        </contained>
+      </contained>
     </contained>
   </diagrams>
 </diagrams:Diagrams>

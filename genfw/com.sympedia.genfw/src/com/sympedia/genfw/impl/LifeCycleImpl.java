@@ -11,9 +11,11 @@
 package com.sympedia.genfw.impl;
 
 
-import com.sympedia.genfw.GenApp;
+import com.sympedia.genfw.Context;
+import com.sympedia.genfw.GenLib;
 import com.sympedia.genfw.GenfwPackage;
 import com.sympedia.genfw.LifeCycle;
+import com.sympedia.util.emf.EcoreHelper;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
@@ -33,7 +35,7 @@ public abstract class LifeCycleImpl extends EObjectImpl implements LifeCycle
   /**
    * @ADDED
    */
-  private GenApp runtimeGenApp;
+  private Context context;
 
   /**
    * <!-- begin-user-doc -->
@@ -60,12 +62,14 @@ public abstract class LifeCycleImpl extends EObjectImpl implements LifeCycle
    * <!-- end-user-doc -->
    * @generated NOT
    */
-  public final void initialize(GenApp genapp) throws Exception
+  public final void initialize(Context context) throws Exception
   {
     if (!isInitialized())
     {
       System.out.println("Initializing " + this);
-      runtimeGenApp = genapp;
+      this.context = context;
+      String fullPath = EcoreHelper.getFullPath(eResource().getURI());
+      context.addInputPath(fullPath);
       doInitialize();
     }
   }
@@ -75,7 +79,7 @@ public abstract class LifeCycleImpl extends EObjectImpl implements LifeCycle
    * <!-- end-user-doc -->
    * @generated NOT
    */
-  public final void dispose(GenApp genapp)
+  public final void dispose()
   {
     if (isInitialized())
     {
@@ -88,9 +92,16 @@ public abstract class LifeCycleImpl extends EObjectImpl implements LifeCycle
       {
       }
 
-      runtimeGenApp = null;
+      context = null;
     }
   }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated NOT
+   */
+  public abstract GenLib getRoot();
 
   /**
    * @ADDED
@@ -111,9 +122,9 @@ public abstract class LifeCycleImpl extends EObjectImpl implements LifeCycle
   /**
    * @ADDED
    */
-  protected GenApp getRuntimeGenApp()
+  protected Context getContext()
   {
-    return runtimeGenApp;
+    return context;
   }
 
   /**
@@ -121,6 +132,6 @@ public abstract class LifeCycleImpl extends EObjectImpl implements LifeCycle
    */
   protected boolean isInitialized()
   {
-    return runtimeGenApp != null;
+    return context != null;
   }
 } //LifeCycleImpl

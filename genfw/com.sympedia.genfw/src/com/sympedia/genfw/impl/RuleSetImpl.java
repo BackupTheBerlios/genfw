@@ -391,7 +391,7 @@ public class RuleSetImpl extends LifeCycleImpl implements RuleSet
     for (Iterator it = getRules().iterator(); it.hasNext();)
     {
       Rule rule = (Rule)it.next();
-      rule.initialize(getRuntimeGenApp());
+      rule.initialize(getContext());
     }
   }
 
@@ -404,7 +404,7 @@ public class RuleSetImpl extends LifeCycleImpl implements RuleSet
     for (Iterator it = getRules().iterator(); it.hasNext();)
     {
       Rule rule = (Rule)it.next();
-      rule.dispose(getRuntimeGenApp());
+      rule.dispose();
     }
 
     super.doDispose();

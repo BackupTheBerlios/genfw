@@ -1169,6 +1169,34 @@ public interface GenfwPackage extends EPackage
   int INPUT_FEATURE_COUNT = LIFE_CYCLE_FEATURE_COUNT + 5;
 
   /**
+   * The meta object id for the '{@link com.sympedia.genfw.impl.ContextImpl <em>Context</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see com.sympedia.genfw.impl.ContextImpl
+   * @see com.sympedia.genfw.impl.GenfwPackageImpl#getContext()
+   * @generated
+   */
+  int CONTEXT = 20;
+
+  /**
+   * The feature id for the '<em><b>Runtime</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int CONTEXT__RUNTIME = 0;
+
+  /**
+   * The number of structural features of the '<em>Context</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int CONTEXT_FEATURE_COUNT = 1;
+
+  /**
    * The meta object id for the '{@link com.sympedia.genfw.impl.DomContentProviderImpl <em>Dom Content Provider</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1176,7 +1204,7 @@ public interface GenfwPackage extends EPackage
    * @see com.sympedia.genfw.impl.GenfwPackageImpl#getDomContentProvider()
    * @generated
    */
-  int DOM_CONTENT_PROVIDER = 20;
+  int DOM_CONTENT_PROVIDER = 21;
 
   /**
    * The feature id for the '<em><b>Root</b></em>' container reference.
@@ -1213,7 +1241,7 @@ public interface GenfwPackage extends EPackage
    * @see com.sympedia.genfw.impl.GenfwPackageImpl#getIPath()
    * @generated
    */
-  int IPATH = 21;
+  int IPATH = 22;
 
   /**
    * The meta object id for the '<em>Java List</em>' data type.
@@ -1223,7 +1251,7 @@ public interface GenfwPackage extends EPackage
    * @see com.sympedia.genfw.impl.GenfwPackageImpl#getJavaList()
    * @generated
    */
-  int JAVA_LIST = 22;
+  int JAVA_LIST = 23;
 
   /**
    * The meta object id for the '<em>Core Exception</em>' data type.
@@ -1233,7 +1261,7 @@ public interface GenfwPackage extends EPackage
    * @see com.sympedia.genfw.impl.GenfwPackageImpl#getCoreException()
    * @generated
    */
-  int CORE_EXCEPTION = 23;
+  int CORE_EXCEPTION = 24;
 
   /**
    * The meta object id for the '<em>IProgress Monitor</em>' data type.
@@ -1243,7 +1271,7 @@ public interface GenfwPackage extends EPackage
    * @see com.sympedia.genfw.impl.GenfwPackageImpl#getIProgressMonitor()
    * @generated
    */
-  int IPROGRESS_MONITOR = 24;
+  int IPROGRESS_MONITOR = 25;
 
   /**
    * The meta object id for the '<em>Class Loader</em>' data type.
@@ -1253,7 +1281,7 @@ public interface GenfwPackage extends EPackage
    * @see com.sympedia.genfw.impl.GenfwPackageImpl#getClassLoader()
    * @generated
    */
-  int CLASS_LOADER = 25;
+  int CLASS_LOADER = 26;
 
   /**
    * The meta object id for the '<em>Output Stream</em>' data type.
@@ -1263,7 +1291,7 @@ public interface GenfwPackage extends EPackage
    * @see com.sympedia.genfw.impl.GenfwPackageImpl#getOutputStream()
    * @generated
    */
-  int OUTPUT_STREAM = 26;
+  int OUTPUT_STREAM = 27;
 
   /**
    * The meta object id for the '<em>Exception</em>' data type.
@@ -1273,7 +1301,7 @@ public interface GenfwPackage extends EPackage
    * @see com.sympedia.genfw.impl.GenfwPackageImpl#getException()
    * @generated
    */
-  int EXCEPTION = 27;
+  int EXCEPTION = 28;
 
   /**
    * The meta object id for the '<em>Dom Document</em>' data type.
@@ -1283,7 +1311,17 @@ public interface GenfwPackage extends EPackage
    * @see com.sympedia.genfw.impl.GenfwPackageImpl#getDomDocument()
    * @generated
    */
-  int DOM_DOCUMENT = 28;
+  int DOM_DOCUMENT = 29;
+
+  /**
+   * The meta object id for the '<em>Path Set</em>' data type.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see java.util.Set
+   * @see com.sympedia.genfw.impl.GenfwPackageImpl#getPathSet()
+   * @generated
+   */
+  int PATH_SET = 30;
 
   /**
    * Returns the meta object for class '{@link com.sympedia.genfw.GenLib <em>Gen Lib</em>}'.
@@ -2014,6 +2052,27 @@ public interface GenfwPackage extends EPackage
   EReference getInput_RuleSets();
 
   /**
+   * Returns the meta object for class '{@link com.sympedia.genfw.Context <em>Context</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Context</em>'.
+   * @see com.sympedia.genfw.Context
+   * @generated
+   */
+  EClass getContext();
+
+  /**
+   * Returns the meta object for the reference '{@link com.sympedia.genfw.Context#getRuntime <em>Runtime</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference '<em>Runtime</em>'.
+   * @see com.sympedia.genfw.Context#getRuntime()
+   * @see #getContext()
+   * @generated
+   */
+  EReference getContext_Runtime();
+
+  /**
    * Returns the meta object for class '{@link com.sympedia.genfw.DomContentProvider <em>Dom Content Provider</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -2118,6 +2177,18 @@ public interface GenfwPackage extends EPackage
    * @generated
    */
   EDataType getDomDocument();
+
+  /**
+   * Returns the meta object for data type '{@link java.util.Set <em>Path Set</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for data type '<em>Path Set</em>'.
+   * @see java.util.Set
+   * @model instanceClass="java.util.Set"
+   *        annotation="http://www.topcased.org/uuid uuid='1139669433312323'" 
+   * @generated
+   */
+  EDataType getPathSet();
 
   /**
    * Returns the factory that creates the instances of the model.
@@ -2730,6 +2801,24 @@ public interface GenfwPackage extends EPackage
     EReference INPUT__RULE_SETS = eINSTANCE.getInput_RuleSets();
 
     /**
+     * The meta object literal for the '{@link com.sympedia.genfw.impl.ContextImpl <em>Context</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see com.sympedia.genfw.impl.ContextImpl
+     * @see com.sympedia.genfw.impl.GenfwPackageImpl#getContext()
+     * @generated
+     */
+    EClass CONTEXT = eINSTANCE.getContext();
+
+    /**
+     * The meta object literal for the '<em><b>Runtime</b></em>' reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference CONTEXT__RUNTIME = eINSTANCE.getContext_Runtime();
+
+    /**
      * The meta object literal for the '{@link com.sympedia.genfw.impl.DomContentProviderImpl <em>Dom Content Provider</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -2818,6 +2907,16 @@ public interface GenfwPackage extends EPackage
      * @generated
      */
     EDataType DOM_DOCUMENT = eINSTANCE.getDomDocument();
+
+    /**
+     * The meta object literal for the '<em>Path Set</em>' data type.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see java.util.Set
+     * @see com.sympedia.genfw.impl.GenfwPackageImpl#getPathSet()
+     * @generated
+     */
+    EDataType PATH_SET = eINSTANCE.getPathSet();
 
   }
 

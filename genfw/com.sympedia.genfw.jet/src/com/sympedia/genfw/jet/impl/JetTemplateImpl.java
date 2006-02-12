@@ -191,7 +191,7 @@ public class JetTemplateImpl extends GeneratorImpl implements JetTemplate
    * @ADDED
    */
   @Override
-  public String generate(Object inputObject, String targetPath, IProgressMonitor monitor)
+  public String doGenerate(Object inputObject, String targetPath, IProgressMonitor monitor)
           throws Exception
   {
     ClassLoader inputClassLoader = inputObject.getClass().getClassLoader();
