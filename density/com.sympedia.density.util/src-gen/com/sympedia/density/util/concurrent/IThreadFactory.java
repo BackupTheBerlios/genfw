@@ -3,7 +3,7 @@ package com.sympedia.density.util.concurrent;
 
 import com.sympedia.density.*;
 
-
+/* Hello World */
 public interface IThreadFactory extends IComponent, java.util.concurrent.ThreadFactory
 {
   /////////////////////////////////////////////////////////////////////////////////////

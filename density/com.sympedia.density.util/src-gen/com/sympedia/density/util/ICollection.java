@@ -3,7 +3,7 @@ package com.sympedia.density.util;
 
 import com.sympedia.density.*;
 
-
+/* Hello World */
 public interface ICollection extends IComponent, java.util.Collection
 {
   /////////////////////////////////////////////////////////////////////////////////////
