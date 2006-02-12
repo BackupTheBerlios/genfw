@@ -15,6 +15,8 @@ import com.sympedia.genfw.impl.GeneratorImpl;
 import com.sympedia.genfw.jet.JetPackage;
 import com.sympedia.genfw.jet.JetTemplate;
 import com.sympedia.genfw.jet.internal.Activator;
+import com.sympedia.util.StringHelper;
+import com.sympedia.util.eclipse.resources.ResourcesHelper;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -27,6 +29,8 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.lang.reflect.Method;
+import java.net.URL;
+import java.net.URLClassLoader;
 
 
 /**
@@ -195,14 +199,15 @@ public class JetTemplateImpl extends GeneratorImpl implements JetTemplate
           throws Exception
   {
     ClassLoader inputClassLoader = inputObject.getClass().getClassLoader();
-    ClassLoader parentClassLoader = getRoot().getClassLoader(inputClassLoader);
-    Class template = getTemplate(parentClassLoader);
+    ClassLoader templateClassLoader = getRoot().getClassLoader(inputClassLoader);
+    Class template = getTemplate(templateClassLoader);
     if (template == null)
     {
       throw new CoreException(new Status(IStatus.ERROR, Activator.PLUGIN_ID, IStatus.ERROR,
               "Template not found for " + this, null));
     }
 
+    addTemplateToContext(templateClassLoader);
     String result = callTemplate(template, inputObject);
     return result;
   }
@@ -256,6 +261,33 @@ public class JetTemplateImpl extends GeneratorImpl implements JetTemplate
       PrintStream printer = new PrintStream(stream);
       ex.printStackTrace(printer);
       return stream.toString();
+    }
+  }
+
+  /**
+   * @ADDED
+   */
+  protected void addTemplateToContext(ClassLoader templateClassLoader)
+  {
+    if (templateClassLoader instanceof URLClassLoader)
+    {
+      URLClassLoader ucl = (URLClassLoader)templateClassLoader;
+      String className = getClassName();
+      if (className != null && className.length() != 0)
+      {
+        String fileName = className.replace('.', '/') + ".class";
+        URL url = ucl.findResource(fileName);
+        if (url != null)
+        {
+          String templateLocation = StringHelper.removePrefix(url.getFile(), "/");
+          String wsLocation = ResourcesHelper.ROOT.getLocation().toString();
+          if (templateLocation.startsWith(wsLocation))
+          {
+            String fullPath = templateLocation.substring(wsLocation.length());
+            getContext().addInputPath(fullPath);
+          }
+        }
+      }
     }
   }
 } //JetTemplateImpl

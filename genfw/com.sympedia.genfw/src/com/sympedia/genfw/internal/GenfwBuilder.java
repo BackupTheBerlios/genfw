@@ -25,6 +25,7 @@ import org.eclipse.core.resources.IncrementalProjectBuilder;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.OperationCanceledException;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.SubProgressMonitor;
 
@@ -61,6 +62,9 @@ public class GenfwBuilder extends IncrementalProjectBuilder
         {
           return incrementalBuild(buildState, monitor);
         }
+      }
+      catch (OperationCanceledException ignore)
+      {
       }
       catch (Exception ex)
       {
