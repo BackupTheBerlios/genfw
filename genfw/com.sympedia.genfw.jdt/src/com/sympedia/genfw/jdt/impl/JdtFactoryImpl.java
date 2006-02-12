@@ -11,14 +11,14 @@
 package com.sympedia.genfw.jdt.impl;
 
 
-import com.sympedia.genfw.jdt.*;
+import com.sympedia.genfw.jdt.JavaFormatter;
+import com.sympedia.genfw.jdt.JdtFactory;
+import com.sympedia.genfw.jdt.JdtPackage;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
-
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
-
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
 
 

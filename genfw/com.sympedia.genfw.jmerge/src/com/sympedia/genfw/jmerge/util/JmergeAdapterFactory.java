@@ -13,14 +13,12 @@ package com.sympedia.genfw.jmerge.util;
 
 import com.sympedia.genfw.DelegatingGenerator;
 import com.sympedia.genfw.Generator;
-
-import com.sympedia.genfw.jmerge.*;
+import com.sympedia.genfw.jmerge.JmergeGenerator;
+import com.sympedia.genfw.jmerge.JmergePackage;
 
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notifier;
-
 import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
-
 import org.eclipse.emf.ecore.EObject;
 
 

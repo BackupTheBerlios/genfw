@@ -12,7 +12,6 @@ package com.sympedia.genfw.impl;
 
 
 import com.sympedia.genfw.ContentProvider;
-import com.sympedia.genfw.GenApp;
 import com.sympedia.genfw.GenLib;
 import com.sympedia.genfw.GenfwPackage;
 
@@ -21,7 +20,6 @@ import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 
 import java.util.List;

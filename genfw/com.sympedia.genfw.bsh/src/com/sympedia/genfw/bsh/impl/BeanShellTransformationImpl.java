@@ -304,6 +304,7 @@ public class BeanShellTransformationImpl extends DomTransformationImpl implement
 
     return i;
   }
+
   /**
    * @ADDED
    */

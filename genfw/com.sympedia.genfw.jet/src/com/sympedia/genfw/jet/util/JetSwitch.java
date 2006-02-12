@@ -12,13 +12,15 @@ package com.sympedia.genfw.jet.util;
 
 
 import com.sympedia.genfw.Generator;
-
-import com.sympedia.genfw.jet.*;
-
-import java.util.List;
+import com.sympedia.genfw.jet.EcoreTemplate;
+import com.sympedia.genfw.jet.EmfGenerator;
+import com.sympedia.genfw.jet.JetPackage;
+import com.sympedia.genfw.jet.JetTemplate;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
+
+import java.util.List;
 
 
 /**

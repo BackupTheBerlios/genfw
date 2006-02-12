@@ -15,7 +15,6 @@ import com.sympedia.genfw.DomTransformation;
 import com.sympedia.genfw.DomTransformer;
 import com.sympedia.genfw.GenfwPackage;
 import com.sympedia.genfw.util.DomHelper;
-import com.sympedia.util.StringHelper;
 import com.sympedia.util.eclipse.resources.ResourcesHelper;
 
 import org.apache.xml.serialize.OutputFormat;
@@ -36,7 +35,6 @@ import org.eclipse.emf.ecore.util.InternalEList;
 import org.w3c.dom.DOMImplementation;
 import org.w3c.dom.Document;
 import org.w3c.dom.DocumentType;
-import org.w3c.dom.Element;
 
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;

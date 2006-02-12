@@ -174,19 +174,19 @@ public class FileManager implements IFileManager, IDisposable
       int changed = handleFile(file, kind, flags);
       switch (changed)
       {
-        case IResourceDelta.ADDED:
-          if (addedFiles != null) addedFiles.add(file);
-          break;
+      case IResourceDelta.ADDED:
+        if (addedFiles != null) addedFiles.add(file);
+        break;
 
-        case IResourceDelta.REMOVED:
-          if (removedFiles != null) removedFiles.add(file);
-          break;
+      case IResourceDelta.REMOVED:
+        if (removedFiles != null) removedFiles.add(file);
+        break;
 
-        case IResourceDelta.CHANGED:
-          if (changedFiles != null) changedFiles.add(file);
-          break;
+      case IResourceDelta.CHANGED:
+        if (changedFiles != null) changedFiles.add(file);
+        break;
 
-        default:
+      default:
       }
 
       return false;
@@ -209,17 +209,17 @@ public class FileManager implements IFileManager, IDisposable
   {
     switch (kind)
     {
-      case IResourceDelta.ADDED:
-        return addFile(file);
+    case IResourceDelta.ADDED:
+      return addFile(file);
 
-      case IResourceDelta.REMOVED:
-        return removeFile(file);
+    case IResourceDelta.REMOVED:
+      return removeFile(file);
 
-      case IResourceDelta.CHANGED:
-        if ((flags & (IResourceDelta.CONTENT | IResourceDelta.REPLACED)) != 0)
-        {
-          return IResourceDelta.CHANGED;
-        }
+    case IResourceDelta.CHANGED:
+      if ((flags & (IResourceDelta.CONTENT | IResourceDelta.REPLACED)) != 0)
+      {
+        return IResourceDelta.CHANGED;
+      }
     }
 
     return IResourceDelta.NO_CHANGE;

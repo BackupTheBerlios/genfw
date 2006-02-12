@@ -11,9 +11,6 @@
 package com.sympedia.genfw;
 
 
-import org.eclipse.emf.common.util.EList;
-
-
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Project Initializer</b></em>'.

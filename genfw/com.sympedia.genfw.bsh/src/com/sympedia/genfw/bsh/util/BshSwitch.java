@@ -14,9 +14,8 @@ package com.sympedia.genfw.bsh.util;
 import com.sympedia.genfw.DomTransformation;
 import com.sympedia.genfw.ExpressionBasedRule;
 import com.sympedia.genfw.Rule;
-import com.sympedia.genfw.bsh.*;
-
 import com.sympedia.genfw.bsh.BeanShellRule;
+import com.sympedia.genfw.bsh.BeanShellTransformation;
 import com.sympedia.genfw.bsh.BshPackage;
 
 import org.eclipse.emf.ecore.EClass;

@@ -11,23 +11,15 @@
 package com.sympedia.genfw.impl;
 
 
-import com.sympedia.genfw.GenLib;
 import com.sympedia.genfw.Generator;
 import com.sympedia.genfw.GenfwPackage;
 import com.sympedia.genfw.InitialGenerator;
 import com.sympedia.util.eclipse.resources.ResourcesHelper;
 
 import org.eclipse.core.resources.IResource;
-import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
-import org.eclipse.emf.common.notify.Notification;
-import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.InternalEObject;
-import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.EObjectImpl;
-import org.eclipse.emf.ecore.util.EcoreUtil;
 
 
 /**

@@ -143,7 +143,7 @@ public abstract class StateMachine<SUBJECT> implements IStateMachine<SUBJECT>
 
   protected Logger getLogger()
   {
-    return logger;
+    return StateMachine.logger;
   }
 
   protected String makeLabel(SUBJECT subject, int state, int event)

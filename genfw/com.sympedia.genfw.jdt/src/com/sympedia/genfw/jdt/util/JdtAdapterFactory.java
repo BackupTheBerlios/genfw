@@ -13,14 +13,12 @@ package com.sympedia.genfw.jdt.util;
 
 import com.sympedia.genfw.DelegatingGenerator;
 import com.sympedia.genfw.Generator;
-
-import com.sympedia.genfw.jdt.*;
+import com.sympedia.genfw.jdt.JavaFormatter;
+import com.sympedia.genfw.jdt.JdtPackage;
 
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notifier;
-
 import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
-
 import org.eclipse.emf.ecore.EObject;
 
 

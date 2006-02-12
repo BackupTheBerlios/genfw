@@ -13,13 +13,13 @@ package com.sympedia.genfw.jmerge.util;
 
 import com.sympedia.genfw.DelegatingGenerator;
 import com.sympedia.genfw.Generator;
-
-import com.sympedia.genfw.jmerge.*;
-
-import java.util.List;
+import com.sympedia.genfw.jmerge.JmergeGenerator;
+import com.sympedia.genfw.jmerge.JmergePackage;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
+
+import java.util.List;
 
 
 /**

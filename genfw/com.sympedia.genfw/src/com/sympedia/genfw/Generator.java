@@ -11,11 +11,8 @@
 package com.sympedia.genfw;
 
 
-import java.io.OutputStream;
-
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.emf.ecore.EObject;
 
 
 /**

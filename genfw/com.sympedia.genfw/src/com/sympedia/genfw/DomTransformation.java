@@ -12,9 +12,6 @@ package com.sympedia.genfw;
 
 
 import org.eclipse.core.runtime.IProgressMonitor;
-
-import org.eclipse.emf.ecore.EObject;
-
 import org.w3c.dom.Document;
 
 

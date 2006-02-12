@@ -11,14 +11,14 @@
 package com.sympedia.genfw.jmerge.impl;
 
 
-import com.sympedia.genfw.jmerge.*;
+import com.sympedia.genfw.jmerge.JmergeFactory;
+import com.sympedia.genfw.jmerge.JmergeGenerator;
+import com.sympedia.genfw.jmerge.JmergePackage;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
-
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
-
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
 
 

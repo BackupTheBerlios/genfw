@@ -36,16 +36,9 @@ import com.sympedia.genfw.RuleSet;
 import com.sympedia.genfw.StaticFileInitializer;
 import com.sympedia.genfw.StaticRule;
 
-import java.io.OutputStream;
-
-import java.util.List;
-
-import java.util.Set;
-
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
-
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EDataType;
@@ -53,10 +46,12 @@ import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EParameter;
 import org.eclipse.emf.ecore.EReference;
-
 import org.eclipse.emf.ecore.impl.EPackageImpl;
-
 import org.w3c.dom.Document;
+
+import java.io.OutputStream;
+import java.util.List;
+import java.util.Set;
 
 
 /**

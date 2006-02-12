@@ -52,51 +52,51 @@ public final class StringHelper
       char c = source.charAt(i);
       switch (c)
       {
-        case '\"':
-          if (bReplaceQuote)
-            sb.append("&quot;");
-          else
-            sb.append(c);
-          break;
-
-        case '<':
-          if (bReplaceTag)
-            sb.append("&lt;");
-          else
-            sb.append(c);
-          break;
-
-        case '>':
-          if (bReplaceTag)
-            sb.append("&gt;");
-          else
-            sb.append(c);
-          break;
-
-        case '\n':
-          if (bReplaceNl)
-          {
-            if (bReplaceTag)
-              sb.append("&lt;br&gt;");
-            else
-              sb.append("<br>");
-          }
-          else
-          {
-            sb.append(c);
-          }
-          break;
-
-        case '\r':
-          break;
-
-        case '&':
-          sb.append("&amp;");
-          break;
-
-        default:
+      case '\"':
+        if (bReplaceQuote)
+          sb.append("&quot;");
+        else
           sb.append(c);
-          break;
+        break;
+
+      case '<':
+        if (bReplaceTag)
+          sb.append("&lt;");
+        else
+          sb.append(c);
+        break;
+
+      case '>':
+        if (bReplaceTag)
+          sb.append("&gt;");
+        else
+          sb.append(c);
+        break;
+
+      case '\n':
+        if (bReplaceNl)
+        {
+          if (bReplaceTag)
+            sb.append("&lt;br&gt;");
+          else
+            sb.append("<br>");
+        }
+        else
+        {
+          sb.append(c);
+        }
+        break;
+
+      case '\r':
+        break;
+
+      case '&':
+        sb.append("&amp;");
+        break;
+
+      default:
+        sb.append(c);
+        break;
       }
     }
     return sb.toString();
@@ -583,7 +583,7 @@ public final class StringHelper
         return false;
       }
     }
-  
+
     return true;
   }
 }

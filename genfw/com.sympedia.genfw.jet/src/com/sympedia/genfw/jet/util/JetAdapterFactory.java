@@ -12,14 +12,14 @@ package com.sympedia.genfw.jet.util;
 
 
 import com.sympedia.genfw.Generator;
-
-import com.sympedia.genfw.jet.*;
+import com.sympedia.genfw.jet.EcoreTemplate;
+import com.sympedia.genfw.jet.EmfGenerator;
+import com.sympedia.genfw.jet.JetPackage;
+import com.sympedia.genfw.jet.JetTemplate;
 
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notifier;
-
 import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
-
 import org.eclipse.emf.ecore.EObject;
 
 

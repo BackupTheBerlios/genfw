@@ -13,9 +13,8 @@ package com.sympedia.genfw.bsh.impl;
 
 import bsh.Interpreter;
 
-import com.sympedia.genfw.bsh.*;
-
 import com.sympedia.genfw.bsh.BeanShellRule;
+import com.sympedia.genfw.bsh.BeanShellTransformation;
 import com.sympedia.genfw.bsh.BshFactory;
 import com.sympedia.genfw.bsh.BshPackage;
 

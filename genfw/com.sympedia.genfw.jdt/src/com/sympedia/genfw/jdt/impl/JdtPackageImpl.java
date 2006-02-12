@@ -12,7 +12,6 @@ package com.sympedia.genfw.jdt.impl;
 
 
 import com.sympedia.genfw.GenfwPackage;
-
 import com.sympedia.genfw.jdt.JavaFormatter;
 import com.sympedia.genfw.jdt.JdtFactory;
 import com.sympedia.genfw.jdt.JdtPackage;
@@ -20,9 +19,6 @@ import com.sympedia.genfw.jdt.JdtPackage;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
-
-import org.eclipse.emf.ecore.EReference;
-
 import org.eclipse.emf.ecore.impl.EPackageImpl;
 
 

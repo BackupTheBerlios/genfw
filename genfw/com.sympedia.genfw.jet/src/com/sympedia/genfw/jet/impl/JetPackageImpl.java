@@ -12,7 +12,6 @@ package com.sympedia.genfw.jet.impl;
 
 
 import com.sympedia.genfw.GenfwPackage;
-
 import com.sympedia.genfw.jet.EcoreTemplate;
 import com.sympedia.genfw.jet.EmfGenerator;
 import com.sympedia.genfw.jet.JetFactory;
@@ -21,9 +20,7 @@ import com.sympedia.genfw.jet.JetTemplate;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EPackage;
-
 import org.eclipse.emf.ecore.impl.EPackageImpl;
 
 

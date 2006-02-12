@@ -13,8 +13,6 @@ package com.sympedia.genfw.jdt;
 
 import com.sympedia.genfw.DelegatingGenerator;
 
-import com.sympedia.genfw.Generator;
-
 
 /**
  * <!-- begin-user-doc -->

@@ -11,28 +11,37 @@
 package com.sympedia.genfw.impl;
 
 
-import com.sympedia.genfw.*;
-
-import java.io.OutputStream;
-
-import java.util.List;
-
-import java.util.Set;
+import com.sympedia.genfw.Context;
+import com.sympedia.genfw.DomContentProvider;
+import com.sympedia.genfw.DomTransformer;
+import com.sympedia.genfw.EcoreContentProvider;
+import com.sympedia.genfw.GenApp;
+import com.sympedia.genfw.GenLib;
+import com.sympedia.genfw.GenfwFactory;
+import com.sympedia.genfw.GenfwPackage;
+import com.sympedia.genfw.InitialGenerator;
+import com.sympedia.genfw.Input;
+import com.sympedia.genfw.Line;
+import com.sympedia.genfw.ProjectInitializer;
+import com.sympedia.genfw.PropertiesContentProvider;
+import com.sympedia.genfw.RuleSet;
+import com.sympedia.genfw.StaticFileInitializer;
+import com.sympedia.genfw.StaticRule;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
-
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
-
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
-
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
-
 import org.w3c.dom.Document;
+
+import java.io.OutputStream;
+import java.util.List;
+import java.util.Set;
 
 
 /**

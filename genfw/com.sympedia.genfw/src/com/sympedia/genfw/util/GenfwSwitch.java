@@ -11,12 +11,34 @@
 package com.sympedia.genfw.util;
 
 
-import com.sympedia.genfw.*;
-
-import java.util.List;
+import com.sympedia.genfw.ContentProvider;
+import com.sympedia.genfw.Context;
+import com.sympedia.genfw.DelegatingGenerator;
+import com.sympedia.genfw.DomContentProvider;
+import com.sympedia.genfw.DomTransformation;
+import com.sympedia.genfw.DomTransformer;
+import com.sympedia.genfw.EcoreContentProvider;
+import com.sympedia.genfw.ExpressionBasedRule;
+import com.sympedia.genfw.GenApp;
+import com.sympedia.genfw.GenLib;
+import com.sympedia.genfw.Generator;
+import com.sympedia.genfw.GenfwPackage;
+import com.sympedia.genfw.InitialGenerator;
+import com.sympedia.genfw.Input;
+import com.sympedia.genfw.LifeCycle;
+import com.sympedia.genfw.Line;
+import com.sympedia.genfw.ProjectInitializationProvider;
+import com.sympedia.genfw.ProjectInitializer;
+import com.sympedia.genfw.PropertiesContentProvider;
+import com.sympedia.genfw.Rule;
+import com.sympedia.genfw.RuleSet;
+import com.sympedia.genfw.StaticFileInitializer;
+import com.sympedia.genfw.StaticRule;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
+
+import java.util.List;
 
 
 /**

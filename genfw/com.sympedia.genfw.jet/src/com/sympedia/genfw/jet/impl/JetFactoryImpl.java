@@ -11,14 +11,16 @@
 package com.sympedia.genfw.jet.impl;
 
 
-import com.sympedia.genfw.jet.*;
+import com.sympedia.genfw.jet.EcoreTemplate;
+import com.sympedia.genfw.jet.EmfGenerator;
+import com.sympedia.genfw.jet.JetFactory;
+import com.sympedia.genfw.jet.JetPackage;
+import com.sympedia.genfw.jet.JetTemplate;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
-
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
-
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
 
 

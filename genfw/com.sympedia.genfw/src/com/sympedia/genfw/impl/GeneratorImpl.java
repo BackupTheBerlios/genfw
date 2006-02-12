@@ -152,7 +152,7 @@ public abstract class GeneratorImpl extends LifeCycleImpl implements Generator
     {
       getContext().addTargetPath(targetPath);
     }
-    
+
     return doGenerate(inputObject, targetPath, monitor);
   }
 

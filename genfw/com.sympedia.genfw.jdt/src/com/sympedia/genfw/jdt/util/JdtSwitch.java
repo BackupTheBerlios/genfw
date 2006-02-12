@@ -13,13 +13,13 @@ package com.sympedia.genfw.jdt.util;
 
 import com.sympedia.genfw.DelegatingGenerator;
 import com.sympedia.genfw.Generator;
-
-import com.sympedia.genfw.jdt.*;
-
-import java.util.List;
+import com.sympedia.genfw.jdt.JavaFormatter;
+import com.sympedia.genfw.jdt.JdtPackage;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
+
+import java.util.List;
 
 
 /**
