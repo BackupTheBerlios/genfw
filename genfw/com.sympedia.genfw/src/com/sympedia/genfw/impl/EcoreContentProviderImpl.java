@@ -123,7 +123,10 @@ public class EcoreContentProviderImpl extends ContentProviderImpl implements Eco
       if (resource != null)
       {
         String fullPath = EcoreHelper.getFullPath(resource.getURI());
-        getContext().addInputPath(fullPath.toString());
+        if (fullPath != null)
+        {
+          getContext().addInputPath(fullPath.toString());
+        }
       }
     }
   }
