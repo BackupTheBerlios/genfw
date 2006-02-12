@@ -20,8 +20,10 @@ import com.sympedia.util.eclipse.ui.UiHelper;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.IAdaptable;
+import org.eclipse.emf.edit.ui.provider.ExtendedImageRegistry;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IToolBarManager;
+import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.viewers.DecoratingLabelProvider;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
@@ -85,8 +87,7 @@ public class GenAppsView extends ResourceNavigator implements ISelectionChangedL
     });
 
     showInputsAction.setToolTipText("Show inputs");
-    showInputsAction.setImageDescriptor(GenfwUiActivator.getPlugin().getImageRegistry()
-            .getDescriptor("icons/ShowInputs.gif"));
+    showInputsAction.setImageDescriptor(getImageDescriptor("ShowInputs"));
 
     super.createPartControl(parent);
     UiHelper.removeNavigationActions(manager);
@@ -179,8 +180,7 @@ public class GenAppsView extends ResourceNavigator implements ISelectionChangedL
   {
     public LocalGenerate()
     {
-      super("Generate", GenfwUiActivator.getPlugin().getImageRegistry().getDescriptor(
-              "icons/GenApp.gif"));
+      super("Generate", GenAppsView.getImageDescriptor("GenApp"));
       setToolTipText("Generate selected applications");
     }
 
@@ -195,8 +195,7 @@ public class GenAppsView extends ResourceNavigator implements ISelectionChangedL
   {
     public LocalGenerateAll()
     {
-      super("Generate All", GenfwUiActivator.getPlugin().getImageRegistry().getDescriptor(
-              "icons/GenerateAll.gif"));
+      super("Generate All", GenAppsView.getImageDescriptor("GenerateAll"));
       setToolTipText("Generate all applications");
     }
 
@@ -204,5 +203,11 @@ public class GenAppsView extends ResourceNavigator implements ISelectionChangedL
     {
       GenerateAllAction.processFiles();
     }
+  }
+
+  private static ImageDescriptor getImageDescriptor(String key)
+  {
+    Object image = GenfwUiActivator.getPlugin().getImage(key);
+    return ExtendedImageRegistry.getInstance().getImageDescriptor(image);
   }
 }
