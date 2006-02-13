@@ -1,8 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="tutorial1.orderman" default="generate" basedir=".">
+<project name="com.sympedia.genfw.schema" default="generate" basedir=".">
+
+	<property name="root" value="/com.sympedia.genfw/schema" />
+	<property name="trace.level" value="4" />
 
 	<target name="generate">
-		<genfw genapp="/com.sympedia.genfw/schema/extpoints.genapp" tracelevel="4"/>
+		<genfw genapp="${root}/contentProviders.genapp" tracelevel="${trace.level}" />
+		<genfw genapp="${root}/domTransformations.genapp" tracelevel="${trace.level}" />
+		<genfw genapp="${root}/externalLibraries.genapp" tracelevel="${trace.level}" />
+		<genfw genapp="${root}/generators.genapp" tracelevel="${trace.level}" />
+		<genfw genapp="${root}/rules.genapp" tracelevel="${trace.level}" />
 	</target>
 
 </project>
