@@ -13,23 +13,67 @@
 		<font face="Arial" size="2">
 		<table border="0">
 		<tr>
-		<td width="260">
+		<td width="280">
 		<h1>Sympedia GenFw</h1>
 		<p>Sympedia GenFw is a flexible and easy to use framework for software artifact
-			generation. Input models can be associated with generators via extensible rule
-			sets. Additional Content providers, generators and rules can be provided by
-			Eclipse plugins.</p>
-		<p>This homepage could still be a bit nicer, but the software is ready to be installed and here is some technical documentation:</p>
-		<p><font size="3"><a href="screenshots/index.html">Screenshots</a></font></p>
-		<p><font size="3"><a href="epl-v10.html">License</a></font></p>
-		<p><font size="3"><a href="installation/SympediaGenFwInstallation.html">Installation</a></font></p>
-		<p><font size="3"><a href="update">Update Site</a></font></p>
-		<p><font size="3"><a href="tutorial1/SympediaGenFwTutorial1.html">Tutorial 1</a></font><br><font size="1">Generating Java Beans</font></p>
-		<p><font size="3"><a href="tutorial2/SympediaGenFwTutorial2.html">Tutorial 2</a></font><br><font size="1">Generating Extension Points</font></p>
-		<p/>
-		<p>GenFw is hosted at <a href="http://developer.berlios.de/projects/genfw">BerliOS</a>.</p>
+			generation. GenFw is not a generator itself, rather it integrates existing input and output
+			technologies, as well as several expression languages to tie the former together.
+			GenFw features include:</p>
+		<p><b>Content Providers</b> <font size="1">Extensible via Eclipse ExtPoint.
+			Implementations for DOM, Ecore, Properties.</font></p>
+		<p><b>Generators</b> <font size="1">Extensible via Eclipse ExtPoint.
+			Implementations for JET, JMerge, Java Formatter, Project Creation, DOM Transformation, ...</font></p>
+		<p><b>Rules</b> <font size="1">Extensible via Eclipse ExtPoint.
+			Implementations for BeanShell, OCL.</font></p>
+		<p><b>Modularization</b> <font size="1">Generator configurations can be split into installable and reusable libraries.</font></p>
+		<p><b>User Interface</b> <font size="1">Eclipse Actions and Views to manage and invoke generations. Extensible Editors for the configuration files.</font></p>
+		<p><b>Incremental Project Builder</b> <font size="1">Automatically keep your generated code in sync with your models.</font></p>
+		<p><b>Ant Task</b> <font size="1">Generator configurations can be split into installable and reusable libraries</font></p>
+		<p><b>Density Generator</b> <font size="1">A generator for reusable components, dependency injection containers and container integration tests.
+			Runtime platform with container visualization.</font></p>
 		</td>
 		<td><img src="images/GenFw.gif"></td>
+		</tr>
+		<tr>
+		<td colspan="2">
+		<center>
+		<font size="3">
+		<table border="0">
+		<tr>
+		<td colspan="5"><hr></td>
+		</tr>
+		<tr align="left" valign="top">
+			<th width="100">General</th>
+			<th width="100">Installation</th>
+			<th width="140">Documentation</th>
+			<th width="110">Community</th>
+			<th width="120">Development</th>
+		</tr>
+		<tr align="left" valign="top">
+			<td><a href="screenshots/index.html">Screenshots</a></td>
+			<td><a href="installation/SympediaGenFwInstallation.html">Installation</a></td>
+			<td><a href="tutorial1/SympediaGenFwTutorial1.html">Tutorial 1</a></font><br><font size="1">Generating Java Beans</font></td>
+			<td><a href="news://news.gmane.org/gmane.comp.programming.modeling.genfw.user">Newsgroup</a></td>
+			<td><a href="http://developer.berlios.de/cvs/?group_id=5851" target="_blank">CVS</a></td>
+		</tr>
+		<tr align="left" valign="top">
+			<td><a href="epl-v10.html">License</a></td>
+			<td><a href="update" target="_blank">Update Site</a></td>
+			<td><a href="tutorial2/SympediaGenFwTutorial2.html">Tutorial 2</a></font><br><font size="1">Generating Extension Points</font></td>
+			<td><a href="http://developer.berlios.de/mail/?group_id=5851" target="_blank">Mailinglist</a></td>
+			<td><a href="http://developer.berlios.de/feature/?group_id=5851" target="_blank">Feature Requests</a></td>
+		</tr>
+		<tr align="left" valign="top">
+			<td></td>
+			<td><a href="download" target="_blank">Download</a></td>
+			<td><a href="tutorial3/SympediaGenFwTutorial3.html">Tutorial 3</a></font><br><font size="1">Generating Density Containers</font></td>
+			<td><a href="http://openfacts.berlios.de/index-en.phtml?title=Sympedia+GenFw" target="_blank">Wiki</a></td>
+			<td><a href="http://developer.berlios.de/bugs/?group_id=5851" target="_blank">Bug Requests</a></td>
+		</tr>
+		</table>
+		</font>
+		</center>
+		</td>
 		</tr>
 		</table>
 		</font>
