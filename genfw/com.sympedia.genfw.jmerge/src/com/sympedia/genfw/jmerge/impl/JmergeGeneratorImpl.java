@@ -19,6 +19,7 @@ import com.sympedia.genfw.jmerge.internal.JmergeActivator;
 import com.sympedia.util.eclipse.resources.ResourcesHelper;
 
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Platform;
@@ -154,7 +155,7 @@ public class JmergeGeneratorImpl extends DelegatingGeneratorImpl implements Jmer
     {
       try
       {
-        uri = Platform.asLocalURL(new URL(EMF_MERGE_XML_URI)).toString();
+        uri = FileLocator.toFileURL(new URL(EMF_MERGE_XML_URI)).toString();
       }
       catch (Exception ex)
       {

@@ -122,7 +122,7 @@ public final class GenfwActivator extends EMFPlugin
       for (ExternalLibrary library : ExternalLibrariesRegistry.INSTANCE
               .getAllExternalLibraryElements())
       {
-        if (library.getOrigin().getNamespace().equals(bundleId))
+        if (library.getOrigin().getNamespaceIdentifier().equals(bundleId))
         {
           try
           {

@@ -19,7 +19,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EPackage.Registry;
-import org.eclipse.emf.ocl.expressions.OclExpression;
+import org.eclipse.emf.ocl.expressions.OCLExpression;
 import org.eclipse.emf.ocl.expressions.util.ExpressionsUtil;
 import org.eclipse.emf.ocl.parser.EcoreEnvironmentFactory;
 import org.eclipse.emf.ocl.parser.Environment;
@@ -105,7 +105,7 @@ public class OclRuleImpl extends ExpressionBasedRuleImpl implements OclRule
     Registry packageRegistry = getPackageRegistry();
     EcoreEnvironmentFactory factory = new EcoreEnvironmentFactory(packageRegistry);
     Environment env = factory.createClassifierContext(eClass);
-    OclExpression ast = ExpressionsUtil.createInvariant(env, expr, true);
+    OCLExpression ast = ExpressionsUtil.createInvariant(env, expr, true);
 
     Map extentMap = factory.createExtentMap(eObject);
     Query query = QueryFactory.eINSTANCE.createQuery(ast);

@@ -14,6 +14,7 @@ package com.sympedia.util.eclipse;
 import com.sympedia.util.ClassLoaderFactory;
 
 import org.apache.log4j.Logger;
+import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.OperationCanceledException;
@@ -105,7 +106,7 @@ public abstract class ActivatorBase extends EMFPlugin implements ClassLoaderFact
   public static String getBundleLocation(Bundle bundle) throws IOException
   {
     URL url = bundle.getEntry("/");
-    return Platform.asLocalURL(url).getFile();
+    return FileLocator.toFileURL(url).getFile();
   }
 
   public void debug(String message)

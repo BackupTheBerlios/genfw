@@ -65,7 +65,7 @@ public class ExtensionParser
       }
       catch (Throwable t)
       {
-        String msg = "Error in plugin " + extensions[i].getNamespace()
+        String msg = "Error in plugin " + extensions[i].getNamespaceIdentifier()
                 + " while reading extension to " + point.getUniqueIdentifier();
         logger.error(msg, t);
       }
@@ -75,7 +75,7 @@ public class ExtensionParser
   public Element[] parse(IExtension extension)
   {
     if (logger.isDebugEnabled())
-      logger.debug("Parsing plugin " + extension.getNamespace() + " (extension-point = "
+      logger.debug("Parsing plugin " + extension.getNamespaceIdentifier() + " (extension-point = "
               + extension.getExtensionPointUniqueIdentifier() + ")");
 
     IConfigurationElement[] elems = extension.getConfigurationElements();

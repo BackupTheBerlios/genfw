@@ -18,6 +18,7 @@ import com.sympedia.util.StringHelper;
 
 import org.apache.log4j.Logger;
 import org.eclipse.core.runtime.IConfigurationElement;
+import org.eclipse.core.runtime.IContributor;
 import org.eclipse.core.runtime.IExtension;
 import org.eclipse.core.runtime.InvalidRegistryObjectException;
 
@@ -92,6 +93,16 @@ public class ExtensionPointStub implements IExtensionPointStub
   public String getNamespace() throws InvalidRegistryObjectException
   {
     return namespace;
+  }
+
+  public String getNamespaceIdentifier() throws InvalidRegistryObjectException
+  {
+    return namespace;
+  }
+
+  public IContributor getContributor() throws InvalidRegistryObjectException
+  {
+    return null;
   }
 
   public IExtension getExtension(String extensionId) throws InvalidRegistryObjectException

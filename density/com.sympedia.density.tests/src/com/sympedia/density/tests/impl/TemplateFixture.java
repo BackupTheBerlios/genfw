@@ -16,6 +16,7 @@ import com.sympedia.density.tests.ITestSpec;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
@@ -41,7 +42,7 @@ public class TemplateFixture extends WorkspaceFixture implements ITemplateFixtur
     assertNotNull(testBundle);
 
     URL url = testBundle.getEntry("/");
-    String localURL = Platform.asLocalURL(url).getFile();
+    String localURL = FileLocator.toFileURL(url).getFile();
     assertNotNull(localURL);
 
     configArea = new Path(localURL).append("bundles");

@@ -50,7 +50,7 @@ public class RegistryChangeEventStub extends ArrayList<ExtensionDeltaStub> imple
     List<ExtensionDeltaStub> result = new ArrayList<ExtensionDeltaStub>();
     for (ExtensionDeltaStub delta : this)
     {
-      if (StringHelper.equals(delta.getExtension().getNamespace(), namespace))
+      if (StringHelper.equals(delta.getExtension().getNamespaceIdentifier(), namespace))
       {
         result.add(delta);
       }
@@ -64,7 +64,7 @@ public class RegistryChangeEventStub extends ArrayList<ExtensionDeltaStub> imple
     List<ExtensionDeltaStub> result = new ArrayList<ExtensionDeltaStub>();
     for (ExtensionDeltaStub delta : this)
     {
-      if (StringHelper.equals(delta.getExtension().getNamespace(), namespace)
+      if (StringHelper.equals(delta.getExtension().getNamespaceIdentifier(), namespace)
               && StringHelper.equals(delta.getExtensionPoint().getUniqueIdentifier(),
                       extensionPoint))
       {
@@ -79,7 +79,7 @@ public class RegistryChangeEventStub extends ArrayList<ExtensionDeltaStub> imple
   {
     for (ExtensionDeltaStub delta : this)
     {
-      if (StringHelper.equals(delta.getExtension().getNamespace(), namespace)
+      if (StringHelper.equals(delta.getExtension().getNamespaceIdentifier(), namespace)
               && StringHelper.equals(delta.getExtensionPoint().getUniqueIdentifier(),
                       extensionPoint)
               && StringHelper.equals(delta.getExtension().getSimpleIdentifier(), extension))
