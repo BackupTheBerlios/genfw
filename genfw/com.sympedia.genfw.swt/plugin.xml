@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+ <copyright>
+ </copyright>
+
+ $Id: plugin.xml,v 1.1 2006/03/06 07:56:47 stepper Exp $
+-->
+
+<plugin>
+
+  <extension point="org.eclipse.emf.ecore.generated_package">
+    <package 
+       uri = "http://www.sympedia.com/2006/genfw/swt" 
+       class = "com.sympedia.genfw.swt.SwtPackage"
+       genModel = "model/swt.genmodel" /> 
+  </extension>
+  <extension
+        point="com.sympedia.genfw.generators">
+     <generator
+           classifierName="GifOverlayer"
+           packageURI="http://www.sympedia.com/2006/genfw/swt"/>
+  </extension>
+
+</plugin>
+

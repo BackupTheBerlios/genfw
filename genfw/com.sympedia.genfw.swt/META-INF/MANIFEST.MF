@@ -1,0 +1,14 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: %pluginName
+Bundle-SymbolicName: com.sympedia.genfw.swt; singleton:=true
+Bundle-Version: 1.0.0
+Bundle-ClassPath: .
+Bundle-Vendor: %providerName
+Bundle-Localization: plugin
+Export-Package: com.sympedia.genfw.swt,
+ com.sympedia.genfw.swt.impl,
+ com.sympedia.genfw.swt.util
+Require-Bundle: com.sympedia.genfw;visibility:=reexport,
+ org.eclipse.jface;visibility:=reexport
+Eclipse-AutoStart: true

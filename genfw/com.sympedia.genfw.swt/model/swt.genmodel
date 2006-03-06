@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/com.sympedia.genfw.swt/src"
+    editorDirectory="" modelPluginID="com.sympedia.genfw.swt" redirection="" modelName="Swt"
+    editorPluginClass="" codeFormatting="true" testsDirectory="" testSuiteClass=""
+    importerID="org.eclipse.emf.importer.ecore" usedGenPackages="../../com.sympedia.genfw/model/genfw.genmodel#//genfw">
+  <foreignModel>swt.ecore</foreignModel>
+  <genPackages prefix="Swt" basePackage="com.sympedia.genfw" disposableProviderFactory="true"
+      ecorePackage="swt.ecore#/">
+    <genClasses ecoreClass="swt.ecore#//GifOverlayer">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute swt.ecore#//GifOverlayer/overlayPath"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>
