@@ -16,11 +16,20 @@ import com.sympedia.genfw.impl.DelegatingGeneratorImpl;
 import com.sympedia.genfw.jdt.JavaFormatter;
 import com.sympedia.genfw.jdt.JdtPackage;
 import com.sympedia.genfw.jdt.internal.JdtActivator;
+import com.sympedia.genfw.jdt.util.CodeFormatterProfileParser;
+import com.sympedia.util.eclipse.resources.ResourcesHelper;
 
+import org.eclipse.core.resources.IProject;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Path;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.eclipse.jdt.core.IJavaProject;
+import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.ToolFactory;
 import org.eclipse.jdt.core.formatter.CodeFormatter;
 import org.eclipse.jface.text.Document;
@@ -123,25 +132,35 @@ public class JavaFormatterImpl extends DelegatingGeneratorImpl implements JavaFo
     byte[] result = delegate.generate(inputObject, targetPath, monitor);
     if (result == null) return null;
 
+    Map options = null;
     String profileFile = getProfileFile();
-    if (profileFile != null)
+    if (profileFile == null || profileFile.length() == 0 || profileFile.equals("default"))
     {
-      if (profileFile.length() == 0 || profileFile.equals("default"))
+      if (targetPath != null)
       {
-        profileFile = null;
+        String projectName = new Path(targetPath).segment(0);
+        if (projectName != null)
+        {
+          IProject project = ResourcesHelper.ROOT.getProject(projectName);
+          if (project != null)
+          {
+            IJavaProject javaProject = JavaCore.create(project);
+            if (javaProject != null)
+            {
+              options = javaProject.getOptions(true);
+            }
+          }
+        }
       }
     }
-
-    Map options = null;
-    if (profileFile != null)
+    else
     {
-      //    options = CodeFormatterProfileParser.parse(profileName);
-      //      if (options == null)
-      //      {
-      //        throw new CoreException(new Status(IStatus.ERROR, JdtActivator.getPlugin()
-      //                .getBundle().getSymbolicName(), 0, "Unable to read profile file: '" + profileFile
-      //                + "'", null));
-      //      }
+      options = CodeFormatterProfileParser.parse(profileFile);
+      if (options == null)
+      {
+        throw new CoreException(new Status(IStatus.ERROR, JdtActivator.getPlugin().getBundle()
+                .getSymbolicName(), 0, "Unable to read profile file: '" + profileFile + "'", null));
+      }
     }
 
     CodeFormatter codeFormatter = ToolFactory.createCodeFormatter(options);
