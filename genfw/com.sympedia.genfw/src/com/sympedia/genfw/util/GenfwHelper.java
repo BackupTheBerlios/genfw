@@ -283,8 +283,8 @@ public class GenfwHelper
           {
             inputObject = rule.convertInputObject(inputObject);
 
-            result = generator
-                    .generate(inputObject, targetPath, new SubProgressMonitor(monitor, 1));
+            SubProgressMonitor subMonitor = new SubProgressMonitor(monitor, 1);
+            result = generator.generate(inputObject, targetPath, subMonitor);
             checkCancelation(monitor);
           }
           catch (Exception ex)
