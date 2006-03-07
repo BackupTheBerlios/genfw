@@ -12,8 +12,10 @@ package com.sympedia.genfw.jet.util;
 
 
 import com.sympedia.genfw.Generator;
+import com.sympedia.genfw.LifeCycle;
 import com.sympedia.genfw.jet.EcoreTemplate;
 import com.sympedia.genfw.jet.EmfGenerator;
+import com.sympedia.genfw.jet.GifColorer;
 import com.sympedia.genfw.jet.JetPackage;
 import com.sympedia.genfw.jet.JetTemplate;
 
@@ -109,6 +111,7 @@ public class JetSwitch
       JetTemplate jetTemplate = (JetTemplate)theEObject;
       Object result = caseJetTemplate(jetTemplate);
       if (result == null) result = caseGenerator(jetTemplate);
+      if (result == null) result = caseLifeCycle(jetTemplate);
       if (result == null) result = defaultCase(theEObject);
       return result;
     }
@@ -118,6 +121,7 @@ public class JetSwitch
       Object result = caseEcoreTemplate(ecoreTemplate);
       if (result == null) result = caseJetTemplate(ecoreTemplate);
       if (result == null) result = caseGenerator(ecoreTemplate);
+      if (result == null) result = caseLifeCycle(ecoreTemplate);
       if (result == null) result = defaultCase(theEObject);
       return result;
     }
@@ -126,6 +130,16 @@ public class JetSwitch
       EmfGenerator emfGenerator = (EmfGenerator)theEObject;
       Object result = caseEmfGenerator(emfGenerator);
       if (result == null) result = caseGenerator(emfGenerator);
+      if (result == null) result = caseLifeCycle(emfGenerator);
+      if (result == null) result = defaultCase(theEObject);
+      return result;
+    }
+    case JetPackage.GIF_COLORER:
+    {
+      GifColorer gifColorer = (GifColorer)theEObject;
+      Object result = caseGifColorer(gifColorer);
+      if (result == null) result = caseGenerator(gifColorer);
+      if (result == null) result = caseLifeCycle(gifColorer);
       if (result == null) result = defaultCase(theEObject);
       return result;
     }
@@ -178,6 +192,38 @@ public class JetSwitch
    * @generated
    */
   public Object caseEmfGenerator(EmfGenerator object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpretting the object as an instance of '<em>Gif Colorer</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpretting the object as an instance of '<em>Gif Colorer</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public Object caseGifColorer(GifColorer object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpretting the object as an instance of '<em>Life Cycle</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpretting the object as an instance of '<em>Life Cycle</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public Object caseLifeCycle(LifeCycle object)
   {
     return null;
   }

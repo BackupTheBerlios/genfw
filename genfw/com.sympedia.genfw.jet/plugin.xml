@@ -1,13 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.0"?>
 
-<!--
- <copyright>
- </copyright>
-
- $Id: plugin.xml,v 1.2 2006/02/01 09:35:46 stepper Exp $
--->
-
 <plugin>
 
   <extension point="org.eclipse.emf.ecore.generated_package">
@@ -18,6 +11,13 @@
   </extension>
   
   <extension
+        point="com.sympedia.genfw.externalLibraries">
+     <externalLibrary
+           libraryInitializer="com.sympedia.genfw.jet.internal.EcoreLibraryInitializer"
+           libraryPath="model/ecore.genlib"/>
+  </extension>
+
+  <extension
         point="com.sympedia.genfw.generators">
      <generator
            classifierName="JetTemplate"
@@ -27,6 +27,9 @@
            packageURI="http://www.sympedia.com/2006/genfw/jet"/>
      <generator
            classifierName="EmfGenerator"
+           packageURI="http://www.sympedia.com/2006/genfw/jet"/>
+     <generator
+           classifierName="GifColorer"
            packageURI="http://www.sympedia.com/2006/genfw/jet"/>
   </extension>
 

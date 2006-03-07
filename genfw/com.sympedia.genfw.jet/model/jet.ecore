@@ -13,4 +13,10 @@
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean" defaultValueLiteral="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="EmfGenerator" eSuperTypes="../../com.sympedia.genfw/model/genfw.ecore#//Generator"/>
+  <eClassifiers xsi:type="ecore:EClass" name="GifColorer" eSuperTypes="../../com.sympedia.genfw/model/genfw.ecore#//Generator">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="iconURL" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="colorKey1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="colorKey2" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
 </ecore:EPackage>

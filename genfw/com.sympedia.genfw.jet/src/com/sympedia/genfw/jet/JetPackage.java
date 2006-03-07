@@ -215,6 +215,70 @@ public interface JetPackage extends EPackage
   int EMF_GENERATOR_FEATURE_COUNT = GenfwPackage.GENERATOR_FEATURE_COUNT + 0;
 
   /**
+   * The meta object id for the '{@link com.sympedia.genfw.jet.impl.GifColorerImpl <em>Gif Colorer</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see com.sympedia.genfw.jet.impl.GifColorerImpl
+   * @see com.sympedia.genfw.jet.impl.JetPackageImpl#getGifColorer()
+   * @generated
+   */
+  int GIF_COLORER = 3;
+
+  /**
+   * The feature id for the '<em><b>Root</b></em>' container reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int GIF_COLORER__ROOT = GenfwPackage.GENERATOR__ROOT;
+
+  /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int GIF_COLORER__NAME = GenfwPackage.GENERATOR__NAME;
+
+  /**
+   * The feature id for the '<em><b>Icon URL</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int GIF_COLORER__ICON_URL = GenfwPackage.GENERATOR_FEATURE_COUNT + 0;
+
+  /**
+   * The feature id for the '<em><b>Color Key1</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int GIF_COLORER__COLOR_KEY1 = GenfwPackage.GENERATOR_FEATURE_COUNT + 1;
+
+  /**
+   * The feature id for the '<em><b>Color Key2</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int GIF_COLORER__COLOR_KEY2 = GenfwPackage.GENERATOR_FEATURE_COUNT + 2;
+
+  /**
+   * The number of structural features of the '<em>Gif Colorer</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int GIF_COLORER_FEATURE_COUNT = GenfwPackage.GENERATOR_FEATURE_COUNT + 3;
+
+  /**
    * Returns the meta object for class '{@link com.sympedia.genfw.jet.JetTemplate <em>Template</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -276,6 +340,49 @@ public interface JetPackage extends EPackage
    * @generated
    */
   EClass getEmfGenerator();
+
+  /**
+   * Returns the meta object for class '{@link com.sympedia.genfw.jet.GifColorer <em>Gif Colorer</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Gif Colorer</em>'.
+   * @see com.sympedia.genfw.jet.GifColorer
+   * @generated
+   */
+  EClass getGifColorer();
+
+  /**
+   * Returns the meta object for the attribute '{@link com.sympedia.genfw.jet.GifColorer#getIconURL <em>Icon URL</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Icon URL</em>'.
+   * @see com.sympedia.genfw.jet.GifColorer#getIconURL()
+   * @see #getGifColorer()
+   * @generated
+   */
+  EAttribute getGifColorer_IconURL();
+
+  /**
+   * Returns the meta object for the attribute '{@link com.sympedia.genfw.jet.GifColorer#getColorKey1 <em>Color Key1</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Color Key1</em>'.
+   * @see com.sympedia.genfw.jet.GifColorer#getColorKey1()
+   * @see #getGifColorer()
+   * @generated
+   */
+  EAttribute getGifColorer_ColorKey1();
+
+  /**
+   * Returns the meta object for the attribute '{@link com.sympedia.genfw.jet.GifColorer#getColorKey2 <em>Color Key2</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Color Key2</em>'.
+   * @see com.sympedia.genfw.jet.GifColorer#getColorKey2()
+   * @see #getGifColorer()
+   * @generated
+   */
+  EAttribute getGifColorer_ColorKey2();
 
   /**
    * Returns the factory that creates the instances of the model.
@@ -354,6 +461,40 @@ public interface JetPackage extends EPackage
      * @generated
      */
     EClass EMF_GENERATOR = eINSTANCE.getEmfGenerator();
+
+    /**
+     * The meta object literal for the '{@link com.sympedia.genfw.jet.impl.GifColorerImpl <em>Gif Colorer</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see com.sympedia.genfw.jet.impl.GifColorerImpl
+     * @see com.sympedia.genfw.jet.impl.JetPackageImpl#getGifColorer()
+     * @generated
+     */
+    EClass GIF_COLORER = eINSTANCE.getGifColorer();
+
+    /**
+     * The meta object literal for the '<em><b>Icon URL</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute GIF_COLORER__ICON_URL = eINSTANCE.getGifColorer_IconURL();
+
+    /**
+     * The meta object literal for the '<em><b>Color Key1</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute GIF_COLORER__COLOR_KEY1 = eINSTANCE.getGifColorer_ColorKey1();
+
+    /**
+     * The meta object literal for the '<em><b>Color Key2</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute GIF_COLORER__COLOR_KEY2 = eINSTANCE.getGifColorer_ColorKey2();
 
   }
 

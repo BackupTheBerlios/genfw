@@ -14,6 +14,7 @@ package com.sympedia.genfw.jet.impl;
 import com.sympedia.genfw.GenfwPackage;
 import com.sympedia.genfw.jet.EcoreTemplate;
 import com.sympedia.genfw.jet.EmfGenerator;
+import com.sympedia.genfw.jet.GifColorer;
 import com.sympedia.genfw.jet.JetFactory;
 import com.sympedia.genfw.jet.JetPackage;
 import com.sympedia.genfw.jet.JetTemplate;
@@ -52,6 +53,13 @@ public class JetPackageImpl extends EPackageImpl implements JetPackage
    * @generated
    */
   private EClass emfGeneratorEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass gifColorerEClass = null;
 
   /**
    * Creates an instance of the model <b>Package</b>, registered with
@@ -193,6 +201,46 @@ public class JetPackageImpl extends EPackageImpl implements JetPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EClass getGifColorer()
+  {
+    return gifColorerEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getGifColorer_IconURL()
+  {
+    return (EAttribute)gifColorerEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getGifColorer_ColorKey1()
+  {
+    return (EAttribute)gifColorerEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getGifColorer_ColorKey2()
+  {
+    return (EAttribute)gifColorerEClass.getEStructuralFeatures().get(2);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public JetFactory getJetFactory()
   {
     return (JetFactory)getEFactoryInstance();
@@ -226,6 +274,11 @@ public class JetPackageImpl extends EPackageImpl implements JetPackage
     createEAttribute(ecoreTemplateEClass, ECORE_TEMPLATE__GENERATE_IMPLEMENTATION);
 
     emfGeneratorEClass = createEClass(EMF_GENERATOR);
+
+    gifColorerEClass = createEClass(GIF_COLORER);
+    createEAttribute(gifColorerEClass, GIF_COLORER__ICON_URL);
+    createEAttribute(gifColorerEClass, GIF_COLORER__COLOR_KEY1);
+    createEAttribute(gifColorerEClass, GIF_COLORER__COLOR_KEY2);
   }
 
   /**
@@ -260,6 +313,7 @@ public class JetPackageImpl extends EPackageImpl implements JetPackage
     jetTemplateEClass.getESuperTypes().add(theGenfwPackage.getGenerator());
     ecoreTemplateEClass.getESuperTypes().add(this.getJetTemplate());
     emfGeneratorEClass.getESuperTypes().add(theGenfwPackage.getGenerator());
+    gifColorerEClass.getESuperTypes().add(theGenfwPackage.getGenerator());
 
     // Initialize classes and features; add operations and parameters
     initEClass(jetTemplateEClass, JetTemplate.class, "JetTemplate", !IS_ABSTRACT, !IS_INTERFACE,
@@ -279,6 +333,18 @@ public class JetPackageImpl extends EPackageImpl implements JetPackage
 
     initEClass(emfGeneratorEClass, EmfGenerator.class, "EmfGenerator", !IS_ABSTRACT, !IS_INTERFACE,
             IS_GENERATED_INSTANCE_CLASS);
+
+    initEClass(gifColorerEClass, GifColorer.class, "GifColorer", !IS_ABSTRACT, !IS_INTERFACE,
+            IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getGifColorer_IconURL(), ecorePackage.getEString(), "iconURL", null, 1, 1,
+            GifColorer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID,
+            IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getGifColorer_ColorKey1(), ecorePackage.getEString(), "colorKey1", null, 0, 1,
+            GifColorer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID,
+            IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getGifColorer_ColorKey2(), ecorePackage.getEString(), "colorKey2", null, 0, 1,
+            GifColorer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID,
+            IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     // Create resource
     createResource(eNS_URI);

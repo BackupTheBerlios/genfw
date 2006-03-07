@@ -12,8 +12,10 @@ package com.sympedia.genfw.jet.util;
 
 
 import com.sympedia.genfw.Generator;
+import com.sympedia.genfw.LifeCycle;
 import com.sympedia.genfw.jet.EcoreTemplate;
 import com.sympedia.genfw.jet.EmfGenerator;
+import com.sympedia.genfw.jet.GifColorer;
 import com.sympedia.genfw.jet.JetPackage;
 import com.sympedia.genfw.jet.JetTemplate;
 
@@ -99,6 +101,16 @@ public class JetAdapterFactory extends AdapterFactoryImpl
       return createEmfGeneratorAdapter();
     }
 
+    public Object caseGifColorer(GifColorer object)
+    {
+      return createGifColorerAdapter();
+    }
+
+    public Object caseLifeCycle(LifeCycle object)
+    {
+      return createLifeCycleAdapter();
+    }
+
     public Object caseGenerator(Generator object)
     {
       return createGeneratorAdapter();
@@ -164,6 +176,36 @@ public class JetAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createEmfGeneratorAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link com.sympedia.genfw.jet.GifColorer <em>Gif Colorer</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see com.sympedia.genfw.jet.GifColorer
+   * @generated
+   */
+  public Adapter createGifColorerAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link com.sympedia.genfw.LifeCycle <em>Life Cycle</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see com.sympedia.genfw.LifeCycle
+   * @generated
+   */
+  public Adapter createLifeCycleAdapter()
   {
     return null;
   }

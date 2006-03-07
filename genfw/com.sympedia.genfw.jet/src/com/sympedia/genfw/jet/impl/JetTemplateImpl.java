@@ -194,8 +194,8 @@ public class JetTemplateImpl extends GeneratorImpl implements JetTemplate
   /**
    * @ADDED
    */
-  @Override
-  public String doGenerate(Object inputObject, String targetPath, IProgressMonitor monitor)
+
+  public byte[] doGenerate(Object inputObject, String targetPath, IProgressMonitor monitor)
           throws Exception
   {
     ClassLoader inputClassLoader = inputObject.getClass().getClassLoader();
@@ -208,7 +208,7 @@ public class JetTemplateImpl extends GeneratorImpl implements JetTemplate
     }
 
     addTemplateToContext(templateClassLoader);
-    String result = callTemplate(template, inputObject);
+    byte[] result = callTemplate(template, inputObject);
     return result;
   }
 
@@ -227,6 +227,7 @@ public class JetTemplateImpl extends GeneratorImpl implements JetTemplate
     catch (Exception ex)
     {
       ex.printStackTrace();
+      System.out.println(classLoader);
     }
 
     return result;
@@ -235,11 +236,11 @@ public class JetTemplateImpl extends GeneratorImpl implements JetTemplate
   /**
    * @ADDED
    */
-  protected String callTemplate(Class templateClass, Object inputObject)
+  protected byte[] callTemplate(Class templateClass, Object inputObject)
   {
     if (templateClass == null)
     {
-      return "No template class";
+      return "No template class".getBytes();
     }
 
     try
@@ -247,12 +248,12 @@ public class JetTemplateImpl extends GeneratorImpl implements JetTemplate
       Method method = templateClass.getMethod("generate", new Class[] {Object.class});
       if (method == null || method.getReturnType() != String.class)
       {
-        return "Invalid template class: " + templateClass.getName();
+        return ("Invalid template class: " + templateClass.getName()).getBytes();
       }
 
       Object template = templateClass.newInstance();
       Object result = method.invoke(template, new Object[] {inputObject});
-      return (String)result;
+      return ((String)result).getBytes();
     }
     catch (Exception ex)
     {
@@ -260,7 +261,7 @@ public class JetTemplateImpl extends GeneratorImpl implements JetTemplate
       ByteArrayOutputStream stream = new ByteArrayOutputStream();
       PrintStream printer = new PrintStream(stream);
       ex.printStackTrace(printer);
-      return stream.toString();
+      return stream.toByteArray();
     }
   }
 

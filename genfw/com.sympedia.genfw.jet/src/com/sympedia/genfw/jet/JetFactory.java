@@ -60,6 +60,15 @@ public interface JetFactory extends EFactory
   EmfGenerator createEmfGenerator();
 
   /**
+   * Returns a new object of class '<em>Gif Colorer</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Gif Colorer</em>'.
+   * @generated
+   */
+  GifColorer createGifColorer();
+
+  /**
    * Returns the package supported by this factory.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

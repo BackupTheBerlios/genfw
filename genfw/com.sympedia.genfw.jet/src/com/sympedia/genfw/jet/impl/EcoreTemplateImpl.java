@@ -21,14 +21,33 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.codegen.ecore.genmodel.GenBase;
-import org.eclipse.emf.codegen.ecore.genmodel.GenClassifier;
+import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
+import org.eclipse.emf.codegen.ecore.genmodel.GenEnum;
 import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
 import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
+import org.eclipse.emf.codegen.ecore.genmodel.impl.GenPackageImpl;
+import org.eclipse.emf.codegen.ecore.templates.edit.ItemProvider;
+import org.eclipse.emf.codegen.ecore.templates.edit.ItemProviderAdapterFactory;
+import org.eclipse.emf.codegen.ecore.templates.editor.ActionBarContributor;
+import org.eclipse.emf.codegen.ecore.templates.editor.Advisor;
+import org.eclipse.emf.codegen.ecore.templates.editor.Editor;
+import org.eclipse.emf.codegen.ecore.templates.editor.ModelWizard;
+import org.eclipse.emf.codegen.ecore.templates.model.AdapterFactoryClass;
+import org.eclipse.emf.codegen.ecore.templates.model.FactoryClass;
+import org.eclipse.emf.codegen.ecore.templates.model.PackageClass;
+import org.eclipse.emf.codegen.ecore.templates.model.Plugin;
+import org.eclipse.emf.codegen.ecore.templates.model.PluginProperties;
+import org.eclipse.emf.codegen.ecore.templates.model.ResourceClass;
+import org.eclipse.emf.codegen.ecore.templates.model.ResourceFactoryClass;
+import org.eclipse.emf.codegen.ecore.templates.model.SwitchClass;
+import org.eclipse.emf.codegen.ecore.templates.model.ValidatorClass;
 import org.eclipse.emf.codegen.util.ImportManager;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
 
@@ -251,76 +270,271 @@ public class EcoreTemplateImpl extends JetTemplateImpl implements EcoreTemplate
   /**
    * @ADDED
    */
-  @Override
-  public String doGenerate(Object inputObject, String targetPath, IProgressMonitor monitor)
+  public byte[] doGenerate(Object inputObject, String targetPath, IProgressMonitor monitor)
           throws Exception
   {
     GenBase genBase = (GenBase)inputObject;
-    ImportManager importManager = createImportManager(genBase);
-
     GenModel genModel = genBase.getGenModel();
     genModel.setCanGenerate(true);
 
-    Method setter = BeanHelper.findMethod(genModel.getClass(), "setImportManager");
-    setter.setAccessible(true);
-    setter.invoke(genModel, new Object[] {importManager});
-    setter.setAccessible(false);
-
     ClassLoader inputClassLoader = genBase.getClass().getClassLoader();
-    Class template = getTemplate(inputClassLoader);
+    ClassLoader templateClassLoader = getRoot().getClassLoader(inputClassLoader);
+    Class template = getTemplate(templateClassLoader);
     if (template == null)
     {
       throw new CoreException(new Status(IStatus.ERROR, Activator.PLUGIN_ID, IStatus.ERROR,
               "Template not found for " + this, null));
     }
 
-    if (!isGenerateInterface() && !isGenerateImplementation())
+    ImportManager importManager = createImportManager(genBase, template);
+    if (importManager != null)
     {
-      //              Class shClass = Class.forName("org.eclipse.emf.codegen.ecore.genmodel.impl.GenPackageImpl.SwitchHelper");
-      //              Object switchHelper = shClass.newInstance();
-      //              Field field = BeanHelper.findField(shClass, "switchHelper");
-      //              field.setAccessible(true);
-      //              field.set(genBase, switchHelper);
-      //              field.setAccessible(false);
+      Method setter = BeanHelper.findMethod(genModel.getClass(), "setImportManager");
+      setter.setAccessible(true);
+      setter.invoke(genModel, new Object[] {importManager});
+      setter.setAccessible(false);// TODO try/finally
+    }
 
-      String result = callTemplate(template, genBase);
-      return result;
-    }
-    else
+    if (genBase instanceof GenPackageImpl)
     {
-      Boolean genInterface = new Boolean(isGenerateInterface());
-      Boolean genImplementation = new Boolean(isGenerateImplementation());
-      Object[] argument = new Object[] {genBase, genInterface, genImplementation};
-      String result = callTemplate(template, argument);
-      return result;
+      Class genPackageClass = GenPackageImpl.class;
+      Class depHelperClass = Class.forName(genPackageClass.getName() + "$DependencyHelper");
+      Constructor ctor = depHelperClass.getDeclaredConstructor(new Class[] {genPackageClass});
+      ctor.setAccessible(true);
+      Object depHelper = ctor.newInstance(new Object[] {genBase});
+      ctor.setAccessible(false);// TODO try/finally
+
+      Field field = BeanHelper.findField(genPackageClass, "dependencyHelper");
+      field.setAccessible(true);
+      field.set(genBase, depHelper);
+      field.setAccessible(false);// TODO try/finally
     }
+
+    // Not valid for eclipse312
+    //    if (!isGenerateInterface() && !isGenerateImplementation())
+    //    {
+    byte[] result = callTemplate(template, genBase);
+    return result;
+    //    }
+    //    else
+    //    {
+    //      Boolean genInterface = new Boolean(isGenerateInterface());
+    //      Boolean genImplementation = new Boolean(isGenerateImplementation());
+    //      Object[] argument = new Object[] {genBase, genInterface, genImplementation};
+    //      String result = callTemplate(template, argument);
+    //      return result;
+    //    }
   }
 
   /**
    * @ADDED
    */
-  protected ImportManager createImportManager(GenBase genBase) throws CoreException
+  protected ImportManager createImportManager(GenBase genBase, Class template) throws CoreException
   {
-    String compilationUnitPackage = null;
-    if (genBase instanceof GenPackage)
+    String templateName = template.getName();
+    if (genBase instanceof GenModel)
     {
-      compilationUnitPackage = ((GenPackage)genBase).getQualifiedPackageName();
-      if (!isGenerateInterface() && !isGenerateImplementation())
+      GenModel genModel = (GenModel)genBase;
+      if (templateName.equals(Plugin.class.getName()))
       {
-        compilationUnitPackage += ".util";
+        String packageName = genModel.getModelPluginPackageName();
+        ImportManager importManager = new ImportManager(packageName);
+        importManager.addMasterImport(packageName, genModel.getModelPluginClassName());
+        return importManager;
+      }
+
+      if (templateName.equals(PluginProperties.class.getName()))
+      {
+        return null;
+      }
+
+      if (templateName.equals(org.eclipse.emf.codegen.ecore.templates.edit.Plugin.class.getName()))
+      {
+        String packageName = genModel.getEditPluginPackageName();
+        ImportManager importManager = new ImportManager(packageName);
+        importManager.addMasterImport(packageName, genModel.getEditPluginClassName());
+        return importManager;
+      }
+
+      if (templateName.equals(org.eclipse.emf.codegen.ecore.templates.edit.PluginProperties.class
+              .getName()))
+      {
+        return null;
+      }
+
+      if (templateName
+              .equals(org.eclipse.emf.codegen.ecore.templates.editor.Plugin.class.getName()))
+      {
+        String packageName = genModel.getEditorPluginPackageName();
+        ImportManager importManager = new ImportManager(packageName);
+        importManager.addMasterImport(packageName, genModel.getEditorPluginClassName());
+        return importManager;
+      }
+
+      if (templateName.equals(org.eclipse.emf.codegen.ecore.templates.editor.PluginProperties.class
+              .getName()))
+      {
+        return null;
+      }
+
+      if (templateName.equals(Advisor.class.getName()))
+      {
+        String packageName = genModel.getEditorPluginPackageName();
+        ImportManager importManager = new ImportManager(packageName);
+        importManager.addMasterImport(packageName, genModel.getEditorAdvisorClassName());
+        return importManager;
+      }
+
+    }
+    else if (genBase instanceof GenPackage)
+    {
+      GenPackage genPackage = (GenPackage)genBase;
+      if (templateName.equals(PackageInterface.class.getName()))
+      {
+        String packageName = genPackage.getInterfacePackageName();
+        ImportManager importManager = new ImportManager(packageName);
+        importManager.addMasterImport(packageName, genPackage.getPackageInterfaceName());
+        return importManager;
+      }
+
+      if (templateName.equals(PackageClass.class.getName()))
+      {
+        String packageName = genPackage.getClassPackageName();
+        ImportManager importManager = new ImportManager(packageName);
+        importManager.addMasterImport(packageName, genPackage.getPackageClassName());
+        return importManager;
+      }
+
+      if (templateName.equals(FactoryInterface.class.getName()))
+      {
+        String packageName = genPackage.getInterfacePackageName();
+        ImportManager importManager = new ImportManager(packageName);
+        importManager.addMasterImport(packageName, genPackage.getFactoryInterfaceName());
+        return importManager;
+      }
+
+      if (templateName.equals(FactoryClass.class.getName()))
+      {
+        String packageName = genPackage.getClassPackageName();
+        ImportManager importManager = new ImportManager(packageName);
+        importManager.addMasterImport(packageName, genPackage.getFactoryClassName());
+        return importManager;
+      }
+
+      if (templateName.equals(AdapterFactoryClass.class.getName()))
+      {
+        String packageName = genPackage.getUtilitiesPackageName();
+        ImportManager importManager = new ImportManager(packageName);
+        importManager.addMasterImport(packageName, genPackage.getAdapterFactoryClassName());
+        return importManager;
+      }
+
+      if (templateName.equals(SwitchClass.class.getName()))
+      {
+        String packageName = genPackage.getUtilitiesPackageName();
+        ImportManager importManager = new ImportManager(packageName);
+        importManager.addMasterImport(packageName, genPackage.getSwitchClassName());
+        return importManager;
+      }
+
+      if (templateName.equals(ValidatorClass.class.getName()))
+      {
+        String packageName = genPackage.getUtilitiesPackageName();
+        ImportManager importManager = new ImportManager(packageName);
+        importManager.addMasterImport(packageName, genPackage.getValidatorClassName());
+        return importManager;
+      }
+
+      if (templateName.equals(ResourceClass.class.getName()))
+      {
+        String packageName = genPackage.getUtilitiesPackageName();
+        ImportManager importManager = new ImportManager(packageName);
+        importManager.addMasterImport(packageName, genPackage.getResourceClassName());
+        return importManager;
+      }
+
+      if (templateName.equals(ResourceFactoryClass.class.getName()))
+      {
+        String packageName = genPackage.getUtilitiesPackageName();
+        ImportManager importManager = new ImportManager(packageName);
+        importManager.addMasterImport(packageName, genPackage.getResourceFactoryClassName());
+        return importManager;
+      }
+
+      if (templateName.equals(ItemProviderAdapterFactory.class.getName()))
+      {
+        String packageName = genPackage.getProviderPackageName();
+        ImportManager importManager = new ImportManager(packageName);
+        importManager.addMasterImport(packageName, genPackage
+                .getItemProviderAdapterFactoryClassName());
+        return importManager;
+      }
+
+      if (templateName.equals(ActionBarContributor.class.getName()))
+      {
+        String packageName = genPackage.getPresentationPackageName();
+        ImportManager importManager = new ImportManager(packageName);
+        importManager.addMasterImport(packageName, genPackage.getActionBarContributorClassName());
+        return importManager;
+      }
+
+      if (templateName.equals(Editor.class.getName()))
+      {
+        String packageName = genPackage.getPresentationPackageName();
+        ImportManager importManager = new ImportManager(packageName);
+        importManager.addMasterImport(packageName, genPackage.getEditorClassName());
+        return importManager;
+      }
+
+      if (templateName.equals(ModelWizard.class.getName()))
+      {
+        String packageName = genPackage.getPresentationPackageName();
+        ImportManager importManager = new ImportManager(packageName);
+        importManager.addMasterImport(packageName, genPackage.getModelWizardClassName());
+        return importManager;
       }
     }
-    else if (genBase instanceof GenClassifier)
+    else if (genBase instanceof GenClass)
     {
-      compilationUnitPackage = ((GenClassifier)genBase).getGenPackage().getQualifiedPackageName();
+      GenClass genClass = (GenClass)genBase;
+      GenPackage genPackage = genClass.getGenPackage();
+
+      if (templateName.equals(Interface.class.getName()))
+      {
+        String packageName = genPackage.getInterfacePackageName();
+        ImportManager importManager = new ImportManager(packageName);
+        importManager.addMasterImport(packageName, genClass.getInterfaceName());
+        return importManager;
+      }
+
+      if (templateName.equals(org.eclipse.emf.codegen.ecore.templates.model.Class.class.getName()))
+      {
+        String packageName = genPackage.getClassPackageName();
+        ImportManager importManager = new ImportManager(packageName);
+        importManager.addMasterImport(packageName, genClass.getClassName());
+        return importManager;
+      }
+
+      if (templateName.equals(ItemProvider.class.getName()))
+      {
+        String packageName = genPackage.getProviderPackageName();
+        ImportManager importManager = new ImportManager(packageName);
+        importManager.addMasterImport(packageName, genClass.getProviderClassName());
+        return importManager;
+      }
     }
-    else
+    else if (genBase instanceof GenEnum)
     {
-      throw new CoreException(new Status(IStatus.ERROR, Activator.PLUGIN_ID, IStatus.ERROR,
-              "Input object is neither GenPackage nor GenClassifier " + genBase, null));
+      GenEnum genEnum = (GenEnum)genBase;
+      GenPackage genPackage = genEnum.getGenPackage();
+
+      String packageName = genPackage.getInterfacePackageName();
+      ImportManager importManager = new ImportManager(packageName);
+      importManager.addMasterImport(packageName, genEnum.getName());
+      return importManager;
     }
 
-    if (isGenerateImplementation()) compilationUnitPackage += ".impl";
-    return new ImportManager(compilationUnitPackage);
+    throw new CoreException(new Status(IStatus.ERROR, Activator.PLUGIN_ID, IStatus.ERROR,
+            "Unable to create ImportManager for " + genBase + ", template=" + templateName, null));
   }
 } //EcoreTemplateImpl

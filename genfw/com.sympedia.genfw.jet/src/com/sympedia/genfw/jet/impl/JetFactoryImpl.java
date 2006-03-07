@@ -13,6 +13,7 @@ package com.sympedia.genfw.jet.impl;
 
 import com.sympedia.genfw.jet.EcoreTemplate;
 import com.sympedia.genfw.jet.EmfGenerator;
+import com.sympedia.genfw.jet.GifColorer;
 import com.sympedia.genfw.jet.JetFactory;
 import com.sympedia.genfw.jet.JetPackage;
 import com.sympedia.genfw.jet.JetTemplate;
@@ -82,6 +83,8 @@ public class JetFactoryImpl extends EFactoryImpl implements JetFactory
       return createEcoreTemplate();
     case JetPackage.EMF_GENERATOR:
       return createEmfGenerator();
+    case JetPackage.GIF_COLORER:
+      return createGifColorer();
     default:
       throw new IllegalArgumentException("The class '" + eClass.getName()
               + "' is not a valid classifier");
@@ -119,6 +122,17 @@ public class JetFactoryImpl extends EFactoryImpl implements JetFactory
   {
     EmfGeneratorImpl emfGenerator = new EmfGeneratorImpl();
     return emfGenerator;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public GifColorer createGifColorer()
+  {
+    GifColorerImpl gifColorer = new GifColorerImpl();
+    return gifColorer;
   }
 
   /**
