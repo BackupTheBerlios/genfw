@@ -1,0 +1,1599 @@
+<?xml version='1.0'?>
+<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.4//EN" "http://www.oasis-open.org/docbook/xml/4.4/docbookx.dtd">
+<article lang="en-EN">
+
+  <title>Sympedia GenFw Tutorial 2</title>
+
+  <subtitle>Generating Extension Points</subtitle>
+
+  <articleinfo>
+
+    <author>
+
+      <firstname>Eike</firstname>
+      <surname>Stepper</surname>
+      <email>stepper-at-sympedia.com</email>
+
+    </author>
+
+    <pubdate>Saturday, 04 February 2006</pubdate>
+
+    <abstract>
+
+      <para>Sympedia GenFw is a flexible and easy to use framework for 
+      software artifact generation. Input models can be associated with 
+      generators via extensible rule sets. Additional Content 
+      providers, generators and rules can be provided by Eclipse 
+      plugins.</para>
+
+      <para>In this tutorial I will explain how to generate all the 
+      Java classes that are needed to parse an Eclipse Extension Point. 
+      The generator to be developed will directly use the Extension 
+      Point Schema as its input, so that you can proceed to declare 
+      your extension points with the regular PDE editor. In addition 
+      you will learn how to deploy the generator itself as an Eclipse 
+      plugin.</para>
+
+      <para>This tutorial is also available via Eclipse Help if you 
+      installed the Tutorial2 feature.</para>
+
+    </abstract>
+
+  </articleinfo>
+
+  <sect1>
+
+    <title>Introduction</title>
+
+    <para>Some time ago I read in a book (presumingly the 
+    <emphasis>Contributing to Eclipse</emphasis> book) that, as a rule 
+    of thumb, Eclipse based applications are considered better, if they 
+    provide many <emphasis>Extension Points</emphasis> (and even use 
+    their own extension points internally). Given that, we plan to 
+    declare various such extension points in our plugin manifests. It 
+    is pure fun to do so with the <emphasis>PDE Extension Point Schema 
+    Editor</emphasis>, isn&apos;t it?</para>
+
+    <para>Later we recognize that it is ways easier to declare the 
+    schema of our extension points than to code the Java classes that 
+    are used at runtime to parse the contributed 
+    <emphasis>Extension</emphasis>s and store all their associated data 
+    ( <code>IConfigurationElement</code>s) in a type safe manner. The 
+    reason is that Eclipse only provides a generic interface to query 
+    the extensions and that there is no standardized way to query the 
+    original extension point schema at runtime. Actually the Java 
+    classes we need to parse the extension point contributions are not 
+    very complicated, but we need many of them and they are all 
+    (stupid) similar. That calls for generation!</para>
+
+    <para>I will base this tutorial on the example given in the article 
+    <ulink url="http://www-128.ibm.com/developerworks/library/x-wxxm29.html">
+    Working XML: Define and load extension points</ulink>. This is the 
+    extension point schema from the article:</para>
+
+    <programlisting>&lt;?xml version=&apos;1.0&apos; encoding=&apos;UTF-8&apos;?&gt; 
+&lt;schema targetNamespace=&quot;org.ananas.xm.eclipse&quot;&gt; 
+&lt;annotation&gt; 
+   &lt;appInfo&gt; 
+      &lt;meta.schema plugin=&quot;org.ananas.xm.eclipse&quot; id=&quot;batch&quot; name=&quot;Batch&quot;/&gt; 
+   &lt;/appInfo&gt; 
+   &lt;documentation&gt;Adds a file type to XM.&lt;/documentation&gt; 
+&lt;/annotation&gt; 
+&lt;element name=&quot;run&quot;&gt; 
+   &lt;annotation&gt; 
+      &lt;documentation&gt;implementation class&lt;/documentation&gt; 
+   &lt;/annotation&gt; 
+   &lt;complexType&gt; 
+      &lt;sequence/&gt; 
+      &lt;attribute name=&quot;class&quot; type=&quot;string&quot; use=&quot;required&quot;/&gt; 
+   &lt;/complexType&gt; 
+&lt;/element&gt; 
+&lt;element name=&quot;target&quot;&gt; 
+   &lt;annotation&gt; 
+      &lt;documentation&gt;filtering to recognize the file type&lt;/documentation&gt; 
+   &lt;/annotation&gt; 
+   &lt;complexType&gt; 
+      &lt;sequence/&gt; 
+      &lt;attribute name=&quot;pattern&quot; type=&quot;string&quot; use=&quot;required&quot;/&gt; 
+      &lt;attribute name=&quot;targetAdded&quot; type=&quot;boolean&quot;/&gt; 
+      &lt;attribute name=&quot;targetModified&quot; type=&quot;boolean&quot;/&gt; 
+      &lt;attribute name=&quot;targetRemoved&quot; type=&quot;boolean&quot;/&gt; 
+      &lt;attribute name=&quot;targetUnchanged&quot; type=&quot;boolean&quot;/&gt; 
+   &lt;/complexType&gt; 
+&lt;/element&gt; 
+&lt;element name=&quot;batch&quot;&gt; 
+   &lt;complexType&gt; 
+      &lt;sequence&gt; 
+         &lt;element ref=&quot;run&quot;/&gt; 
+         &lt;element ref=&quot;target&quot; minOccurs=&quot;0&quot;/&gt; 
+      &lt;/sequence&gt; 
+   &lt;/complexType&gt; 
+&lt;/element&gt; 
+ 
+&lt;element name=&quot;extension&quot;&gt; 
+   &lt;complexType&gt; 
+      &lt;sequence&gt;&lt;element ref=&quot;batch&quot;/&gt;&lt;/sequence&gt; 
+      &lt;attribute name=&quot;point&quot; type=&quot;string&quot; use=&quot;required&quot;&gt; 
+         &lt;annotation&gt; 
+            &lt;documentation&gt; 
+               should be org.ananas.xm.eclipse.batch 
+            &lt;/documentation&gt; 
+         &lt;/annotation&gt; 
+      &lt;/attribute&gt; 
+      &lt;attribute name=&quot;id&quot; type=&quot;string&quot;&gt; 
+         &lt;annotation&gt; 
+            &lt;documentation&gt;identifier&lt;/documentation&gt; 
+         &lt;/annotation&gt; 
+      &lt;/attribute&gt; 
+      &lt;attribute name=&quot;name&quot; type=&quot;string&quot;&gt; 
+         &lt;annotation&gt; 
+            &lt;documentation&gt;name&lt;/documentation&gt; 
+         &lt;/annotation&gt; 
+      &lt;/attribute&gt; 
+   &lt;/complexType&gt; 
+&lt;/element&gt; 
+&lt;/schema&gt;</programlisting>
+    <para>Because we will be using the original schema file as the 
+    input for our generator, we don&apos;t need to define an own meta 
+    model (like in the 
+    <ulink url="../tutorial1/SympediaGenFwTutorial1.html">Sympedia 
+    GenFw Tutorial 1</ulink>). Instead of the Ecore Instantiator we 
+    will be using the DOM Instantiator to read the schema file and 
+    iterate its content. But this will be one of the last steps, 
+    let&apos;s start with the template infrastructure.</para>
+
+  </sect1>
+
+  <sect1>
+
+    <title>Defining the Templates</title>
+
+    <para>We need two <emphasis>JET Template</emphasis>s, one for all 
+    the data elements of the extension point and one for the registry 
+    that parses the extension point and instantiates all the data 
+    elements. All the templates and other generator related files will 
+    go into the plugin <code>tutorial2.gen</code>.</para>
+
+    <para>At runtime (of a generator instance) 
+    <code>org.w3c.dom.Element</code> objects will be passed into the 
+    <code>generate()</code> method of the template class. At many 
+    places in the template code we will call methods of the 
+    <emphasis>DOM</emphasis> and the <emphasis>XPath</emphasis> API. 
+    Some of these calls will be made indirectly through the 
+    <code>ExtPointHelper</code> class that we provide to simplyfy the 
+    template code (and later the GenFw BeanShell Rules).</para>
+
+    <orderedlist>
+
+      <listitem>
+
+        <para>Create the plugin project <code>tutorial2.gen</code> 
+        (Java, but no Activator, no UI).</para>
+
+      </listitem>
+
+      <listitem>
+
+        <para>Add the <code>src-gen</code> source folder.</para>
+
+      </listitem>
+
+      <listitem>
+
+        <para>Use the New Wizard <emphasis>Convert Projects to JET 
+        Projects</emphasis> and select the <code>tutorial2.gen</code> 
+        project for conversion. The <code>templates</code> folder 
+        should appear.</para>
+
+      </listitem>
+
+      <listitem>
+
+        <para>Go to the properties of the new project and browse to the 
+        <emphasis>JET Settings</emphasis> category. Enter the path of 
+        the <emphasis>Source Container</emphasis> to let the JET 
+        compiler produce the template classes in the 
+        <code>src-gen</code> folder.</para>
+
+      </listitem>
+
+      <listitem>
+
+        <para>Because the template we will be writing refers to our 
+        meta model, add a dependency on the 
+        <code>org.apache.xalan</code> plugin to the 
+        <emphasis>MANIFEST.MF</emphasis> of the 
+        <code>tutorial2.gen</code> project.</para>
+
+      </listitem>
+
+      <listitem>
+
+        <para>Now create the template source file 
+        <code>ElementTemplate.javajet</code> in the 
+        <code>templates</code> folder. Editing this file can be much, 
+        much more convenient, if you download and install the 
+        <code>org.eclipse.emf.codegen.jet.editor</code> plugin from the 
+        <emphasis>Merlin Generator</emphasis> project.</para>
+
+        <programlisting>&lt;%@ jet package=&quot;tutorial2.gen&quot;  
+        imports=&quot;java.util.* com.sympedia.util.* javax.xml.transform.* org.w3c.dom.* org.apache.xpath.*&quot;  
+        class=&quot;ElementTemplate&quot;%&gt; 
+&lt;% 
+Element element = (Element)argument; 
+boolean isExtension = ExtPointHelper.isExtension(element); 
+String pluginId = ExtPointHelper.getPluginId(element); 
+String origin = isExtension ? &quot;IExtension&quot; : &quot;IConfigurationElement&quot;; 
+String children = isExtension ? &quot;ConfigurationElements&quot; : &quot;Children&quot;; 
+Set&lt;String&gt; references = ExtPointHelper.getReferences(element); 
+List&lt;Element&gt; attributes = ExtPointHelper.xPathList(element, &quot;.//attribute&quot;); 
+%&gt; 
+package &lt;%=pluginId%&gt;.internal; 
+ 
+import org.eclipse.core.runtime.*; 
+import java.util.*; 
+import java.io.*; 
+ 
+public class &lt;%=ExtPointHelper.getElementClassName(element)%&gt; 
+{ 
+  protected &lt;%=ExtPointHelper.getElementClassName(element)%&gt;(Object parent, &lt;%=origin%&gt; origin) 
+  { 
+   _origin = origin; 
+   _parent = parent; 
+&lt;%if (isExtension) {%&gt; 
+    id = origin.getSimpleIdentifier();    
+    name = origin.getLabel();   
+    point = origin.getExtensionPointUniqueIdentifier(); 
+    if (point == null || point.length() == 0) throw new RuntimeException(&quot;Point is required&quot;); 
+&lt;%} else {    
+  for (Iterator&lt;Element&gt; it = attributes.iterator(); it.hasNext();) { 
+    Element attribute = it.next(); 
+    String name = attribute.getAttribute(&quot;name&quot;); 
+    if (&quot;class&quot;.equals(name)) name = &quot;clazz&quot;; 
+    String capName = StringHelper.firstToUpper(name); 
+    boolean required = &quot;required&quot;.equals(attribute.getAttribute(&quot;use&quot;)); 
+    if (&quot;boolean&quot;.equals(attribute.getAttribute(&quot;type&quot;))) {%&gt; 
+      String &lt;%=name%&gt;Str = origin.getAttribute(&quot;&lt;%=attribute.getAttribute(&quot;name&quot;)%&gt;&quot;); 
+      if (&lt;%=name%&gt;Str != null) { &lt;%=name%&gt; = Boolean.parseBoolean(&lt;%=name%&gt;Str); }&lt;%if (required) {%&gt; else throw new RuntimeException(&quot;&lt;%=capName%&gt; is required&quot;);&lt;%}%&gt;  
+    &lt;%} else {%&gt;  
+      &lt;%=name%&gt; = origin.getAttribute(&quot;&lt;%=attribute.getAttribute(&quot;name&quot;)%&gt;&quot;); 
+      &lt;%if (required) {%&gt; 
+      if (&lt;%=name%&gt; == null || &lt;%=name%&gt;.length() == 0) throw new RuntimeException(&quot;&lt;%=capName%&gt; is required&quot;); 
+      &lt;%}%&gt;  
+    &lt;%}%&gt; 
+  &lt;%}%&gt;  
+&lt;%}%&gt; 
+ 
+    IConfigurationElement[] configurationElements = origin.get&lt;%=children%&gt;(); 
+    for (IConfigurationElement element : configurationElements) 
+    { 
+      System.out.println(&quot;Initializing &quot; + element.getName()); 
+&lt;%for (Iterator&lt;String&gt; it = references.iterator(); it.hasNext();) { 
+  String reference = it.next(); 
+  String capRef = StringHelper.firstToUpper(reference);%&gt; 
+      if (&quot;&lt;%=reference%&gt;&quot;.equals(element.getName())) &lt;%=reference%&gt;Elements.add(new &lt;%=capRef%&gt;(this, element)); 
+&lt;%}%&gt; 
+    } 
+  } 
+ 
+  public &lt;%=origin%&gt; getOrigin() { return _origin; } 
+  protected &lt;%=origin%&gt; _origin; 
+   
+  public Object getParent() { return _parent; } 
+  protected Object _parent; 
+   
+&lt;%for (Iterator&lt;String&gt; it = references.iterator(); it.hasNext();) { 
+  String reference = it.next(); 
+  String capRef = StringHelper.firstToUpper(reference);%&gt; 
+  public List&lt;&lt;%=capRef%&gt;&gt; get&lt;%=capRef%&gt;Elements() { return Collections.unmodifiableList(&lt;%=reference%&gt;Elements); } 
+  protected List&lt;&lt;%=capRef%&gt;&gt; &lt;%=reference%&gt;Elements = new ArrayList&lt;&lt;%=capRef%&gt;&gt;(); 
+ 
+&lt;%}%&gt;  
+&lt;%for (Iterator&lt;Element&gt; it = attributes.iterator(); it.hasNext();) { 
+  Element attribute = it.next(); 
+  String type = attribute.getAttribute(&quot;type&quot;); 
+  String name = attribute.getAttribute(&quot;name&quot;); 
+  if (&quot;class&quot;.equals(name)) name = &quot;clazz&quot;; 
+  String capName = StringHelper.firstToUpper(name); 
+  if (&quot;boolean&quot;.equals(type)) {%&gt; 
+  public boolean is&lt;%=capName%&gt;() { return &lt;%=name%&gt;; } 
+  protected boolean &lt;%=name%&gt;; 
+  &lt;%} else { 
+    String kind = ExtPointHelper.getKind(attribute);  
+    if (&quot;java&quot;.equals(kind)) { 
+      String interfaceClass = ExtPointHelper.getBasedOn(attribute);%&gt;  
+  public &lt;%=interfaceClass%&gt; get&lt;%=capName%&gt;() throws CoreException { return (&lt;%=interfaceClass%&gt;)_origin.createExecutableExtension(&quot;&lt;%=name%&gt;&quot;); } 
+  protected String &lt;%=name%&gt;; 
+    &lt;%} else if (&quot;resource&quot;.equals(kind)) {%&gt; 
+  public File get&lt;%=capName%&gt;() { return new File(&lt;%=name%&gt;); } 
+  protected String &lt;%=name%&gt;; 
+    &lt;%} else {%&gt; 
+  public String get&lt;%=capName%&gt;() { return &lt;%=name%&gt;; } 
+  protected String &lt;%=name%&gt;; 
+    &lt;%}%&gt;  
+  &lt;%}%&gt;  
+ 
+&lt;%}%&gt; 
+  public List getAllElements() 
+  { 
+    List result = new ArrayList(); 
+    result.add(this); 
+&lt;%for (Iterator&lt;String&gt; it = references.iterator(); it.hasNext();) { 
+  String reference = it.next(); 
+  String capRef = StringHelper.firstToUpper(reference);%&gt; 
+    for (&lt;%=capRef%&gt; element : &lt;%=reference%&gt;Elements) result.addAll(element.getAllElements()); 
+&lt;%}%&gt; 
+    return result; 
+  } 
+}</programlisting>
+      </listitem>
+
+      <listitem>
+
+        <para>If the JET compiler is properly configured, you will get 
+        compile errors because the <code>ExtPointHelper</code> class is 
+        missing. Create it under the <code>src</code> folder in the 
+        <code>tutorial2.gen</code> package.</para>
+
+        <programlisting>package tutorial2.gen;
+
+import com.sympedia.util.StringHelper;
+import org.apache.xpath.XPathAPI;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import javax.xml.transform.TransformerException;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+public class ExtPointHelper
+{
+  private static final String META_ATTRIBUTE_XPATH = &quot;annotation/appInfo/meta.attribute&quot;;
+
+  private static final String META_SCHEMA_XPATH = &quot;/schema/annotation/appInfo/meta.schema&quot;;
+
+  public static String xPathString(Node context, String expr)
+  {
+    try
+    {
+      return XPathAPI.eval(context, expr).toString();
+    }
+    catch (TransformerException ex)
+    {
+      throw new RuntimeException(ex);
+    }
+  }
+
+  public static List&lt;Element&gt; xPathList(Node context, String expr)
+  {
+    try
+    {
+      List&lt;Element&gt; result = new ArrayList&lt;Element&gt;();
+      NodeList list = XPathAPI.eval(context, expr).nodelist();
+      for (int i = 0; i &lt; list.getLength(); i++)
+      {
+        result.add((Element)list.item(i));
+      }
+
+      return result;
+    }
+    catch (TransformerException ex)
+    {
+      throw new RuntimeException(ex);
+    }
+  }
+
+  public static String getElementClassName(Element element)
+  {
+    String name = element.getAttribute(&quot;name&quot;);
+    if (!isExtension(element)) return StringHelper.firstToUpper(name);
+    return StringHelper.firstToUpper(getExtPointId(element)) + &quot;Extension&quot;;
+  }
+
+  public static String getRegistryClassName(Element element)
+  {
+    return StringHelper.firstToUpper(getExtPointId(element)) + &quot;Registry&quot;;
+  }
+
+  public static boolean isExtension(Element element)
+  {
+    String name = element.getAttribute(&quot;name&quot;);
+    return &quot;extension&quot;.equals(name);
+  }
+
+  public static String getPluginId(Element element)
+  {
+    return xPathString(element, META_SCHEMA_XPATH + &quot;/@plugin&quot;);
+  }
+
+  public static String getExtPointId(Element element)
+  {
+    return xPathString(element, META_SCHEMA_XPATH + &quot;/@id&quot;);
+  }
+
+  public static Set&lt;String&gt; getReferences(Element element)
+  {
+    Set&lt;String&gt; result = new HashSet&lt;String&gt;();
+    for (Element reference : xPathList(element, &quot;.//element&quot;))
+    {
+      String target = reference.getAttribute(&quot;ref&quot;);
+      if (target != null &amp;&amp; target.length() != 0)
+      {
+        result.add(target);
+      }
+    }
+
+    return result;
+  }
+
+  public static String getKind(Element element)
+  {
+    List&lt;Element&gt; pathList = xPathList(element, META_ATTRIBUTE_XPATH);
+    if (pathList.size() == 0) return null;
+    Element metaAttr = pathList.get(0);
+    return metaAttr.getAttribute(&quot;kind&quot;);
+  }
+
+  public static String getBasedOn(Element element)
+  {
+    Element metaAttr = xPathList(element, META_ATTRIBUTE_XPATH).get(0);
+    String basedOn = metaAttr.getAttribute(&quot;basedOn&quot;);
+    return basedOn == null || basedOn.length() == 0 ? &quot;Object&quot; : basedOn;
+  }
+}</programlisting>
+      </listitem>
+
+      <listitem>
+
+        <para>Create the other template source file 
+        <code>RegistryTemplate.javajet</code> in the 
+        <code>templates</code> folder.</para>
+
+        <programlisting>&lt;%@ jet package=&quot;tutorial2.gen&quot;  
+        imports=&quot;java.util.* com.sympedia.util.* javax.xml.transform.* org.w3c.dom.* org.apache.xpath.*&quot;  
+        class=&quot;RegistryTemplate&quot;%&gt; 
+&lt;% 
+Element element = (Element)argument; 
+String pluginId = ExtPointHelper.getPluginId(element); 
+String extPointId = ExtPointHelper.getExtPointId(element); 
+String capId = StringHelper.firstToUpper(extPointId); 
+String extName = capId + &quot;Extension&quot;; 
+String className = ExtPointHelper.getRegistryClassName(element); 
+Set&lt;String&gt; references = ExtPointHelper.getReferences(element); 
+%&gt; 
+package &lt;%=pluginId%&gt;.internal; 
+ 
+import org.eclipse.core.runtime.*; 
+import java.util.*; 
+ 
+public class &lt;%=className%&gt; implements IRegistryChangeListener 
+{ 
+  public static final String EXT_POINT_ID = &quot;&lt;%=pluginId%&gt;.&lt;%=extPointId%&gt;&quot;; 
+ 
+  public static final &lt;%=className%&gt; INSTANCE = new &lt;%=className%&gt;(); 
+ 
+  private List&lt;&lt;%=extName%&gt;&gt; &lt;%=extPointId%&gt; = new ArrayList&lt;&lt;%=extName%&gt;&gt;(); 
+ 
+  private List&lt;Listener&gt; listeners = new ArrayList&lt;Listener&gt;(); 
+ 
+  private boolean initialized = false; 
+ 
+  public &lt;%=className%&gt;() 
+  { 
+  } 
+ 
+  public List&lt;&lt;%=extName%&gt;&gt; get&lt;%=capId%&gt;() 
+  { 
+    return Collections.unmodifiableList(&lt;%=extPointId%&gt;); 
+  } 
+ 
+  public List getAllElements() 
+  { 
+    List result = new ArrayList(); 
+    for (&lt;%=extName%&gt; extension : &lt;%=extPointId%&gt;) 
+    { 
+      result.addAll(extension.getAllElements()); 
+    } 
+     
+    return result; 
+  } 
+ 
+&lt;%for (Iterator&lt;String&gt; it = references.iterator(); it.hasNext();) { 
+  String reference = it.next(); 
+  String capRef = StringHelper.firstToUpper(reference);%&gt; 
+  public List&lt;&lt;%=capRef%&gt;&gt; getAll&lt;%=capRef%&gt;Elements() 
+  { 
+    List elements = getAllElements(); 
+    return (List&lt;&lt;%=capRef%&gt;&gt;)filter(elements, &lt;%=capRef%&gt;.class); 
+  } 
+   
+&lt;%}%&gt; 
+  public synchronized void initialize() 
+  { 
+    if (!initialized) 
+    { 
+      initialized = true; 
+      ChangeEvent event = new ChangeEvent(); 
+       
+      IExtensionRegistry registry = Platform.getExtensionRegistry(); 
+      IExtensionPoint extPoint = registry.getExtensionPoint(EXT_POINT_ID); 
+      IExtension[] extensions = extPoint.getExtensions(); 
+      for (IExtension extension : extensions) 
+      { 
+        addExtension(extension, event); 
+      } 
+       
+      event.dispatch(); 
+      registry.addRegistryChangeListener(this); 
+    } 
+  } 
+ 
+  public synchronized void dispose() 
+  { 
+    if (initialized) 
+    {     
+      Platform.getExtensionRegistry().removeRegistryChangeListener(this); 
+      &lt;%=extPointId%&gt;.clear(); 
+      initialized = false; 
+    } 
+  } 
+ 
+  public void registryChanged(IRegistryChangeEvent eclipseEvent) 
+  { 
+    ChangeEvent event = new ChangeEvent(); 
+    IExtensionDelta[] extensionDeltas = eclipseEvent.getExtensionDeltas(); 
+    for (int i = 0; i &lt; extensionDeltas.length; i++) 
+    { 
+      IExtensionDelta delta = extensionDeltas[i]; 
+      if (EXT_POINT_ID.equals(delta.getExtensionPoint().getUniqueIdentifier())) 
+      { 
+        IExtension extension = delta.getExtension(); 
+        int kind = delta.getKind(); 
+        switch (kind) 
+        { 
+          case IExtensionDelta.ADDED: 
+            addExtension(extension, event); 
+            break; 
+          case IExtensionDelta.REMOVED: 
+            removeExtension(extension, event); 
+            break; 
+        } 
+      } 
+    } 
+     
+    event.dispatch(); 
+  } 
+ 
+  private void addExtension(IExtension origin, ChangeEvent event) 
+  { 
+    try 
+    { 
+      &lt;%=extName%&gt; extension = new &lt;%=extName%&gt;(null, origin); 
+      &lt;%=extPointId%&gt;.add(extension); 
+      event.addExtension(extension); 
+    } 
+    catch (Exception ex) 
+    { 
+      ex.printStackTrace(); 
+    } 
+  }    
+ 
+  private void removeExtension(IExtension origin, ChangeEvent event) 
+  { 
+    &lt;%=extName%&gt;[] extensions = &lt;%=extPointId%&gt;.toArray(new &lt;%=extName%&gt;[&lt;%=extPointId%&gt;.size()]); 
+    for (&lt;%=extName%&gt; extension : extensions) 
+    { 
+      if (extension.getOrigin().equals(origin)) 
+      { 
+        &lt;%=extPointId%&gt;.remove(extension); 
+        event.removeExtension(extension); 
+        break; 
+      } 
+    }  
+  }    
+ 
+  private List filter(List items, Class baseClass) 
+  { 
+    List result = new ArrayList(); 
+    for (Object item : items) 
+    { 
+      Class c = item.getClass(); 
+      if (baseClass == null || baseClass.isAssignableFrom(c)) 
+      { 
+        result.add(item); 
+      } 
+    } 
+     
+    return result; 
+  } 
+   
+  public class ChangeEvent 
+  { 
+    private List&lt;&lt;%=extName%&gt;&gt; added = new ArrayList&lt;&lt;%=extName%&gt;&gt;(); 
+ 
+    private List&lt;&lt;%=extName%&gt;&gt; removed = new ArrayList&lt;&lt;%=extName%&gt;&gt;(); 
+     
+    private ChangeEvent() 
+    { 
+    } 
+     
+    public &lt;%=className%&gt; getSource() 
+    { 
+      return &lt;%=className%&gt;.this; 
+    } 
+     
+    public &lt;%=extName%&gt;[] getAddedExtensions() 
+    { 
+      return added.toArray(new &lt;%=extName%&gt;[added.size()]); 
+    } 
+     
+    public &lt;%=extName%&gt;[] getRemovedExtensions() 
+    { 
+      return removed.toArray(new &lt;%=extName%&gt;[removed.size()]); 
+    } 
+     
+    private void addExtension(&lt;%=extName%&gt; extension) 
+    { 
+      added.add(extension); 
+    } 
+     
+    private void removeExtension(&lt;%=extName%&gt; extension) 
+    { 
+      removed.add(extension); 
+    } 
+     
+    private void dispatch() 
+    { 
+      if (added.isEmpty() &amp;&amp; removed.isEmpty()) return; 
+      for (Listener listener : listeners) 
+      { 
+        try 
+        { 
+          listener.notify&lt;%=capId%&gt;RegistryChanged(this); 
+        } 
+        catch (Exception ex) 
+        { 
+          ex.printStackTrace(); 
+        } 
+      } 
+    } 
+  } 
+   
+  public interface Listener 
+  { 
+    public void notify&lt;%=capId%&gt;RegistryChanged(ChangeEvent event); 
+  } 
+}</programlisting>
+      </listitem>
+
+      <listitem>
+
+        <para>Verify, that both templates have been compiled to the 
+        <code>src-gen</code> folder without compile errors:</para>
+
+        <figure>
+
+          <title>JET templates created</title>
+
+          <graphic fileref="images/templatesCompiled.gif"/>
+        </figure>
+
+      </listitem>
+
+    </orderedlist>
+
+  </sect1>
+
+  <sect1>
+
+    <title>Configuring the Generator Framework</title>
+
+    <para>As in Tutorial1 we have to configure a reusable GenFw 
+    <emphasis>Generator Library</emphasis>.</para>
+
+    <orderedlist>
+
+      <listitem>
+
+        <para>Create a <code>model</code> folder in the 
+        <code>tutorial2.gen</code> project.</para>
+
+      </listitem>
+
+      <listitem>
+
+        <para>In the <code>model</code> folder create a new generator 
+        library named <code>extpoint.genlib</code> (<emphasis>New 
+        Wizard | Sympedia Generation | Generator 
+        Library</emphasis>).</para>
+
+      </listitem>
+
+      <listitem>
+
+        <para>Add a <emphasis>DOM Instantiator</emphasis> to the GenLib 
+        and in the <emphasis>Properties</emphasis> view name it 
+        <code>DOM</code>. This enables GenFw to instantiate meta models 
+        that have been produced by arbitrary XML tools.</para>
+
+      </listitem>
+
+      <listitem>
+
+        <para>Add a <emphasis>JET Template</emphasis> to the GenLib and 
+        in the <emphasis>Properties</emphasis> view name it 
+        <code>ElementTemplate</code> and enter the template class name 
+        <code>tutorial2.gen.ElementTemplate</code>. This enables GenFw 
+        to load the template class.</para>
+
+      </listitem>
+
+      <listitem>
+
+        <para>Add a second <emphasis>JET Template</emphasis> to the 
+        GenLib, name it <code>RegistryTemplate</code> and enter the 
+        template class name 
+        <code>tutorial2.gen.RegistryTemplate</code>. It should look 
+        like this now:</para>
+
+        <figure>
+
+          <title>JET templates configured</title>
+
+          <graphic fileref="images/genlibTemplates.gif"/>
+        </figure>
+
+      </listitem>
+
+      <listitem>
+
+        <para>Add a <emphasis>Rule Set</emphasis> to the GenLib and 
+        name it <code>ExtPointRules</code>.</para>
+
+      </listitem>
+
+      <listitem>
+
+        <para>Add a <emphasis>BeanShell Rule</emphasis> to the new 
+        RuleSet, name it <code>ElementRule</code> and choose the 
+        generator <code>ElementTemplate</code>. Now enter the 
+        <emphasis>Match Expression</emphasis> that can decide for which 
+        input objects the chosen generator shall be invoked.</para>
+
+        <figure>
+
+          <title>Match expression of the ElementRule</title>
+
+          <graphic fileref="images/elementRule.gif"/>
+        </figure>
+
+      </listitem>
+
+      <listitem>
+
+        <para>Enter the folloing <emphasis>Target Path 
+        Expression</emphasis>:</para>
+
+        <figure>
+
+          <title>Target path expression of the ElementRule</title>
+
+          <graphic fileref="images/elementRule2.gif"/>
+        </figure>
+
+      </listitem>
+
+      <listitem>
+
+        <para>Because we have references to DOM API in our expressions 
+        add the following <emphasis>Bootstrap Code</emphasis> to the 
+        BeanShell rule: <code>import tutorial2.gen.*; import 
+        org.w3c.dom.*;</code>.</para>
+
+      </listitem>
+
+      <listitem>
+
+        <para>Add a second <emphasis>BeanShell Rule</emphasis> to the 
+        new RuleSet, name it <code>RegistryRule</code> and choose the 
+        generator <code>RegistryTemplate</code>. Now enter the 
+        <emphasis>Match Expression</emphasis> that can decide for which 
+        input objects the chosen generator shall be invoked.</para>
+
+        <figure>
+
+          <title>Match expression of the RegistryRule</title>
+
+          <graphic fileref="images/registryRule.gif"/>
+        </figure>
+
+      </listitem>
+
+      <listitem>
+
+        <para>Enter the folloing <emphasis>Target Path 
+        Expression</emphasis>:</para>
+
+        <figure>
+
+          <title>Target path expression of the RegistryRule</title>
+
+          <graphic fileref="images/registryRule2.gif"/>
+        </figure>
+
+      </listitem>
+
+      <listitem>
+
+        <para>Again add <emphasis>Bootstrap Code</emphasis> to the 
+        rule: <code>import tutorial2.gen.*; import 
+        org.w3c.dom.*;</code>.</para>
+
+      </listitem>
+
+      <listitem>
+
+        <para>With a text or XML editor you can verify the content of 
+        the genlib file:</para>
+
+        <programlisting>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt; 
+&lt;com.sympedia.genfw:GenLib xmi:version=&quot;2.0&quot;  
+ xmlns:xmi=&quot;http://www.omg.org/XMI&quot;  
+ xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;  
+ xmlns:com.sympedia.genfw=&quot;http://www.sympedia.com/2006/genfw&quot;  
+ xmlns:com.sympedia.genfw.bsh=&quot;http://www.sympedia.com/2006/genfw/bsh&quot;  
+ xmlns:com.sympedia.genfw.jet=&quot;http://www.sympedia.com/2006/genfw/jet&quot;&gt; 
+  &lt;contentProviders xsi:type=&quot;com.sympedia.genfw:DomContentProvider&quot;  
+    name=&quot;DOM&quot;/&gt; 
+  &lt;generators xsi:type=&quot;com.sympedia.genfw.jet:JetTemplate&quot;  
+    name=&quot;ElementTemplate&quot;  
+    className=&quot;tutorial2.gen.ElementTemplate&quot;/&gt; 
+  &lt;generators xsi:type=&quot;com.sympedia.genfw.jet:JetTemplate&quot;  
+    name=&quot;RegistryTemplate&quot;  
+    className=&quot;tutorial2.gen.RegistryTemplate&quot;/&gt; 
+  &lt;ruleSets name=&quot;ExtPointRules&quot;&gt; 
+    &lt;rules xsi:type=&quot;com.sympedia.genfw.bsh:BeanShellRule&quot;  
+      name=&quot;ElementRule&quot;  
+      generator=&quot;ElementTemplate&quot;  
+      matchExpression=&quot;self instanceof Element&amp;#xD;&amp;#xA;&amp;amp;&amp;amp; &amp;quot;element&amp;quot;.equals(self.getTagName())&amp;#xD;&amp;#xA;&amp;amp;&amp;amp; self.hasAttribute(&amp;quot;name&amp;quot;)&quot;  
+      targetPathExpression=&quot;&amp;quot;src-gen/&amp;quot;&amp;#xD;&amp;#xA;+ ExtPointHelper.getPluginId(self).replace(&apos;.&apos;, &apos;/&apos;)&amp;#xD;&amp;#xA;+ &amp;quot;/internal/&amp;quot;&amp;#xD;&amp;#xA;+ ExtPointHelper.getElementClassName(self)&amp;#xD;&amp;#xA;+ &amp;quot;.java&amp;quot;&quot;  
+      bootstrapCode=&quot;import tutorial2.gen.*;&amp;#xD;&amp;#xA;import org.w3c.dom.*;&quot;/&gt; 
+    &lt;rules xsi:type=&quot;com.sympedia.genfw.bsh:BeanShellRule&quot;  
+      name=&quot;RegistryRule&quot;  
+      generator=&quot;RegistryTemplate&quot;  
+      matchExpression=&quot;self instanceof Element&amp;#xD;&amp;#xA;&amp;amp;&amp;amp; &amp;quot;schema&amp;quot;.equals(self.getTagName())&quot;  
+      targetPathExpression=&quot;&amp;quot;src-gen/&amp;quot;&amp;#xD;&amp;#xA;+ ExtPointHelper.getPluginId(self).replace(&apos;.&apos;, &apos;/&apos;)&amp;#xD;&amp;#xA;+ &amp;quot;/internal/&amp;quot;&amp;#xD;&amp;#xA;+ ExtPointHelper.getRegistryClassName(self)&amp;#xD;&amp;#xA;+ &amp;quot;.java&amp;quot;&quot;  
+      bootstrapCode=&quot;import tutorial2.gen.*;&amp;#xD;&amp;#xA;import org.w3c.dom.*;&quot;/&gt; 
+  &lt;/ruleSets&gt; 
+&lt;/com.sympedia.genfw:GenLib&gt;</programlisting>
+      </listitem>
+
+      <listitem>
+
+        <para>The last steps in configuring the generator library are 
+        only needed because we decided that we want to deploy our 
+        generator as an Eclipse plugin (rather than as workspace 
+        project). For that purpose we have to contribute to the 
+        <code>com.sympedia.genfw.externalLibraries</code> extension 
+        point in the <code>plugin.xml</code> of our 
+        <code>tutorial2.gen</code> project:</para>
+
+        <programlisting>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt; 
+&lt;?eclipse version=&quot;3.0&quot;?&gt; 
+ 
+&lt;plugin&gt; 
+ 
+   &lt;extension 
+         point=&quot;com.sympedia.genfw.externalLibraries&quot;&gt; 
+      &lt;externalLibrary 
+            libraryInitializer=&quot;tutorial2.gen.internal.ExtPointLibraryInitializer&quot; 
+            libraryPath=&quot;model/extpoint.genlib&quot;/&gt; 
+   &lt;/extension&gt; 
+ 
+&lt;/plugin&gt;</programlisting>
+      </listitem>
+
+      <listitem>
+
+        <para>Create the <code>ExtPointLibraryInitializer</code> class 
+        in the <code>tutorial2.gen.internal</code> package::</para>
+
+        <programlisting>package tutorial2.gen.internal; 
+ 
+import com.sympedia.genfw.GenLib; 
+import com.sympedia.genfw.IExternalLibraryInitializer; 
+ 
+/** 
+ * This class has to be present only to be referenced from plugin.xml 
+ */ 
+public class ExtPointLibraryInitializer implements IExternalLibraryInitializer 
+{ 
+  public void initalizeLibrary(GenLib genlib) throws Exception 
+  { 
+    // Intentionally left empty 
+  } 
+}</programlisting>
+        <para>As already mentioned in Tutorial 1, the 
+        <code>initalizeLibrary()</code> method is never called with the 
+        current design of GenFw, but the class will be used by GenFw to 
+        instantiate an object that is able to provide the class loader 
+        of the plugin!</para>
+
+      </listitem>
+
+    </orderedlist>
+
+  </sect1>
+
+  <sect1>
+
+    <title>Creating a Generator Application</title>
+
+    <para>Now, that the generator library is complete, we want to test 
+    it. For this purpose we come back to the mentioned article. We want 
+    to create an Eclipse plugin that provides the 
+    <emphasis>batch</emphasis> extension point and is able to parse and 
+    store its contributions.</para>
+
+    <orderedlist>
+
+      <listitem>
+
+        <para>Create a <emphasis>Launch Configuration</emphasis> of 
+        type <emphasis>Eclipse Application</emphasis> and verify that 
+        our generator library plugin <code>tutorial2.gen</code> is 
+        started along with all the GenFw plugins. Run the launch 
+        config.</para>
+
+      </listitem>
+
+      <listitem>
+
+        <para>Open the <emphasis>Generator Applications</emphasis> view 
+        (category <emphasis>Sympedia Generation</emphasis>).</para>
+
+      </listitem>
+
+      <listitem>
+
+        <para>Create a new Plugin project <code>tutorial2.batch</code> 
+        (Java, Activator, but no UI). Add a source folder 
+        <code>src-gen</code> and copy the Schema file batch.exsd from 
+        the article 
+        <ulink url="http://www-128.ibm.com/developerworks/library/x-wxxm29.html">
+        Working XML: Define and load extension points</ulink> to the 
+        <code>schema</code> folder (has also to be created). Verify the 
+        schema:</para>
+
+        <figure>
+
+          <title>The schema editor of <code>batch.exsd</code></title>
+
+          <graphic fileref="images/schema.gif"/>
+        </figure>
+
+        <para>The left side of the perspective should look like:</para>
+
+        <figure>
+
+          <title>Generator application project created</title>
+
+          <graphic fileref="images/schemaCreated.gif"/>
+        </figure>
+
+      </listitem>
+
+      <listitem>
+
+        <para>Since the <code>batch.exsd</code> file already serves as 
+        the input for our generation, we can now create the 
+        configuration file of this generator application. Create a 
+        <code>model</code> folder and in that a generator application 
+        (<emphasis>New Wizard | Sympedia Generation | Generator 
+        Application</emphasis>) named <code>batch.genapp</code>. Note 
+        that the Generator Applications view is immediately populated 
+        with an entry for our genapp file:</para>
+
+        <figure>
+
+          <title>Generator application file created</title>
+
+          <graphic fileref="images/genappCreated.gif"/>
+        </figure>
+
+      </listitem>
+
+      <listitem>
+
+        <para>Add an <emphasis>Input</emphasis> to the GenApp element 
+        and in the Properties view enter <code>schema/batch.exsd</code> 
+        as the <emphasis>Full Path</emphasis>. Since our path is a 
+        relative path, it is appended to the path of the project that 
+        contains the genapp file.</para>
+
+      </listitem>
+
+      <listitem>
+
+        <para>Now we have to refer to our generator library in order to 
+        select the <emphasis>Content Provider</emphasis> and select our 
+        <code>ExtPointRules</code> <emphasis>Rule Set</emphasis>. Open 
+        the popup menu of the editor and choose <emphasis>Load 
+        Resource...</emphasis></para>
+
+        <figure>
+
+          <title>Load the generator library resource from the 
+          <code>tutorial2.gen</code> plugin</title>
+
+          <graphic fileref="images/loadResource.gif"/>
+        </figure>
+
+      </listitem>
+
+      <listitem>
+
+        <para>Now you should be able to select the <code>DOM</code> 
+        instantiator and the <code>ExtPointRules</code> rule set.</para>
+
+        <figure>
+
+          <title>The complete <code>batch.genapp</code> 
+          configuration</title>
+
+          <graphic fileref="images/genappReady.gif"/>
+        </figure>
+
+      </listitem>
+
+      <listitem>
+
+        <para>Save the file and generate the application (Use the 
+        actions in the <emphasis>Generator Applications</emphasis> view 
+        or the popup menu in any view that shows IResources). Java 
+        classes should be generated in the <code>src-gen</code> folder 
+        now:</para>
+
+        <figure>
+
+          <title>The generated Java classes</title>
+
+          <graphic fileref="images/generated.gif"/>
+        </figure>
+
+      </listitem>
+
+    </orderedlist>
+
+    <para>That&apos;s all!</para>
+
+    <para>Let&apos;s have a look at the source code of the generated 
+    classes. Here is the generated <code>BatchRegistry</code> 
+    class:</para>
+
+    <programlisting>package tutorial2.batch.internal; 
+ 
+import org.eclipse.core.runtime.*; 
+import java.util.*; 
+ 
+public class BatchRegistry implements IRegistryChangeListener 
+{ 
+  public static final String EXT_POINT_ID = &quot;tutorial2.batch.batch&quot;; 
+ 
+  public static final BatchRegistry INSTANCE = new BatchRegistry(); 
+ 
+  private List&lt;BatchExtension&gt; batch = new ArrayList&lt;BatchExtension&gt;(); 
+ 
+  private List&lt;Listener&gt; listeners = new ArrayList&lt;Listener&gt;(); 
+ 
+  private boolean initialized = false; 
+ 
+  public BatchRegistry() 
+  { 
+  } 
+ 
+  public List&lt;BatchExtension&gt; getBatch() 
+  { 
+    return Collections.unmodifiableList(batch); 
+  } 
+ 
+  public List getAllElements() 
+  { 
+    List result = new ArrayList(); 
+    for (BatchExtension extension : batch) 
+    { 
+      result.addAll(extension.getAllElements()); 
+    } 
+     
+    return result; 
+  } 
+ 
+  public List&lt;Target&gt; getAllTargetElements() 
+  { 
+    List elements = getAllElements(); 
+    return (List&lt;Target&gt;)filter(elements, Target.class); 
+  } 
+   
+  public List&lt;Run&gt; getAllRunElements() 
+  { 
+    List elements = getAllElements(); 
+    return (List&lt;Run&gt;)filter(elements, Run.class); 
+  } 
+   
+  public List&lt;Batch&gt; getAllBatchElements() 
+  { 
+    List elements = getAllElements(); 
+    return (List&lt;Batch&gt;)filter(elements, Batch.class); 
+  } 
+   
+  public synchronized void initialize() 
+  { 
+    if (!initialized) 
+    { 
+      initialized = true; 
+      ChangeEvent event = new ChangeEvent(); 
+       
+      IExtensionRegistry registry = Platform.getExtensionRegistry(); 
+      IExtensionPoint extPoint = registry.getExtensionPoint(EXT_POINT_ID); 
+      IExtension[] extensions = extPoint.getExtensions(); 
+      for (IExtension extension : extensions) 
+      { 
+        addExtension(extension, event); 
+      } 
+       
+      event.dispatch(); 
+      registry.addRegistryChangeListener(this); 
+    } 
+  } 
+ 
+  public synchronized void dispose() 
+  { 
+    if (initialized) 
+    {     
+      Platform.getExtensionRegistry().removeRegistryChangeListener(this); 
+      batch.clear(); 
+      initialized = false; 
+    } 
+  } 
+ 
+  public void registryChanged(IRegistryChangeEvent eclipseEvent) 
+  { 
+    ChangeEvent event = new ChangeEvent(); 
+    IExtensionDelta[] extensionDeltas = eclipseEvent.getExtensionDeltas(); 
+    for (int i = 0; i &lt; extensionDeltas.length; i++) 
+    { 
+      IExtensionDelta delta = extensionDeltas[i]; 
+      if (EXT_POINT_ID.equals(delta.getExtensionPoint().getUniqueIdentifier())) 
+      { 
+        IExtension extension = delta.getExtension(); 
+        int kind = delta.getKind(); 
+        switch (kind) 
+        { 
+          case IExtensionDelta.ADDED: 
+            addExtension(extension, event); 
+            break; 
+          case IExtensionDelta.REMOVED: 
+            removeExtension(extension, event); 
+            break; 
+        } 
+      } 
+    } 
+     
+    event.dispatch(); 
+  } 
+ 
+  private void addExtension(IExtension origin, ChangeEvent event) 
+  { 
+    try 
+    { 
+      BatchExtension extension = new BatchExtension(null, origin); 
+      batch.add(extension); 
+      event.addExtension(extension); 
+    } 
+    catch (Exception ex) 
+    { 
+      ex.printStackTrace(); 
+    } 
+  }    
+ 
+  private void removeExtension(IExtension origin, ChangeEvent event) 
+  { 
+    BatchExtension[] extensions = batch.toArray(new BatchExtension[batch.size()]); 
+    for (BatchExtension extension : extensions) 
+    { 
+      if (extension.getOrigin().equals(origin)) 
+      { 
+        batch.remove(extension); 
+        event.removeExtension(extension); 
+        break; 
+      } 
+    }  
+  }    
+ 
+  private List filter(List items, Class baseClass) 
+  { 
+    List result = new ArrayList(); 
+    for (Object item : items) 
+    { 
+      Class c = item.getClass(); 
+      if (baseClass == null || baseClass.isAssignableFrom(c)) 
+      { 
+        result.add(item); 
+      } 
+    } 
+     
+    return result; 
+  } 
+   
+  public class ChangeEvent 
+  { 
+    private List&lt;BatchExtension&gt; added = new ArrayList&lt;BatchExtension&gt;(); 
+ 
+    private List&lt;BatchExtension&gt; removed = new ArrayList&lt;BatchExtension&gt;(); 
+     
+    private ChangeEvent() 
+    { 
+    } 
+     
+    public BatchRegistry getSource() 
+    { 
+      return BatchRegistry.this; 
+    } 
+     
+    public BatchExtension[] getAddedExtensions() 
+    { 
+      return added.toArray(new BatchExtension[added.size()]); 
+    } 
+     
+    public BatchExtension[] getRemovedExtensions() 
+    { 
+      return removed.toArray(new BatchExtension[removed.size()]); 
+    } 
+     
+    private void addExtension(BatchExtension extension) 
+    { 
+      added.add(extension); 
+    } 
+     
+    private void removeExtension(BatchExtension extension) 
+    { 
+      removed.add(extension); 
+    } 
+     
+    private void dispatch() 
+    { 
+      if (added.isEmpty() &amp;&amp; removed.isEmpty()) return; 
+      for (Listener listener : listeners) 
+      { 
+        try 
+        { 
+          listener.notifyBatchRegistryChanged(this); 
+        } 
+        catch (Exception ex) 
+        { 
+          ex.printStackTrace(); 
+        } 
+      } 
+    } 
+  } 
+   
+  public interface Listener 
+  { 
+    public void notifyBatchRegistryChanged(ChangeEvent event); 
+  } 
+}</programlisting>
+    <para>This is the generated <code>BatchExtension</code> 
+    class:</para>
+
+    <para>
+
+      <programlisting>package tutorial2.batch.internal; 
+ 
+import org.eclipse.core.runtime.*; 
+import java.util.*; 
+import java.io.*; 
+ 
+public class BatchExtension 
+{ 
+  protected BatchExtension(Object parent, IExtension origin) 
+  { 
+   _origin = origin; 
+   _parent = parent; 
+    id = origin.getSimpleIdentifier();    
+    name = origin.getLabel();   
+    point = origin.getExtensionPointUniqueIdentifier(); 
+    if (point == null || point.length() == 0) throw new RuntimeException(&quot;Point is required&quot;); 
+ 
+    IConfigurationElement[] configurationElements = origin.getConfigurationElements(); 
+    for (IConfigurationElement element : configurationElements) 
+    { 
+      System.out.println(&quot;Initializing &quot; + element.getName()); 
+      if (&quot;batch&quot;.equals(element.getName())) batchElements.add(new Batch(this, element)); 
+    } 
+  } 
+ 
+  public IExtension getOrigin() { return _origin; } 
+  protected IExtension _origin; 
+   
+  public Object getParent() { return _parent; } 
+  protected Object _parent; 
+   
+  public List&lt;Batch&gt; getBatchElements() { return Collections.unmodifiableList(batchElements); } 
+  protected List&lt;Batch&gt; batchElements = new ArrayList&lt;Batch&gt;(); 
+  
+  public String getPoint() { return point; } 
+  protected String point;   
+ 
+  public String getId() { return id; } 
+  protected String id;   
+ 
+  public String getName() { return name; } 
+  protected String name;   
+ 
+  public List getAllElements() 
+  { 
+    List result = new ArrayList(); 
+    result.add(this); 
+    for (Batch element : batchElements) result.addAll(element.getAllElements()); 
+    return result; 
+  } 
+}</programlisting>
+    </para>
+
+    <para>This is the generated <code>Batch</code> class:</para>
+
+    <para>
+
+      <programlisting>package tutorial2.batch.internal; 
+ 
+import org.eclipse.core.runtime.*; 
+import java.util.*; 
+import java.io.*; 
+ 
+public class Batch 
+{ 
+  protected Batch(Object parent, IConfigurationElement origin) 
+  { 
+   _origin = origin; 
+   _parent = parent;  
+ 
+    IConfigurationElement[] configurationElements = origin.getChildren(); 
+    for (IConfigurationElement element : configurationElements) 
+    { 
+      System.out.println(&quot;Initializing &quot; + element.getName()); 
+      if (&quot;target&quot;.equals(element.getName())) targetElements.add(new Target(this, element)); 
+      if (&quot;run&quot;.equals(element.getName())) runElements.add(new Run(this, element)); 
+    } 
+  } 
+ 
+  public IConfigurationElement getOrigin() { return _origin; } 
+  protected IConfigurationElement _origin; 
+   
+  public Object getParent() { return _parent; } 
+  protected Object _parent; 
+   
+  public List&lt;Target&gt; getTargetElements() { return Collections.unmodifiableList(targetElements); } 
+  protected List&lt;Target&gt; targetElements = new ArrayList&lt;Target&gt;(); 
+ 
+  public List&lt;Run&gt; getRunElements() { return Collections.unmodifiableList(runElements); } 
+  protected List&lt;Run&gt; runElements = new ArrayList&lt;Run&gt;(); 
+  
+  public List getAllElements() 
+  { 
+    List result = new ArrayList(); 
+    result.add(this); 
+    for (Target element : targetElements) result.addAll(element.getAllElements()); 
+    for (Run element : runElements) result.addAll(element.getAllElements()); 
+    return result; 
+  } 
+}</programlisting>
+    </para>
+
+    <para>This is the generated <code>Run</code> class:</para>
+
+    <para>
+
+      <programlisting>package tutorial2.batch.internal; 
+ 
+import org.eclipse.core.runtime.*; 
+import java.util.*; 
+import java.io.*; 
+ 
+public class Run 
+{ 
+  protected Run(Object parent, IConfigurationElement origin) 
+  { 
+   _origin = origin; 
+   _parent = parent;  
+   clazz = origin.getAttribute(&quot;class&quot;); 
+   if (clazz == null || clazz.length() == 0) throw new RuntimeException(&quot;Clazz is required&quot;);   
+ 
+    IConfigurationElement[] configurationElements = origin.getChildren(); 
+    for (IConfigurationElement element : configurationElements) 
+    { 
+      System.out.println(&quot;Initializing &quot; + element.getName()); 
+    } 
+  } 
+ 
+  public IConfigurationElement getOrigin() { return _origin; } 
+  protected IConfigurationElement _origin; 
+   
+  public Object getParent() { return _parent; } 
+  protected Object _parent; 
+     
+  public tutorial2.batch.internal.IService getClazz() throws CoreException { return (tutorial2.batch.internal.IService)_origin.createExecutableExtension(&quot;clazz&quot;); } 
+  protected String clazz;   
+ 
+  public List getAllElements() 
+  { 
+    List result = new ArrayList(); 
+    result.add(this); 
+    return result; 
+  } 
+}</programlisting>
+    </para>
+
+    <para>This is the generated <code>Target</code> class:</para>
+
+    <para>
+
+      <programlisting>package tutorial2.batch.internal; 
+ 
+import org.eclipse.core.runtime.*; 
+import java.util.*; 
+import java.io.*; 
+ 
+public class Target 
+{ 
+  protected Target(Object parent, IConfigurationElement origin) 
+  { 
+   _origin = origin; 
+   _parent = parent;  
+   pattern = origin.getAttribute(&quot;pattern&quot;); 
+   if (pattern == null || pattern.length() == 0) throw new RuntimeException(&quot;Pattern is required&quot;);  
+   String targetAddedStr = origin.getAttribute(&quot;targetAdded&quot;); 
+   if (targetAddedStr != null) { targetAdded = Boolean.parseBoolean(targetAddedStr); }  
+   String targetModifiedStr = origin.getAttribute(&quot;targetModified&quot;); 
+   if (targetModifiedStr != null) { targetModified = Boolean.parseBoolean(targetModifiedStr); }  
+   String targetRemovedStr = origin.getAttribute(&quot;targetRemoved&quot;); 
+   if (targetRemovedStr != null) { targetRemoved = Boolean.parseBoolean(targetRemovedStr); }  
+   String targetUnchangedStr = origin.getAttribute(&quot;targetUnchanged&quot;); 
+   if (targetUnchangedStr != null) { targetUnchanged = Boolean.parseBoolean(targetUnchangedStr); }   
+ 
+    IConfigurationElement[] configurationElements = origin.getChildren(); 
+    for (IConfigurationElement element : configurationElements) 
+    { 
+      System.out.println(&quot;Initializing &quot; + element.getName()); 
+    } 
+  } 
+ 
+  public IConfigurationElement getOrigin() { return _origin; } 
+  protected IConfigurationElement _origin; 
+   
+  public Object getParent() { return _parent; } 
+  protected Object _parent; 
+    
+  public String getPattern() { return pattern; } 
+  protected String pattern;   
+ 
+  public boolean isTargetAdded() { return targetAdded; } 
+  protected boolean targetAdded;  
+ 
+  public boolean isTargetModified() { return targetModified; } 
+  protected boolean targetModified;  
+ 
+  public boolean isTargetRemoved() { return targetRemoved; } 
+  protected boolean targetRemoved;  
+ 
+  public boolean isTargetUnchanged() { return targetUnchanged; } 
+  protected boolean targetUnchanged;  
+ 
+  public List getAllElements() 
+  { 
+    List result = new ArrayList(); 
+    result.add(this); 
+    return result; 
+  } 
+} </programlisting>
+    </para>
+
+    <para>Note, that in the original schema file the <code>Run</code> 
+    element has an attribute named <code>class</code>. Our generator is 
+    not only smart enough to translate that into <code>public String 
+    getClazz() { return clazz; }</code>, there is also the possibility 
+    to switch the <emphasis>type</emphasis> of that attribute from 
+    <code>string</code> to <emphasis>java</emphasis> and enter the name 
+    of a java interface as a restriction for that attribute. For 
+    example add the <code>IService</code> interface to the 
+    <code>src</code> folder of the <code>tutorial2.batch</code> project 
+    and enter its full name in the <emphasis>implements</emphasis> 
+    restriction field:</para>
+
+    <programlisting>package tutorial2.batch.internal; 
+ 
+public interface IService 
+{ 
+  // Service methods... 
+}</programlisting>
+    <para>If you regenerate the application you will see the following 
+    in the generated <code>Run</code> class:</para>
+
+    <programlisting>  public tutorial2.batch.internal.IService getClazz() throws CoreException
+  {
+    return (tutorial2.batch.internal.IService)origin.createExecutableExtension(&quot;clazz&quot;);
+  }</programlisting>
+    <para>Now you can create a <code>BatchRegistry</code> object in the 
+    <code>start()</code> method of your plugin <code>Activator</code> 
+    class and throw it away in the <code>stop()</code> method.</para>
+
+  </sect1>
+
+  <sect1>
+
+    <title>Notes</title>
+
+    <para>The generated extension registries have some interesting 
+    features:</para>
+
+    <itemizedlist>
+
+      <listitem>
+
+        <para><emphasis>Dynamic Bundles</emphasis></para>
+
+        <para>Our registry classes care for extensions that will be 
+        contributed after the registry instance has been constructed. 
+        The generated registries connect to the Eclipse Extension 
+        Registry, listen to change events and update their internal 
+        state accordingly.</para>
+
+      </listitem>
+
+      <listitem>
+
+        <para><emphasis>Life Cycle</emphasis></para>
+
+        <para>Our registries provide built-in life cycle support and 
+        common points of access. The generated registries implement the 
+        <emphasis>singleton</emphasis> pattern, you can access them via 
+        <code>XyzRegistry.INSTANCE</code>. In addition they provide 
+        public <code>initialize()</code> and <code>dispose()</code> 
+        methods, that should typically be called from your plugin 
+        <code>Activator</code>&apos;s <code>start()</code> and 
+        <code>stop()</code> methods. This is especially important, 
+        because, to reflect the <emphasis>Dynamic Bundles</emphasis> 
+        requirement, our registries have to connect to and disconnect 
+        from the Eclipse Extension Registry in a controlled way.</para>
+
+      </listitem>
+
+      <listitem>
+
+        <para><emphasis>Event Notification</emphasis></para>
+
+        <para>The templates in <code>tutorial2.gen</code> provide means 
+        to register client-side listeners to our registries. In 
+        contrast to the Eclipse API for registry change notification, 
+        our generated API is type safe with respect to our generated 
+        extension element classes.</para>
+
+      </listitem>
+
+    </itemizedlist>
+
+    <para>Currently there is little logging at all and all that goes to 
+    System.out, System.err respectively. To use this generator in 
+    reality you will have to change the templates according to your 
+    logging strategy.</para>
+
+    <para>If you look into the <code>model</code> folder of the 
+    <code>com.sympedia.genfw</code> plugin, you&apos;ll find the 
+    <code>extpoints.genapp</code> file. With this Generator Application 
+    I have generated GenFw&apos;s own extension points.</para>
+
+  </sect1>
+
+</article>
+

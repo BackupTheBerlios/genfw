@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="tutorial1.doc" default="generate" basedir="..">
+
+	<property file="${docbook.xsl.home}/scripts/build.properties" />
+	<property file="build.properties" />
+
+	<target name="generate">
+		<ant antfile="${docbook.xsl.home}/scripts/build.xml" target="build.eclipse" />
+	</target>
+
+</project>

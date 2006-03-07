@@ -22,7 +22,6 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
-import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.codegen.CodeGenPlugin;
 import org.eclipse.emf.codegen.merge.java.JControlModel;
@@ -53,6 +52,9 @@ import java.net.URL;
  */
 public class JmergeGeneratorImpl extends DelegatingGeneratorImpl implements JmergeGenerator
 {
+  /**
+   * @ADDED
+   */
   public static final String EMF_MERGE_XML_URI = "platform:/plugin/" + CodeGenPlugin.ID
           + ".ecore/templates/emf-merge.xml";
 
