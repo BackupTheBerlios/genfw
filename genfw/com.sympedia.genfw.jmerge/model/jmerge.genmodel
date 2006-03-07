@@ -9,9 +9,9 @@
   <foreignModel>jmerge.ecore</foreignModel>
   <genPackages prefix="Jmerge" basePackage="com.sympedia.genfw" disposableProviderFactory="true"
       ecorePackage="jmerge.ecore#/">
-    <genClasses ecoreClass="jmerge.ecore#//JmergeGenerator">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jmerge.ecore#//JmergeGenerator/mergeXmlUri"/>
-      <genFeatures createChild="false" propertyCategory="" ecoreFeature="ecore:EReference jmerge.ecore#//JmergeGenerator/delegate"/>
+    <genClasses ecoreClass="jmerge.ecore#//Jmerger">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jmerge.ecore#//Jmerger/mergeXmlUri"/>
     </genClasses>
+    <genClasses ecoreClass="jmerge.ecore#//PropertyMerger"/>
   </genPackages>
 </genmodel:GenModel>

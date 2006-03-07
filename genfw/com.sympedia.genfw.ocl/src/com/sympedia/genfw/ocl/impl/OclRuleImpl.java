@@ -114,4 +114,13 @@ public class OclRuleImpl extends ExpressionBasedRuleImpl implements OclRule
     Object result = query.evaluate(eObject);
     return result;
   }
+
+  /**
+   * @ADDED
+   */
+  @Override
+  protected Object evaluateConverterExpression(Object inputObject, String expr)
+  {
+    return inputObject;
+  }
 } //OclRuleImpl

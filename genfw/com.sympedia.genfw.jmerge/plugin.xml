@@ -1,13 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.0"?>
 
-<!--
- <copyright>
- </copyright>
-
- $Id: plugin.xml,v 1.2 2006/02/01 09:35:45 stepper Exp $
--->
-
 <plugin>
 
   <extension point="org.eclipse.emf.ecore.generated_package">
@@ -16,10 +9,14 @@
        class = "com.sympedia.genfw.jmerge.JmergePackage"
        genModel = "model/jmerge.genmodel" /> 
   </extension>
+  
   <extension
         point="com.sympedia.genfw.generators">
      <generator
-           classifierName="JmergeGenerator"
+           classifierName="Jmerger"
+           packageURI="http://www.sympedia.com/2006/genfw/jmerge"/>
+     <generator
+           classifierName="PropertyMerger"
            packageURI="http://www.sympedia.com/2006/genfw/jmerge"/>
   </extension>
 

@@ -11,8 +11,10 @@
 package com.sympedia.genfw.jmerge.impl;
 
 
+import com.sympedia.genfw.jmerge.*;
+
 import com.sympedia.genfw.jmerge.JmergeFactory;
-import com.sympedia.genfw.jmerge.JmergeGenerator;
+import com.sympedia.genfw.jmerge.Jmerger;
 import com.sympedia.genfw.jmerge.JmergePackage;
 
 import org.eclipse.emf.ecore.EClass;
@@ -74,8 +76,10 @@ public class JmergeFactoryImpl extends EFactoryImpl implements JmergeFactory
   {
     switch (eClass.getClassifierID())
     {
-    case JmergePackage.JMERGE_GENERATOR:
-      return createJmergeGenerator();
+    case JmergePackage.JMERGER:
+      return createJmerger();
+    case JmergePackage.PROPERTY_MERGER:
+      return createPropertyMerger();
     default:
       throw new IllegalArgumentException("The class '" + eClass.getName()
               + "' is not a valid classifier");
@@ -87,10 +91,21 @@ public class JmergeFactoryImpl extends EFactoryImpl implements JmergeFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public JmergeGenerator createJmergeGenerator()
+  public Jmerger createJmerger()
   {
-    JmergeGeneratorImpl jmergeGenerator = new JmergeGeneratorImpl();
-    return jmergeGenerator;
+    JmergerImpl jmerger = new JmergerImpl();
+    return jmerger;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public PropertyMerger createPropertyMerger()
+  {
+    PropertyMergerImpl propertyMerger = new PropertyMergerImpl();
+    return propertyMerger;
   }
 
   /**

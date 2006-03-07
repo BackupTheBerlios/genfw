@@ -12,7 +12,10 @@ package com.sympedia.genfw.ocl.util;
 
 
 import com.sympedia.genfw.ExpressionBasedRule;
+import com.sympedia.genfw.LifeCycle;
 import com.sympedia.genfw.Rule;
+import com.sympedia.genfw.ocl.*;
+
 import com.sympedia.genfw.ocl.ConfigurableOclRule;
 import com.sympedia.genfw.ocl.DynamicPackage;
 import com.sympedia.genfw.ocl.OclPackage;
@@ -113,6 +116,7 @@ public class OclSwitch
       Object result = caseOclRule(oclRule);
       if (result == null) result = caseExpressionBasedRule(oclRule);
       if (result == null) result = caseRule(oclRule);
+      if (result == null) result = caseLifeCycle(oclRule);
       if (result == null) result = defaultCase(theEObject);
       return result;
     }
@@ -123,6 +127,7 @@ public class OclSwitch
       if (result == null) result = caseOclRule(configurableOclRule);
       if (result == null) result = caseExpressionBasedRule(configurableOclRule);
       if (result == null) result = caseRule(configurableOclRule);
+      if (result == null) result = caseLifeCycle(configurableOclRule);
       if (result == null) result = defaultCase(theEObject);
       return result;
     }
@@ -230,6 +235,22 @@ public class OclSwitch
    * @generated
    */
   public Object caseStaticPackage(StaticPackage object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpretting the object as an instance of '<em>Life Cycle</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpretting the object as an instance of '<em>Life Cycle</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public Object caseLifeCycle(LifeCycle object)
   {
     return null;
   }

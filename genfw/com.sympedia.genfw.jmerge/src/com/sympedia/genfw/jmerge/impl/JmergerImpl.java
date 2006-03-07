@@ -13,8 +13,8 @@ package com.sympedia.genfw.jmerge.impl;
 
 import com.sympedia.genfw.Generator;
 import com.sympedia.genfw.impl.DelegatingGeneratorImpl;
-import com.sympedia.genfw.jmerge.JmergeGenerator;
 import com.sympedia.genfw.jmerge.JmergePackage;
+import com.sympedia.genfw.jmerge.Jmerger;
 import com.sympedia.genfw.jmerge.internal.JmergeActivator;
 import com.sympedia.util.eclipse.resources.ResourcesHelper;
 
@@ -44,13 +44,13 @@ import java.net.URL;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link com.sympedia.genfw.jmerge.impl.JmergeGeneratorImpl#getMergeXmlUri <em>Merge Xml Uri</em>}</li>
+ *   <li>{@link com.sympedia.genfw.jmerge.impl.JmergerImpl#getMergeXmlUri <em>Merge Xml Uri</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public class JmergeGeneratorImpl extends DelegatingGeneratorImpl implements JmergeGenerator
+public class JmergerImpl extends DelegatingGeneratorImpl implements Jmerger
 {
   /**
    * @ADDED
@@ -83,7 +83,7 @@ public class JmergeGeneratorImpl extends DelegatingGeneratorImpl implements Jmer
    * <!-- end-user-doc -->
    * @generated
    */
-  protected JmergeGeneratorImpl()
+  protected JmergerImpl()
   {
     super();
   }
@@ -95,7 +95,7 @@ public class JmergeGeneratorImpl extends DelegatingGeneratorImpl implements Jmer
    */
   protected EClass eStaticClass()
   {
-    return JmergePackage.Literals.JMERGE_GENERATOR;
+    return JmergePackage.Literals.JMERGER;
   }
 
   /**
@@ -118,8 +118,8 @@ public class JmergeGeneratorImpl extends DelegatingGeneratorImpl implements Jmer
     String oldMergeXmlUri = mergeXmlUri;
     mergeXmlUri = newMergeXmlUri;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET,
-              JmergePackage.JMERGE_GENERATOR__MERGE_XML_URI, oldMergeXmlUri, mergeXmlUri));
+      eNotify(new ENotificationImpl(this, Notification.SET, JmergePackage.JMERGER__MERGE_XML_URI,
+              oldMergeXmlUri, mergeXmlUri));
   }
 
   /**
@@ -127,13 +127,13 @@ public class JmergeGeneratorImpl extends DelegatingGeneratorImpl implements Jmer
    * <!-- end-user-doc -->
    * @generated NOT
    */
-  public String doGenerate(Object inputObject, String targetPath, IProgressMonitor monitor)
+  public byte[] doGenerate(Object inputObject, String targetPath, IProgressMonitor monitor)
           throws Exception
   {
     Generator delegate = getDelegate();
     if (delegate == null) return null;
 
-    String result = delegate.generate(inputObject, targetPath, monitor);
+    byte[] result = delegate.generate(inputObject, targetPath, monitor);
     if (result == null) return null;
 
     File existingFile = ResourcesHelper.ROOT.getLocation().append(targetPath).toFile();
@@ -141,10 +141,10 @@ public class JmergeGeneratorImpl extends DelegatingGeneratorImpl implements Jmer
     InputStream existingContent = new FileInputStream(existingFile);
 
     JMerger merger = getJMerger();
-    merger.setSourceCompilationUnit(merger.createCompilationUnitForContents(result));
+    merger.setSourceCompilationUnit(merger.createCompilationUnitForContents(new String(result)));
     merger.setTargetCompilationUnit(merger.createCompilationUnitForInputStream(existingContent));
     merger.merge();
-    return merger.getTargetCompilationUnit().getContents();
+    return merger.getTargetCompilationUnitContents().getBytes();
   }
 
   /**
@@ -180,7 +180,7 @@ public class JmergeGeneratorImpl extends DelegatingGeneratorImpl implements Jmer
   {
     switch (featureID)
     {
-    case JmergePackage.JMERGE_GENERATOR__MERGE_XML_URI:
+    case JmergePackage.JMERGER__MERGE_XML_URI:
       return getMergeXmlUri();
     }
     return super.eGet(featureID, resolve, coreType);
@@ -195,7 +195,7 @@ public class JmergeGeneratorImpl extends DelegatingGeneratorImpl implements Jmer
   {
     switch (featureID)
     {
-    case JmergePackage.JMERGE_GENERATOR__MERGE_XML_URI:
+    case JmergePackage.JMERGER__MERGE_XML_URI:
       setMergeXmlUri((String)newValue);
       return;
     }
@@ -211,7 +211,7 @@ public class JmergeGeneratorImpl extends DelegatingGeneratorImpl implements Jmer
   {
     switch (featureID)
     {
-    case JmergePackage.JMERGE_GENERATOR__MERGE_XML_URI:
+    case JmergePackage.JMERGER__MERGE_XML_URI:
       setMergeXmlUri(MERGE_XML_URI_EDEFAULT);
       return;
     }
@@ -227,7 +227,7 @@ public class JmergeGeneratorImpl extends DelegatingGeneratorImpl implements Jmer
   {
     switch (featureID)
     {
-    case JmergePackage.JMERGE_GENERATOR__MERGE_XML_URI:
+    case JmergePackage.JMERGER__MERGE_XML_URI:
       return MERGE_XML_URI_EDEFAULT == null ? mergeXmlUri != null : !MERGE_XML_URI_EDEFAULT
               .equals(mergeXmlUri);
     }

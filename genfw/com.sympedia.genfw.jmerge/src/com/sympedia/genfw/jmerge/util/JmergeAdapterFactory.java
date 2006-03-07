@@ -13,7 +13,11 @@ package com.sympedia.genfw.jmerge.util;
 
 import com.sympedia.genfw.DelegatingGenerator;
 import com.sympedia.genfw.Generator;
-import com.sympedia.genfw.jmerge.JmergeGenerator;
+import com.sympedia.genfw.LifeCycle;
+
+import com.sympedia.genfw.jmerge.*;
+
+import com.sympedia.genfw.jmerge.Jmerger;
 import com.sympedia.genfw.jmerge.JmergePackage;
 
 import org.eclipse.emf.common.notify.Adapter;
@@ -83,9 +87,19 @@ public class JmergeAdapterFactory extends AdapterFactoryImpl
    */
   protected JmergeSwitch modelSwitch = new JmergeSwitch()
   {
-    public Object caseJmergeGenerator(JmergeGenerator object)
+    public Object caseJmerger(Jmerger object)
     {
-      return createJmergeGeneratorAdapter();
+      return createJmergerAdapter();
+    }
+
+    public Object casePropertyMerger(PropertyMerger object)
+    {
+      return createPropertyMergerAdapter();
+    }
+
+    public Object caseLifeCycle(LifeCycle object)
+    {
+      return createLifeCycleAdapter();
     }
 
     public Object caseGenerator(Generator object)
@@ -118,16 +132,46 @@ public class JmergeAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link com.sympedia.genfw.jmerge.JmergeGenerator <em>Generator</em>}'.
+   * Creates a new adapter for an object of class '{@link com.sympedia.genfw.jmerge.Jmerger <em>Jmerger</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see com.sympedia.genfw.jmerge.JmergeGenerator
+   * @see com.sympedia.genfw.jmerge.Jmerger
    * @generated
    */
-  public Adapter createJmergeGeneratorAdapter()
+  public Adapter createJmergerAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link com.sympedia.genfw.jmerge.PropertyMerger <em>Property Merger</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see com.sympedia.genfw.jmerge.PropertyMerger
+   * @generated
+   */
+  public Adapter createPropertyMergerAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link com.sympedia.genfw.LifeCycle <em>Life Cycle</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see com.sympedia.genfw.LifeCycle
+   * @generated
+   */
+  public Adapter createLifeCycleAdapter()
   {
     return null;
   }

@@ -12,7 +12,10 @@ package com.sympedia.genfw.ocl.util;
 
 
 import com.sympedia.genfw.ExpressionBasedRule;
+import com.sympedia.genfw.LifeCycle;
 import com.sympedia.genfw.Rule;
+import com.sympedia.genfw.ocl.*;
+
 import com.sympedia.genfw.ocl.ConfigurableOclRule;
 import com.sympedia.genfw.ocl.DynamicPackage;
 import com.sympedia.genfw.ocl.OclPackage;
@@ -110,6 +113,11 @@ public class OclAdapterFactory extends AdapterFactoryImpl
     public Object caseStaticPackage(StaticPackage object)
     {
       return createStaticPackageAdapter();
+    }
+
+    public Object caseLifeCycle(LifeCycle object)
+    {
+      return createLifeCycleAdapter();
     }
 
     public Object caseRule(Rule object)
@@ -212,6 +220,21 @@ public class OclAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createStaticPackageAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link com.sympedia.genfw.LifeCycle <em>Life Cycle</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see com.sympedia.genfw.LifeCycle
+   * @generated
+   */
+  public Adapter createLifeCycleAdapter()
   {
     return null;
   }

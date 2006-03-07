@@ -33,13 +33,22 @@ public interface JmergeFactory extends EFactory
   JmergeFactory eINSTANCE = com.sympedia.genfw.jmerge.impl.JmergeFactoryImpl.init();
 
   /**
-   * Returns a new object of class '<em>Generator</em>'.
+   * Returns a new object of class '<em>Jmerger</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>Generator</em>'.
+   * @return a new object of class '<em>Jmerger</em>'.
    * @generated
    */
-  JmergeGenerator createJmergeGenerator();
+  Jmerger createJmerger();
+
+  /**
+   * Returns a new object of class '<em>Property Merger</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Property Merger</em>'.
+   * @generated
+   */
+  PropertyMerger createPropertyMerger();
 
   /**
    * Returns the package supported by this factory.

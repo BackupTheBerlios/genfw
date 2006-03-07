@@ -13,7 +13,11 @@ package com.sympedia.genfw.jmerge.util;
 
 import com.sympedia.genfw.DelegatingGenerator;
 import com.sympedia.genfw.Generator;
-import com.sympedia.genfw.jmerge.JmergeGenerator;
+import com.sympedia.genfw.LifeCycle;
+
+import com.sympedia.genfw.jmerge.*;
+
+import com.sympedia.genfw.jmerge.Jmerger;
 import com.sympedia.genfw.jmerge.JmergePackage;
 
 import org.eclipse.emf.ecore.EClass;
@@ -103,12 +107,23 @@ public class JmergeSwitch
   {
     switch (classifierID)
     {
-    case JmergePackage.JMERGE_GENERATOR:
+    case JmergePackage.JMERGER:
     {
-      JmergeGenerator jmergeGenerator = (JmergeGenerator)theEObject;
-      Object result = caseJmergeGenerator(jmergeGenerator);
-      if (result == null) result = caseDelegatingGenerator(jmergeGenerator);
-      if (result == null) result = caseGenerator(jmergeGenerator);
+      Jmerger jmerger = (Jmerger)theEObject;
+      Object result = caseJmerger(jmerger);
+      if (result == null) result = caseDelegatingGenerator(jmerger);
+      if (result == null) result = caseGenerator(jmerger);
+      if (result == null) result = caseLifeCycle(jmerger);
+      if (result == null) result = defaultCase(theEObject);
+      return result;
+    }
+    case JmergePackage.PROPERTY_MERGER:
+    {
+      PropertyMerger propertyMerger = (PropertyMerger)theEObject;
+      Object result = casePropertyMerger(propertyMerger);
+      if (result == null) result = caseDelegatingGenerator(propertyMerger);
+      if (result == null) result = caseGenerator(propertyMerger);
+      if (result == null) result = caseLifeCycle(propertyMerger);
       if (result == null) result = defaultCase(theEObject);
       return result;
     }
@@ -118,17 +133,49 @@ public class JmergeSwitch
   }
 
   /**
-   * Returns the result of interpretting the object as an instance of '<em>Generator</em>'.
+   * Returns the result of interpretting the object as an instance of '<em>Jmerger</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    * @param object the target of the switch.
-   * @return the result of interpretting the object as an instance of '<em>Generator</em>'.
+   * @return the result of interpretting the object as an instance of '<em>Jmerger</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public Object caseJmergeGenerator(JmergeGenerator object)
+  public Object caseJmerger(Jmerger object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpretting the object as an instance of '<em>Property Merger</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpretting the object as an instance of '<em>Property Merger</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public Object casePropertyMerger(PropertyMerger object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpretting the object as an instance of '<em>Life Cycle</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpretting the object as an instance of '<em>Life Cycle</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public Object caseLifeCycle(LifeCycle object)
   {
     return null;
   }

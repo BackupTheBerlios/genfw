@@ -11,6 +11,8 @@
 package com.sympedia.genfw.ocl.impl;
 
 
+import com.sympedia.genfw.ocl.*;
+
 import com.sympedia.genfw.ocl.ConfigurableOclRule;
 import com.sympedia.genfw.ocl.DynamicPackage;
 import com.sympedia.genfw.ocl.OclFactory;

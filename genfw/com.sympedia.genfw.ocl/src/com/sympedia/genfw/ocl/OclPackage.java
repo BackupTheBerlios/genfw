@@ -162,6 +162,15 @@ public interface OclPackage extends EPackage
   int OCL_RULE__TARGET_PATH_EXPRESSION = GenfwPackage.EXPRESSION_BASED_RULE__TARGET_PATH_EXPRESSION;
 
   /**
+   * The feature id for the '<em><b>Converter Expression</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int OCL_RULE__CONVERTER_EXPRESSION = GenfwPackage.EXPRESSION_BASED_RULE__CONVERTER_EXPRESSION;
+
+  /**
    * The number of structural features of the '<em>Rule</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -260,6 +269,15 @@ public interface OclPackage extends EPackage
    * @ordered
    */
   int CONFIGURABLE_OCL_RULE__TARGET_PATH_EXPRESSION = OCL_RULE__TARGET_PATH_EXPRESSION;
+
+  /**
+   * The feature id for the '<em><b>Converter Expression</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int CONFIGURABLE_OCL_RULE__CONVERTER_EXPRESSION = OCL_RULE__CONVERTER_EXPRESSION;
 
   /**
    * The feature id for the '<em><b>Packages</b></em>' containment reference list.

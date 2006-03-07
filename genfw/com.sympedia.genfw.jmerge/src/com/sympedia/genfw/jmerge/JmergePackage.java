@@ -68,14 +68,14 @@ public interface JmergePackage extends EPackage
   JmergePackage eINSTANCE = com.sympedia.genfw.jmerge.impl.JmergePackageImpl.init();
 
   /**
-   * The meta object id for the '{@link com.sympedia.genfw.jmerge.impl.JmergeGeneratorImpl <em>Generator</em>}' class.
+   * The meta object id for the '{@link com.sympedia.genfw.jmerge.impl.JmergerImpl <em>Jmerger</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see com.sympedia.genfw.jmerge.impl.JmergeGeneratorImpl
-   * @see com.sympedia.genfw.jmerge.impl.JmergePackageImpl#getJmergeGenerator()
+   * @see com.sympedia.genfw.jmerge.impl.JmergerImpl
+   * @see com.sympedia.genfw.jmerge.impl.JmergePackageImpl#getJmerger()
    * @generated
    */
-  int JMERGE_GENERATOR = 0;
+  int JMERGER = 0;
 
   /**
    * The feature id for the '<em><b>Root</b></em>' container reference.
@@ -84,7 +84,7 @@ public interface JmergePackage extends EPackage
    * @generated
    * @ordered
    */
-  int JMERGE_GENERATOR__ROOT = GenfwPackage.DELEGATING_GENERATOR__ROOT;
+  int JMERGER__ROOT = GenfwPackage.DELEGATING_GENERATOR__ROOT;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -93,7 +93,7 @@ public interface JmergePackage extends EPackage
    * @generated
    * @ordered
    */
-  int JMERGE_GENERATOR__NAME = GenfwPackage.DELEGATING_GENERATOR__NAME;
+  int JMERGER__NAME = GenfwPackage.DELEGATING_GENERATOR__NAME;
 
   /**
    * The feature id for the '<em><b>Delegate</b></em>' reference.
@@ -102,7 +102,7 @@ public interface JmergePackage extends EPackage
    * @generated
    * @ordered
    */
-  int JMERGE_GENERATOR__DELEGATE = GenfwPackage.DELEGATING_GENERATOR__DELEGATE;
+  int JMERGER__DELEGATE = GenfwPackage.DELEGATING_GENERATOR__DELEGATE;
 
   /**
    * The feature id for the '<em><b>Merge Xml Uri</b></em>' attribute.
@@ -111,37 +111,93 @@ public interface JmergePackage extends EPackage
    * @generated
    * @ordered
    */
-  int JMERGE_GENERATOR__MERGE_XML_URI = GenfwPackage.DELEGATING_GENERATOR_FEATURE_COUNT + 0;
+  int JMERGER__MERGE_XML_URI = GenfwPackage.DELEGATING_GENERATOR_FEATURE_COUNT + 0;
 
   /**
-   * The number of structural features of the '<em>Generator</em>' class.
+   * The number of structural features of the '<em>Jmerger</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int JMERGE_GENERATOR_FEATURE_COUNT = GenfwPackage.DELEGATING_GENERATOR_FEATURE_COUNT + 1;
+  int JMERGER_FEATURE_COUNT = GenfwPackage.DELEGATING_GENERATOR_FEATURE_COUNT + 1;
 
   /**
-   * Returns the meta object for class '{@link com.sympedia.genfw.jmerge.JmergeGenerator <em>Generator</em>}'.
+   * The meta object id for the '{@link com.sympedia.genfw.jmerge.impl.PropertyMergerImpl <em>Property Merger</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Generator</em>'.
-   * @see com.sympedia.genfw.jmerge.JmergeGenerator
+   * @see com.sympedia.genfw.jmerge.impl.PropertyMergerImpl
+   * @see com.sympedia.genfw.jmerge.impl.JmergePackageImpl#getPropertyMerger()
    * @generated
    */
-  EClass getJmergeGenerator();
+  int PROPERTY_MERGER = 1;
 
   /**
-   * Returns the meta object for the attribute '{@link com.sympedia.genfw.jmerge.JmergeGenerator#getMergeXmlUri <em>Merge Xml Uri</em>}'.
+   * The feature id for the '<em><b>Root</b></em>' container reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int PROPERTY_MERGER__ROOT = GenfwPackage.DELEGATING_GENERATOR__ROOT;
+
+  /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int PROPERTY_MERGER__NAME = GenfwPackage.DELEGATING_GENERATOR__NAME;
+
+  /**
+   * The feature id for the '<em><b>Delegate</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int PROPERTY_MERGER__DELEGATE = GenfwPackage.DELEGATING_GENERATOR__DELEGATE;
+
+  /**
+   * The number of structural features of the '<em>Property Merger</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int PROPERTY_MERGER_FEATURE_COUNT = GenfwPackage.DELEGATING_GENERATOR_FEATURE_COUNT + 0;
+
+  /**
+   * Returns the meta object for class '{@link com.sympedia.genfw.jmerge.Jmerger <em>Jmerger</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Jmerger</em>'.
+   * @see com.sympedia.genfw.jmerge.Jmerger
+   * @generated
+   */
+  EClass getJmerger();
+
+  /**
+   * Returns the meta object for the attribute '{@link com.sympedia.genfw.jmerge.Jmerger#getMergeXmlUri <em>Merge Xml Uri</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the attribute '<em>Merge Xml Uri</em>'.
-   * @see com.sympedia.genfw.jmerge.JmergeGenerator#getMergeXmlUri()
-   * @see #getJmergeGenerator()
+   * @see com.sympedia.genfw.jmerge.Jmerger#getMergeXmlUri()
+   * @see #getJmerger()
    * @generated
    */
-  EAttribute getJmergeGenerator_MergeXmlUri();
+  EAttribute getJmerger_MergeXmlUri();
+
+  /**
+   * Returns the meta object for class '{@link com.sympedia.genfw.jmerge.PropertyMerger <em>Property Merger</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Property Merger</em>'.
+   * @see com.sympedia.genfw.jmerge.PropertyMerger
+   * @generated
+   */
+  EClass getPropertyMerger();
 
   /**
    * Returns the factory that creates the instances of the model.
@@ -167,14 +223,14 @@ public interface JmergePackage extends EPackage
   interface Literals
   {
     /**
-     * The meta object literal for the '{@link com.sympedia.genfw.jmerge.impl.JmergeGeneratorImpl <em>Generator</em>}' class.
+     * The meta object literal for the '{@link com.sympedia.genfw.jmerge.impl.JmergerImpl <em>Jmerger</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see com.sympedia.genfw.jmerge.impl.JmergeGeneratorImpl
-     * @see com.sympedia.genfw.jmerge.impl.JmergePackageImpl#getJmergeGenerator()
+     * @see com.sympedia.genfw.jmerge.impl.JmergerImpl
+     * @see com.sympedia.genfw.jmerge.impl.JmergePackageImpl#getJmerger()
      * @generated
      */
-    EClass JMERGE_GENERATOR = eINSTANCE.getJmergeGenerator();
+    EClass JMERGER = eINSTANCE.getJmerger();
 
     /**
      * The meta object literal for the '<em><b>Merge Xml Uri</b></em>' attribute feature.
@@ -182,7 +238,17 @@ public interface JmergePackage extends EPackage
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute JMERGE_GENERATOR__MERGE_XML_URI = eINSTANCE.getJmergeGenerator_MergeXmlUri();
+    EAttribute JMERGER__MERGE_XML_URI = eINSTANCE.getJmerger_MergeXmlUri();
+
+    /**
+     * The meta object literal for the '{@link com.sympedia.genfw.jmerge.impl.PropertyMergerImpl <em>Property Merger</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see com.sympedia.genfw.jmerge.impl.PropertyMergerImpl
+     * @see com.sympedia.genfw.jmerge.impl.JmergePackageImpl#getPropertyMerger()
+     * @generated
+     */
+    EClass PROPERTY_MERGER = eINSTANCE.getPropertyMerger();
 
   }
 

@@ -13,7 +13,9 @@ package com.sympedia.genfw.jmerge.impl;
 
 import com.sympedia.genfw.GenfwPackage;
 import com.sympedia.genfw.jmerge.JmergeFactory;
-import com.sympedia.genfw.jmerge.JmergeGenerator;
+import com.sympedia.genfw.jmerge.Jmerger;
+import com.sympedia.genfw.jmerge.PropertyMerger;
+
 import com.sympedia.genfw.jmerge.JmergePackage;
 
 import org.eclipse.emf.ecore.EAttribute;
@@ -35,7 +37,14 @@ public class JmergePackageImpl extends EPackageImpl implements JmergePackage
    * <!-- end-user-doc -->
    * @generated
    */
-  private EClass jmergeGeneratorEClass = null;
+  private EClass jmergerEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass propertyMergerEClass = null;
 
   /**
    * Creates an instance of the model <b>Package</b>, registered with
@@ -118,9 +127,9 @@ public class JmergePackageImpl extends EPackageImpl implements JmergePackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EClass getJmergeGenerator()
+  public EClass getJmerger()
   {
-    return jmergeGeneratorEClass;
+    return jmergerEClass;
   }
 
   /**
@@ -128,9 +137,19 @@ public class JmergePackageImpl extends EPackageImpl implements JmergePackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getJmergeGenerator_MergeXmlUri()
+  public EAttribute getJmerger_MergeXmlUri()
   {
-    return (EAttribute)jmergeGeneratorEClass.getEStructuralFeatures().get(0);
+    return (EAttribute)jmergerEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getPropertyMerger()
+  {
+    return propertyMergerEClass;
   }
 
   /**
@@ -163,8 +182,10 @@ public class JmergePackageImpl extends EPackageImpl implements JmergePackage
     isCreated = true;
 
     // Create classes and their features
-    jmergeGeneratorEClass = createEClass(JMERGE_GENERATOR);
-    createEAttribute(jmergeGeneratorEClass, JMERGE_GENERATOR__MERGE_XML_URI);
+    jmergerEClass = createEClass(JMERGER);
+    createEAttribute(jmergerEClass, JMERGER__MERGE_XML_URI);
+
+    propertyMergerEClass = createEClass(PROPERTY_MERGER);
   }
 
   /**
@@ -196,14 +217,18 @@ public class JmergePackageImpl extends EPackageImpl implements JmergePackage
             .getEPackage(GenfwPackage.eNS_URI);
 
     // Add supertypes to classes
-    jmergeGeneratorEClass.getESuperTypes().add(theGenfwPackage.getDelegatingGenerator());
+    jmergerEClass.getESuperTypes().add(theGenfwPackage.getDelegatingGenerator());
+    propertyMergerEClass.getESuperTypes().add(theGenfwPackage.getDelegatingGenerator());
 
     // Initialize classes and features; add operations and parameters
-    initEClass(jmergeGeneratorEClass, JmergeGenerator.class, "JmergeGenerator", !IS_ABSTRACT,
+    initEClass(jmergerEClass, Jmerger.class, "Jmerger", !IS_ABSTRACT, !IS_INTERFACE,
+            IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getJmerger_MergeXmlUri(), ecorePackage.getEString(), "mergeXmlUri", null, 0, 1,
+            Jmerger.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID,
+            IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(propertyMergerEClass, PropertyMerger.class, "PropertyMerger", !IS_ABSTRACT,
             !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getJmergeGenerator_MergeXmlUri(), ecorePackage.getEString(), "mergeXmlUri",
-            null, 0, 1, JmergeGenerator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
-            !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     // Create resource
     createResource(eNS_URI);
