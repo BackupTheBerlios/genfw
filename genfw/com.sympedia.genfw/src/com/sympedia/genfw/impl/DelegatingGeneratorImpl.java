@@ -174,4 +174,23 @@ public abstract class DelegatingGeneratorImpl extends GeneratorImpl implements D
     return super.eIsSet(featureID);
   }
 
+  /**
+   * @ADDED
+   */
+  protected void doInitialize() throws Exception
+  {
+    super.doInitialize();
+    Generator delegate = getDelegate();
+    if (delegate != null) delegate.initialize(getContext());
+  }
+
+  /**
+   * @ADDED
+   */
+  protected void doDispose() throws Exception
+  {
+    Generator delegate = getDelegate();
+    if (delegate != null) delegate.dispose();
+    super.doDispose();
+  }
 } //DelegatingGeneratorImpl
