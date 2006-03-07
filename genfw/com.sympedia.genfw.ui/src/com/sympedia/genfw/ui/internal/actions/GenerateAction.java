@@ -83,7 +83,7 @@ public class GenerateAction implements IObjectActionDelegate
               try
               {
                 monitor.subTask("Generator Application " + file.getName());
-                GenfwHelper.processFile(file, GenfwHelper.TRACE_NOTHING, new SubProgressMonitor(
+                GenfwHelper.processFile(file, GenfwHelper.TRACE_LIFECYCLE, new SubProgressMonitor(
                         monitor, 1));
               }
               catch (Exception ex)

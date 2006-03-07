@@ -310,20 +310,19 @@ public class EcoreTemplateImpl extends JetTemplateImpl implements EcoreTemplate
       field.setAccessible(false);// TODO try/finally
     }
 
-    // Not valid for eclipse312
-    //    if (!isGenerateInterface() && !isGenerateImplementation())
-    //    {
-    byte[] result = callTemplate(template, genBase);
-    return result;
-    //    }
-    //    else
-    //    {
-    //      Boolean genInterface = new Boolean(isGenerateInterface());
-    //      Boolean genImplementation = new Boolean(isGenerateImplementation());
-    //      Object[] argument = new Object[] {genBase, genInterface, genImplementation};
-    //      String result = callTemplate(template, argument);
-    //      return result;
-    //    }
+    if (!isGenerateInterface() && !isGenerateImplementation())
+    {
+      byte[] result = callTemplate(template, genBase);
+      return result;
+    }
+    else
+    {
+      Boolean genInterface = new Boolean(isGenerateInterface());
+      Boolean genImplementation = new Boolean(isGenerateImplementation());
+      Object[] argument = new Object[] {genBase, genInterface, genImplementation};
+      byte[] result = callTemplate(template, argument);
+      return result;
+    }
   }
 
   /**
