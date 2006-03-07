@@ -44,7 +44,7 @@
       <details key="uuid" value="1136887070640172"/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="inputs" upperBound="-1"
-        eType="#//Input" containment="true" eOpposite="#//Input/root">
+        eType="#//Input" containment="true" eOpposite="#//Input/app">
       <eAnnotations source="http://www.topcased.org/uuid">
         <details key="uuid" value="1136887070640173"/>
       </eAnnotations>
@@ -223,6 +223,10 @@
         </eAnnotations>
       </eParameters>
     </eOperations>
+    <eOperations name="convertInputObject" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"
+        eExceptions="#//Exception">
+      <eParameters name="inputObject" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
+    </eOperations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ruleSet" lowerBound="1"
         eType="#//RuleSet" eOpposite="#//RuleSet/rules">
       <eAnnotations source="http://www.topcased.org/uuid">
@@ -302,12 +306,17 @@
         <details key="editor.id" value="com.sympedia.Multiline"/>
       </eAnnotations>
     </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="converterExpression" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="http://www.sympedia.com/2006/celleditor">
+        <details key="editor.id" value="com.sympedia.Multiline"/>
+      </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Generator" abstract="true" eSuperTypes="#//LifeCycle">
     <eAnnotations source="http://www.topcased.org/uuid">
       <details key="uuid" value="113672105540666"/>
     </eAnnotations>
-    <eOperations name="generate" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+    <eOperations name="generate" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EByteArray"
         eExceptions="#//Exception">
       <eAnnotations source="http://www.topcased.org/uuid">
         <details key="uuid" value="113672120854673"/>
@@ -489,6 +498,7 @@
     <eAnnotations source="http://www.topcased.org/uuid">
       <details key="uuid" value="1138788227656133"/>
     </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="fileURL" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="lines" upperBound="-1"
         eType="#//Line" containment="true" eOpposite="#//Line/staticFileInitializer">
       <eAnnotations source="http://www.topcased.org/uuid">
@@ -526,7 +536,7 @@
     <eAnnotations source="http://www.topcased.org/uuid">
       <details key="uuid" value="11367080429534"/>
     </eAnnotations>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="root" eType="#//GenApp"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="app" eType="#//GenApp"
         eOpposite="#//GenApp/inputs">
       <eAnnotations source="http://www.topcased.org/uuid">
         <details key="uuid" value="1136887070625153"/>

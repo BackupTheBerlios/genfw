@@ -21,6 +21,7 @@ package com.sympedia.genfw;
  * <ul>
  *   <li>{@link com.sympedia.genfw.ExpressionBasedRule#getMatchExpression <em>Match Expression</em>}</li>
  *   <li>{@link com.sympedia.genfw.ExpressionBasedRule#getTargetPathExpression <em>Target Path Expression</em>}</li>
+ *   <li>{@link com.sympedia.genfw.ExpressionBasedRule#getConverterExpression <em>Converter Expression</em>}</li>
  * </ul>
  * </p>
  *
@@ -84,5 +85,31 @@ public interface ExpressionBasedRule extends Rule
    * @generated
    */
   void setTargetPathExpression(String value);
+
+  /**
+   * Returns the value of the '<em><b>Converter Expression</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Converter Expression</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Converter Expression</em>' attribute.
+   * @see #setConverterExpression(String)
+   * @see com.sympedia.genfw.GenfwPackage#getExpressionBasedRule_ConverterExpression()
+   * @model annotation="http://www.sympedia.com/2006/celleditor editor.id='com.sympedia.Multiline'"
+   * @generated
+   */
+  String getConverterExpression();
+
+  /**
+   * Sets the value of the '{@link com.sympedia.genfw.ExpressionBasedRule#getConverterExpression <em>Converter Expression</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Converter Expression</em>' attribute.
+   * @see #getConverterExpression()
+   * @generated
+   */
+  void setConverterExpression(String value);
 
 } // ExpressionBasedRule

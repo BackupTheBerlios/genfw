@@ -619,13 +619,22 @@ public interface GenfwPackage extends EPackage
   int EXPRESSION_BASED_RULE__TARGET_PATH_EXPRESSION = RULE_FEATURE_COUNT + 1;
 
   /**
+   * The feature id for the '<em><b>Converter Expression</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int EXPRESSION_BASED_RULE__CONVERTER_EXPRESSION = RULE_FEATURE_COUNT + 2;
+
+  /**
    * The number of structural features of the '<em>Expression Based Rule</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int EXPRESSION_BASED_RULE_FEATURE_COUNT = RULE_FEATURE_COUNT + 2;
+  int EXPRESSION_BASED_RULE_FEATURE_COUNT = RULE_FEATURE_COUNT + 3;
 
   /**
    * The meta object id for the '{@link com.sympedia.genfw.impl.GeneratorImpl <em>Generator</em>}' class.
@@ -994,13 +1003,22 @@ public interface GenfwPackage extends EPackage
   int STATIC_FILE_INITIALIZER__NAME = GENERATOR__NAME;
 
   /**
+   * The feature id for the '<em><b>File URL</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int STATIC_FILE_INITIALIZER__FILE_URL = GENERATOR_FEATURE_COUNT + 0;
+
+  /**
    * The feature id for the '<em><b>Lines</b></em>' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int STATIC_FILE_INITIALIZER__LINES = GENERATOR_FEATURE_COUNT + 0;
+  int STATIC_FILE_INITIALIZER__LINES = GENERATOR_FEATURE_COUNT + 1;
 
   /**
    * The number of structural features of the '<em>Static File Initializer</em>' class.
@@ -1009,7 +1027,7 @@ public interface GenfwPackage extends EPackage
    * @generated
    * @ordered
    */
-  int STATIC_FILE_INITIALIZER_FEATURE_COUNT = GENERATOR_FEATURE_COUNT + 1;
+  int STATIC_FILE_INITIALIZER_FEATURE_COUNT = GENERATOR_FEATURE_COUNT + 2;
 
   /**
    * The meta object id for the '{@link com.sympedia.genfw.impl.LineImpl <em>Line</em>}' class.
@@ -1115,13 +1133,13 @@ public interface GenfwPackage extends EPackage
   int INPUT = 19;
 
   /**
-   * The feature id for the '<em><b>Root</b></em>' container reference.
+   * The feature id for the '<em><b>App</b></em>' container reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int INPUT__ROOT = LIFE_CYCLE_FEATURE_COUNT + 0;
+  int INPUT__APP = LIFE_CYCLE_FEATURE_COUNT + 0;
 
   /**
    * The feature id for the '<em><b>Label</b></em>' attribute.
@@ -1644,6 +1662,17 @@ public interface GenfwPackage extends EPackage
   EAttribute getExpressionBasedRule_TargetPathExpression();
 
   /**
+   * Returns the meta object for the attribute '{@link com.sympedia.genfw.ExpressionBasedRule#getConverterExpression <em>Converter Expression</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Converter Expression</em>'.
+   * @see com.sympedia.genfw.ExpressionBasedRule#getConverterExpression()
+   * @see #getExpressionBasedRule()
+   * @generated
+   */
+  EAttribute getExpressionBasedRule_ConverterExpression();
+
+  /**
    * Returns the meta object for class '{@link com.sympedia.genfw.Generator <em>Generator</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1924,6 +1953,17 @@ public interface GenfwPackage extends EPackage
   EClass getStaticFileInitializer();
 
   /**
+   * Returns the meta object for the attribute '{@link com.sympedia.genfw.StaticFileInitializer#getFileURL <em>File URL</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>File URL</em>'.
+   * @see com.sympedia.genfw.StaticFileInitializer#getFileURL()
+   * @see #getStaticFileInitializer()
+   * @generated
+   */
+  EAttribute getStaticFileInitializer_FileURL();
+
+  /**
    * Returns the meta object for the containment reference list '{@link com.sympedia.genfw.StaticFileInitializer#getLines <em>Lines</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1997,15 +2037,15 @@ public interface GenfwPackage extends EPackage
   EClass getInput();
 
   /**
-   * Returns the meta object for the container reference '{@link com.sympedia.genfw.Input#getRoot <em>Root</em>}'.
+   * Returns the meta object for the container reference '{@link com.sympedia.genfw.Input#getApp <em>App</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the container reference '<em>Root</em>'.
-   * @see com.sympedia.genfw.Input#getRoot()
+   * @return the meta object for the container reference '<em>App</em>'.
+   * @see com.sympedia.genfw.Input#getApp()
    * @see #getInput()
    * @generated
    */
-  EReference getInput_Root();
+  EReference getInput_App();
 
   /**
    * Returns the meta object for the attribute '{@link com.sympedia.genfw.Input#getLabel <em>Label</em>}'.
@@ -2476,6 +2516,15 @@ public interface GenfwPackage extends EPackage
             .getExpressionBasedRule_TargetPathExpression();
 
     /**
+     * The meta object literal for the '<em><b>Converter Expression</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute EXPRESSION_BASED_RULE__CONVERTER_EXPRESSION = eINSTANCE
+            .getExpressionBasedRule_ConverterExpression();
+
+    /**
      * The meta object literal for the '{@link com.sympedia.genfw.impl.GeneratorImpl <em>Generator</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -2697,6 +2746,14 @@ public interface GenfwPackage extends EPackage
     EClass STATIC_FILE_INITIALIZER = eINSTANCE.getStaticFileInitializer();
 
     /**
+     * The meta object literal for the '<em><b>File URL</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute STATIC_FILE_INITIALIZER__FILE_URL = eINSTANCE.getStaticFileInitializer_FileURL();
+
+    /**
      * The meta object literal for the '<em><b>Lines</b></em>' containment reference list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -2761,12 +2818,12 @@ public interface GenfwPackage extends EPackage
     EClass INPUT = eINSTANCE.getInput();
 
     /**
-     * The meta object literal for the '<em><b>Root</b></em>' container reference feature.
+     * The meta object literal for the '<em><b>App</b></em>' container reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference INPUT__ROOT = eINSTANCE.getInput_Root();
+    EReference INPUT__APP = eINSTANCE.getInput_App();
 
     /**
      * The meta object literal for the '<em><b>Label</b></em>' attribute feature.

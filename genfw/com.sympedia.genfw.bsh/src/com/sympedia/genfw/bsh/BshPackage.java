@@ -161,6 +161,15 @@ public interface BshPackage extends EPackage
   int BEAN_SHELL_RULE__TARGET_PATH_EXPRESSION = GenfwPackage.EXPRESSION_BASED_RULE__TARGET_PATH_EXPRESSION;
 
   /**
+   * The feature id for the '<em><b>Converter Expression</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int BEAN_SHELL_RULE__CONVERTER_EXPRESSION = GenfwPackage.EXPRESSION_BASED_RULE__CONVERTER_EXPRESSION;
+
+  /**
    * The feature id for the '<em><b>Bootstrap Code</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

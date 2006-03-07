@@ -22,7 +22,7 @@ import org.eclipse.emf.common.util.EList;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link com.sympedia.genfw.Input#getRoot <em>Root</em>}</li>
+ *   <li>{@link com.sympedia.genfw.Input#getApp <em>App</em>}</li>
  *   <li>{@link com.sympedia.genfw.Input#getLabel <em>Label</em>}</li>
  *   <li>{@link com.sympedia.genfw.Input#getFullPath <em>Full Path</em>}</li>
  *   <li>{@link com.sympedia.genfw.Input#getContentProvider <em>Content Provider</em>}</li>
@@ -36,6 +36,35 @@ import org.eclipse.emf.common.util.EList;
  */
 public interface Input extends LifeCycle
 {
+  /**
+   * Returns the value of the '<em><b>App</b></em>' container reference.
+   * It is bidirectional and its opposite is '{@link com.sympedia.genfw.GenApp#getInputs <em>Inputs</em>}'.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>App</em>' container reference isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>App</em>' container reference.
+   * @see #setApp(GenApp)
+   * @see com.sympedia.genfw.GenfwPackage#getInput_App()
+   * @see com.sympedia.genfw.GenApp#getInputs
+   * @model opposite="inputs"
+   *        annotation="http://www.topcased.org/uuid uuid='1136887070625153'"
+   * @generated
+   */
+  GenApp getApp();
+
+  /**
+   * Sets the value of the '{@link com.sympedia.genfw.Input#getApp <em>App</em>}' container reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>App</em>' container reference.
+   * @see #getApp()
+   * @generated
+   */
+  void setApp(GenApp value);
+
   /**
    * Returns the value of the '<em><b>Content Provider</b></em>' reference.
    * <!-- begin-user-doc -->
@@ -79,35 +108,6 @@ public interface Input extends LifeCycle
    * @generated
    */
   EList getRuleSets();
-
-  /**
-   * Returns the value of the '<em><b>Root</b></em>' container reference.
-   * It is bidirectional and its opposite is '{@link com.sympedia.genfw.GenApp#getInputs <em>Inputs</em>}'.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Root</em>' container reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Root</em>' container reference.
-   * @see #setRoot(GenApp)
-   * @see com.sympedia.genfw.GenfwPackage#getInput_Root()
-   * @see com.sympedia.genfw.GenApp#getInputs
-   * @model opposite="inputs"
-   *        annotation="http://www.topcased.org/uuid uuid='1136887070625153'"
-   * @generated
-   */
-  GenApp getRoot();
-
-  /**
-   * Sets the value of the '{@link com.sympedia.genfw.Input#getRoot <em>Root</em>}' container reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Root</em>' container reference.
-   * @see #getRoot()
-   * @generated
-   */
-  void setRoot(GenApp value);
 
   /**
    * Returns the value of the '<em><b>Label</b></em>' attribute.

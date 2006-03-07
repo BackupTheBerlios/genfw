@@ -13,7 +13,10 @@ package com.sympedia.genfw.bsh.util;
 
 import com.sympedia.genfw.DomTransformation;
 import com.sympedia.genfw.ExpressionBasedRule;
+import com.sympedia.genfw.LifeCycle;
 import com.sympedia.genfw.Rule;
+import com.sympedia.genfw.bsh.*;
+
 import com.sympedia.genfw.bsh.BeanShellRule;
 import com.sympedia.genfw.bsh.BeanShellTransformation;
 import com.sympedia.genfw.bsh.BshPackage;
@@ -95,6 +98,11 @@ public class BshAdapterFactory extends AdapterFactoryImpl
       return createBeanShellTransformationAdapter();
     }
 
+    public Object caseLifeCycle(LifeCycle object)
+    {
+      return createLifeCycleAdapter();
+    }
+
     public Object caseRule(Rule object)
     {
       return createRuleAdapter();
@@ -155,6 +163,21 @@ public class BshAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createBeanShellTransformationAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link com.sympedia.genfw.LifeCycle <em>Life Cycle</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see com.sympedia.genfw.LifeCycle
+   * @generated
+   */
+  public Adapter createLifeCycleAdapter()
   {
     return null;
   }

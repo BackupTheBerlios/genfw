@@ -13,7 +13,10 @@ package com.sympedia.genfw.bsh.util;
 
 import com.sympedia.genfw.DomTransformation;
 import com.sympedia.genfw.ExpressionBasedRule;
+import com.sympedia.genfw.LifeCycle;
 import com.sympedia.genfw.Rule;
+import com.sympedia.genfw.bsh.*;
+
 import com.sympedia.genfw.bsh.BeanShellRule;
 import com.sympedia.genfw.bsh.BeanShellTransformation;
 import com.sympedia.genfw.bsh.BshPackage;
@@ -111,6 +114,7 @@ public class BshSwitch
       Object result = caseBeanShellRule(beanShellRule);
       if (result == null) result = caseExpressionBasedRule(beanShellRule);
       if (result == null) result = caseRule(beanShellRule);
+      if (result == null) result = caseLifeCycle(beanShellRule);
       if (result == null) result = defaultCase(theEObject);
       return result;
     }
@@ -119,6 +123,7 @@ public class BshSwitch
       BeanShellTransformation beanShellTransformation = (BeanShellTransformation)theEObject;
       Object result = caseBeanShellTransformation(beanShellTransformation);
       if (result == null) result = caseDomTransformation(beanShellTransformation);
+      if (result == null) result = caseLifeCycle(beanShellTransformation);
       if (result == null) result = defaultCase(theEObject);
       return result;
     }
@@ -155,6 +160,22 @@ public class BshSwitch
    * @generated
    */
   public Object caseBeanShellTransformation(BeanShellTransformation object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpretting the object as an instance of '<em>Life Cycle</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpretting the object as an instance of '<em>Life Cycle</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public Object caseLifeCycle(LifeCycle object)
   {
     return null;
   }

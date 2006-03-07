@@ -13,6 +13,10 @@ package com.sympedia.genfw.jdt.util;
 
 import com.sympedia.genfw.DelegatingGenerator;
 import com.sympedia.genfw.Generator;
+import com.sympedia.genfw.LifeCycle;
+
+import com.sympedia.genfw.jdt.*;
+
 import com.sympedia.genfw.jdt.JavaFormatter;
 import com.sympedia.genfw.jdt.JdtPackage;
 
@@ -109,6 +113,7 @@ public class JdtSwitch
       Object result = caseJavaFormatter(javaFormatter);
       if (result == null) result = caseDelegatingGenerator(javaFormatter);
       if (result == null) result = caseGenerator(javaFormatter);
+      if (result == null) result = caseLifeCycle(javaFormatter);
       if (result == null) result = defaultCase(theEObject);
       return result;
     }
@@ -129,6 +134,22 @@ public class JdtSwitch
    * @generated
    */
   public Object caseJavaFormatter(JavaFormatter object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpretting the object as an instance of '<em>Life Cycle</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpretting the object as an instance of '<em>Life Cycle</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public Object caseLifeCycle(LifeCycle object)
   {
     return null;
   }

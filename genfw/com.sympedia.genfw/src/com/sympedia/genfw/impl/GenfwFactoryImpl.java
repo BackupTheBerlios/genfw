@@ -11,6 +11,8 @@
 package com.sympedia.genfw.impl;
 
 
+import com.sympedia.genfw.*;
+
 import com.sympedia.genfw.Context;
 import com.sympedia.genfw.DomContentProvider;
 import com.sympedia.genfw.DomTransformer;

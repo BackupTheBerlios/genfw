@@ -277,10 +277,12 @@ public class GenfwHelper
             System.out.println("GENERATING " + targetPath + "   [" + inputObject + "]");
 
           Generator generator = rule.getGenerator();
-          String result = null;
+          byte[] result = null;
 
           try
           {
+            inputObject = rule.convertInputObject(inputObject);
+
             result = generator
                     .generate(inputObject, targetPath, new SubProgressMonitor(monitor, 1));
             checkCancelation(monitor);

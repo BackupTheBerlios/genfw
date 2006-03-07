@@ -23,6 +23,10 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URL;
+
 
 /**
  * <!-- begin-user-doc -->
@@ -145,7 +149,7 @@ public abstract class GeneratorImpl extends LifeCycleImpl implements Generator
    * <!-- end-user-doc -->
    * @generated NOT
    */
-  public final String generate(Object inputObject, String targetPath, IProgressMonitor monitor)
+  public final byte[] generate(Object inputObject, String targetPath, IProgressMonitor monitor)
           throws Exception
   {
     if (targetPath != null)
@@ -159,7 +163,7 @@ public abstract class GeneratorImpl extends LifeCycleImpl implements Generator
   /**
    * @ADDED
    */
-  public abstract String doGenerate(Object inputObject, String targetPath, IProgressMonitor monitor)
+  public abstract byte[] doGenerate(Object inputObject, String targetPath, IProgressMonitor monitor)
           throws Exception;
 
   /**
@@ -299,4 +303,29 @@ public abstract class GeneratorImpl extends LifeCycleImpl implements Generator
     return result.toString();
   }
 
+  /**
+   * @ADDED
+   */
+  protected static URL extractURL(Object inputObject) throws MalformedURLException
+  {
+    URL url = null;
+    if (inputObject instanceof URL)
+    {
+      url = (URL)inputObject;
+    }
+    else if (inputObject instanceof URI)
+    {
+      url = ((URI)inputObject).toURL();
+    }
+    else if (inputObject instanceof org.eclipse.emf.common.util.URI)
+    {
+      url = new URL(((org.eclipse.emf.common.util.URI)inputObject).toString());
+    }
+    else if (inputObject instanceof String)
+    {
+      url = new URL((String)inputObject);
+    }
+
+    return url;
+  }
 } //GeneratorImpl

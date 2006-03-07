@@ -657,6 +657,16 @@ public class GenfwPackageImpl extends EPackageImpl implements GenfwPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EAttribute getExpressionBasedRule_ConverterExpression()
+  {
+    return (EAttribute)expressionBasedRuleEClass.getEStructuralFeatures().get(2);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EClass getGenerator()
   {
     return generatorEClass;
@@ -917,9 +927,19 @@ public class GenfwPackageImpl extends EPackageImpl implements GenfwPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EAttribute getStaticFileInitializer_FileURL()
+  {
+    return (EAttribute)staticFileInitializerEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EReference getStaticFileInitializer_Lines()
   {
-    return (EReference)staticFileInitializerEClass.getEStructuralFeatures().get(0);
+    return (EReference)staticFileInitializerEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -987,7 +1007,7 @@ public class GenfwPackageImpl extends EPackageImpl implements GenfwPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getInput_Root()
+  public EReference getInput_App()
   {
     return (EReference)inputEClass.getEStructuralFeatures().get(0);
   }
@@ -1221,6 +1241,7 @@ public class GenfwPackageImpl extends EPackageImpl implements GenfwPackage
     expressionBasedRuleEClass = createEClass(EXPRESSION_BASED_RULE);
     createEAttribute(expressionBasedRuleEClass, EXPRESSION_BASED_RULE__MATCH_EXPRESSION);
     createEAttribute(expressionBasedRuleEClass, EXPRESSION_BASED_RULE__TARGET_PATH_EXPRESSION);
+    createEAttribute(expressionBasedRuleEClass, EXPRESSION_BASED_RULE__CONVERTER_EXPRESSION);
 
     generatorEClass = createEClass(GENERATOR);
     createEReference(generatorEClass, GENERATOR__ROOT);
@@ -1253,6 +1274,7 @@ public class GenfwPackageImpl extends EPackageImpl implements GenfwPackage
     initialGeneratorEClass = createEClass(INITIAL_GENERATOR);
 
     staticFileInitializerEClass = createEClass(STATIC_FILE_INITIALIZER);
+    createEAttribute(staticFileInitializerEClass, STATIC_FILE_INITIALIZER__FILE_URL);
     createEReference(staticFileInitializerEClass, STATIC_FILE_INITIALIZER__LINES);
 
     lineEClass = createEClass(LINE);
@@ -1264,7 +1286,7 @@ public class GenfwPackageImpl extends EPackageImpl implements GenfwPackage
     projectInitializationProviderEClass = createEClass(PROJECT_INITIALIZATION_PROVIDER);
 
     inputEClass = createEClass(INPUT);
-    createEReference(inputEClass, INPUT__ROOT);
+    createEReference(inputEClass, INPUT__APP);
     createEAttribute(inputEClass, INPUT__LABEL);
     createEAttribute(inputEClass, INPUT__FULL_PATH);
     createEReference(inputEClass, INPUT__CONTENT_PROVIDER);
@@ -1349,8 +1371,8 @@ public class GenfwPackageImpl extends EPackageImpl implements GenfwPackage
 
     initEClass(genAppEClass, GenApp.class, "GenApp", !IS_ABSTRACT, !IS_INTERFACE,
             IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getGenApp_Inputs(), this.getInput(), this.getInput_Root(), "inputs", null, 0,
-            -1, GenApp.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
+    initEReference(getGenApp_Inputs(), this.getInput(), this.getInput_App(), "inputs", null, 0, -1,
+            GenApp.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
             !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(lifeCycleEClass, LifeCycle.class, "LifeCycle", IS_ABSTRACT, !IS_INTERFACE,
@@ -1434,6 +1456,10 @@ public class GenfwPackageImpl extends EPackageImpl implements GenfwPackage
     addEParameter(op, ecorePackage.getEJavaObject(), "inputObject", 0, 1);
     addEException(op, this.getException());
 
+    op = addEOperation(ruleEClass, ecorePackage.getEJavaObject(), "convertInputObject", 0, 1);
+    addEParameter(op, ecorePackage.getEJavaObject(), "inputObject", 0, 1);
+    addEException(op, this.getException());
+
     initEClass(staticRuleEClass, StaticRule.class, "StaticRule", !IS_ABSTRACT, !IS_INTERFACE,
             IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getStaticRule_TargetPath(), ecorePackage.getEString(), "targetPath", null, 0, 1,
@@ -1448,6 +1474,9 @@ public class GenfwPackageImpl extends EPackageImpl implements GenfwPackage
     initEAttribute(getExpressionBasedRule_TargetPathExpression(), ecorePackage.getEString(),
             "targetPathExpression", null, 0, 1, ExpressionBasedRule.class, !IS_TRANSIENT,
             !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getExpressionBasedRule_ConverterExpression(), ecorePackage.getEString(),
+            "converterExpression", null, 0, 1, ExpressionBasedRule.class, !IS_TRANSIENT,
+            !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(generatorEClass, Generator.class, "Generator", IS_ABSTRACT, !IS_INTERFACE,
             IS_GENERATED_INSTANCE_CLASS);
@@ -1458,7 +1487,7 @@ public class GenfwPackageImpl extends EPackageImpl implements GenfwPackage
             Generator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID,
             IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-    op = addEOperation(generatorEClass, ecorePackage.getEString(), "generate", 0, 1);
+    op = addEOperation(generatorEClass, ecorePackage.getEByteArray(), "generate", 0, 1);
     addEParameter(op, ecorePackage.getEJavaObject(), "inputObject", 0, 1);
     addEParameter(op, ecorePackage.getEString(), "targetPath", 0, 1);
     addEParameter(op, this.getIProgressMonitor(), "monitor", 0, 1);
@@ -1540,6 +1569,9 @@ public class GenfwPackageImpl extends EPackageImpl implements GenfwPackage
 
     initEClass(staticFileInitializerEClass, StaticFileInitializer.class, "StaticFileInitializer",
             !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getStaticFileInitializer_FileURL(), ecorePackage.getEString(), "fileURL", null,
+            0, 1, StaticFileInitializer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
+            !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getStaticFileInitializer_Lines(), this.getLine(), this
             .getLine_StaticFileInitializer(), "lines", null, 0, -1, StaticFileInitializer.class,
             !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
@@ -1563,7 +1595,7 @@ public class GenfwPackageImpl extends EPackageImpl implements GenfwPackage
 
     initEClass(inputEClass, Input.class, "Input", !IS_ABSTRACT, !IS_INTERFACE,
             IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getInput_Root(), this.getGenApp(), this.getGenApp_Inputs(), "root", null, 0, 1,
+    initEReference(getInput_App(), this.getGenApp(), this.getGenApp_Inputs(), "app", null, 0, 1,
             Input.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
             !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getInput_Label(), ecorePackage.getEString(), "label", null, 0, 1, Input.class,
@@ -1784,7 +1816,7 @@ public class GenfwPackageImpl extends EPackageImpl implements GenfwPackage
     addAnnotation(projectInitializationProviderEClass, source, new String[] {"uuid",
             "1138788227671139"});
     addAnnotation(inputEClass, source, new String[] {"uuid", "11367080429534"});
-    addAnnotation(getInput_Root(), source, new String[] {"uuid", "1136887070625153"});
+    addAnnotation(getInput_App(), source, new String[] {"uuid", "1136887070625153"});
     addAnnotation(getInput_Label(), source, new String[] {"uuid", "1136894756921162"});
     addAnnotation(getInput_FullPath(), source, new String[] {"uuid", "113678603343715"});
     addAnnotation(getInput_ContentProvider(), source, new String[] {"uuid", "113671857948412"});
@@ -1821,6 +1853,8 @@ public class GenfwPackageImpl extends EPackageImpl implements GenfwPackage
             new String[] {"uuid", "1138859646437122"});
     addAnnotation(getExpressionBasedRule_TargetPathExpression(), 1, "http://www.topcased.org/uuid",
             new String[] {"uuid", "1138859646437122"});
+    addAnnotation(getExpressionBasedRule_ConverterExpression(), source, new String[] {"editor.id",
+            "com.sympedia.Multiline"});
   }
 
 } //GenfwPackageImpl

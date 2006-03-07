@@ -28,6 +28,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * <ul>
  *   <li>{@link com.sympedia.genfw.impl.ExpressionBasedRuleImpl#getMatchExpression <em>Match Expression</em>}</li>
  *   <li>{@link com.sympedia.genfw.impl.ExpressionBasedRuleImpl#getTargetPathExpression <em>Target Path Expression</em>}</li>
+ *   <li>{@link com.sympedia.genfw.impl.ExpressionBasedRuleImpl#getConverterExpression <em>Converter Expression</em>}</li>
  * </ul>
  * </p>
  *
@@ -74,6 +75,26 @@ public abstract class ExpressionBasedRuleImpl extends RuleImpl implements Expres
    * @ordered
    */
   protected String targetPathExpression = TARGET_PATH_EXPRESSION_EDEFAULT;
+
+  /**
+   * The default value of the '{@link #getConverterExpression() <em>Converter Expression</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getConverterExpression()
+   * @generated
+   * @ordered
+   */
+  protected static final String CONVERTER_EXPRESSION_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getConverterExpression() <em>Converter Expression</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getConverterExpression()
+   * @generated
+   * @ordered
+   */
+  protected String converterExpression = CONVERTER_EXPRESSION_EDEFAULT;
 
   /**
    * <!-- begin-user-doc -->
@@ -150,6 +171,31 @@ public abstract class ExpressionBasedRuleImpl extends RuleImpl implements Expres
    * <!-- end-user-doc -->
    * @generated
    */
+  public String getConverterExpression()
+  {
+    return converterExpression;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setConverterExpression(String newConverterExpression)
+  {
+    String oldConverterExpression = converterExpression;
+    converterExpression = newConverterExpression;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET,
+              GenfwPackage.EXPRESSION_BASED_RULE__CONVERTER_EXPRESSION, oldConverterExpression,
+              converterExpression));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public Object eGet(int featureID, boolean resolve, boolean coreType)
   {
     switch (featureID)
@@ -158,6 +204,8 @@ public abstract class ExpressionBasedRuleImpl extends RuleImpl implements Expres
       return getMatchExpression();
     case GenfwPackage.EXPRESSION_BASED_RULE__TARGET_PATH_EXPRESSION:
       return getTargetPathExpression();
+    case GenfwPackage.EXPRESSION_BASED_RULE__CONVERTER_EXPRESSION:
+      return getConverterExpression();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -176,6 +224,9 @@ public abstract class ExpressionBasedRuleImpl extends RuleImpl implements Expres
       return;
     case GenfwPackage.EXPRESSION_BASED_RULE__TARGET_PATH_EXPRESSION:
       setTargetPathExpression((String)newValue);
+      return;
+    case GenfwPackage.EXPRESSION_BASED_RULE__CONVERTER_EXPRESSION:
+      setConverterExpression((String)newValue);
       return;
     }
     super.eSet(featureID, newValue);
@@ -196,6 +247,9 @@ public abstract class ExpressionBasedRuleImpl extends RuleImpl implements Expres
     case GenfwPackage.EXPRESSION_BASED_RULE__TARGET_PATH_EXPRESSION:
       setTargetPathExpression(TARGET_PATH_EXPRESSION_EDEFAULT);
       return;
+    case GenfwPackage.EXPRESSION_BASED_RULE__CONVERTER_EXPRESSION:
+      setConverterExpression(CONVERTER_EXPRESSION_EDEFAULT);
+      return;
     }
     super.eUnset(featureID);
   }
@@ -215,6 +269,9 @@ public abstract class ExpressionBasedRuleImpl extends RuleImpl implements Expres
     case GenfwPackage.EXPRESSION_BASED_RULE__TARGET_PATH_EXPRESSION:
       return TARGET_PATH_EXPRESSION_EDEFAULT == null ? targetPathExpression != null
               : !TARGET_PATH_EXPRESSION_EDEFAULT.equals(targetPathExpression);
+    case GenfwPackage.EXPRESSION_BASED_RULE__CONVERTER_EXPRESSION:
+      return CONVERTER_EXPRESSION_EDEFAULT == null ? converterExpression != null
+              : !CONVERTER_EXPRESSION_EDEFAULT.equals(converterExpression);
     }
     return super.eIsSet(featureID);
   }
@@ -233,6 +290,8 @@ public abstract class ExpressionBasedRuleImpl extends RuleImpl implements Expres
     result.append(matchExpression);
     result.append(", targetPathExpression: ");
     result.append(targetPathExpression);
+    result.append(", converterExpression: ");
+    result.append(converterExpression);
     result.append(')');
     return result.toString();
   }
@@ -253,4 +312,19 @@ public abstract class ExpressionBasedRuleImpl extends RuleImpl implements Expres
    */
   protected abstract boolean evaluateMatchExpression(Object inputObject, String expr)
           throws Exception;
+
+  /**
+   * @ADDED
+   */
+  public Object convertInputObject(Object inputObject) throws Exception
+  {
+    String expr = getConverterExpression();
+    if (expr == null || expr.length() == 0) return super.convertInputObject(inputObject);
+    return evaluateConverterExpression(inputObject, expr);
+  }
+
+  /**
+   * @ADDED
+   */
+  protected abstract Object evaluateConverterExpression(Object inputObject, String expr);
 } //ExpressionBasedRuleImpl

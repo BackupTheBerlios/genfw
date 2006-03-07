@@ -207,6 +207,28 @@ public class BeanShellRuleImpl extends ExpressionBasedRuleImpl implements BeanSh
    * @ADDED
    */
   @Override
+  protected Object evaluateConverterExpression(Object inputObject, String expr)
+  {
+    try
+    {
+      Interpreter i = getBshInterpreter(inputObject);
+      i.eval("Object ___EXPR___() { return " + expr + "; }");
+      i.set("self", inputObject);
+      Object result = i.eval("___EXPR___()");
+      return result;
+    }
+    catch (Exception ex)
+    {
+      ex.printStackTrace();
+    }
+
+    return null;
+  }
+
+  /**
+   * @ADDED
+   */
+  @Override
   public String getTargetPath(Object inputObject) throws Exception
   {
     String expr = getTargetPathExpression();

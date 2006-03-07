@@ -80,7 +80,7 @@ public class GenAppImpl extends GenLibImpl implements GenApp
     if (inputs == null)
     {
       inputs = new EObjectContainmentWithInverseEList(Input.class, this,
-              GenfwPackage.GEN_APP__INPUTS, GenfwPackage.INPUT__ROOT);
+              GenfwPackage.GEN_APP__INPUTS, GenfwPackage.INPUT__APP);
     }
     return inputs;
   }

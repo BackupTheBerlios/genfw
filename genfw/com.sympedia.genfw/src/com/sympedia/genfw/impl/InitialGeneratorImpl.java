@@ -58,7 +58,7 @@ public class InitialGeneratorImpl extends DelegatingGeneratorImpl implements Ini
    * <!-- end-user-doc -->
    * @generated NOT
    */
-  public String doGenerate(Object inputObject, String targetPath, IProgressMonitor monitor)
+  public byte[] doGenerate(Object inputObject, String targetPath, IProgressMonitor monitor)
           throws Exception
   {
     IResource resource = ResourcesHelper.ROOT.findMember(new Path(targetPath));

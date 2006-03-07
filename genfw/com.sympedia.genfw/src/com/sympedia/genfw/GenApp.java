@@ -35,7 +35,7 @@ public interface GenApp extends GenLib
   /**
    * Returns the value of the '<em><b>Inputs</b></em>' containment reference list.
    * The list contents are of type {@link com.sympedia.genfw.Input}.
-   * It is bidirectional and its opposite is '{@link com.sympedia.genfw.Input#getRoot <em>Root</em>}'.
+   * It is bidirectional and its opposite is '{@link com.sympedia.genfw.Input#getApp <em>App</em>}'.
    * <!-- begin-user-doc -->
    * <p>
    * If the meaning of the '<em>Inputs</em>' containment reference list isn't clear,
@@ -44,8 +44,8 @@ public interface GenApp extends GenLib
    * <!-- end-user-doc -->
    * @return the value of the '<em>Inputs</em>' containment reference list.
    * @see com.sympedia.genfw.GenfwPackage#getGenApp_Inputs()
-   * @see com.sympedia.genfw.Input#getRoot
-   * @model type="com.sympedia.genfw.Input" opposite="root" containment="true"
+   * @see com.sympedia.genfw.Input#getApp
+   * @model type="com.sympedia.genfw.Input" opposite="app" containment="true"
    *        annotation="http://www.topcased.org/uuid uuid='1136887070640173'"
    * @generated
    */

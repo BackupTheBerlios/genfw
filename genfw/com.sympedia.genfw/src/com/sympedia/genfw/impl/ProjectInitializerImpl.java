@@ -58,7 +58,7 @@ public class ProjectInitializerImpl extends GeneratorImpl implements ProjectInit
    * @ADDED
    */
   @Override
-  public String doGenerate(Object inputObject, String targetPath, IProgressMonitor monitor)
+  public byte[] doGenerate(Object inputObject, String targetPath, IProgressMonitor monitor)
           throws Exception
   {
     getContext().addTargetPath(targetPath + "/.project");

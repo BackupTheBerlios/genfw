@@ -237,4 +237,12 @@ public interface Rule extends LifeCycle
    */
   String getTargetPath(Object inputObject) throws Exception;
 
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @model
+   * @generated
+   */
+  Object convertInputObject(Object inputObject) throws Exception;
+
 } // Rule

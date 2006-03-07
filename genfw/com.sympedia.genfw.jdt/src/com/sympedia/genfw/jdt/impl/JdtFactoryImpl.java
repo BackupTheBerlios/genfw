@@ -11,6 +11,8 @@
 package com.sympedia.genfw.jdt.impl;
 
 
+import com.sympedia.genfw.jdt.*;
+
 import com.sympedia.genfw.jdt.JavaFormatter;
 import com.sympedia.genfw.jdt.JdtFactory;
 import com.sympedia.genfw.jdt.JdtPackage;

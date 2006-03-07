@@ -22,6 +22,7 @@ import org.eclipse.emf.common.util.EList;
  * <p>
  * The following features are supported:
  * <ul>
+ *   <li>{@link com.sympedia.genfw.StaticFileInitializer#getFileURL <em>File URL</em>}</li>
  *   <li>{@link com.sympedia.genfw.StaticFileInitializer#getLines <em>Lines</em>}</li>
  * </ul>
  * </p>
@@ -32,6 +33,32 @@ import org.eclipse.emf.common.util.EList;
  */
 public interface StaticFileInitializer extends Generator
 {
+  /**
+   * Returns the value of the '<em><b>File URL</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>File URL</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>File URL</em>' attribute.
+   * @see #setFileURL(String)
+   * @see com.sympedia.genfw.GenfwPackage#getStaticFileInitializer_FileURL()
+   * @model
+   * @generated
+   */
+  String getFileURL();
+
+  /**
+   * Sets the value of the '{@link com.sympedia.genfw.StaticFileInitializer#getFileURL <em>File URL</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>File URL</em>' attribute.
+   * @see #getFileURL()
+   * @generated
+   */
+  void setFileURL(String value);
+
   /**
    * Returns the value of the '<em><b>Lines</b></em>' containment reference list.
    * The list contents are of type {@link com.sympedia.genfw.Line}.

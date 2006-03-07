@@ -395,6 +395,16 @@ public abstract class RuleImpl extends LifeCycleImpl implements Rule
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
+   * @generated NOT
+   */
+  public Object convertInputObject(Object inputObject) throws Exception
+  {
+    return inputObject;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
    * @generated
    */
   public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID,

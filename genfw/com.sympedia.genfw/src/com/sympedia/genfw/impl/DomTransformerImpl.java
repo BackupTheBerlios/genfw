@@ -1020,7 +1020,7 @@ public class DomTransformerImpl extends GeneratorImpl implements DomTransformer
    * @ADDED
    */
   @Override
-  public String doGenerate(Object inputObject, String targetPath, IProgressMonitor monitor)
+  public byte[] doGenerate(Object inputObject, String targetPath, IProgressMonitor monitor)
           throws Exception
   {
     Document document = getXmlDocument(targetPath);
@@ -1049,7 +1049,7 @@ public class DomTransformerImpl extends GeneratorImpl implements DomTransformer
     ByteArrayOutputStream stream = new ByteArrayOutputStream();
     XMLSerializer serializer = new XMLSerializer(stream, format);
     serializer.serialize(document);
-    return stream.toString();
+    return stream.toByteArray();
   }
 
   /**

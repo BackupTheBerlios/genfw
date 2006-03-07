@@ -11,6 +11,8 @@
 package com.sympedia.genfw.util;
 
 
+import com.sympedia.genfw.*;
+
 import com.sympedia.genfw.ContentProvider;
 import com.sympedia.genfw.Context;
 import com.sympedia.genfw.DelegatingGenerator;

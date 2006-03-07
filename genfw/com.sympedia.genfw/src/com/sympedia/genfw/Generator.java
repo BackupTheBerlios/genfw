@@ -99,7 +99,7 @@ public interface Generator extends LifeCycle
    *        annotation="http://www.topcased.org/uuid uuid='113672120854673'"
    * @generated
    */
-  String generate(Object inputObject, String targetPath, IProgressMonitor monitor)
+  byte[] generate(Object inputObject, String targetPath, IProgressMonitor monitor)
           throws CoreException, Exception;
 
 } // Generator

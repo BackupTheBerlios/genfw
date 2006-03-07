@@ -114,13 +114,13 @@ public class JavaFormatterImpl extends DelegatingGeneratorImpl implements JavaFo
    * <!-- end-user-doc -->
    * @generated NOT
    */
-  public String doGenerate(Object inputObject, String targetPath, IProgressMonitor monitor)
+  public byte[] doGenerate(Object inputObject, String targetPath, IProgressMonitor monitor)
           throws Exception
   {
     Generator delegate = getDelegate();
     if (delegate == null) return null;
 
-    String result = delegate.generate(inputObject, targetPath, monitor);
+    byte[] result = delegate.generate(inputObject, targetPath, monitor);
     if (result == null) return null;
 
     String profileFile = getProfileFile();
@@ -231,8 +231,9 @@ public class JavaFormatterImpl extends DelegatingGeneratorImpl implements JavaFo
   /**
    * @ADDED
    */
-  public static String formatCode(String contents, CodeFormatter codeFormatter)
+  public static byte[] formatCode(byte[] result, CodeFormatter codeFormatter)
   {
+    String contents = new String(result);
     IDocument doc = new Document(contents);
     TextEdit edit = codeFormatter.format(CodeFormatter.K_COMPILATION_UNIT, doc.get(), 0, doc.get()
             .length(), 0, null);
@@ -247,6 +248,6 @@ public class JavaFormatterImpl extends DelegatingGeneratorImpl implements JavaFo
       JdtActivator.INSTANCE.log(exception);
     }
 
-    return contents;
+    return contents.getBytes();
   }
 } //JavaFormatterImpl

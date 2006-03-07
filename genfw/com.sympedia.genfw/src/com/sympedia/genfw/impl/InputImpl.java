@@ -13,6 +13,7 @@ package com.sympedia.genfw.impl;
 
 import com.sympedia.genfw.ContentProvider;
 import com.sympedia.genfw.GenApp;
+import com.sympedia.genfw.GenLib;
 import com.sympedia.genfw.GenfwPackage;
 import com.sympedia.genfw.Input;
 import com.sympedia.genfw.RuleSet;
@@ -37,7 +38,7 @@ import java.util.Iterator;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link com.sympedia.genfw.impl.InputImpl#getRoot <em>Root</em>}</li>
+ *   <li>{@link com.sympedia.genfw.impl.InputImpl#getApp <em>App</em>}</li>
  *   <li>{@link com.sympedia.genfw.impl.InputImpl#getLabel <em>Label</em>}</li>
  *   <li>{@link com.sympedia.genfw.impl.InputImpl#getFullPath <em>Full Path</em>}</li>
  *   <li>{@link com.sympedia.genfw.impl.InputImpl#getContentProvider <em>Content Provider</em>}</li>
@@ -124,6 +125,41 @@ public class InputImpl extends LifeCycleImpl implements Input
    * <!-- end-user-doc -->
    * @generated
    */
+  public GenApp getApp()
+  {
+    if (eContainerFeatureID != GenfwPackage.INPUT__APP) return null;
+    return (GenApp)eContainer();
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setApp(GenApp newApp)
+  {
+    if (newApp != eInternalContainer()
+            || (eContainerFeatureID != GenfwPackage.INPUT__APP && newApp != null))
+    {
+      if (EcoreUtil.isAncestor(this, newApp))
+        throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
+      NotificationChain msgs = null;
+      if (eInternalContainer() != null) msgs = eBasicRemoveFromContainer(msgs);
+      if (newApp != null)
+        msgs = ((InternalEObject)newApp).eInverseAdd(this, GenfwPackage.GEN_APP__INPUTS,
+                GenApp.class, msgs);
+      msgs = eBasicSetContainer((InternalEObject)newApp, GenfwPackage.INPUT__APP, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, GenfwPackage.INPUT__APP, newApp, newApp));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public ContentProvider getContentProvider()
   {
     if (contentProvider != null && contentProvider.eIsProxy())
@@ -188,9 +224,9 @@ public class InputImpl extends LifeCycleImpl implements Input
   {
     switch (featureID)
     {
-    case GenfwPackage.INPUT__ROOT:
+    case GenfwPackage.INPUT__APP:
       if (eInternalContainer() != null) msgs = eBasicRemoveFromContainer(msgs);
-      return eBasicSetContainer(otherEnd, GenfwPackage.INPUT__ROOT, msgs);
+      return eBasicSetContainer(otherEnd, GenfwPackage.INPUT__APP, msgs);
     }
     return super.eInverseAdd(otherEnd, featureID, msgs);
   }
@@ -205,8 +241,8 @@ public class InputImpl extends LifeCycleImpl implements Input
   {
     switch (featureID)
     {
-    case GenfwPackage.INPUT__ROOT:
-      return eBasicSetContainer(null, GenfwPackage.INPUT__ROOT, msgs);
+    case GenfwPackage.INPUT__APP:
+      return eBasicSetContainer(null, GenfwPackage.INPUT__APP, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -220,7 +256,7 @@ public class InputImpl extends LifeCycleImpl implements Input
   {
     switch (eContainerFeatureID)
     {
-    case GenfwPackage.INPUT__ROOT:
+    case GenfwPackage.INPUT__APP:
       return eInternalContainer().eInverseRemove(this, GenfwPackage.GEN_APP__INPUTS, GenApp.class,
               msgs);
     }
@@ -236,8 +272,8 @@ public class InputImpl extends LifeCycleImpl implements Input
   {
     switch (featureID)
     {
-    case GenfwPackage.INPUT__ROOT:
-      return getRoot();
+    case GenfwPackage.INPUT__APP:
+      return getApp();
     case GenfwPackage.INPUT__LABEL:
       return getLabel();
     case GenfwPackage.INPUT__FULL_PATH:
@@ -260,8 +296,8 @@ public class InputImpl extends LifeCycleImpl implements Input
   {
     switch (featureID)
     {
-    case GenfwPackage.INPUT__ROOT:
-      setRoot((GenApp)newValue);
+    case GenfwPackage.INPUT__APP:
+      setApp((GenApp)newValue);
       return;
     case GenfwPackage.INPUT__FULL_PATH:
       setFullPath((String)newValue);
@@ -286,8 +322,8 @@ public class InputImpl extends LifeCycleImpl implements Input
   {
     switch (featureID)
     {
-    case GenfwPackage.INPUT__ROOT:
-      setRoot((GenApp)null);
+    case GenfwPackage.INPUT__APP:
+      setApp((GenApp)null);
       return;
     case GenfwPackage.INPUT__FULL_PATH:
       setFullPath(FULL_PATH_EDEFAULT);
@@ -311,8 +347,8 @@ public class InputImpl extends LifeCycleImpl implements Input
   {
     switch (featureID)
     {
-    case GenfwPackage.INPUT__ROOT:
-      return getRoot() != null;
+    case GenfwPackage.INPUT__APP:
+      return getApp() != null;
     case GenfwPackage.INPUT__LABEL:
       return LABEL_EDEFAULT == null ? getLabel() != null : !LABEL_EDEFAULT.equals(getLabel());
     case GenfwPackage.INPUT__FULL_PATH:
@@ -323,42 +359,6 @@ public class InputImpl extends LifeCycleImpl implements Input
       return ruleSets != null && !ruleSets.isEmpty();
     }
     return super.eIsSet(featureID);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public GenApp getRoot()
-  {
-    if (eContainerFeatureID != GenfwPackage.INPUT__ROOT) return null;
-    return (GenApp)eContainer();
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setRoot(GenApp newRoot)
-  {
-    if (newRoot != eInternalContainer()
-            || (eContainerFeatureID != GenfwPackage.INPUT__ROOT && newRoot != null))
-    {
-      if (EcoreUtil.isAncestor(this, newRoot))
-        throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
-      NotificationChain msgs = null;
-      if (eInternalContainer() != null) msgs = eBasicRemoveFromContainer(msgs);
-      if (newRoot != null)
-        msgs = ((InternalEObject)newRoot).eInverseAdd(this, GenfwPackage.GEN_APP__INPUTS,
-                GenApp.class, msgs);
-      msgs = eBasicSetContainer((InternalEObject)newRoot, GenfwPackage.INPUT__ROOT, msgs);
-      if (msgs != null) msgs.dispatch();
-    }
-    else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, GenfwPackage.INPUT__ROOT, newRoot,
-              newRoot));
   }
 
   /**
@@ -448,5 +448,14 @@ public class InputImpl extends LifeCycleImpl implements Input
     }
 
     super.doDispose();
+  }
+
+  /**
+   * @ADDED
+   */
+  @Override
+  public GenLib getRoot()
+  {
+    return getApp();
   }
 } //InputImpl

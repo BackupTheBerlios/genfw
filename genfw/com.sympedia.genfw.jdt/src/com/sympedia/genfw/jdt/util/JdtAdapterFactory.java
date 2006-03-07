@@ -13,6 +13,10 @@ package com.sympedia.genfw.jdt.util;
 
 import com.sympedia.genfw.DelegatingGenerator;
 import com.sympedia.genfw.Generator;
+import com.sympedia.genfw.LifeCycle;
+
+import com.sympedia.genfw.jdt.*;
+
 import com.sympedia.genfw.jdt.JavaFormatter;
 import com.sympedia.genfw.jdt.JdtPackage;
 
@@ -88,6 +92,11 @@ public class JdtAdapterFactory extends AdapterFactoryImpl
       return createJavaFormatterAdapter();
     }
 
+    public Object caseLifeCycle(LifeCycle object)
+    {
+      return createLifeCycleAdapter();
+    }
+
     public Object caseGenerator(Generator object)
     {
       return createGeneratorAdapter();
@@ -128,6 +137,21 @@ public class JdtAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createJavaFormatterAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link com.sympedia.genfw.LifeCycle <em>Life Cycle</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see com.sympedia.genfw.LifeCycle
+   * @generated
+   */
+  public Adapter createLifeCycleAdapter()
   {
     return null;
   }
