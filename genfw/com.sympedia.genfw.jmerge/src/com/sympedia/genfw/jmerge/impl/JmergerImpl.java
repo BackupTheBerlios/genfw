@@ -125,7 +125,7 @@ public class JmergerImpl extends DelegatingGeneratorImpl implements Jmerger
     byte[] result = delegate.generate(inputObject, targetPath, monitor);
     if (result == null) return null;
 
-    File existingFile = ResourcesHelper.ROOT.getLocation().append(targetPath).toFile();
+    File existingFile = ResourcesHelper.ROOT.findMember(targetPath).getLocation().toFile();
     if (!existingFile.exists()) return result;
     InputStream existingContent = new FileInputStream(existingFile);
 
