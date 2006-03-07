@@ -12,6 +12,7 @@ package com.sympedia.genfw.util;
 
 
 import com.sympedia.genfw.internal.GenfwActivator;
+import com.sympedia.util.eclipse.resources.ResourcesHelper;
 import com.sympedia.util.emf.EcoreHelper;
 
 import org.eclipse.core.resources.IWorkspaceRoot;
@@ -156,7 +157,8 @@ public class ClasspathHelper
   {
     if (location != null)
     {
-      location = ResourcesPlugin.getWorkspace().getRoot().getLocation().append(location);
+      // TODO getLocation() not working for linked projects!!!
+      location = ResourcesHelper.ROOT.getLocation().append(location);
       File outputFolder = new File(location.toString() + "/");
       URL url = outputFolder.toURL();
       if (!urls.contains(url))

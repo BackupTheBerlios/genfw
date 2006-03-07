@@ -330,6 +330,7 @@ public class EcoreHelper
 
     if ("file".equals(uri.scheme()))
     {
+      // TODO getLocation() not working for linked projects!!!
       String[] wsSegments = ResourcesHelper.ROOT.getLocation().segments();
       String[] uriSegments = uri.segments();
       if (uriSegments.length - 1 < wsSegments.length)

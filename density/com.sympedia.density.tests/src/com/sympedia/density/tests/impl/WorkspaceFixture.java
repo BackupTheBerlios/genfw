@@ -161,6 +161,7 @@ public class WorkspaceFixture extends BundleFixture implements IWorkspaceFixture
           throws IOException, CoreException
   {
     logger.debug("Importing workspace from " + wsLocation);
+    // TODO getLocation() not working for linked projects!!!
     File targetWS = ResourcesHelper.ROOT.getLocation().toFile();
     final IProject[] result = new IProject[projectNames.length];
     File wsFolder = new File(wsLocation.toString());
