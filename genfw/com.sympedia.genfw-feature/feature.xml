@@ -127,6 +127,9 @@ This Agreement is governed by the laws of the State of New York and the intellec
       <import plugin="org.eclipse.emf.edit"/>
       <import plugin="org.eclipse.emf.codegen.ecore"/>
       <import plugin="org.eclipse.emf.codegen"/>
+      <import plugin="org.apache.xerces"/>
+      <import plugin="org.eclipse.jdt.ui"/>
+      <import plugin="org.eclipse.jface"/>
    </requires>
 
    <plugin
@@ -214,6 +217,20 @@ This Agreement is governed by the laws of the State of New York and the intellec
 
    <plugin
          id="com.sympedia.genfw.ui"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="com.sympedia.genfw.swt"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="com.sympedia.genfw.swt.edit"
          download-size="0"
          install-size="0"
          version="0.0.0"

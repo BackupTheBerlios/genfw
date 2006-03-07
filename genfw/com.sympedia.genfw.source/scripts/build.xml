@@ -44,6 +44,8 @@
 		<zip.sources version="${feature.version}" plugin="com.sympedia.genfw.jet.edit" />
 		<zip.sources version="${feature.version}" plugin="com.sympedia.genfw.jmerge" />
 		<zip.sources version="${feature.version}" plugin="com.sympedia.genfw.jmerge.edit" />
+		<zip.sources version="${feature.version}" plugin="com.sympedia.genfw.swt" />
+		<zip.sources version="${feature.version}" plugin="com.sympedia.genfw.swt.edit" />
 		<zip.sources version="${feature.version}" plugin="com.sympedia.genfw.ui" />
 		<delete dir="${temp.dir}" failonerror="no" />
 	</target>

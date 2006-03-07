@@ -210,6 +210,12 @@ public class ResourcesHelper
   public static boolean ensureFile(String path, String content, boolean force,
           IProgressMonitor monitor) throws CoreException, IOException
   {
+    return ensureFile(path, content.getBytes(), force, monitor);
+  }
+
+  public static boolean ensureFile(String path, byte[] content, boolean force,
+          IProgressMonitor monitor) throws CoreException, IOException
+  {
     IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
     IFile file = root.getFile(new Path(path));
 
@@ -219,7 +225,7 @@ public class ResourcesHelper
       mkdirs((IFolder)parent, monitor);
     }
 
-    ByteArrayInputStream newContent = new ByteArrayInputStream(content.getBytes());
+    ByteArrayInputStream newContent = new ByteArrayInputStream(content);
     if (file.exists())
     {
       if (!force)

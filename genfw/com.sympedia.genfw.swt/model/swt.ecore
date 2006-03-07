@@ -4,7 +4,9 @@
     xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="swt"
     nsURI="http://www.sympedia.com/2006/genfw/swt" nsPrefix="com.sympedia.genfw.swt">
   <eClassifiers xsi:type="ecore:EClass" name="GifOverlayer" eSuperTypes="../../com.sympedia.genfw/model/genfw.ecore#//Generator">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="overlayURL" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="overlayURL" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="underlay" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="CreateChildOverlayer" eSuperTypes="#//GifOverlayer"/>
 </ecore:EPackage>

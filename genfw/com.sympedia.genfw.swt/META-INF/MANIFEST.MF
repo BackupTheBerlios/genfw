@@ -10,5 +10,6 @@ Export-Package: com.sympedia.genfw.swt,
  com.sympedia.genfw.swt.impl,
  com.sympedia.genfw.swt.util
 Require-Bundle: com.sympedia.genfw;visibility:=reexport,
- org.eclipse.jface;visibility:=reexport
-Eclipse-AutoStart: true
+ org.eclipse.jface;visibility:=reexport,
+ org.eclipse.emf.codegen.ecore;visibility:=reexport
+Eclipse-LazyStart: true

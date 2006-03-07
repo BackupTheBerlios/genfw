@@ -389,36 +389,42 @@ public class EcoreTemplateImpl extends JetTemplateImpl implements EcoreTemplate
     else if (genBase instanceof GenPackage)
     {
       GenPackage genPackage = (GenPackage)genBase;
-      if (templateName.equals(PackageInterface.class.getName()))
-      {
-        String packageName = genPackage.getInterfacePackageName();
-        ImportManager importManager = new ImportManager(packageName);
-        importManager.addMasterImport(packageName, genPackage.getPackageInterfaceName());
-        return importManager;
-      }
-
       if (templateName.equals(PackageClass.class.getName()))
       {
-        String packageName = genPackage.getClassPackageName();
-        ImportManager importManager = new ImportManager(packageName);
-        importManager.addMasterImport(packageName, genPackage.getPackageClassName());
-        return importManager;
-      }
+        if (isGenerateImplementation())
+        {
+          String packageName = genPackage.getClassPackageName();
+          ImportManager importManager = new ImportManager(packageName);
+          importManager.addMasterImport(packageName, genPackage.getPackageClassName());
+          return importManager;
+        }
 
-      if (templateName.equals(FactoryInterface.class.getName()))
-      {
-        String packageName = genPackage.getInterfacePackageName();
-        ImportManager importManager = new ImportManager(packageName);
-        importManager.addMasterImport(packageName, genPackage.getFactoryInterfaceName());
-        return importManager;
+        if (isGenerateInterface())
+        {
+          String packageName = genPackage.getInterfacePackageName();
+          ImportManager importManager = new ImportManager(packageName);
+          importManager.addMasterImport(packageName, genPackage.getPackageInterfaceName());
+          return importManager;
+        }
       }
 
       if (templateName.equals(FactoryClass.class.getName()))
       {
-        String packageName = genPackage.getClassPackageName();
-        ImportManager importManager = new ImportManager(packageName);
-        importManager.addMasterImport(packageName, genPackage.getFactoryClassName());
-        return importManager;
+        if (isGenerateImplementation())
+        {
+          String packageName = genPackage.getClassPackageName();
+          ImportManager importManager = new ImportManager(packageName);
+          importManager.addMasterImport(packageName, genPackage.getFactoryClassName());
+          return importManager;
+        }
+
+        if (isGenerateInterface())
+        {
+          String packageName = genPackage.getInterfacePackageName();
+          ImportManager importManager = new ImportManager(packageName);
+          importManager.addMasterImport(packageName, genPackage.getFactoryInterfaceName());
+          return importManager;
+        }
       }
 
       if (templateName.equals(AdapterFactoryClass.class.getName()))
@@ -499,20 +505,23 @@ public class EcoreTemplateImpl extends JetTemplateImpl implements EcoreTemplate
       GenClass genClass = (GenClass)genBase;
       GenPackage genPackage = genClass.getGenPackage();
 
-      if (templateName.equals(Interface.class.getName()))
-      {
-        String packageName = genPackage.getInterfacePackageName();
-        ImportManager importManager = new ImportManager(packageName);
-        importManager.addMasterImport(packageName, genClass.getInterfaceName());
-        return importManager;
-      }
-
       if (templateName.equals(org.eclipse.emf.codegen.ecore.templates.model.Class.class.getName()))
       {
-        String packageName = genPackage.getClassPackageName();
-        ImportManager importManager = new ImportManager(packageName);
-        importManager.addMasterImport(packageName, genClass.getClassName());
-        return importManager;
+        if (isGenerateImplementation())
+        {
+          String packageName = genPackage.getClassPackageName();
+          ImportManager importManager = new ImportManager(packageName);
+          importManager.addMasterImport(packageName, genClass.getClassName());
+          return importManager;
+        }
+
+        if (isGenerateInterface())
+        {
+          String packageName = genPackage.getInterfacePackageName();
+          ImportManager importManager = new ImportManager(packageName);
+          importManager.addMasterImport(packageName, genClass.getInterfaceName());
+          return importManager;
+        }
       }
 
       if (templateName.equals(ItemProvider.class.getName()))
