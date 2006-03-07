@@ -15,14 +15,9 @@ import com.sympedia.genfw.Generator;
 import com.sympedia.genfw.impl.DelegatingGeneratorImpl;
 import com.sympedia.genfw.jmerge.JmergePackage;
 import com.sympedia.genfw.jmerge.Jmerger;
-import com.sympedia.genfw.jmerge.internal.JmergeActivator;
 import com.sympedia.util.eclipse.resources.ResourcesHelper;
 
-import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.core.runtime.IStatus;
-import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.codegen.CodeGenPlugin;
 import org.eclipse.emf.codegen.merge.java.JControlModel;
 import org.eclipse.emf.codegen.merge.java.JMerger;
@@ -34,7 +29,6 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
-import java.net.URL;
 
 
 /**
@@ -53,20 +47,15 @@ import java.net.URL;
 public class JmergerImpl extends DelegatingGeneratorImpl implements Jmerger
 {
   /**
-   * @ADDED
-   */
-  public static final String EMF_MERGE_XML_URI = "platform:/plugin/" + CodeGenPlugin.ID
-          + ".ecore/templates/emf-merge.xml";
-
-  /**
    * The default value of the '{@link #getMergeXmlUri() <em>Merge Xml Uri</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @see #getMergeXmlUri()
-   * @generated
+   * @generated NOT
    * @ordered
    */
-  protected static final String MERGE_XML_URI_EDEFAULT = null;
+  protected static final String MERGE_XML_URI_EDEFAULT = "platform:/plugin/" + CodeGenPlugin.ID
+          + ".ecore/templates/emf-merge.xml";
 
   /**
    * The cached value of the '{@link #getMergeXmlUri() <em>Merge Xml Uri</em>}' attribute.
@@ -148,30 +137,6 @@ public class JmergerImpl extends DelegatingGeneratorImpl implements Jmerger
   }
 
   /**
-   * @ADDED
-   */
-  protected JMerger getJMerger() throws CoreException
-  {
-    String uri = getMergeXmlUri();
-    if (uri == null || uri.length() == 0)
-    {
-      try
-      {
-        uri = FileLocator.toFileURL(new URL(EMF_MERGE_XML_URI)).toString();
-      }
-      catch (Exception ex)
-      {
-        throw new CoreException(new Status(IStatus.ERROR, JmergeActivator.PLUGIN_ID, IStatus.ERROR,
-                "Malformed URI: " + uri, ex));
-      }
-    }
-
-    JControlModel controlModel = new JControlModel();
-    controlModel.initialize(new JDOMFacadeHelper(), uri);
-    return new JMerger(controlModel);
-  }
-
-  /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
@@ -250,4 +215,19 @@ public class JmergerImpl extends DelegatingGeneratorImpl implements Jmerger
     return result.toString();
   }
 
+  /**
+   * @ADDED
+   */
+  protected JMerger getJMerger()
+  {
+    String uri = getMergeXmlUri();
+    if (uri == null || uri.length() == 0)
+    {
+      uri = MERGE_XML_URI_EDEFAULT;
+    }
+
+    JControlModel controlModel = new JControlModel();
+    controlModel.initialize(new JDOMFacadeHelper(), uri);
+    return new JMerger(controlModel);
+  }
 } //JmergeGeneratorImpl
