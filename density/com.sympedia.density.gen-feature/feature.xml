@@ -2,7 +2,7 @@
 <feature
       id="com.sympedia.density.gen"
       label="%featureName"
-      version="1.0.0"
+      version="3.2.0"
       provider-name="%providerName">
 
    <description url="http://www.sympedia.com/descriptions/density.html">
@@ -131,104 +131,104 @@ This Agreement is governed by the laws of the State of New York and the intellec
          id="com.sympedia.density"
          download-size="0"
          install-size="0"
-         version="0.0.0"
+         version="3.2.0"
          unpack="false"/>
 
    <plugin
          id="com.sympedia.density.gen"
          download-size="0"
          install-size="0"
-         version="0.0.0"
+         version="3.2.0"
          unpack="false"/>
 
    <plugin
          id="com.sympedia.density.gen.arch"
          download-size="0"
          install-size="0"
-         version="0.0.0"
+         version="3.2.0"
          unpack="false"/>
 
    <plugin
          id="com.sympedia.density.gen.arch.edit"
          download-size="0"
          install-size="0"
-         version="0.0.0"
+         version="3.2.0"
          unpack="false"/>
 
    <plugin
          id="com.sympedia.density.gen.arch.editor"
          download-size="0"
          install-size="0"
-         version="0.0.0"
+         version="3.2.0"
          unpack="false"/>
 
    <plugin
          id="com.sympedia.density.gen.deploy"
          download-size="0"
          install-size="0"
-         version="0.0.0"
+         version="3.2.0"
          unpack="false"/>
 
    <plugin
          id="com.sympedia.density.gen.deploy.edit"
          download-size="0"
          install-size="0"
-         version="0.0.0"
+         version="3.2.0"
          unpack="false"/>
 
    <plugin
          id="com.sympedia.density.gen.deploy.editor"
          download-size="0"
          install-size="0"
-         version="0.0.0"
+         version="3.2.0"
          unpack="false"/>
 
    <plugin
          id="com.sympedia.density.gen.deploytest"
          download-size="0"
          install-size="0"
-         version="0.0.0"
+         version="3.2.0"
          unpack="false"/>
 
    <plugin
          id="com.sympedia.density.gen.deploytest.edit"
          download-size="0"
          install-size="0"
-         version="0.0.0"
+         version="3.2.0"
          unpack="false"/>
 
    <plugin
          id="com.sympedia.density.gen.deploytest.editor"
          download-size="0"
          install-size="0"
-         version="0.0.0"
+         version="3.2.0"
          unpack="false"/>
 
    <plugin
          id="com.sympedia.density.gen.ui"
          download-size="0"
          install-size="0"
-         version="0.0.0"
+         version="3.2.0"
          unpack="false"/>
 
    <plugin
          id="com.sympedia.density.tests"
          download-size="0"
          install-size="0"
-         version="0.0.0"
+         version="3.2.0"
          unpack="false"/>
 
    <plugin
          id="com.sympedia.density.util"
          download-size="0"
          install-size="0"
-         version="0.0.0"
+         version="3.2.0"
          unpack="false"/>
 
    <plugin
          id="com.sympedia.density.gen.source"
          download-size="0"
          install-size="0"
-         version="0.0.0"/>
+         version="3.2.0"/>
 
 </feature>

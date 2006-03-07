@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
 Bundle-SymbolicName: com.sympedia.util.eclipse.ui
-Bundle-Version: 1.0.0
+Bundle-Version: 3.2.0
 Bundle-Activator: com.sympedia.util.eclipse.ui.internal.UtilEclipseUiActivator$Implementation
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin

@@ -2,7 +2,7 @@
 <feature
       id="com.sympedia.genfw.sdk"
       label="%featureName"
-      version="1.0.0"
+      version="3.2.0"
       provider-name="%providerName">
 
    <description url="http://www.sympedia.com/descriptions/genfw.html">
@@ -126,6 +126,6 @@ This Agreement is governed by the laws of the State of New York and the intellec
          id="com.sympedia.genfw.source"
          download-size="0"
          install-size="0"
-         version="0.0.0"/>
+         version="3.2.0"/>
 
 </feature>

@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Tutorial2 Documentation
 Bundle-SymbolicName: tutorial2.doc; singleton:=true
-Bundle-Version: 1.0
+Bundle-Version: 3.2.0
 Bundle-Activator: org.eclipse.core.internal.compatibility.PluginActivator
 Bundle-Vendor: Sympedia.com
 Bundle-Localization: plugin

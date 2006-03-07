@@ -2,7 +2,7 @@
 <feature
       id="tutorial1"
       label="%featureName"
-      version="1.0.0"
+      version="3.2.0"
       provider-name="%providerName">
 
    <description url="http://www.sympedia.com/descriptions/util.html">
@@ -126,54 +126,54 @@ This Agreement is governed by the laws of the State of New York and the intellec
          id="tutorial1"
          download-size="0"
          install-size="0"
-         version="0.0.0"
+         version="3.2.0"
          unpack="false"/>
 
    <plugin
          id="tutorial1.app"
          download-size="0"
          install-size="0"
-         version="0.0.0"
+         version="3.2.0"
          unpack="false"/>
 
    <plugin
          id="tutorial1.gen"
          download-size="0"
          install-size="0"
-         version="0.0.0"
+         version="3.2.0"
          unpack="false"/>
 
    <plugin
          id="tutorial1.gen.beans"
          download-size="0"
          install-size="0"
-         version="0.0.0"
+         version="3.2.0"
          unpack="false"/>
 
    <plugin
          id="tutorial1.gen.beans.edit"
          download-size="0"
          install-size="0"
-         version="0.0.0"
+         version="3.2.0"
          unpack="false"/>
 
    <plugin
          id="tutorial1.gen.beans.editor"
          download-size="0"
          install-size="0"
-         version="0.0.0"
+         version="3.2.0"
          unpack="false"/>
 
    <plugin
          id="tutorial1.source"
          download-size="0"
          install-size="0"
-         version="0.0.0"/>
+         version="3.2.0"/>
 
    <plugin
          id="tutorial1.doc"
          download-size="0"
          install-size="0"
-         version="0.0.0"/>
+         version="3.2.0"/>
 
 </feature>
