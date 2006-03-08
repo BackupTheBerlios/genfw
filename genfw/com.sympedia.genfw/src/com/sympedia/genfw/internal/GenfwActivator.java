@@ -21,6 +21,7 @@ import org.eclipse.emf.common.util.ResourceLocator;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.provider.EcoreEditPlugin;
 import org.osgi.framework.BundleContext;
 
 import java.util.ArrayList;
@@ -64,7 +65,7 @@ public final class GenfwActivator extends EMFPlugin
    */
   public GenfwActivator()
   {
-    super(new ResourceLocator[] {});
+    super(new ResourceLocator[] {EcoreEditPlugin.INSTANCE});
   }
 
   /**

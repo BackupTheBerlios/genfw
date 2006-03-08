@@ -8,6 +8,5 @@ Bundle-Activator: com.sympedia.density.gen.arch.provider.ArchEditActivator$Imple
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Export-Package: com.sympedia.density.gen.arch.provider
-Require-Bundle: com.sympedia.density.gen.arch;visibility:=reexport,
- com.sympedia.genfw.edit;visibility:=reexport
+Require-Bundle: com.sympedia.density.gen.arch;visibility:=reexport
 Eclipse-LazyStart: true

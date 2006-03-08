@@ -15,8 +15,6 @@ import com.sympedia.genfw.GenfwFactory;
 import com.sympedia.genfw.GenfwPackage;
 import com.sympedia.genfw.internal.GenfwActivator;
 
-import com.sympedia.genfw.provider.GenfwEditPlugin;
-
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;

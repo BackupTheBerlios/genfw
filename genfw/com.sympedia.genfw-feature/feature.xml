@@ -112,23 +112,20 @@ This Agreement is governed by the laws of the State of New York and the intellec
 
    <includes
          id="com.sympedia.util"
-         version="0.0.0"/>
+         version="3.2.0"/>
 
    <requires>
-      <import plugin="com.sympedia.util.emf"/>
+      <import plugin="com.sympedia.util.emf.edit"/>
+      <import plugin="org.apache.xerces"/>
       <import plugin="org.apache.ant"/>
       <import plugin="org.eclipse.ant.core"/>
       <import plugin="org.beanshell"/>
-      <import plugin="com.sympedia.util.emf.edit"/>
       <import plugin="com.sympedia.util.emf.editor"/>
+      <import plugin="org.eclipse.jdt.ui"/>
       <import plugin="org.eclipse.jdt.core"/>
       <import plugin="org.eclipse.jface.text"/>
-      <import plugin="org.eclipse.core.runtime"/>
-      <import plugin="org.eclipse.emf.edit"/>
       <import plugin="org.eclipse.emf.codegen.ecore"/>
       <import plugin="org.eclipse.emf.codegen"/>
-      <import plugin="org.apache.xerces"/>
-      <import plugin="org.eclipse.jdt.ui"/>
       <import plugin="org.eclipse.jface"/>
    </requires>
 

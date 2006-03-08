@@ -112,7 +112,7 @@ This Agreement is governed by the laws of the State of New York and the intellec
 
    <includes
          id="com.sympedia.genfw.ocl"
-         version="0.0.0"/>
+         version="3.2.0"/>
 
    <requires>
       <import plugin="org.eclipse.pde.core"/>

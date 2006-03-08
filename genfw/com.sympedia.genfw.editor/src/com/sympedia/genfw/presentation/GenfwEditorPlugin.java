@@ -11,6 +11,8 @@
 package com.sympedia.genfw.presentation;
 
 
+import com.sympedia.genfw.internal.GenfwActivator;
+
 import org.eclipse.emf.common.EMFPlugin;
 import org.eclipse.emf.common.ui.EclipseUIPlugin;
 import org.eclipse.emf.common.util.ResourceLocator;
@@ -48,7 +50,7 @@ public final class GenfwEditorPlugin extends EMFPlugin
    */
   public GenfwEditorPlugin()
   {
-    super(new ResourceLocator[] {});
+    super(new ResourceLocator[] {GenfwActivator.INSTANCE});
   }
 
   /**

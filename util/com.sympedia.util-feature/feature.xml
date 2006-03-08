@@ -131,73 +131,73 @@ This Agreement is governed by the laws of the State of New York and the intellec
          id="com.sympedia.util"
          download-size="0"
          install-size="0"
-         version="0.0.0"
+         version="3.2.0"
          unpack="false"/>
 
    <plugin
          id="com.sympedia.util.eclipse"
          download-size="0"
          install-size="0"
-         version="0.0.0"
+         version="3.2.0"
          unpack="false"/>
 
    <plugin
          id="com.sympedia.util.eclipse.resources"
          download-size="0"
          install-size="0"
-         version="0.0.0"
+         version="3.2.0"
          unpack="false"/>
 
    <plugin
          id="com.sympedia.util.eclipse.ui"
          download-size="0"
          install-size="0"
-         version="0.0.0"
+         version="3.2.0"
          unpack="false"/>
 
    <plugin
          id="com.sympedia.util.emf"
          download-size="0"
          install-size="0"
-         version="0.0.0"
+         version="3.2.0"
          unpack="false"/>
 
    <plugin
          id="com.sympedia.util.emf.edit"
          download-size="0"
          install-size="0"
-         version="0.0.0"
+         version="3.2.0"
          unpack="false"/>
 
    <plugin
          id="com.sympedia.util.emf.editor"
          download-size="0"
          install-size="0"
-         version="0.0.0"
+         version="3.2.0"
          unpack="false"/>
 
    <plugin
          id="org.apache.log4j"
          download-size="0"
          install-size="0"
-         version="0.0.0"/>
+         version="1.2.13"/>
 
    <plugin
          id="org.beanshell"
          download-size="0"
          install-size="0"
-         version="0.0.0"/>
+         version="2.0.0"/>
 
    <plugin
          id="org.apache.xerces"
          download-size="0"
          install-size="0"
-         version="0.0.0"/>
+         version="2.7.1"/>
 
    <plugin
          id="org.apache.xalan"
          download-size="0"
          install-size="0"
-         version="0.0.0"/>
+         version="2.7.0"/>
 
 </feature>
