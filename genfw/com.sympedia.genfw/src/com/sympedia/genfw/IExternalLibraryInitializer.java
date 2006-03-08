@@ -11,7 +11,12 @@
 package com.sympedia.genfw;
 
 
+import org.eclipse.emf.common.EMFPlugin;
+
+
 public interface IExternalLibraryInitializer
 {
   public void initalizeLibrary(GenLib genlib) throws Exception;
+
+  public EMFPlugin getPlugin();
 }

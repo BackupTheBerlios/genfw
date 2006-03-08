@@ -25,7 +25,9 @@ import org.eclipse.emf.ecore.provider.EcoreEditPlugin;
 import org.osgi.framework.BundleContext;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 
 /**
@@ -40,6 +42,11 @@ public final class GenfwActivator extends EMFPlugin
    * @ADDED
    */
   public static final String PLUGIN_ID = "com.sympedia.genfw";
+
+  /**
+   * @ADDED
+   */
+  private static ResourceLocator[] RESOURCE_LOCATORS = new ResourceLocator[] {EcoreEditPlugin.INSTANCE};
 
   /**
    * Keep track of the singleton.
@@ -65,7 +72,7 @@ public final class GenfwActivator extends EMFPlugin
    */
   public GenfwActivator()
   {
-    super(new ResourceLocator[] {EcoreEditPlugin.INSTANCE});
+    super(RESOURCE_LOCATORS);
   }
 
   /**
@@ -145,6 +152,33 @@ public final class GenfwActivator extends EMFPlugin
     /**
      * @ADDED
      */
+    public ResourceLocator[] getExtendedResourceLocators()
+    {
+      Set<ResourceLocator> set = new HashSet<ResourceLocator>();
+      set.add(EcoreEditPlugin.INSTANCE);
+
+      for (ExternalLibrary library : ExternalLibrariesRegistry.INSTANCE
+              .getAllExternalLibraryElements())
+      {
+        try
+        {
+          IExternalLibraryInitializer initializer = library.getLibraryInitializer();
+          if (initializer == null) throw new ImplementationError();
+          ResourceLocator locator = initializer.getPlugin();
+          if (locator != null) set.add(locator);
+        }
+        catch (Exception ex)
+        {
+          log(ex);
+        }
+      }
+
+      return set.toArray(new ResourceLocator[set.size()]);
+    }
+
+    /**
+     * @ADDED
+     */
     public List<EClass> getContentProviders()
     {
       List<EClass> result = new ArrayList<EClass>();
@@ -207,11 +241,13 @@ public final class GenfwActivator extends EMFPlugin
     public void start(BundleContext context) throws Exception
     {
       super.start(context);
+      ExternalLibrariesRegistry.INSTANCE.initialize();
       ContentProvidersRegistry.INSTANCE.initialize();
       DomTransformationsRegistry.INSTANCE.initialize();
-      ExternalLibrariesRegistry.INSTANCE.initialize();
       GeneratorsRegistry.INSTANCE.initialize();
       RulesRegistry.INSTANCE.initialize();
+
+      RESOURCE_LOCATORS = getExtendedResourceLocators();
     }
 
     /**
@@ -221,9 +257,9 @@ public final class GenfwActivator extends EMFPlugin
     public void stop(BundleContext context) throws Exception
     {
       BeanHelper.dispose(GenAppManager.INSTANCE);
+      ExternalLibrariesRegistry.INSTANCE.dispose();
       ContentProvidersRegistry.INSTANCE.dispose();
       DomTransformationsRegistry.INSTANCE.dispose();
-      ExternalLibrariesRegistry.INSTANCE.dispose();
       GeneratorsRegistry.INSTANCE.dispose();
       RulesRegistry.INSTANCE.dispose();
       super.stop(context);
