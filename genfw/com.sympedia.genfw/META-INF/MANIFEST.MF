@@ -9,8 +9,9 @@ Bundle-Localization: plugin
 Export-Package: com.sympedia.genfw,
  com.sympedia.genfw.impl,
  com.sympedia.genfw.internal,
+ com.sympedia.genfw.provider,
  com.sympedia.genfw.util
-Require-Bundle: com.sympedia.util.emf;visibility:=reexport,
+Require-Bundle: com.sympedia.util.emf.edit;visibility:=reexport,
  org.apache.xerces;visibility:=reexport,
  org.eclipse.jdt.core;resolution:=optional
 Eclipse-LazyStart: true

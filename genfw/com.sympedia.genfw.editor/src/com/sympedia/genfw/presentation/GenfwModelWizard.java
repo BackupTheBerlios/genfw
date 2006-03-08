@@ -13,6 +13,8 @@ package com.sympedia.genfw.presentation;
 
 import com.sympedia.genfw.GenfwFactory;
 import com.sympedia.genfw.GenfwPackage;
+import com.sympedia.genfw.internal.GenfwActivator;
+
 import com.sympedia.genfw.provider.GenfwEditPlugin;
 
 import org.eclipse.core.resources.IContainer;
@@ -556,7 +558,7 @@ public class GenfwModelWizard extends Wizard implements INewWizard
     {
       try
       {
-        return GenfwEditPlugin.INSTANCE.getString("_UI_" + typeName + "_type");
+        return GenfwActivator.INSTANCE.getString("_UI_" + typeName + "_type");
       }
       catch (MissingResourceException mre)
       {

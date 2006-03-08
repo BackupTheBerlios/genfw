@@ -11,12 +11,14 @@
 package com.sympedia.genfw.bsh.internal;
 
 
+import com.sympedia.genfw.internal.GenfwActivator;
+
 import org.eclipse.emf.common.EMFPlugin;
 import org.eclipse.emf.common.util.ResourceLocator;
 
 
 /**
- * This is the central singleton for the Bsh model plugin.
+ * This is the central singleton for the Bsh edit plugin.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
@@ -47,7 +49,7 @@ public final class Activator extends EMFPlugin
    */
   public Activator()
   {
-    super(new ResourceLocator[] {});
+    super(new ResourceLocator[] {GenfwActivator.INSTANCE,});
   }
 
   /**

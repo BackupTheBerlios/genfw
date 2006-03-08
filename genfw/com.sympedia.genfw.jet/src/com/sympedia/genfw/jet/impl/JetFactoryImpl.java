@@ -11,6 +11,8 @@
 package com.sympedia.genfw.jet.impl;
 
 
+import com.sympedia.genfw.jet.*;
+
 import com.sympedia.genfw.jet.EcoreTemplate;
 import com.sympedia.genfw.jet.EmfGenerator;
 import com.sympedia.genfw.jet.GifColorer;

@@ -127,11 +127,4 @@ This Agreement is governed by the laws of the State of New York and the intellec
          version="3.2.0"
          unpack="false"/>
 
-   <plugin
-         id="com.sympedia.genfw.ocl.edit"
-         download-size="0"
-         install-size="0"
-         version="3.2.0"
-         unpack="false"/>
-
 </feature>

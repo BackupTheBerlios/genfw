@@ -10,6 +10,7 @@ Bundle-Localization: plugin
 Export-Package: com.sympedia.genfw.bsh,
  com.sympedia.genfw.bsh.impl,
  com.sympedia.genfw.bsh.internal,
+ com.sympedia.genfw.bsh.provider,
  com.sympedia.genfw.bsh.util
 Require-Bundle: com.sympedia.genfw;visibility:=reexport,
  org.beanshell;visibility:=reexport

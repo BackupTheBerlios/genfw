@@ -11,12 +11,14 @@
 package com.sympedia.genfw.jdt.internal;
 
 
+import com.sympedia.genfw.internal.GenfwActivator;
+
 import org.eclipse.emf.common.EMFPlugin;
 import org.eclipse.emf.common.util.ResourceLocator;
 
 
 /**
- * This is the central singleton for the Jdt model plugin.
+ * This is the central singleton for the Jdt edit plugin.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
@@ -47,7 +49,7 @@ public final class JdtActivator extends EMFPlugin
    */
   public JdtActivator()
   {
-    super(new ResourceLocator[] {});
+    super(new ResourceLocator[] {GenfwActivator.INSTANCE,});
   }
 
   /**

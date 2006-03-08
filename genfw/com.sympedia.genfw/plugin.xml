@@ -16,6 +16,18 @@
        genModel = "model/genfw.genmodel" /> 
   </extension>
 
+  <extension point="org.eclipse.emf.edit.itemProviderAdapterFactories">
+    <factory 
+       uri = "http://www.sympedia.com/2006/genfw" 
+       class = "com.sympedia.genfw.provider.GenfwItemProviderAdapterFactory" 
+       supportedTypes = 
+         "org.eclipse.emf.edit.provider.IEditingDomainItemProvider
+          org.eclipse.emf.edit.provider.IStructuredItemContentProvider
+          org.eclipse.emf.edit.provider.ITreeItemContentProvider
+          org.eclipse.emf.edit.provider.IItemLabelProvider
+          org.eclipse.emf.edit.provider.IItemPropertySource" />
+  </extension>
+
   <extension point="org.eclipse.core.resources.natures"
   	id="nature" name="Sympedia GenFw Nature">
     <runtime>

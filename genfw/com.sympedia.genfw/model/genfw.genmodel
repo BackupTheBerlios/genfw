@@ -2,7 +2,8 @@
 <genmodel:GenModel xmi:version="2.0"
     xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
     xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/com.sympedia.genfw/src"
-    modelPluginID="com.sympedia.genfw" modelName="Genfw" modelPluginClass="com.sympedia.genfw.internal.GenfwActivator"
+    editDirectory="/com.sympedia.genfw/src" modelPluginID="com.sympedia.genfw" modelName="Genfw"
+    modelPluginClass="com.sympedia.genfw.internal.GenfwActivator" editPluginClass=""
     updateClasspath="false" codeFormatting="true" testsDirectory="" testSuiteClass=""
     importerID="org.eclipse.emf.importer.ecore">
   <foreignModel>genfw.ecore</foreignModel>
@@ -16,6 +17,7 @@
     <genDataTypes ecoreDataType="genfw.ecore#//OutputStream"/>
     <genDataTypes ecoreDataType="genfw.ecore#//Exception"/>
     <genDataTypes ecoreDataType="genfw.ecore#//DomDocument"/>
+    <genDataTypes ecoreDataType="genfw.ecore#//PathSet"/>
     <genClasses ecoreClass="genfw.ecore#//GenLib">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference genfw.ecore#//GenLib/contentProviders"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference genfw.ecore#//GenLib/generators"/>
@@ -29,11 +31,10 @@
     </genClasses>
     <genClasses ecoreClass="genfw.ecore#//LifeCycle">
       <genOperations ecoreOperation="genfw.ecore#//LifeCycle/initialize">
-        <genParameters ecoreParameter="genfw.ecore#//LifeCycle/initialize/genapp"/>
+        <genParameters ecoreParameter="genfw.ecore#//LifeCycle/initialize/context"/>
       </genOperations>
-      <genOperations ecoreOperation="genfw.ecore#//LifeCycle/dispose">
-        <genParameters ecoreParameter="genfw.ecore#//LifeCycle/dispose/genapp"/>
-      </genOperations>
+      <genOperations ecoreOperation="genfw.ecore#//LifeCycle/dispose"/>
+      <genOperations ecoreOperation="genfw.ecore#//LifeCycle/getRoot"/>
     </genClasses>
     <genClasses ecoreClass="genfw.ecore#//ContentProvider">
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference genfw.ecore#//ContentProvider/root"/>
@@ -67,6 +68,9 @@
       <genOperations ecoreOperation="genfw.ecore#//Rule/getTargetPath">
         <genParameters ecoreParameter="genfw.ecore#//Rule/getTargetPath/inputObject"/>
       </genOperations>
+      <genOperations ecoreOperation="genfw.ecore#//Rule/convertInputObject">
+        <genParameters ecoreParameter="genfw.ecore#//Rule/convertInputObject/inputObject"/>
+      </genOperations>
     </genClasses>
     <genClasses ecoreClass="genfw.ecore#//StaticRule">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute genfw.ecore#//StaticRule/targetPath"/>
@@ -74,6 +78,7 @@
     <genClasses image="false" ecoreClass="genfw.ecore#//ExpressionBasedRule">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute genfw.ecore#//ExpressionBasedRule/matchExpression"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute genfw.ecore#//ExpressionBasedRule/targetPathExpression"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute genfw.ecore#//ExpressionBasedRule/converterExpression"/>
     </genClasses>
     <genClasses ecoreClass="genfw.ecore#//Generator">
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference genfw.ecore#//Generator/root"/>
@@ -115,6 +120,7 @@
     </genClasses>
     <genClasses ecoreClass="genfw.ecore#//InitialGenerator"/>
     <genClasses ecoreClass="genfw.ecore#//StaticFileInitializer">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute genfw.ecore#//StaticFileInitializer/fileURL"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference genfw.ecore#//StaticFileInitializer/lines"/>
     </genClasses>
     <genClasses ecoreClass="genfw.ecore#//Line">
@@ -124,11 +130,23 @@
     <genClasses image="false" ecoreClass="genfw.ecore#//ProjectInitializer"/>
     <genClasses ecoreClass="genfw.ecore#//ProjectInitializationProvider"/>
     <genClasses ecoreClass="genfw.ecore#//Input" labelFeature="#//genfw/Input/label">
-      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference genfw.ecore#//Input/root"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference genfw.ecore#//Input/app"/>
       <genFeatures property="None" createChild="false" ecoreFeature="ecore:EAttribute genfw.ecore#//Input/label"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute genfw.ecore#//Input/fullPath"/>
       <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference genfw.ecore#//Input/contentProvider"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EReference genfw.ecore#//Input/ruleSets"/>
     </genClasses>
+    <genClasses ecoreClass="genfw.ecore#//Context">
+      <genFeatures property="Readonly" notify="false" createChild="false" ecoreFeature="ecore:EReference genfw.ecore#//Context/runtime"/>
+      <genOperations ecoreOperation="genfw.ecore#//Context/addInputPath">
+        <genParameters ecoreParameter="genfw.ecore#//Context/addInputPath/fullPath"/>
+      </genOperations>
+      <genOperations ecoreOperation="genfw.ecore#//Context/addTargetPath">
+        <genParameters ecoreParameter="genfw.ecore#//Context/addTargetPath/fullPath"/>
+      </genOperations>
+      <genOperations ecoreOperation="genfw.ecore#//Context/getInputPaths"/>
+      <genOperations ecoreOperation="genfw.ecore#//Context/getTargetPaths"/>
+    </genClasses>
+    <genClasses ecoreClass="genfw.ecore#//DomContentProvider"/>
   </genPackages>
 </genmodel:GenModel>

@@ -11,12 +11,14 @@
 package com.sympedia.genfw.jmerge.internal;
 
 
+import com.sympedia.genfw.internal.GenfwActivator;
+
 import org.eclipse.emf.common.EMFPlugin;
 import org.eclipse.emf.common.util.ResourceLocator;
 
 
 /**
- * This is the central singleton for the Jmerge model plugin.
+ * This is the central singleton for the Jmerge edit plugin.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
@@ -52,7 +54,7 @@ public final class JmergeActivator extends EMFPlugin
    */
   public JmergeActivator()
   {
-    super(new ResourceLocator[] {});
+    super(new ResourceLocator[] {GenfwActivator.INSTANCE,});
   }
 
   /**

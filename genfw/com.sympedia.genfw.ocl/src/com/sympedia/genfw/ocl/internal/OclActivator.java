@@ -11,12 +11,14 @@
 package com.sympedia.genfw.ocl.internal;
 
 
+import com.sympedia.genfw.internal.GenfwActivator;
+
 import org.eclipse.emf.common.EMFPlugin;
 import org.eclipse.emf.common.util.ResourceLocator;
 
 
 /**
- * This is the central singleton for the Ocl model plugin.
+ * This is the central singleton for the Ocl edit plugin.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
@@ -47,7 +49,7 @@ public final class OclActivator extends EMFPlugin
    */
   public OclActivator()
   {
-    super(new ResourceLocator[] {});
+    super(new ResourceLocator[] {GenfwActivator.INSTANCE,});
   }
 
   /**

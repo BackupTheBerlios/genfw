@@ -10,6 +10,7 @@ Bundle-Localization: plugin
 Export-Package: com.sympedia.genfw.jmerge,
  com.sympedia.genfw.jmerge.impl,
  com.sympedia.genfw.jmerge.internal,
+ com.sympedia.genfw.jmerge.provider,
  com.sympedia.genfw.jmerge.util
 Require-Bundle: com.sympedia.genfw;visibility:=reexport,
  org.eclipse.emf.codegen;visibility:=reexport,

@@ -33,7 +33,6 @@
 		<delete dir="src" failonerror="no" />
 		<mkdir dir="src" />
 		<zip.sources version="${feature.version}" plugin="com.sympedia.genfw.ocl" />
-		<zip.sources version="${feature.version}" plugin="com.sympedia.genfw.ocl.edit" />
 		<delete dir="${temp.dir}" failonerror="no" />
 	</target>
 

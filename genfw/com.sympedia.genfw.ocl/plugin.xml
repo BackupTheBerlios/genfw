@@ -17,6 +17,18 @@
        genModel = "model/ocl.genmodel" /> 
   </extension>
   
+  <extension point="org.eclipse.emf.edit.itemProviderAdapterFactories">
+    <factory 
+       uri = "http://www.sympedia.com/2006/genfw/ocl" 
+       class = "com.sympedia.genfw.ocl.provider.OclItemProviderAdapterFactory" 
+       supportedTypes = 
+         "org.eclipse.emf.edit.provider.IEditingDomainItemProvider
+          org.eclipse.emf.edit.provider.IStructuredItemContentProvider
+          org.eclipse.emf.edit.provider.ITreeItemContentProvider
+          org.eclipse.emf.edit.provider.IItemLabelProvider
+          org.eclipse.emf.edit.provider.IItemPropertySource" />
+  </extension>
+  
   <extension
         point="com.sympedia.genfw.rules">
      <rule

@@ -10,6 +10,7 @@ Bundle-Localization: plugin
 Export-Package: com.sympedia.genfw.jdt,
  com.sympedia.genfw.jdt.impl,
  com.sympedia.genfw.jdt.internal,
+ com.sympedia.genfw.jdt.provider,
  com.sympedia.genfw.jdt.util
 Require-Bundle: com.sympedia.genfw;visibility:=reexport,
  org.eclipse.jdt.core;visibility:=reexport,

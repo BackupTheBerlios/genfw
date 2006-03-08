@@ -10,6 +10,7 @@ Bundle-Localization: plugin
 Export-Package: com.sympedia.genfw.ocl,
  com.sympedia.genfw.ocl.impl,
  com.sympedia.genfw.ocl.internal,
+ com.sympedia.genfw.ocl.provider,
  com.sympedia.genfw.ocl.util
 Require-Bundle: com.sympedia.genfw;visibility:=reexport,
  org.eclipse.emf.ocl;visibility:=reexport

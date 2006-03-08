@@ -28,7 +28,7 @@ import java.util.List;
 
 
 /**
- * This is the central singleton for the Genfw model plugin.
+ * This is the central singleton for the Genfw edit plugin.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated

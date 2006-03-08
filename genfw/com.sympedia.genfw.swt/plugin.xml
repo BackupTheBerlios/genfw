@@ -5,7 +5,7 @@
  <copyright>
  </copyright>
 
- $Id: plugin.xml,v 1.1 2006/03/06 07:56:47 stepper Exp $
+ $Id: plugin.xml,v 1.2 2006/03/08 09:45:18 stepper Exp $
 -->
 
 <plugin>
@@ -16,6 +16,19 @@
        class = "com.sympedia.genfw.swt.SwtPackage"
        genModel = "model/swt.genmodel" /> 
   </extension>
+
+  <extension point="org.eclipse.emf.edit.itemProviderAdapterFactories">
+    <factory 
+       uri = "http://www.sympedia.com/2006/genfw/swt" 
+       class = "com.sympedia.genfw.swt.provider.SwtItemProviderAdapterFactory" 
+       supportedTypes = 
+         "org.eclipse.emf.edit.provider.IEditingDomainItemProvider
+          org.eclipse.emf.edit.provider.IStructuredItemContentProvider
+          org.eclipse.emf.edit.provider.ITreeItemContentProvider
+          org.eclipse.emf.edit.provider.IItemLabelProvider
+          org.eclipse.emf.edit.provider.IItemPropertySource" />
+  </extension>
+
   <extension
         point="com.sympedia.genfw.generators">
      <generator

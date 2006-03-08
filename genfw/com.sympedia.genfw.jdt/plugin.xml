@@ -5,7 +5,7 @@
  <copyright>
  </copyright>
 
- $Id: plugin.xml,v 1.2 2006/02/01 09:35:49 stepper Exp $
+ $Id: plugin.xml,v 1.3 2006/03/08 09:45:32 stepper Exp $
 -->
 
 <plugin>
@@ -16,6 +16,19 @@
        class = "com.sympedia.genfw.jdt.JdtPackage"
        genModel = "model/jdt.genmodel" /> 
   </extension>
+
+  <extension point="org.eclipse.emf.edit.itemProviderAdapterFactories">
+    <factory 
+       uri = "http://www.sympedia.com/2006/genfw/jdt" 
+       class = "com.sympedia.genfw.jdt.provider.JdtItemProviderAdapterFactory" 
+       supportedTypes = 
+         "org.eclipse.emf.edit.provider.IEditingDomainItemProvider
+          org.eclipse.emf.edit.provider.IStructuredItemContentProvider
+          org.eclipse.emf.edit.provider.ITreeItemContentProvider
+          org.eclipse.emf.edit.provider.IItemLabelProvider
+          org.eclipse.emf.edit.provider.IItemPropertySource" />
+  </extension>
+
   <extension
         point="com.sympedia.genfw.generators">
      <generator

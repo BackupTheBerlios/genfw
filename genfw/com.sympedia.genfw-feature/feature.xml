@@ -153,20 +153,6 @@ This Agreement is governed by the laws of the State of New York and the intellec
          unpack="false"/>
 
    <plugin
-         id="com.sympedia.genfw.bsh.edit"
-         download-size="0"
-         install-size="0"
-         version="3.2.0"
-         unpack="false"/>
-
-   <plugin
-         id="com.sympedia.genfw.edit"
-         download-size="0"
-         install-size="0"
-         version="3.2.0"
-         unpack="false"/>
-
-   <plugin
          id="com.sympedia.genfw.editor"
          download-size="0"
          install-size="0"
@@ -181,13 +167,6 @@ This Agreement is governed by the laws of the State of New York and the intellec
          unpack="false"/>
 
    <plugin
-         id="com.sympedia.genfw.jdt.edit"
-         download-size="0"
-         install-size="0"
-         version="3.2.0"
-         unpack="false"/>
-
-   <plugin
          id="com.sympedia.genfw.jet"
          download-size="0"
          install-size="0"
@@ -195,21 +174,7 @@ This Agreement is governed by the laws of the State of New York and the intellec
          unpack="false"/>
 
    <plugin
-         id="com.sympedia.genfw.jet.edit"
-         download-size="0"
-         install-size="0"
-         version="3.2.0"
-         unpack="false"/>
-
-   <plugin
          id="com.sympedia.genfw.jmerge"
-         download-size="0"
-         install-size="0"
-         version="3.2.0"
-         unpack="false"/>
-
-   <plugin
-         id="com.sympedia.genfw.jmerge.edit"
          download-size="0"
          install-size="0"
          version="3.2.0"
@@ -224,13 +189,6 @@ This Agreement is governed by the laws of the State of New York and the intellec
 
    <plugin
          id="com.sympedia.genfw.swt"
-         download-size="0"
-         install-size="0"
-         version="3.2.0"
-         unpack="false"/>
-
-   <plugin
-         id="com.sympedia.genfw.swt.edit"
          download-size="0"
          install-size="0"
          version="3.2.0"

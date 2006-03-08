@@ -11,12 +11,14 @@
 package com.sympedia.genfw.jet.internal;
 
 
+import com.sympedia.genfw.internal.GenfwActivator;
+
 import org.eclipse.emf.common.EMFPlugin;
 import org.eclipse.emf.common.util.ResourceLocator;
 
 
 /**
- * This is the central singleton for the Jet model plugin.
+ * This is the central singleton for the Jet edit plugin.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
@@ -52,7 +54,7 @@ public final class Activator extends EMFPlugin
    */
   public Activator()
   {
-    super(new ResourceLocator[] {});
+    super(new ResourceLocator[] {GenfwActivator.INSTANCE,});
   }
 
   /**
