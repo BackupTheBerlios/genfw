@@ -11,7 +11,7 @@
 package com.sympedia.density.gen.arch.presentation;
 
 
-import com.sympedia.genfw.provider.GenfwEditPlugin;
+import com.sympedia.genfw.internal.GenfwActivator;
 
 import org.eclipse.emf.common.EMFPlugin;
 import org.eclipse.emf.common.ui.EclipseUIPlugin;
@@ -50,7 +50,7 @@ public final class ArchEditorActivator extends EMFPlugin
    */
   public ArchEditorActivator()
   {
-    super(new ResourceLocator[] {GenfwEditPlugin.INSTANCE,});
+    super(new ResourceLocator[] {GenfwActivator.INSTANCE,});
   }
 
   /**
