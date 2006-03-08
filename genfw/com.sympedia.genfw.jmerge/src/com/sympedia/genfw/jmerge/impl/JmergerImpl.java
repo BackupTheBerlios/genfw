@@ -17,6 +17,7 @@ import com.sympedia.genfw.jmerge.JmergePackage;
 import com.sympedia.genfw.jmerge.Jmerger;
 import com.sympedia.util.eclipse.resources.ResourcesHelper;
 
+import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.codegen.CodeGenPlugin;
 import org.eclipse.emf.codegen.merge.java.JControlModel;
@@ -26,7 +27,6 @@ import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
 
@@ -125,9 +125,9 @@ public class JmergerImpl extends DelegatingGeneratorImpl implements Jmerger
     byte[] result = delegate.generate(inputObject, targetPath, monitor);
     if (result == null) return null;
 
-    File existingFile = ResourcesHelper.ROOT.findMember(targetPath).getLocation().toFile();
-    if (!existingFile.exists()) return result;
-    InputStream existingContent = new FileInputStream(existingFile);
+    IResource resource = ResourcesHelper.ROOT.findMember(targetPath);
+    if (resource == null || !resource.exists()) return result;
+    InputStream existingContent = new FileInputStream(resource.getLocation().toFile());
 
     JMerger merger = getJMerger();
     merger.setSourceCompilationUnit(merger.createCompilationUnitForContents(new String(result)));

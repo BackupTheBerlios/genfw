@@ -13,10 +13,10 @@ import com.sympedia.genfw.jmerge.JmergePackage;
 import com.sympedia.genfw.jmerge.PropertyMerger;
 import com.sympedia.util.eclipse.resources.ResourcesHelper;
 
+import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.ecore.EClass;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
 
@@ -64,9 +64,9 @@ public class PropertyMergerImpl extends DelegatingGeneratorImpl implements Prope
     byte[] result = delegate.generate(inputObject, targetPath, monitor);
     if (result == null) return null;
 
-    File existingFile = ResourcesHelper.ROOT.findMember(targetPath).getLocation().toFile();
-    if (!existingFile.exists()) return result;
-    InputStream existingContent = new FileInputStream(existingFile);
+    IResource resource = ResourcesHelper.ROOT.findMember(targetPath);
+    if (resource == null || !resource.exists()) return result;
+    InputStream existingContent = new FileInputStream(resource.getLocation().toFile());
 
     org.eclipse.emf.codegen.merge.properties.PropertyMerger merger = new org.eclipse.emf.codegen.merge.properties.PropertyMerger();
     merger.setSourceProperties(new String(result));
