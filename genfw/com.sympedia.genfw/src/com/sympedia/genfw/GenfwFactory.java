@@ -159,6 +159,15 @@ public interface GenfwFactory extends EFactory
   DomContentProvider createDomContentProvider();
 
   /**
+   * Returns a new object of class '<em>Identity Generator</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Identity Generator</em>'.
+   * @generated
+   */
+  IdentityGenerator createIdentityGenerator();
+
+  /**
    * Returns the package supported by this factory.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

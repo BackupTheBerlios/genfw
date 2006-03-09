@@ -39,6 +39,7 @@ import org.eclipse.emf.common.util.URI;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -131,6 +132,21 @@ public class ResourcesHelper
   public static String readFileIntoString(IFile file) throws CoreException, IOException
   {
     return readFileIntoString(file, null);
+  }
+
+  public static byte[] readFileIntoByteArray(IFile file) throws CoreException, IOException
+  {
+    InputStream contents = file.getContents();
+    try
+    {
+      ByteArrayOutputStream output = new ByteArrayOutputStream();
+      IOHelper.copy(contents, output);
+      return output.toByteArray();
+    }
+    finally
+    {
+      IOHelper.close(contents);
+    }
   }
 
   public static String readFileIntoString(IFile file, String linePrefix) throws CoreException,

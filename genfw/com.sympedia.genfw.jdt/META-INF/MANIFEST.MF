@@ -14,5 +14,7 @@ Export-Package: com.sympedia.genfw.jdt,
  com.sympedia.genfw.jdt.util
 Require-Bundle: com.sympedia.genfw;visibility:=reexport,
  org.eclipse.jdt.core;visibility:=reexport,
- org.eclipse.jface.text
+ org.eclipse.jdt.core.manipulation;visibility:=reexport,
+ org.eclipse.jdt.ui;resolution:=optional,
+ org.eclipse.jface.text;resolution:=optional
 Eclipse-LazyStart: true

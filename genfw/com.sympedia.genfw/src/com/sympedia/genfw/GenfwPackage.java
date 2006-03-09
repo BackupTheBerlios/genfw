@@ -1252,6 +1252,43 @@ public interface GenfwPackage extends EPackage
   int DOM_CONTENT_PROVIDER_FEATURE_COUNT = CONTENT_PROVIDER_FEATURE_COUNT + 0;
 
   /**
+   * The meta object id for the '{@link com.sympedia.genfw.impl.IdentityGeneratorImpl <em>Identity Generator</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see com.sympedia.genfw.impl.IdentityGeneratorImpl
+   * @see com.sympedia.genfw.impl.GenfwPackageImpl#getIdentityGenerator()
+   * @generated
+   */
+  int IDENTITY_GENERATOR = 22;
+
+  /**
+   * The feature id for the '<em><b>Root</b></em>' container reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int IDENTITY_GENERATOR__ROOT = GENERATOR__ROOT;
+
+  /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int IDENTITY_GENERATOR__NAME = GENERATOR__NAME;
+
+  /**
+   * The number of structural features of the '<em>Identity Generator</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int IDENTITY_GENERATOR_FEATURE_COUNT = GENERATOR_FEATURE_COUNT + 0;
+
+  /**
    * The meta object id for the '<em>IPath</em>' data type.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1259,7 +1296,7 @@ public interface GenfwPackage extends EPackage
    * @see com.sympedia.genfw.impl.GenfwPackageImpl#getIPath()
    * @generated
    */
-  int IPATH = 22;
+  int IPATH = 23;
 
   /**
    * The meta object id for the '<em>Java List</em>' data type.
@@ -1269,7 +1306,7 @@ public interface GenfwPackage extends EPackage
    * @see com.sympedia.genfw.impl.GenfwPackageImpl#getJavaList()
    * @generated
    */
-  int JAVA_LIST = 23;
+  int JAVA_LIST = 24;
 
   /**
    * The meta object id for the '<em>Core Exception</em>' data type.
@@ -1279,7 +1316,7 @@ public interface GenfwPackage extends EPackage
    * @see com.sympedia.genfw.impl.GenfwPackageImpl#getCoreException()
    * @generated
    */
-  int CORE_EXCEPTION = 24;
+  int CORE_EXCEPTION = 25;
 
   /**
    * The meta object id for the '<em>IProgress Monitor</em>' data type.
@@ -1289,7 +1326,7 @@ public interface GenfwPackage extends EPackage
    * @see com.sympedia.genfw.impl.GenfwPackageImpl#getIProgressMonitor()
    * @generated
    */
-  int IPROGRESS_MONITOR = 25;
+  int IPROGRESS_MONITOR = 26;
 
   /**
    * The meta object id for the '<em>Class Loader</em>' data type.
@@ -1299,7 +1336,7 @@ public interface GenfwPackage extends EPackage
    * @see com.sympedia.genfw.impl.GenfwPackageImpl#getClassLoader()
    * @generated
    */
-  int CLASS_LOADER = 26;
+  int CLASS_LOADER = 27;
 
   /**
    * The meta object id for the '<em>Output Stream</em>' data type.
@@ -1309,7 +1346,7 @@ public interface GenfwPackage extends EPackage
    * @see com.sympedia.genfw.impl.GenfwPackageImpl#getOutputStream()
    * @generated
    */
-  int OUTPUT_STREAM = 27;
+  int OUTPUT_STREAM = 28;
 
   /**
    * The meta object id for the '<em>Exception</em>' data type.
@@ -1319,7 +1356,7 @@ public interface GenfwPackage extends EPackage
    * @see com.sympedia.genfw.impl.GenfwPackageImpl#getException()
    * @generated
    */
-  int EXCEPTION = 28;
+  int EXCEPTION = 29;
 
   /**
    * The meta object id for the '<em>Dom Document</em>' data type.
@@ -1329,7 +1366,7 @@ public interface GenfwPackage extends EPackage
    * @see com.sympedia.genfw.impl.GenfwPackageImpl#getDomDocument()
    * @generated
    */
-  int DOM_DOCUMENT = 29;
+  int DOM_DOCUMENT = 30;
 
   /**
    * The meta object id for the '<em>Path Set</em>' data type.
@@ -1339,7 +1376,7 @@ public interface GenfwPackage extends EPackage
    * @see com.sympedia.genfw.impl.GenfwPackageImpl#getPathSet()
    * @generated
    */
-  int PATH_SET = 30;
+  int PATH_SET = 31;
 
   /**
    * Returns the meta object for class '{@link com.sympedia.genfw.GenLib <em>Gen Lib</em>}'.
@@ -2123,6 +2160,16 @@ public interface GenfwPackage extends EPackage
   EClass getDomContentProvider();
 
   /**
+   * Returns the meta object for class '{@link com.sympedia.genfw.IdentityGenerator <em>Identity Generator</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Identity Generator</em>'.
+   * @see com.sympedia.genfw.IdentityGenerator
+   * @generated
+   */
+  EClass getIdentityGenerator();
+
+  /**
    * Returns the meta object for data type '{@link org.eclipse.core.runtime.IPath <em>IPath</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -2884,6 +2931,16 @@ public interface GenfwPackage extends EPackage
      * @generated
      */
     EClass DOM_CONTENT_PROVIDER = eINSTANCE.getDomContentProvider();
+
+    /**
+     * The meta object literal for the '{@link com.sympedia.genfw.impl.IdentityGeneratorImpl <em>Identity Generator</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see com.sympedia.genfw.impl.IdentityGeneratorImpl
+     * @see com.sympedia.genfw.impl.GenfwPackageImpl#getIdentityGenerator()
+     * @generated
+     */
+    EClass IDENTITY_GENERATOR = eINSTANCE.getIdentityGenerator();
 
     /**
      * The meta object literal for the '<em>IPath</em>' data type.

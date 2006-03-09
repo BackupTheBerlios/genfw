@@ -11,6 +11,8 @@
 package com.sympedia.genfw.util;
 
 
+import com.sympedia.genfw.*;
+
 import com.sympedia.genfw.ContentProvider;
 import com.sympedia.genfw.Context;
 import com.sympedia.genfw.DelegatingGenerator;
@@ -301,6 +303,15 @@ public class GenfwSwitch
       Object result = caseDomContentProvider(domContentProvider);
       if (result == null) result = caseContentProvider(domContentProvider);
       if (result == null) result = caseLifeCycle(domContentProvider);
+      if (result == null) result = defaultCase(theEObject);
+      return result;
+    }
+    case GenfwPackage.IDENTITY_GENERATOR:
+    {
+      IdentityGenerator identityGenerator = (IdentityGenerator)theEObject;
+      Object result = caseIdentityGenerator(identityGenerator);
+      if (result == null) result = caseGenerator(identityGenerator);
+      if (result == null) result = caseLifeCycle(identityGenerator);
       if (result == null) result = defaultCase(theEObject);
       return result;
     }
@@ -657,6 +668,22 @@ public class GenfwSwitch
    * @generated
    */
   public Object caseDomContentProvider(DomContentProvider object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpretting the object as an instance of '<em>Identity Generator</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpretting the object as an instance of '<em>Identity Generator</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public Object caseIdentityGenerator(IdentityGenerator object)
   {
     return null;
   }

@@ -67,7 +67,7 @@ public final class GenfwActivator extends EMFPlugin
    */
   public GenfwActivator()
   {
-    super(new ResourceLocator[] {EcoreEditPlugin.INSTANCE});
+    super(new ResourceLocator[] {});
   }
 
   /**

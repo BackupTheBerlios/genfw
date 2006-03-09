@@ -11,6 +11,8 @@
 package com.sympedia.genfw.util;
 
 
+import com.sympedia.genfw.*;
+
 import com.sympedia.genfw.ContentProvider;
 import com.sympedia.genfw.Context;
 import com.sympedia.genfw.DelegatingGenerator;
@@ -210,6 +212,11 @@ public class GenfwAdapterFactory extends AdapterFactoryImpl
     public Object caseDomContentProvider(DomContentProvider object)
     {
       return createDomContentProviderAdapter();
+    }
+
+    public Object caseIdentityGenerator(IdentityGenerator object)
+    {
+      return createIdentityGeneratorAdapter();
     }
 
     public Object defaultCase(EObject object)
@@ -557,6 +564,21 @@ public class GenfwAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createDomContentProviderAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link com.sympedia.genfw.IdentityGenerator <em>Identity Generator</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see com.sympedia.genfw.IdentityGenerator
+   * @generated
+   */
+  public Adapter createIdentityGeneratorAdapter()
   {
     return null;
   }

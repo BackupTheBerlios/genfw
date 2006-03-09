@@ -24,6 +24,7 @@ import com.sympedia.genfw.GenLib;
 import com.sympedia.genfw.Generator;
 import com.sympedia.genfw.GenfwFactory;
 import com.sympedia.genfw.GenfwPackage;
+import com.sympedia.genfw.IdentityGenerator;
 import com.sympedia.genfw.InitialGenerator;
 import com.sympedia.genfw.Input;
 import com.sympedia.genfw.LifeCycle;
@@ -215,6 +216,13 @@ public class GenfwPackageImpl extends EPackageImpl implements GenfwPackage
    * @generated
    */
   private EClass domContentProviderEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass identityGeneratorEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -1087,6 +1095,16 @@ public class GenfwPackageImpl extends EPackageImpl implements GenfwPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EClass getIdentityGenerator()
+  {
+    return identityGeneratorEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EDataType getIPath()
   {
     return iPathEDataType;
@@ -1297,6 +1315,8 @@ public class GenfwPackageImpl extends EPackageImpl implements GenfwPackage
 
     domContentProviderEClass = createEClass(DOM_CONTENT_PROVIDER);
 
+    identityGeneratorEClass = createEClass(IDENTITY_GENERATOR);
+
     // Create data types
     iPathEDataType = createEDataType(IPATH);
     javaListEDataType = createEDataType(JAVA_LIST);
@@ -1351,6 +1371,7 @@ public class GenfwPackageImpl extends EPackageImpl implements GenfwPackage
     projectInitializerEClass.getESuperTypes().add(this.getGenerator());
     inputEClass.getESuperTypes().add(this.getLifeCycle());
     domContentProviderEClass.getESuperTypes().add(this.getContentProvider());
+    identityGeneratorEClass.getESuperTypes().add(this.getGenerator());
 
     // Initialize classes and features; add operations and parameters
     initEClass(genLibEClass, GenLib.class, "GenLib", !IS_ABSTRACT, !IS_INTERFACE,
@@ -1629,6 +1650,9 @@ public class GenfwPackageImpl extends EPackageImpl implements GenfwPackage
 
     initEClass(domContentProviderEClass, DomContentProvider.class, "DomContentProvider",
             !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+    initEClass(identityGeneratorEClass, IdentityGenerator.class, "IdentityGenerator", !IS_ABSTRACT,
+            !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
     // Initialize data types
     initEDataType(iPathEDataType, IPath.class, "IPath", IS_SERIALIZABLE,

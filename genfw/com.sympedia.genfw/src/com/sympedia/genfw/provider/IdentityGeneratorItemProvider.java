@@ -1,44 +1,35 @@
-/***************************************************************************
- * Copyright (c) 2006 Eike Stepper, Fuggerstr. 39, 10777 Berlin, Germany.
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- * 
- * Contributors:
- *    Eike Stepper - initial API and implementation
- **************************************************************************/
-package com.sympedia.genfw.bsh.provider;
+/**
+ * <copyright>
+ * </copyright>
+ *
+ * $Id$
+ */
+package com.sympedia.genfw.provider;
 
 
-import com.sympedia.genfw.bsh.BeanShellRule;
-import com.sympedia.genfw.bsh.BshPackage;
-import com.sympedia.genfw.bsh.internal.Activator;
-import com.sympedia.genfw.provider.ExpressionBasedRuleItemProvider;
+import com.sympedia.genfw.IdentityGenerator;
+import com.sympedia.genfw.internal.GenfwActivator;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.util.ResourceLocator;
-import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
-import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
-import org.eclipse.emf.edit.provider.ViewerNotification;
 
 import java.util.Collection;
 import java.util.List;
 
 
 /**
- * This is the item provider adapter for a {@link com.sympedia.genfw.bsh.BeanShellRule} object.
+ * This is the item provider adapter for a {@link com.sympedia.genfw.IdentityGenerator} object.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class BeanShellRuleItemProvider extends ExpressionBasedRuleItemProvider implements
+public class IdentityGeneratorItemProvider extends GeneratorItemProvider implements
         IEditingDomainItemProvider, IStructuredItemContentProvider, ITreeItemContentProvider,
         IItemLabelProvider, IItemPropertySource
 {
@@ -48,7 +39,7 @@ public class BeanShellRuleItemProvider extends ExpressionBasedRuleItemProvider i
    * <!-- end-user-doc -->
    * @generated
    */
-  public BeanShellRuleItemProvider(AdapterFactory adapterFactory)
+  public IdentityGeneratorItemProvider(AdapterFactory adapterFactory)
   {
     super(adapterFactory);
   }
@@ -65,37 +56,19 @@ public class BeanShellRuleItemProvider extends ExpressionBasedRuleItemProvider i
     {
       super.getPropertyDescriptors(object);
 
-      addBootstrapCodePropertyDescriptor(object);
     }
     return itemPropertyDescriptors;
   }
 
   /**
-   * This adds a property descriptor for the Bootstrap Code feature.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  protected void addBootstrapCodePropertyDescriptor(Object object)
-  {
-    itemPropertyDescriptors.add(createItemPropertyDescriptor(
-            ((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-            getResourceLocator(), getString("_UI_BeanShellRule_bootstrapCode_feature"), getString(
-                    "_UI_PropertyDescriptor_description",
-                    "_UI_BeanShellRule_bootstrapCode_feature", "_UI_BeanShellRule_type"),
-            BshPackage.Literals.BEAN_SHELL_RULE__BOOTSTRAP_CODE, true,
-            ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
-  }
-
-  /**
-   * This returns BeanShellRule.gif.
+   * This returns IdentityGenerator.gif.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    */
   public Object getImage(Object object)
   {
-    return overlayImage(object, getResourceLocator().getImage("full/obj16/BeanShellRule"));
+    return overlayImage(object, getResourceLocator().getImage("full/obj16/IdentityGenerator"));
   }
 
   /**
@@ -106,8 +79,8 @@ public class BeanShellRuleItemProvider extends ExpressionBasedRuleItemProvider i
    */
   public String getText(Object object)
   {
-    String label = ((BeanShellRule)object).getName();
-    return label == null || label.length() == 0 ? getString("_UI_BeanShellRule_type") : label;
+    String label = ((IdentityGenerator)object).getName();
+    return label == null || label.length() == 0 ? getString("_UI_IdentityGenerator_type") : label;
   }
 
   /**
@@ -120,14 +93,6 @@ public class BeanShellRuleItemProvider extends ExpressionBasedRuleItemProvider i
   public void notifyChanged(Notification notification)
   {
     updateChildren(notification);
-
-    switch (notification.getFeatureID(BeanShellRule.class))
-    {
-    case BshPackage.BEAN_SHELL_RULE__BOOTSTRAP_CODE:
-      fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false,
-              true));
-      return;
-    }
     super.notifyChanged(notification);
   }
 
@@ -151,6 +116,7 @@ public class BeanShellRuleItemProvider extends ExpressionBasedRuleItemProvider i
    */
   public ResourceLocator getResourceLocator()
   {
-    return Activator.INSTANCE;
+    return GenfwActivator.INSTANCE;
   }
+
 }

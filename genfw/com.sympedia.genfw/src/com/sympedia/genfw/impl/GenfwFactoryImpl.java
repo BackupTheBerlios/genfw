@@ -11,6 +11,8 @@
 package com.sympedia.genfw.impl;
 
 
+import com.sympedia.genfw.*;
+
 import com.sympedia.genfw.Context;
 import com.sympedia.genfw.DomContentProvider;
 import com.sympedia.genfw.DomTransformer;
@@ -124,6 +126,8 @@ public class GenfwFactoryImpl extends EFactoryImpl implements GenfwFactory
       return createContext();
     case GenfwPackage.DOM_CONTENT_PROVIDER:
       return createDomContentProvider();
+    case GenfwPackage.IDENTITY_GENERATOR:
+      return createIdentityGenerator();
     default:
       throw new IllegalArgumentException("The class '" + eClass.getName()
               + "' is not a valid classifier");
@@ -348,6 +352,17 @@ public class GenfwFactoryImpl extends EFactoryImpl implements GenfwFactory
   {
     DomContentProviderImpl domContentProvider = new DomContentProviderImpl();
     return domContentProvider;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public IdentityGenerator createIdentityGenerator()
+  {
+    IdentityGeneratorImpl identityGenerator = new IdentityGeneratorImpl();
+    return identityGenerator;
   }
 
   /**

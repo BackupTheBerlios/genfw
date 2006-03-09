@@ -50,7 +50,7 @@ public final class GenfwEditorPlugin extends EMFPlugin
    */
   public GenfwEditorPlugin()
   {
-    super(new ResourceLocator[] {GenfwActivator.INSTANCE});
+    super(new ResourceLocator[] {});
   }
 
   /**

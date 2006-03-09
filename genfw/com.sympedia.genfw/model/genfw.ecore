@@ -506,6 +506,7 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="IdentityGenerator" eSuperTypes="#//Generator"/>
   <eClassifiers xsi:type="ecore:EClass" name="Line">
     <eAnnotations source="http://www.topcased.org/uuid">
       <details key="uuid" value="1138788227656135"/>

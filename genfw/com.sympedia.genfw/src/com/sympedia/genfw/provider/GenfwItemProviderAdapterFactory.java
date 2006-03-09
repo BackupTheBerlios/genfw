@@ -324,6 +324,30 @@ public class GenfwItemProviderAdapterFactory extends GenfwAdapterFactory impleme
   }
 
   /**
+   * This keeps track of the one adapter used for all {@link com.sympedia.genfw.IdentityGenerator} instances.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  protected IdentityGeneratorItemProvider identityGeneratorItemProvider;
+
+  /**
+   * This creates an adapter for a {@link com.sympedia.genfw.IdentityGenerator}.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public Adapter createIdentityGeneratorAdapter()
+  {
+    if (identityGeneratorItemProvider == null)
+    {
+      identityGeneratorItemProvider = new IdentityGeneratorItemProvider(this);
+    }
+
+    return identityGeneratorItemProvider;
+  }
+
+  /**
    * This keeps track of the one adapter used for all {@link com.sympedia.genfw.InitialGenerator} instances.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -542,6 +566,7 @@ public class GenfwItemProviderAdapterFactory extends GenfwAdapterFactory impleme
     if (inputItemProvider != null) inputItemProvider.dispose();
     if (contextItemProvider != null) contextItemProvider.dispose();
     if (domContentProviderItemProvider != null) domContentProviderItemProvider.dispose();
+    if (identityGeneratorItemProvider != null) identityGeneratorItemProvider.dispose();
   }
 
 }

@@ -34,6 +34,7 @@ import org.eclipse.jdt.core.ToolFactory;
 import org.eclipse.jdt.core.formatter.CodeFormatter;
 import org.eclipse.jface.text.Document;
 import org.eclipse.jface.text.IDocument;
+import org.eclipse.jface.text.TextUtilities;
 import org.eclipse.text.edits.TextEdit;
 
 import java.util.Map;
@@ -250,9 +251,19 @@ public class JavaFormatterImpl extends DelegatingGeneratorImpl implements JavaFo
   /**
    * @ADDED
    */
-  public static byte[] formatCode(byte[] result, CodeFormatter codeFormatter)
+  public static byte[] formatCode(byte[] source, CodeFormatter codeFormatter)
   {
-    String contents = new String(result);
+    try
+    {
+      TextUtilities.class.getName();
+    }
+    catch (Exception ex)
+    {
+      System.out.println("Omitted Java formatting because org.eclipse.jface.text is missing.");
+      return source;
+    }
+
+    String contents = new String(source);
     IDocument doc = new Document(contents);
     TextEdit edit = codeFormatter.format(CodeFormatter.K_COMPILATION_UNIT, doc.get(), 0, doc.get()
             .length(), 0, null);
