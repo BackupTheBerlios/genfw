@@ -1,7 +1,9 @@
 package com.sympedia.genfw.internal;
 
+
 import org.eclipse.core.runtime.*;
 import java.util.*;
+
 
 public class DomTransformationsRegistry implements IRegistryChangeListener
 {
@@ -31,7 +33,7 @@ public class DomTransformationsRegistry implements IRegistryChangeListener
     {
       result.addAll(extension.getAllElements());
     }
-    
+
     return result;
   }
 
@@ -40,14 +42,14 @@ public class DomTransformationsRegistry implements IRegistryChangeListener
     List elements = getAllElements();
     return (List<DomTransformation>)filter(elements, DomTransformation.class);
   }
-  
+
   public synchronized void initialize()
   {
     if (!initialized)
     {
       initialized = true;
       ChangeEvent event = new ChangeEvent();
-      
+
       IExtensionRegistry registry = Platform.getExtensionRegistry();
       IExtensionPoint extPoint = registry.getExtensionPoint(EXT_POINT_ID);
       IExtension[] extensions = extPoint.getExtensions();
@@ -55,7 +57,7 @@ public class DomTransformationsRegistry implements IRegistryChangeListener
       {
         addExtension(extension, event);
       }
-      
+
       event.dispatch();
       registry.addRegistryChangeListener(this);
     }
@@ -64,7 +66,7 @@ public class DomTransformationsRegistry implements IRegistryChangeListener
   public synchronized void dispose()
   {
     if (initialized)
-    {    
+    {
       Platform.getExtensionRegistry().removeRegistryChangeListener(this);
       domTransformations.clear();
       initialized = false;
@@ -84,16 +86,16 @@ public class DomTransformationsRegistry implements IRegistryChangeListener
         int kind = delta.getKind();
         switch (kind)
         {
-          case IExtensionDelta.ADDED:
-            addExtension(extension, event);
-            break;
-          case IExtensionDelta.REMOVED:
-            removeExtension(extension, event);
-            break;
+        case IExtensionDelta.ADDED:
+          addExtension(extension, event);
+          break;
+        case IExtensionDelta.REMOVED:
+          removeExtension(extension, event);
+          break;
         }
       }
     }
-    
+
     event.dispatch();
   }
 
@@ -109,11 +111,12 @@ public class DomTransformationsRegistry implements IRegistryChangeListener
     {
       ex.printStackTrace();
     }
-  }   
+  }
 
   private void removeExtension(IExtension origin, ChangeEvent event)
   {
-    DomTransformationsExtension[] extensions = domTransformations.toArray(new DomTransformationsExtension[domTransformations.size()]);
+    DomTransformationsExtension[] extensions = domTransformations
+            .toArray(new DomTransformationsExtension[domTransformations.size()]);
     for (DomTransformationsExtension extension : extensions)
     {
       if (extension.getOrigin().equals(origin))
@@ -122,8 +125,8 @@ public class DomTransformationsRegistry implements IRegistryChangeListener
         event.removeExtension(extension);
         break;
       }
-    } 
-  }   
+    }
+  }
 
   private List filter(List items, Class baseClass)
   {
@@ -136,45 +139,45 @@ public class DomTransformationsRegistry implements IRegistryChangeListener
         result.add(item);
       }
     }
-    
+
     return result;
   }
-  
+
   public class ChangeEvent
   {
     private List<DomTransformationsExtension> added = new ArrayList<DomTransformationsExtension>();
 
     private List<DomTransformationsExtension> removed = new ArrayList<DomTransformationsExtension>();
-    
+
     private ChangeEvent()
     {
     }
-    
+
     public DomTransformationsRegistry getSource()
     {
       return DomTransformationsRegistry.this;
     }
-    
+
     public DomTransformationsExtension[] getAddedExtensions()
     {
       return added.toArray(new DomTransformationsExtension[added.size()]);
     }
-    
+
     public DomTransformationsExtension[] getRemovedExtensions()
     {
       return removed.toArray(new DomTransformationsExtension[removed.size()]);
     }
-    
+
     private void addExtension(DomTransformationsExtension extension)
     {
       added.add(extension);
     }
-    
+
     private void removeExtension(DomTransformationsExtension extension)
     {
       removed.add(extension);
     }
-    
+
     private void dispatch()
     {
       if (added.isEmpty() && removed.isEmpty()) return;
@@ -191,7 +194,7 @@ public class DomTransformationsRegistry implements IRegistryChangeListener
       }
     }
   }
-  
+
   public interface Listener
   {
     public void notifyDomTransformationsRegistryChanged(ChangeEvent event);

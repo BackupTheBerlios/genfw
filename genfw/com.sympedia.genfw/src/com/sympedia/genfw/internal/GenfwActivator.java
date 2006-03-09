@@ -44,11 +44,6 @@ public final class GenfwActivator extends EMFPlugin
   public static final String PLUGIN_ID = "com.sympedia.genfw";
 
   /**
-   * @ADDED
-   */
-  private static ResourceLocator[] RESOURCE_LOCATORS = new ResourceLocator[] {EcoreEditPlugin.INSTANCE};
-
-  /**
    * Keep track of the singleton.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -72,7 +67,7 @@ public final class GenfwActivator extends EMFPlugin
    */
   public GenfwActivator()
   {
-    super(RESOURCE_LOCATORS);
+    super(new ResourceLocator[] {EcoreEditPlugin.INSTANCE});
   }
 
   /**
@@ -247,7 +242,7 @@ public final class GenfwActivator extends EMFPlugin
       GeneratorsRegistry.INSTANCE.initialize();
       RulesRegistry.INSTANCE.initialize();
 
-      RESOURCE_LOCATORS = getExtendedResourceLocators();
+      //      GenfwActivator.INSTANCE.delegateResourceLocators = getExtendedResourceLocators();
     }
 
     /**

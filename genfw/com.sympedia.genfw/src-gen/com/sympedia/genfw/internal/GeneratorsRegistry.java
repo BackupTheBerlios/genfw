@@ -1,7 +1,9 @@
 package com.sympedia.genfw.internal;
 
+
 import org.eclipse.core.runtime.*;
 import java.util.*;
+
 
 public class GeneratorsRegistry implements IRegistryChangeListener
 {
@@ -31,7 +33,7 @@ public class GeneratorsRegistry implements IRegistryChangeListener
     {
       result.addAll(extension.getAllElements());
     }
-    
+
     return result;
   }
 
@@ -40,14 +42,14 @@ public class GeneratorsRegistry implements IRegistryChangeListener
     List elements = getAllElements();
     return (List<Generator>)filter(elements, Generator.class);
   }
-  
+
   public synchronized void initialize()
   {
     if (!initialized)
     {
       initialized = true;
       ChangeEvent event = new ChangeEvent();
-      
+
       IExtensionRegistry registry = Platform.getExtensionRegistry();
       IExtensionPoint extPoint = registry.getExtensionPoint(EXT_POINT_ID);
       IExtension[] extensions = extPoint.getExtensions();
@@ -55,7 +57,7 @@ public class GeneratorsRegistry implements IRegistryChangeListener
       {
         addExtension(extension, event);
       }
-      
+
       event.dispatch();
       registry.addRegistryChangeListener(this);
     }
@@ -64,7 +66,7 @@ public class GeneratorsRegistry implements IRegistryChangeListener
   public synchronized void dispose()
   {
     if (initialized)
-    {    
+    {
       Platform.getExtensionRegistry().removeRegistryChangeListener(this);
       generators.clear();
       initialized = false;
@@ -84,16 +86,16 @@ public class GeneratorsRegistry implements IRegistryChangeListener
         int kind = delta.getKind();
         switch (kind)
         {
-          case IExtensionDelta.ADDED:
-            addExtension(extension, event);
-            break;
-          case IExtensionDelta.REMOVED:
-            removeExtension(extension, event);
-            break;
+        case IExtensionDelta.ADDED:
+          addExtension(extension, event);
+          break;
+        case IExtensionDelta.REMOVED:
+          removeExtension(extension, event);
+          break;
         }
       }
     }
-    
+
     event.dispatch();
   }
 
@@ -109,11 +111,12 @@ public class GeneratorsRegistry implements IRegistryChangeListener
     {
       ex.printStackTrace();
     }
-  }   
+  }
 
   private void removeExtension(IExtension origin, ChangeEvent event)
   {
-    GeneratorsExtension[] extensions = generators.toArray(new GeneratorsExtension[generators.size()]);
+    GeneratorsExtension[] extensions = generators
+            .toArray(new GeneratorsExtension[generators.size()]);
     for (GeneratorsExtension extension : extensions)
     {
       if (extension.getOrigin().equals(origin))
@@ -122,8 +125,8 @@ public class GeneratorsRegistry implements IRegistryChangeListener
         event.removeExtension(extension);
         break;
       }
-    } 
-  }   
+    }
+  }
 
   private List filter(List items, Class baseClass)
   {
@@ -136,45 +139,45 @@ public class GeneratorsRegistry implements IRegistryChangeListener
         result.add(item);
       }
     }
-    
+
     return result;
   }
-  
+
   public class ChangeEvent
   {
     private List<GeneratorsExtension> added = new ArrayList<GeneratorsExtension>();
 
     private List<GeneratorsExtension> removed = new ArrayList<GeneratorsExtension>();
-    
+
     private ChangeEvent()
     {
     }
-    
+
     public GeneratorsRegistry getSource()
     {
       return GeneratorsRegistry.this;
     }
-    
+
     public GeneratorsExtension[] getAddedExtensions()
     {
       return added.toArray(new GeneratorsExtension[added.size()]);
     }
-    
+
     public GeneratorsExtension[] getRemovedExtensions()
     {
       return removed.toArray(new GeneratorsExtension[removed.size()]);
     }
-    
+
     private void addExtension(GeneratorsExtension extension)
     {
       added.add(extension);
     }
-    
+
     private void removeExtension(GeneratorsExtension extension)
     {
       removed.add(extension);
     }
-    
+
     private void dispatch()
     {
       if (added.isEmpty() && removed.isEmpty()) return;
@@ -191,7 +194,7 @@ public class GeneratorsRegistry implements IRegistryChangeListener
       }
     }
   }
-  
+
   public interface Listener
   {
     public void notifyGeneratorsRegistryChanged(ChangeEvent event);

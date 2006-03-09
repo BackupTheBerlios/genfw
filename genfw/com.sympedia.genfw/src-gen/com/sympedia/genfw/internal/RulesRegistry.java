@@ -1,7 +1,9 @@
 package com.sympedia.genfw.internal;
 
+
 import org.eclipse.core.runtime.*;
 import java.util.*;
+
 
 public class RulesRegistry implements IRegistryChangeListener
 {
@@ -31,7 +33,7 @@ public class RulesRegistry implements IRegistryChangeListener
     {
       result.addAll(extension.getAllElements());
     }
-    
+
     return result;
   }
 
@@ -40,14 +42,14 @@ public class RulesRegistry implements IRegistryChangeListener
     List elements = getAllElements();
     return (List<Rule>)filter(elements, Rule.class);
   }
-  
+
   public synchronized void initialize()
   {
     if (!initialized)
     {
       initialized = true;
       ChangeEvent event = new ChangeEvent();
-      
+
       IExtensionRegistry registry = Platform.getExtensionRegistry();
       IExtensionPoint extPoint = registry.getExtensionPoint(EXT_POINT_ID);
       IExtension[] extensions = extPoint.getExtensions();
@@ -55,7 +57,7 @@ public class RulesRegistry implements IRegistryChangeListener
       {
         addExtension(extension, event);
       }
-      
+
       event.dispatch();
       registry.addRegistryChangeListener(this);
     }
@@ -64,7 +66,7 @@ public class RulesRegistry implements IRegistryChangeListener
   public synchronized void dispose()
   {
     if (initialized)
-    {    
+    {
       Platform.getExtensionRegistry().removeRegistryChangeListener(this);
       rules.clear();
       initialized = false;
@@ -84,16 +86,16 @@ public class RulesRegistry implements IRegistryChangeListener
         int kind = delta.getKind();
         switch (kind)
         {
-          case IExtensionDelta.ADDED:
-            addExtension(extension, event);
-            break;
-          case IExtensionDelta.REMOVED:
-            removeExtension(extension, event);
-            break;
+        case IExtensionDelta.ADDED:
+          addExtension(extension, event);
+          break;
+        case IExtensionDelta.REMOVED:
+          removeExtension(extension, event);
+          break;
         }
       }
     }
-    
+
     event.dispatch();
   }
 
@@ -109,7 +111,7 @@ public class RulesRegistry implements IRegistryChangeListener
     {
       ex.printStackTrace();
     }
-  }   
+  }
 
   private void removeExtension(IExtension origin, ChangeEvent event)
   {
@@ -122,8 +124,8 @@ public class RulesRegistry implements IRegistryChangeListener
         event.removeExtension(extension);
         break;
       }
-    } 
-  }   
+    }
+  }
 
   private List filter(List items, Class baseClass)
   {
@@ -136,45 +138,45 @@ public class RulesRegistry implements IRegistryChangeListener
         result.add(item);
       }
     }
-    
+
     return result;
   }
-  
+
   public class ChangeEvent
   {
     private List<RulesExtension> added = new ArrayList<RulesExtension>();
 
     private List<RulesExtension> removed = new ArrayList<RulesExtension>();
-    
+
     private ChangeEvent()
     {
     }
-    
+
     public RulesRegistry getSource()
     {
       return RulesRegistry.this;
     }
-    
+
     public RulesExtension[] getAddedExtensions()
     {
       return added.toArray(new RulesExtension[added.size()]);
     }
-    
+
     public RulesExtension[] getRemovedExtensions()
     {
       return removed.toArray(new RulesExtension[removed.size()]);
     }
-    
+
     private void addExtension(RulesExtension extension)
     {
       added.add(extension);
     }
-    
+
     private void removeExtension(RulesExtension extension)
     {
       removed.add(extension);
     }
-    
+
     private void dispatch()
     {
       if (added.isEmpty() && removed.isEmpty()) return;
@@ -191,7 +193,7 @@ public class RulesRegistry implements IRegistryChangeListener
       }
     }
   }
-  
+
   public interface Listener
   {
     public void notifyRulesRegistryChanged(ChangeEvent event);

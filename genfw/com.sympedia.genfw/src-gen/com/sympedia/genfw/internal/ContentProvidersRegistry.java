@@ -1,7 +1,9 @@
 package com.sympedia.genfw.internal;
 
+
 import org.eclipse.core.runtime.*;
 import java.util.*;
+
 
 public class ContentProvidersRegistry implements IRegistryChangeListener
 {
@@ -31,7 +33,7 @@ public class ContentProvidersRegistry implements IRegistryChangeListener
     {
       result.addAll(extension.getAllElements());
     }
-    
+
     return result;
   }
 
@@ -40,14 +42,14 @@ public class ContentProvidersRegistry implements IRegistryChangeListener
     List elements = getAllElements();
     return (List<ContentProvider>)filter(elements, ContentProvider.class);
   }
-  
+
   public synchronized void initialize()
   {
     if (!initialized)
     {
       initialized = true;
       ChangeEvent event = new ChangeEvent();
-      
+
       IExtensionRegistry registry = Platform.getExtensionRegistry();
       IExtensionPoint extPoint = registry.getExtensionPoint(EXT_POINT_ID);
       IExtension[] extensions = extPoint.getExtensions();
@@ -55,7 +57,7 @@ public class ContentProvidersRegistry implements IRegistryChangeListener
       {
         addExtension(extension, event);
       }
-      
+
       event.dispatch();
       registry.addRegistryChangeListener(this);
     }
@@ -64,7 +66,7 @@ public class ContentProvidersRegistry implements IRegistryChangeListener
   public synchronized void dispose()
   {
     if (initialized)
-    {    
+    {
       Platform.getExtensionRegistry().removeRegistryChangeListener(this);
       contentProviders.clear();
       initialized = false;
@@ -84,16 +86,16 @@ public class ContentProvidersRegistry implements IRegistryChangeListener
         int kind = delta.getKind();
         switch (kind)
         {
-          case IExtensionDelta.ADDED:
-            addExtension(extension, event);
-            break;
-          case IExtensionDelta.REMOVED:
-            removeExtension(extension, event);
-            break;
+        case IExtensionDelta.ADDED:
+          addExtension(extension, event);
+          break;
+        case IExtensionDelta.REMOVED:
+          removeExtension(extension, event);
+          break;
         }
       }
     }
-    
+
     event.dispatch();
   }
 
@@ -109,11 +111,12 @@ public class ContentProvidersRegistry implements IRegistryChangeListener
     {
       ex.printStackTrace();
     }
-  }   
+  }
 
   private void removeExtension(IExtension origin, ChangeEvent event)
   {
-    ContentProvidersExtension[] extensions = contentProviders.toArray(new ContentProvidersExtension[contentProviders.size()]);
+    ContentProvidersExtension[] extensions = contentProviders
+            .toArray(new ContentProvidersExtension[contentProviders.size()]);
     for (ContentProvidersExtension extension : extensions)
     {
       if (extension.getOrigin().equals(origin))
@@ -122,8 +125,8 @@ public class ContentProvidersRegistry implements IRegistryChangeListener
         event.removeExtension(extension);
         break;
       }
-    } 
-  }   
+    }
+  }
 
   private List filter(List items, Class baseClass)
   {
@@ -136,45 +139,45 @@ public class ContentProvidersRegistry implements IRegistryChangeListener
         result.add(item);
       }
     }
-    
+
     return result;
   }
-  
+
   public class ChangeEvent
   {
     private List<ContentProvidersExtension> added = new ArrayList<ContentProvidersExtension>();
 
     private List<ContentProvidersExtension> removed = new ArrayList<ContentProvidersExtension>();
-    
+
     private ChangeEvent()
     {
     }
-    
+
     public ContentProvidersRegistry getSource()
     {
       return ContentProvidersRegistry.this;
     }
-    
+
     public ContentProvidersExtension[] getAddedExtensions()
     {
       return added.toArray(new ContentProvidersExtension[added.size()]);
     }
-    
+
     public ContentProvidersExtension[] getRemovedExtensions()
     {
       return removed.toArray(new ContentProvidersExtension[removed.size()]);
     }
-    
+
     private void addExtension(ContentProvidersExtension extension)
     {
       added.add(extension);
     }
-    
+
     private void removeExtension(ContentProvidersExtension extension)
     {
       removed.add(extension);
     }
-    
+
     private void dispatch()
     {
       if (added.isEmpty() && removed.isEmpty()) return;
@@ -191,7 +194,7 @@ public class ContentProvidersRegistry implements IRegistryChangeListener
       }
     }
   }
-  
+
   public interface Listener
   {
     public void notifyContentProvidersRegistryChanged(ChangeEvent event);

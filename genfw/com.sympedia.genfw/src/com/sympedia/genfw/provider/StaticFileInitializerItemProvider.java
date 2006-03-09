@@ -14,7 +14,6 @@ package com.sympedia.genfw.provider;
 import com.sympedia.genfw.GenfwFactory;
 import com.sympedia.genfw.GenfwPackage;
 import com.sympedia.genfw.StaticFileInitializer;
-
 import com.sympedia.genfw.internal.GenfwActivator;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
