@@ -553,20 +553,20 @@ public class GenfwItemProviderAdapterFactory extends GenfwAdapterFactory impleme
   {
     if (genLibItemProvider != null) genLibItemProvider.dispose();
     if (genAppItemProvider != null) genAppItemProvider.dispose();
+    if (contextItemProvider != null) contextItemProvider.dispose();
+    if (domContentProviderItemProvider != null) domContentProviderItemProvider.dispose();
     if (ecoreContentProviderItemProvider != null) ecoreContentProviderItemProvider.dispose();
     if (propertiesContentProviderItemProvider != null)
       propertiesContentProviderItemProvider.dispose();
     if (ruleSetItemProvider != null) ruleSetItemProvider.dispose();
     if (staticRuleItemProvider != null) staticRuleItemProvider.dispose();
-    if (domTransformerItemProvider != null) domTransformerItemProvider.dispose();
     if (initialGeneratorItemProvider != null) initialGeneratorItemProvider.dispose();
+    if (domTransformerItemProvider != null) domTransformerItemProvider.dispose();
     if (staticFileInitializerItemProvider != null) staticFileInitializerItemProvider.dispose();
+    if (identityGeneratorItemProvider != null) identityGeneratorItemProvider.dispose();
     if (lineItemProvider != null) lineItemProvider.dispose();
     if (projectInitializerItemProvider != null) projectInitializerItemProvider.dispose();
     if (inputItemProvider != null) inputItemProvider.dispose();
-    if (contextItemProvider != null) contextItemProvider.dispose();
-    if (domContentProviderItemProvider != null) domContentProviderItemProvider.dispose();
-    if (identityGeneratorItemProvider != null) identityGeneratorItemProvider.dispose();
   }
 
 }

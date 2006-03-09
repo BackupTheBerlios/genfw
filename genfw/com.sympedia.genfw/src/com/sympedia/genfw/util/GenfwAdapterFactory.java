@@ -119,9 +119,19 @@ public class GenfwAdapterFactory extends AdapterFactoryImpl
       return createLifeCycleAdapter();
     }
 
+    public Object caseContext(Context object)
+    {
+      return createContextAdapter();
+    }
+
     public Object caseContentProvider(ContentProvider object)
     {
       return createContentProviderAdapter();
+    }
+
+    public Object caseDomContentProvider(DomContentProvider object)
+    {
+      return createDomContentProviderAdapter();
     }
 
     public Object caseEcoreContentProvider(EcoreContentProvider object)
@@ -164,6 +174,11 @@ public class GenfwAdapterFactory extends AdapterFactoryImpl
       return createDelegatingGeneratorAdapter();
     }
 
+    public Object caseInitialGenerator(InitialGenerator object)
+    {
+      return createInitialGeneratorAdapter();
+    }
+
     public Object caseDomTransformer(DomTransformer object)
     {
       return createDomTransformerAdapter();
@@ -174,14 +189,14 @@ public class GenfwAdapterFactory extends AdapterFactoryImpl
       return createDomTransformationAdapter();
     }
 
-    public Object caseInitialGenerator(InitialGenerator object)
-    {
-      return createInitialGeneratorAdapter();
-    }
-
     public Object caseStaticFileInitializer(StaticFileInitializer object)
     {
       return createStaticFileInitializerAdapter();
+    }
+
+    public Object caseIdentityGenerator(IdentityGenerator object)
+    {
+      return createIdentityGeneratorAdapter();
     }
 
     public Object caseLine(Line object)
@@ -202,21 +217,6 @@ public class GenfwAdapterFactory extends AdapterFactoryImpl
     public Object caseInput(Input object)
     {
       return createInputAdapter();
-    }
-
-    public Object caseContext(Context object)
-    {
-      return createContextAdapter();
-    }
-
-    public Object caseDomContentProvider(DomContentProvider object)
-    {
-      return createDomContentProviderAdapter();
-    }
-
-    public Object caseIdentityGenerator(IdentityGenerator object)
-    {
-      return createIdentityGeneratorAdapter();
     }
 
     public Object defaultCase(EObject object)

@@ -9,13 +9,13 @@
   <foreignModel>genfw.ecore</foreignModel>
   <genPackages prefix="Genfw" basePackage="com.sympedia" disposableProviderFactory="true"
       ecorePackage="genfw.ecore#/">
+    <genDataTypes ecoreDataType="genfw.ecore#//ClassLoader"/>
     <genDataTypes ecoreDataType="genfw.ecore#//IPath"/>
     <genDataTypes ecoreDataType="genfw.ecore#//JavaList"/>
-    <genDataTypes ecoreDataType="genfw.ecore#//CoreException"/>
-    <genDataTypes ecoreDataType="genfw.ecore#//IProgressMonitor"/>
-    <genDataTypes ecoreDataType="genfw.ecore#//ClassLoader"/>
     <genDataTypes ecoreDataType="genfw.ecore#//OutputStream"/>
     <genDataTypes ecoreDataType="genfw.ecore#//Exception"/>
+    <genDataTypes ecoreDataType="genfw.ecore#//CoreException"/>
+    <genDataTypes ecoreDataType="genfw.ecore#//IProgressMonitor"/>
     <genDataTypes ecoreDataType="genfw.ecore#//DomDocument"/>
     <genDataTypes ecoreDataType="genfw.ecore#//PathSet"/>
     <genClasses ecoreClass="genfw.ecore#//GenLib">
@@ -36,6 +36,17 @@
       <genOperations ecoreOperation="genfw.ecore#//LifeCycle/dispose"/>
       <genOperations ecoreOperation="genfw.ecore#//LifeCycle/getRoot"/>
     </genClasses>
+    <genClasses ecoreClass="genfw.ecore#//Context">
+      <genFeatures property="Readonly" notify="false" createChild="false" ecoreFeature="ecore:EReference genfw.ecore#//Context/runtime"/>
+      <genOperations ecoreOperation="genfw.ecore#//Context/addInputPath">
+        <genParameters ecoreParameter="genfw.ecore#//Context/addInputPath/fullPath"/>
+      </genOperations>
+      <genOperations ecoreOperation="genfw.ecore#//Context/addTargetPath">
+        <genParameters ecoreParameter="genfw.ecore#//Context/addTargetPath/fullPath"/>
+      </genOperations>
+      <genOperations ecoreOperation="genfw.ecore#//Context/getInputPaths"/>
+      <genOperations ecoreOperation="genfw.ecore#//Context/getTargetPaths"/>
+    </genClasses>
     <genClasses ecoreClass="genfw.ecore#//ContentProvider">
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference genfw.ecore#//ContentProvider/root"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute genfw.ecore#//ContentProvider/name"/>
@@ -46,6 +57,7 @@
         <genParameters ecoreParameter="genfw.ecore#//ContentProvider/getChildren/object"/>
       </genOperations>
     </genClasses>
+    <genClasses ecoreClass="genfw.ecore#//DomContentProvider"/>
     <genClasses ecoreClass="genfw.ecore#//EcoreContentProvider"/>
     <genClasses ecoreClass="genfw.ecore#//PropertiesContentProvider"/>
     <genClasses ecoreClass="genfw.ecore#//RuleSet">
@@ -92,6 +104,7 @@
     <genClasses image="false" ecoreClass="genfw.ecore#//DelegatingGenerator">
       <genFeatures createChild="false" ecoreFeature="ecore:EReference genfw.ecore#//DelegatingGenerator/delegate"/>
     </genClasses>
+    <genClasses ecoreClass="genfw.ecore#//InitialGenerator"/>
     <genClasses ecoreClass="genfw.ecore#//DomTransformer">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference genfw.ecore#//DomTransformer/transformations"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute genfw.ecore#//DomTransformer/encoding"/>
@@ -118,11 +131,11 @@
         <genParameters ecoreParameter="genfw.ecore#//DomTransformation/transform/monitor"/>
       </genOperations>
     </genClasses>
-    <genClasses ecoreClass="genfw.ecore#//InitialGenerator"/>
     <genClasses ecoreClass="genfw.ecore#//StaticFileInitializer">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute genfw.ecore#//StaticFileInitializer/fileURL"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference genfw.ecore#//StaticFileInitializer/lines"/>
     </genClasses>
+    <genClasses ecoreClass="genfw.ecore#//IdentityGenerator"/>
     <genClasses ecoreClass="genfw.ecore#//Line">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute genfw.ecore#//Line/content"/>
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference genfw.ecore#//Line/staticFileInitializer"/>
@@ -136,17 +149,5 @@
       <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference genfw.ecore#//Input/contentProvider"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EReference genfw.ecore#//Input/ruleSets"/>
     </genClasses>
-    <genClasses ecoreClass="genfw.ecore#//Context">
-      <genFeatures property="Readonly" notify="false" createChild="false" ecoreFeature="ecore:EReference genfw.ecore#//Context/runtime"/>
-      <genOperations ecoreOperation="genfw.ecore#//Context/addInputPath">
-        <genParameters ecoreParameter="genfw.ecore#//Context/addInputPath/fullPath"/>
-      </genOperations>
-      <genOperations ecoreOperation="genfw.ecore#//Context/addTargetPath">
-        <genParameters ecoreParameter="genfw.ecore#//Context/addTargetPath/fullPath"/>
-      </genOperations>
-      <genOperations ecoreOperation="genfw.ecore#//Context/getInputPaths"/>
-      <genOperations ecoreOperation="genfw.ecore#//Context/getTargetPaths"/>
-    </genClasses>
-    <genClasses ecoreClass="genfw.ecore#//DomContentProvider"/>
   </genPackages>
 </genmodel:GenModel>

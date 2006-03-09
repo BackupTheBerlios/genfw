@@ -146,11 +146,27 @@ public class GenfwSwitch
       if (result == null) result = defaultCase(theEObject);
       return result;
     }
+    case GenfwPackage.CONTEXT:
+    {
+      Context context = (Context)theEObject;
+      Object result = caseContext(context);
+      if (result == null) result = defaultCase(theEObject);
+      return result;
+    }
     case GenfwPackage.CONTENT_PROVIDER:
     {
       ContentProvider contentProvider = (ContentProvider)theEObject;
       Object result = caseContentProvider(contentProvider);
       if (result == null) result = caseLifeCycle(contentProvider);
+      if (result == null) result = defaultCase(theEObject);
+      return result;
+    }
+    case GenfwPackage.DOM_CONTENT_PROVIDER:
+    {
+      DomContentProvider domContentProvider = (DomContentProvider)theEObject;
+      Object result = caseDomContentProvider(domContentProvider);
+      if (result == null) result = caseContentProvider(domContentProvider);
+      if (result == null) result = caseLifeCycle(domContentProvider);
       if (result == null) result = defaultCase(theEObject);
       return result;
     }
@@ -223,6 +239,16 @@ public class GenfwSwitch
       if (result == null) result = defaultCase(theEObject);
       return result;
     }
+    case GenfwPackage.INITIAL_GENERATOR:
+    {
+      InitialGenerator initialGenerator = (InitialGenerator)theEObject;
+      Object result = caseInitialGenerator(initialGenerator);
+      if (result == null) result = caseDelegatingGenerator(initialGenerator);
+      if (result == null) result = caseGenerator(initialGenerator);
+      if (result == null) result = caseLifeCycle(initialGenerator);
+      if (result == null) result = defaultCase(theEObject);
+      return result;
+    }
     case GenfwPackage.DOM_TRANSFORMER:
     {
       DomTransformer domTransformer = (DomTransformer)theEObject;
@@ -240,22 +266,21 @@ public class GenfwSwitch
       if (result == null) result = defaultCase(theEObject);
       return result;
     }
-    case GenfwPackage.INITIAL_GENERATOR:
-    {
-      InitialGenerator initialGenerator = (InitialGenerator)theEObject;
-      Object result = caseInitialGenerator(initialGenerator);
-      if (result == null) result = caseDelegatingGenerator(initialGenerator);
-      if (result == null) result = caseGenerator(initialGenerator);
-      if (result == null) result = caseLifeCycle(initialGenerator);
-      if (result == null) result = defaultCase(theEObject);
-      return result;
-    }
     case GenfwPackage.STATIC_FILE_INITIALIZER:
     {
       StaticFileInitializer staticFileInitializer = (StaticFileInitializer)theEObject;
       Object result = caseStaticFileInitializer(staticFileInitializer);
       if (result == null) result = caseGenerator(staticFileInitializer);
       if (result == null) result = caseLifeCycle(staticFileInitializer);
+      if (result == null) result = defaultCase(theEObject);
+      return result;
+    }
+    case GenfwPackage.IDENTITY_GENERATOR:
+    {
+      IdentityGenerator identityGenerator = (IdentityGenerator)theEObject;
+      Object result = caseIdentityGenerator(identityGenerator);
+      if (result == null) result = caseGenerator(identityGenerator);
+      if (result == null) result = caseLifeCycle(identityGenerator);
       if (result == null) result = defaultCase(theEObject);
       return result;
     }
@@ -287,31 +312,6 @@ public class GenfwSwitch
       Input input = (Input)theEObject;
       Object result = caseInput(input);
       if (result == null) result = caseLifeCycle(input);
-      if (result == null) result = defaultCase(theEObject);
-      return result;
-    }
-    case GenfwPackage.CONTEXT:
-    {
-      Context context = (Context)theEObject;
-      Object result = caseContext(context);
-      if (result == null) result = defaultCase(theEObject);
-      return result;
-    }
-    case GenfwPackage.DOM_CONTENT_PROVIDER:
-    {
-      DomContentProvider domContentProvider = (DomContentProvider)theEObject;
-      Object result = caseDomContentProvider(domContentProvider);
-      if (result == null) result = caseContentProvider(domContentProvider);
-      if (result == null) result = caseLifeCycle(domContentProvider);
-      if (result == null) result = defaultCase(theEObject);
-      return result;
-    }
-    case GenfwPackage.IDENTITY_GENERATOR:
-    {
-      IdentityGenerator identityGenerator = (IdentityGenerator)theEObject;
-      Object result = caseIdentityGenerator(identityGenerator);
-      if (result == null) result = caseGenerator(identityGenerator);
-      if (result == null) result = caseLifeCycle(identityGenerator);
       if (result == null) result = defaultCase(theEObject);
       return result;
     }

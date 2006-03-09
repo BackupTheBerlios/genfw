@@ -102,6 +102,10 @@ public class GenfwFactoryImpl extends EFactoryImpl implements GenfwFactory
       return createGenLib();
     case GenfwPackage.GEN_APP:
       return createGenApp();
+    case GenfwPackage.CONTEXT:
+      return createContext();
+    case GenfwPackage.DOM_CONTENT_PROVIDER:
+      return createDomContentProvider();
     case GenfwPackage.ECORE_CONTENT_PROVIDER:
       return createEcoreContentProvider();
     case GenfwPackage.PROPERTIES_CONTENT_PROVIDER:
@@ -110,24 +114,20 @@ public class GenfwFactoryImpl extends EFactoryImpl implements GenfwFactory
       return createRuleSet();
     case GenfwPackage.STATIC_RULE:
       return createStaticRule();
-    case GenfwPackage.DOM_TRANSFORMER:
-      return createDomTransformer();
     case GenfwPackage.INITIAL_GENERATOR:
       return createInitialGenerator();
+    case GenfwPackage.DOM_TRANSFORMER:
+      return createDomTransformer();
     case GenfwPackage.STATIC_FILE_INITIALIZER:
       return createStaticFileInitializer();
+    case GenfwPackage.IDENTITY_GENERATOR:
+      return createIdentityGenerator();
     case GenfwPackage.LINE:
       return createLine();
     case GenfwPackage.PROJECT_INITIALIZER:
       return createProjectInitializer();
     case GenfwPackage.INPUT:
       return createInput();
-    case GenfwPackage.CONTEXT:
-      return createContext();
-    case GenfwPackage.DOM_CONTENT_PROVIDER:
-      return createDomContentProvider();
-    case GenfwPackage.IDENTITY_GENERATOR:
-      return createIdentityGenerator();
     default:
       throw new IllegalArgumentException("The class '" + eClass.getName()
               + "' is not a valid classifier");
@@ -143,20 +143,20 @@ public class GenfwFactoryImpl extends EFactoryImpl implements GenfwFactory
   {
     switch (eDataType.getClassifierID())
     {
+    case GenfwPackage.CLASS_LOADER:
+      return createClassLoaderFromString(eDataType, initialValue);
     case GenfwPackage.IPATH:
       return createIPathFromString(eDataType, initialValue);
     case GenfwPackage.JAVA_LIST:
       return createJavaListFromString(eDataType, initialValue);
-    case GenfwPackage.CORE_EXCEPTION:
-      return createCoreExceptionFromString(eDataType, initialValue);
-    case GenfwPackage.IPROGRESS_MONITOR:
-      return createIProgressMonitorFromString(eDataType, initialValue);
-    case GenfwPackage.CLASS_LOADER:
-      return createClassLoaderFromString(eDataType, initialValue);
     case GenfwPackage.OUTPUT_STREAM:
       return createOutputStreamFromString(eDataType, initialValue);
     case GenfwPackage.EXCEPTION:
       return createExceptionFromString(eDataType, initialValue);
+    case GenfwPackage.CORE_EXCEPTION:
+      return createCoreExceptionFromString(eDataType, initialValue);
+    case GenfwPackage.IPROGRESS_MONITOR:
+      return createIProgressMonitorFromString(eDataType, initialValue);
     case GenfwPackage.DOM_DOCUMENT:
       return createDomDocumentFromString(eDataType, initialValue);
     case GenfwPackage.PATH_SET:
@@ -176,20 +176,20 @@ public class GenfwFactoryImpl extends EFactoryImpl implements GenfwFactory
   {
     switch (eDataType.getClassifierID())
     {
+    case GenfwPackage.CLASS_LOADER:
+      return convertClassLoaderToString(eDataType, instanceValue);
     case GenfwPackage.IPATH:
       return convertIPathToString(eDataType, instanceValue);
     case GenfwPackage.JAVA_LIST:
       return convertJavaListToString(eDataType, instanceValue);
-    case GenfwPackage.CORE_EXCEPTION:
-      return convertCoreExceptionToString(eDataType, instanceValue);
-    case GenfwPackage.IPROGRESS_MONITOR:
-      return convertIProgressMonitorToString(eDataType, instanceValue);
-    case GenfwPackage.CLASS_LOADER:
-      return convertClassLoaderToString(eDataType, instanceValue);
     case GenfwPackage.OUTPUT_STREAM:
       return convertOutputStreamToString(eDataType, instanceValue);
     case GenfwPackage.EXCEPTION:
       return convertExceptionToString(eDataType, instanceValue);
+    case GenfwPackage.CORE_EXCEPTION:
+      return convertCoreExceptionToString(eDataType, instanceValue);
+    case GenfwPackage.IPROGRESS_MONITOR:
+      return convertIProgressMonitorToString(eDataType, instanceValue);
     case GenfwPackage.DOM_DOCUMENT:
       return convertDomDocumentToString(eDataType, instanceValue);
     case GenfwPackage.PATH_SET:

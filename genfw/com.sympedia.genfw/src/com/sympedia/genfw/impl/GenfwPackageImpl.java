@@ -1230,9 +1230,14 @@ public class GenfwPackageImpl extends EPackageImpl implements GenfwPackage
 
     lifeCycleEClass = createEClass(LIFE_CYCLE);
 
+    contextEClass = createEClass(CONTEXT);
+    createEReference(contextEClass, CONTEXT__RUNTIME);
+
     contentProviderEClass = createEClass(CONTENT_PROVIDER);
     createEReference(contentProviderEClass, CONTENT_PROVIDER__ROOT);
     createEAttribute(contentProviderEClass, CONTENT_PROVIDER__NAME);
+
+    domContentProviderEClass = createEClass(DOM_CONTENT_PROVIDER);
 
     ecoreContentProviderEClass = createEClass(ECORE_CONTENT_PROVIDER);
 
@@ -1268,6 +1273,8 @@ public class GenfwPackageImpl extends EPackageImpl implements GenfwPackage
     delegatingGeneratorEClass = createEClass(DELEGATING_GENERATOR);
     createEReference(delegatingGeneratorEClass, DELEGATING_GENERATOR__DELEGATE);
 
+    initialGeneratorEClass = createEClass(INITIAL_GENERATOR);
+
     domTransformerEClass = createEClass(DOM_TRANSFORMER);
     createEReference(domTransformerEClass, DOM_TRANSFORMER__TRANSFORMATIONS);
     createEAttribute(domTransformerEClass, DOM_TRANSFORMER__ENCODING);
@@ -1289,11 +1296,11 @@ public class GenfwPackageImpl extends EPackageImpl implements GenfwPackage
     createEReference(domTransformationEClass, DOM_TRANSFORMATION__TRANSFORMER);
     createEAttribute(domTransformationEClass, DOM_TRANSFORMATION__LABEL);
 
-    initialGeneratorEClass = createEClass(INITIAL_GENERATOR);
-
     staticFileInitializerEClass = createEClass(STATIC_FILE_INITIALIZER);
     createEAttribute(staticFileInitializerEClass, STATIC_FILE_INITIALIZER__FILE_URL);
     createEReference(staticFileInitializerEClass, STATIC_FILE_INITIALIZER__LINES);
+
+    identityGeneratorEClass = createEClass(IDENTITY_GENERATOR);
 
     lineEClass = createEClass(LINE);
     createEAttribute(lineEClass, LINE__CONTENT);
@@ -1310,21 +1317,14 @@ public class GenfwPackageImpl extends EPackageImpl implements GenfwPackage
     createEReference(inputEClass, INPUT__CONTENT_PROVIDER);
     createEReference(inputEClass, INPUT__RULE_SETS);
 
-    contextEClass = createEClass(CONTEXT);
-    createEReference(contextEClass, CONTEXT__RUNTIME);
-
-    domContentProviderEClass = createEClass(DOM_CONTENT_PROVIDER);
-
-    identityGeneratorEClass = createEClass(IDENTITY_GENERATOR);
-
     // Create data types
+    classLoaderEDataType = createEDataType(CLASS_LOADER);
     iPathEDataType = createEDataType(IPATH);
     javaListEDataType = createEDataType(JAVA_LIST);
-    coreExceptionEDataType = createEDataType(CORE_EXCEPTION);
-    iProgressMonitorEDataType = createEDataType(IPROGRESS_MONITOR);
-    classLoaderEDataType = createEDataType(CLASS_LOADER);
     outputStreamEDataType = createEDataType(OUTPUT_STREAM);
     exceptionEDataType = createEDataType(EXCEPTION);
+    coreExceptionEDataType = createEDataType(CORE_EXCEPTION);
+    iProgressMonitorEDataType = createEDataType(IPROGRESS_MONITOR);
     domDocumentEDataType = createEDataType(DOM_DOCUMENT);
     pathSetEDataType = createEDataType(PATH_SET);
   }
@@ -1356,6 +1356,7 @@ public class GenfwPackageImpl extends EPackageImpl implements GenfwPackage
     // Add supertypes to classes
     genAppEClass.getESuperTypes().add(this.getGenLib());
     contentProviderEClass.getESuperTypes().add(this.getLifeCycle());
+    domContentProviderEClass.getESuperTypes().add(this.getContentProvider());
     ecoreContentProviderEClass.getESuperTypes().add(this.getContentProvider());
     propertiesContentProviderEClass.getESuperTypes().add(this.getContentProvider());
     ruleSetEClass.getESuperTypes().add(this.getLifeCycle());
@@ -1364,14 +1365,13 @@ public class GenfwPackageImpl extends EPackageImpl implements GenfwPackage
     expressionBasedRuleEClass.getESuperTypes().add(this.getRule());
     generatorEClass.getESuperTypes().add(this.getLifeCycle());
     delegatingGeneratorEClass.getESuperTypes().add(this.getGenerator());
+    initialGeneratorEClass.getESuperTypes().add(this.getDelegatingGenerator());
     domTransformerEClass.getESuperTypes().add(this.getGenerator());
     domTransformationEClass.getESuperTypes().add(this.getLifeCycle());
-    initialGeneratorEClass.getESuperTypes().add(this.getDelegatingGenerator());
     staticFileInitializerEClass.getESuperTypes().add(this.getGenerator());
+    identityGeneratorEClass.getESuperTypes().add(this.getGenerator());
     projectInitializerEClass.getESuperTypes().add(this.getGenerator());
     inputEClass.getESuperTypes().add(this.getLifeCycle());
-    domContentProviderEClass.getESuperTypes().add(this.getContentProvider());
-    identityGeneratorEClass.getESuperTypes().add(this.getGenerator());
 
     // Initialize classes and features; add operations and parameters
     initEClass(genLibEClass, GenLib.class, "GenLib", !IS_ABSTRACT, !IS_INTERFACE,
@@ -1407,6 +1407,22 @@ public class GenfwPackageImpl extends EPackageImpl implements GenfwPackage
 
     addEOperation(lifeCycleEClass, this.getGenLib(), "getRoot", 0, 1);
 
+    initEClass(contextEClass, Context.class, "Context", !IS_ABSTRACT, !IS_INTERFACE,
+            IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getContext_Runtime(), this.getGenApp(), null, "runtime", null, 0, 1,
+            Context.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE,
+            !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
+
+    op = addEOperation(contextEClass, null, "addInputPath");
+    addEParameter(op, ecorePackage.getEString(), "fullPath", 0, 1);
+
+    op = addEOperation(contextEClass, null, "addTargetPath");
+    addEParameter(op, ecorePackage.getEString(), "fullPath", 0, 1);
+
+    addEOperation(contextEClass, this.getPathSet(), "getInputPaths", 0, 1);
+
+    addEOperation(contextEClass, this.getPathSet(), "getTargetPaths", 0, 1);
+
     initEClass(contentProviderEClass, ContentProvider.class, "ContentProvider", IS_ABSTRACT,
             !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getContentProvider_Root(), this.getGenLib(), this.getGenLib_ContentProviders(),
@@ -1423,6 +1439,9 @@ public class GenfwPackageImpl extends EPackageImpl implements GenfwPackage
     op = addEOperation(contentProviderEClass, this.getJavaList(), "getChildren", 0, 1);
     addEParameter(op, ecorePackage.getEJavaObject(), "object", 0, 1);
     addEException(op, this.getException());
+
+    initEClass(domContentProviderEClass, DomContentProvider.class, "DomContentProvider",
+            !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
     initEClass(ecoreContentProviderEClass, EcoreContentProvider.class, "EcoreContentProvider",
             !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -1520,6 +1539,9 @@ public class GenfwPackageImpl extends EPackageImpl implements GenfwPackage
             1, 1, DelegatingGenerator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
             !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
+    initEClass(initialGeneratorEClass, InitialGenerator.class, "InitialGenerator", !IS_ABSTRACT,
+            !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
     initEClass(domTransformerEClass, DomTransformer.class, "DomTransformer", !IS_ABSTRACT,
             !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getDomTransformer_Transformations(), this.getDomTransformation(), this
@@ -1585,9 +1607,6 @@ public class GenfwPackageImpl extends EPackageImpl implements GenfwPackage
     addEParameter(op, this.getIProgressMonitor(), "monitor", 0, 1);
     addEException(op, this.getException());
 
-    initEClass(initialGeneratorEClass, InitialGenerator.class, "InitialGenerator", !IS_ABSTRACT,
-            !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
     initEClass(staticFileInitializerEClass, StaticFileInitializer.class, "StaticFileInitializer",
             !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getStaticFileInitializer_FileURL(), ecorePackage.getEString(), "fileURL", null,
@@ -1597,6 +1616,9 @@ public class GenfwPackageImpl extends EPackageImpl implements GenfwPackage
             .getLine_StaticFileInitializer(), "lines", null, 0, -1, StaticFileInitializer.class,
             !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
             !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(identityGeneratorEClass, IdentityGenerator.class, "IdentityGenerator", !IS_ABSTRACT,
+            !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
     initEClass(lineEClass, Line.class, "Line", !IS_ABSTRACT, !IS_INTERFACE,
             IS_GENERATED_INSTANCE_CLASS);
@@ -1632,43 +1654,21 @@ public class GenfwPackageImpl extends EPackageImpl implements GenfwPackage
             Input.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
             IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-    initEClass(contextEClass, Context.class, "Context", !IS_ABSTRACT, !IS_INTERFACE,
-            IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getContext_Runtime(), this.getGenApp(), null, "runtime", null, 0, 1,
-            Context.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE,
-            !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
-
-    op = addEOperation(contextEClass, null, "addInputPath");
-    addEParameter(op, ecorePackage.getEString(), "fullPath", 0, 1);
-
-    op = addEOperation(contextEClass, null, "addTargetPath");
-    addEParameter(op, ecorePackage.getEString(), "fullPath", 0, 1);
-
-    addEOperation(contextEClass, this.getPathSet(), "getInputPaths", 0, 1);
-
-    addEOperation(contextEClass, this.getPathSet(), "getTargetPaths", 0, 1);
-
-    initEClass(domContentProviderEClass, DomContentProvider.class, "DomContentProvider",
-            !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-    initEClass(identityGeneratorEClass, IdentityGenerator.class, "IdentityGenerator", !IS_ABSTRACT,
-            !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
     // Initialize data types
+    initEDataType(classLoaderEDataType, ClassLoader.class, "ClassLoader", IS_SERIALIZABLE,
+            !IS_GENERATED_INSTANCE_CLASS);
     initEDataType(iPathEDataType, IPath.class, "IPath", IS_SERIALIZABLE,
             !IS_GENERATED_INSTANCE_CLASS);
     initEDataType(javaListEDataType, List.class, "JavaList", IS_SERIALIZABLE,
-            !IS_GENERATED_INSTANCE_CLASS);
-    initEDataType(coreExceptionEDataType, CoreException.class, "CoreException", IS_SERIALIZABLE,
-            !IS_GENERATED_INSTANCE_CLASS);
-    initEDataType(iProgressMonitorEDataType, IProgressMonitor.class, "IProgressMonitor",
-            IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
-    initEDataType(classLoaderEDataType, ClassLoader.class, "ClassLoader", IS_SERIALIZABLE,
             !IS_GENERATED_INSTANCE_CLASS);
     initEDataType(outputStreamEDataType, OutputStream.class, "OutputStream", IS_SERIALIZABLE,
             !IS_GENERATED_INSTANCE_CLASS);
     initEDataType(exceptionEDataType, Exception.class, "Exception", IS_SERIALIZABLE,
             !IS_GENERATED_INSTANCE_CLASS);
+    initEDataType(coreExceptionEDataType, CoreException.class, "CoreException", IS_SERIALIZABLE,
+            !IS_GENERATED_INSTANCE_CLASS);
+    initEDataType(iProgressMonitorEDataType, IProgressMonitor.class, "IProgressMonitor",
+            IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
     initEDataType(domDocumentEDataType, Document.class, "DomDocument", IS_SERIALIZABLE,
             !IS_GENERATED_INSTANCE_CLASS);
     initEDataType(pathSetEDataType, Set.class, "PathSet", IS_SERIALIZABLE,
