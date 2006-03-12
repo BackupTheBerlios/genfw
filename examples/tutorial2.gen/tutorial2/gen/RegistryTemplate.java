@@ -72,7 +72,7 @@ public class RegistryTemplate
 
   public String generate(Object argument)
   {
-    StringBuffer stringBuffer = new StringBuffer();
+    final StringBuffer stringBuffer = new StringBuffer();
     
 Element element = (Element)argument;
 String pluginId = ExtPointHelper.getPluginId(element);

@@ -54,6 +54,7 @@ import org.eclipse.emf.edit.ui.dnd.LocalTransfer;
 import org.eclipse.emf.edit.ui.dnd.ViewerDragAdapter;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryContentProvider;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider;
+import org.eclipse.emf.edit.ui.provider.CreateChildImageOverlayer;
 import org.eclipse.emf.edit.ui.provider.PropertyDescriptor;
 import org.eclipse.emf.edit.ui.provider.PropertySource;
 import org.eclipse.emf.edit.ui.view.ExtendedPropertySheetPage;
@@ -578,6 +579,14 @@ public class GenfwEditor extends MultiPageEditorPart implements IEditingDomainPr
     // Create the editing domain with a special command stack.
     //
     editingDomain = new AdapterFactoryEditingDomain(adapterFactory, commandStack, new HashMap());
+
+    try
+    {
+      editingDomain.getResourceSet().eAdapters().add(new CreateChildImageOverlayer());
+    }
+    catch (Exception ignore)
+    {
+    }
   }
 
   /**

@@ -89,7 +89,7 @@ public class ElementTemplate
 
   public String generate(Object argument)
   {
-    StringBuffer stringBuffer = new StringBuffer();
+    final StringBuffer stringBuffer = new StringBuffer();
     
 Element element = (Element)argument;
 boolean isExtension = ExtPointHelper.isExtension(element);

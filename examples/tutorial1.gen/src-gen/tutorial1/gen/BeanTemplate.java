@@ -26,7 +26,7 @@ public class BeanTemplate
 
   public String generate(Object argument)
   {
-    StringBuffer stringBuffer = new StringBuffer();
+    final StringBuffer stringBuffer = new StringBuffer();
     Bean bean = (Bean)argument;
     stringBuffer.append(TEXT_1);
     stringBuffer.append(bean.getBeanLibrary().getPackageName());
