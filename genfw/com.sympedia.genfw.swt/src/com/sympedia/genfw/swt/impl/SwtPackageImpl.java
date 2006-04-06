@@ -2,13 +2,13 @@
  * <copyright>
  * </copyright>
  *
- * $Id: SwtPackageImpl.java,v 1.1 2006/03/06 07:56:47 stepper Exp $
+ * $Id: SwtPackageImpl.java,v 1.2 2006/04/06 20:54:24 stepper Exp $
  */
 package com.sympedia.genfw.swt.impl;
 
-
 import com.sympedia.genfw.GenfwPackage;
 
+import com.sympedia.genfw.swt.CreateChildOverlayer;
 import com.sympedia.genfw.impl.GenfwPackageImpl;
 
 import com.sympedia.genfw.swt.GifOverlayer;
@@ -21,205 +21,225 @@ import org.eclipse.emf.ecore.EPackage;
 
 import org.eclipse.emf.ecore.impl.EPackageImpl;
 
-
 /**
  * <!-- begin-user-doc -->
  * An implementation of the model <b>Package</b>.
  * <!-- end-user-doc -->
  * @generated
  */
-public class SwtPackageImpl extends EPackageImpl implements SwtPackage
-{
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass gifOverlayerEClass = null;
+public class SwtPackageImpl extends EPackageImpl implements SwtPackage {
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass gifOverlayerEClass = null;
 
-  /**
-   * Creates an instance of the model <b>Package</b>, registered with
-   * {@link org.eclipse.emf.ecore.EPackage.Registry EPackage.Registry} by the package
-   * package URI value.
-   * <p>Note: the correct way to create the package is via the static
-   * factory method {@link #init init()}, which also performs
-   * initialization of the package, or returns the registered package,
-   * if one already exists.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see org.eclipse.emf.ecore.EPackage.Registry
-   * @see com.sympedia.genfw.swt.SwtPackage#eNS_URI
-   * @see #init()
-   * @generated
-   */
-  private SwtPackageImpl()
-  {
-    super(eNS_URI, SwtFactory.eINSTANCE);
-  }
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass createChildOverlayerEClass = null;
 
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private static boolean isInited = false;
+	/**
+	 * Creates an instance of the model <b>Package</b>, registered with
+	 * {@link org.eclipse.emf.ecore.EPackage.Registry EPackage.Registry} by the package
+	 * package URI value.
+	 * <p>Note: the correct way to create the package is via the static
+	 * factory method {@link #init init()}, which also performs
+	 * initialization of the package, or returns the registered package,
+	 * if one already exists.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.emf.ecore.EPackage.Registry
+	 * @see com.sympedia.genfw.swt.SwtPackage#eNS_URI
+	 * @see #init()
+	 * @generated
+	 */
+	private SwtPackageImpl() {
+		super(eNS_URI, SwtFactory.eINSTANCE);
+	}
 
-  /**
-   * Creates, registers, and initializes the <b>Package</b> for this
-   * model, and for any others upon which it depends.  Simple
-   * dependencies are satisfied by calling this method on all
-   * dependent packages before doing anything else.  This method drives
-   * initialization for interdependent packages directly, in parallel
-   * with this package, itself.
-   * <p>Of this package and its interdependencies, all packages which
-   * have not yet been registered by their URI values are first created
-   * and registered.  The packages are then initialized in two steps:
-   * meta-model objects for all of the packages are created before any
-   * are initialized, since one package's meta-model objects may refer to
-   * those of another.
-   * <p>Invocation of this method will not affect any packages that have
-   * already been initialized.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #eNS_URI
-   * @see #createPackageContents()
-   * @see #initializePackageContents()
-   * @generated
-   */
-  public static SwtPackage init()
-  {
-    if (isInited) return (SwtPackage)EPackage.Registry.INSTANCE.getEPackage(SwtPackage.eNS_URI);
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private static boolean isInited = false;
 
-    // Obtain or create and register package
-    SwtPackageImpl theSwtPackage = (SwtPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(eNS_URI) instanceof SwtPackageImpl ? EPackage.Registry.INSTANCE
-            .getEPackage(eNS_URI)
-            : new SwtPackageImpl());
+	/**
+	 * Creates, registers, and initializes the <b>Package</b> for this
+	 * model, and for any others upon which it depends.  Simple
+	 * dependencies are satisfied by calling this method on all
+	 * dependent packages before doing anything else.  This method drives
+	 * initialization for interdependent packages directly, in parallel
+	 * with this package, itself.
+	 * <p>Of this package and its interdependencies, all packages which
+	 * have not yet been registered by their URI values are first created
+	 * and registered.  The packages are then initialized in two steps:
+	 * meta-model objects for all of the packages are created before any
+	 * are initialized, since one package's meta-model objects may refer to
+	 * those of another.
+	 * <p>Invocation of this method will not affect any packages that have
+	 * already been initialized.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #eNS_URI
+	 * @see #createPackageContents()
+	 * @see #initializePackageContents()
+	 * @generated
+	 */
+	public static SwtPackage init() {
+		if (isInited)
+			return (SwtPackage) EPackage.Registry.INSTANCE
+					.getEPackage(SwtPackage.eNS_URI);
 
-    isInited = true;
+		// Obtain or create and register package
+		SwtPackageImpl theSwtPackage = (SwtPackageImpl) (EPackage.Registry.INSTANCE
+				.getEPackage(eNS_URI) instanceof SwtPackageImpl ? EPackage.Registry.INSTANCE
+				.getEPackage(eNS_URI)
+				: new SwtPackageImpl());
 
-    // Initialize simple dependencies
-    GenfwPackageImpl.init();
+		isInited = true;
 
-    // Create package meta-data objects
-    theSwtPackage.createPackageContents();
+		// Initialize simple dependencies
+		GenfwPackage.eINSTANCE.eClass();
 
-    // Initialize created meta-data
-    theSwtPackage.initializePackageContents();
+		// Create package meta-data objects
+		theSwtPackage.createPackageContents();
 
-    // Mark meta-data to indicate it can't be changed
-    theSwtPackage.freeze();
+		// Initialize created meta-data
+		theSwtPackage.initializePackageContents();
 
-    return theSwtPackage;
-  }
+		// Mark meta-data to indicate it can't be changed
+		theSwtPackage.freeze();
 
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getGifOverlayer()
-  {
-    return gifOverlayerEClass;
-  }
+		return theSwtPackage;
+	}
 
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EAttribute getGifOverlayer_OverlayURL()
-  {
-    return (EAttribute)gifOverlayerEClass.getEStructuralFeatures().get(0);
-  }
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getGifOverlayer() {
+		return gifOverlayerEClass;
+	}
 
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EAttribute getGifOverlayer_Underlay()
-  {
-    return (EAttribute)gifOverlayerEClass.getEStructuralFeatures().get(1);
-  }
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGifOverlayer_OverlayURL() {
+		return (EAttribute) gifOverlayerEClass.getEStructuralFeatures().get(0);
+	}
 
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public SwtFactory getSwtFactory()
-  {
-    return (SwtFactory)getEFactoryInstance();
-  }
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGifOverlayer_Underlay() {
+		return (EAttribute) gifOverlayerEClass.getEStructuralFeatures().get(1);
+	}
 
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private boolean isCreated = false;
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getCreateChildOverlayer() {
+		return createChildOverlayerEClass;
+	}
 
-  /**
-   * Creates the meta-model objects for the package.  This method is
-   * guarded to have no affect on any invocation but its first.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void createPackageContents()
-  {
-    if (isCreated) return;
-    isCreated = true;
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public SwtFactory getSwtFactory() {
+		return (SwtFactory) getEFactoryInstance();
+	}
 
-    // Create classes and their features
-    gifOverlayerEClass = createEClass(GIF_OVERLAYER);
-    createEAttribute(gifOverlayerEClass, GIF_OVERLAYER__OVERLAY_URL);
-    createEAttribute(gifOverlayerEClass, GIF_OVERLAYER__UNDERLAY);
-  }
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private boolean isCreated = false;
 
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private boolean isInitialized = false;
+	/**
+	 * Creates the meta-model objects for the package.  This method is
+	 * guarded to have no affect on any invocation but its first.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void createPackageContents() {
+		if (isCreated)
+			return;
+		isCreated = true;
 
-  /**
-   * Complete the initialization of the package and its meta-model.  This
-   * method is guarded to have no affect on any invocation but its first.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void initializePackageContents()
-  {
-    if (isInitialized) return;
-    isInitialized = true;
+		// Create classes and their features
+		gifOverlayerEClass = createEClass(GIF_OVERLAYER);
+		createEAttribute(gifOverlayerEClass, GIF_OVERLAYER__OVERLAY_URL);
+		createEAttribute(gifOverlayerEClass, GIF_OVERLAYER__UNDERLAY);
 
-    // Initialize package
-    setName(eNAME);
-    setNsPrefix(eNS_PREFIX);
-    setNsURI(eNS_URI);
+		createChildOverlayerEClass = createEClass(CREATE_CHILD_OVERLAYER);
+	}
 
-    // Obtain other dependent packages
-    GenfwPackageImpl theGenfwPackage = (GenfwPackageImpl)EPackage.Registry.INSTANCE
-            .getEPackage(GenfwPackage.eNS_URI);
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private boolean isInitialized = false;
 
-    // Add supertypes to classes
-    gifOverlayerEClass.getESuperTypes().add(theGenfwPackage.getGenerator());
+	/**
+	 * Complete the initialization of the package and its meta-model.  This
+	 * method is guarded to have no affect on any invocation but its first.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void initializePackageContents() {
+		if (isInitialized)
+			return;
+		isInitialized = true;
 
-    // Initialize classes and features; add operations and parameters
-    initEClass(gifOverlayerEClass, GifOverlayer.class, "GifOverlayer", !IS_ABSTRACT, !IS_INTERFACE,
-            IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getGifOverlayer_OverlayURL(), ecorePackage.getEString(), "overlayURL", null, 0,
-            1, GifOverlayer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE,
-            !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getGifOverlayer_Underlay(), ecorePackage.getEBoolean(), "underlay", null, 0, 1,
-            GifOverlayer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID,
-            IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		// Initialize package
+		setName(eNAME);
+		setNsPrefix(eNS_PREFIX);
+		setNsURI(eNS_URI);
 
-    // Create resource
-    createResource(eNS_URI);
-  }
+		// Obtain other dependent packages
+		GenfwPackage theGenfwPackage = (GenfwPackage) EPackage.Registry.INSTANCE
+				.getEPackage(GenfwPackage.eNS_URI);
+
+		// Add supertypes to classes
+		gifOverlayerEClass.getESuperTypes().add(theGenfwPackage.getGenerator());
+		createChildOverlayerEClass.getESuperTypes().add(this.getGifOverlayer());
+
+		// Initialize classes and features; add operations and parameters
+		initEClass(gifOverlayerEClass, GifOverlayer.class, "GifOverlayer",
+				!IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getGifOverlayer_OverlayURL(), ecorePackage.getEString(),
+				"overlayURL", null, 1, 1, GifOverlayer.class, !IS_TRANSIENT,
+				!IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+				!IS_DERIVED, IS_ORDERED);
+		initEAttribute(getGifOverlayer_Underlay(), ecorePackage.getEBoolean(),
+				"underlay", null, 0, 1, GifOverlayer.class, !IS_TRANSIENT,
+				!IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+				!IS_DERIVED, IS_ORDERED);
+
+		initEClass(createChildOverlayerEClass, CreateChildOverlayer.class,
+				"CreateChildOverlayer", !IS_ABSTRACT, !IS_INTERFACE,
+				IS_GENERATED_INSTANCE_CLASS);
+
+		// Create resource
+		createResource(eNS_URI);
+	}
 
 } //SwtPackageImpl
