@@ -539,9 +539,6 @@ public class GenfwEditor extends MultiPageEditorPart implements IEditingDomainPr
     //
     Registry regsitry = EMFEditPlugin.getComposedAdapterFactoryDescriptorRegistry();
     adapterFactory = new ComposedAdapterFactory(regsitry);
-    //    adapterFactory .addAdapterFactory(new ResourceItemProviderAdapterFactory());
-    //    adapterFactory .addAdapterFactory(new GenfwItemProviderAdapterFactory());
-    //    adapterFactory .addAdapterFactory(new ReflectiveItemProviderAdapterFactory());
 
     // Create the command stack that will notify this editor as commands are executed.
     //
