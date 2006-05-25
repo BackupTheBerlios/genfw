@@ -27,6 +27,7 @@ public class DeploymentSorter
   public static EList sort(EList deployments) throws CyclicDependencyException
   {
     return deployments;
+    // TODO
     //    EList result = new BasicEList(deployments);
     //    Collections.sort(result, new Comparator()
     //    {

@@ -292,7 +292,7 @@ public class EcoreTemplateImpl extends JetTemplateImpl implements EcoreTemplate
       Method setter = BeanHelper.findMethod(genModel.getClass(), "setImportManager");
       setter.setAccessible(true);
       setter.invoke(genModel, new Object[] {importManager});
-      setter.setAccessible(false);// TODO try/finally
+      setter.setAccessible(false); // TODO finally
     }
 
     if (genBase instanceof GenPackageImpl)
@@ -302,12 +302,12 @@ public class EcoreTemplateImpl extends JetTemplateImpl implements EcoreTemplate
       Constructor ctor = depHelperClass.getDeclaredConstructor(new Class[] {genPackageClass});
       ctor.setAccessible(true);
       Object depHelper = ctor.newInstance(new Object[] {genBase});
-      ctor.setAccessible(false);// TODO try/finally
+      ctor.setAccessible(false); // TODO finally
 
       Field field = BeanHelper.findField(genPackageClass, "dependencyHelper");
       field.setAccessible(true);
       field.set(genBase, depHelper);
-      field.setAccessible(false);// TODO try/finally
+      field.setAccessible(false); // TODO finally
     }
 
     if (!isGenerateInterface() && !isGenerateImplementation())

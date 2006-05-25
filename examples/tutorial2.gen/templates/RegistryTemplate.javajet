@@ -1,5 +1,5 @@
 <%@ jet package="tutorial2.gen" 
-        imports="java.util.* com.sympedia.util.* javax.xml.transform.* org.w3c.dom.* org.apache.xpath.*" 
+        imports="java.util.* com.sympedia.util.* org.w3c.dom.*" 
         class="RegistryTemplate"%>
 <%
 Element element = (Element)argument;
@@ -12,8 +12,10 @@ Set<String> references = ExtPointHelper.getReferences(element);
 %>
 package <%=pluginId%>.internal;
 
+
 import org.eclipse.core.runtime.*;
 import java.util.*;
+
 
 public class <%=className%> implements IRegistryChangeListener
 {

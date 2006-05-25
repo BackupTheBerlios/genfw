@@ -10,9 +10,14 @@
  **************************************************************************/
 package com.sympedia.util.eclipse.resources;
 
-
-import com.sympedia.util.IOHelper;
-import com.sympedia.util.StringHelper;
+import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.eclipse.core.resources.ICommand;
@@ -37,15 +42,8 @@ import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.URI;
 
-import java.io.BufferedReader;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.List;
-
+import com.sympedia.util.IOHelper;
+import com.sympedia.util.StringHelper;
 
 public class ResourcesHelper
 {
@@ -70,8 +68,8 @@ public class ResourcesHelper
     return null;
   }
 
-  public static void writeFile(IFile file, String[] content, IProgressMonitor monitor)
-          throws CoreException
+  public static void writeFile(IFile file, String[] content,
+      IProgressMonitor monitor) throws CoreException
   {
     StringBuffer buffer = new StringBuffer();
     for (int i = 0; i < content.length; i++)
@@ -84,57 +82,60 @@ public class ResourcesHelper
     writeFile(file, buffer.toString(), monitor);
   }
 
-  public static void writeFile(IFile file, String content, IProgressMonitor monitor)
-          throws CoreException
+  public static void writeFile(IFile file, String content,
+      IProgressMonitor monitor) throws CoreException
   {
     InputStream stream = new ByteArrayInputStream(content.getBytes());
     writeFile(file, stream, monitor);
   }
 
-  public static void writeFile(IFile file, InputStream content, IProgressMonitor monitor)
-          throws CoreException
+  public static void writeFile(IFile file, InputStream content,
+      IProgressMonitor monitor) throws CoreException
   {
     if (file.exists())
     {
       file.setContents(content, false, true, monitor);
-    }
-    else
+    } else
     {
       if (file.getParent() instanceof IFolder)
       {
-        mkdirs((IFolder)file.getParent(), monitor);
+        mkdirs((IFolder) file.getParent(), monitor);
       }
 
       file.create(content, true, monitor);
     }
   }
 
-  public static void mkdirs(IFolder folder, IProgressMonitor monitor) throws CoreException
+  public static void mkdirs(IFolder folder, IProgressMonitor monitor)
+      throws CoreException
   {
     if (folder != null && !folder.exists())
     {
       IContainer parent = folder.getParent();
       if (parent != null && parent instanceof IFolder)
       {
-        mkdirs((IFolder)parent, monitor);
+        mkdirs((IFolder) parent, monitor);
       }
 
       folder.create(true, true, monitor);
     }
   }
 
-  public static void mkdirs(IPath path, IProgressMonitor monitor) throws CoreException
+  public static void mkdirs(IPath path, IProgressMonitor monitor)
+      throws CoreException
   {
     IFolder folder = ROOT.getFolder(path);
     mkdirs(folder, monitor);
   }
 
-  public static String readFileIntoString(IFile file) throws CoreException, IOException
+  public static String readFileIntoString(IFile file) throws CoreException,
+      IOException
   {
     return readFileIntoString(file, null);
   }
 
-  public static byte[] readFileIntoByteArray(IFile file) throws CoreException, IOException
+  public static byte[] readFileIntoByteArray(IFile file) throws CoreException,
+      IOException
   {
     InputStream contents = file.getContents();
     try
@@ -142,17 +143,17 @@ public class ResourcesHelper
       ByteArrayOutputStream output = new ByteArrayOutputStream();
       IOHelper.copy(contents, output);
       return output.toByteArray();
-    }
-    finally
+    } finally
     {
       IOHelper.close(contents);
     }
   }
 
-  public static String readFileIntoString(IFile file, String linePrefix) throws CoreException,
-          IOException
+  public static String readFileIntoString(IFile file, String linePrefix)
+      throws CoreException, IOException
   {
-    BufferedReader br = new BufferedReader(new InputStreamReader(file.getContents()));
+    BufferedReader br = new BufferedReader(new InputStreamReader(file
+        .getContents()));
     StringBuffer buffer = new StringBuffer();
     String line;
 
@@ -170,12 +171,14 @@ public class ResourcesHelper
     return buffer.toString();
   }
 
-  public static String[] readFileIntoStringArray(IFile file) throws IOException, CoreException
+  public static String[] readFileIntoStringArray(IFile file)
+      throws IOException, CoreException
   {
     return readFileIntoStringArray(file.getContents());
   }
 
-  public static String[] readFileIntoStringArray(InputStream stream) throws IOException
+  public static String[] readFileIntoStringArray(InputStream stream)
+      throws IOException
   {
     BufferedReader br = new BufferedReader(new InputStreamReader(stream));
     List result = new ArrayList();
@@ -186,7 +189,7 @@ public class ResourcesHelper
       result.add(line);
     }
 
-    return (String[])result.toArray(new String[result.size()]);
+    return (String[]) result.toArray(new String[result.size()]);
   }
 
   public static IProject ensureProject(String name) throws CoreException
@@ -206,7 +209,8 @@ public class ResourcesHelper
     return project;
   }
 
-  public static IFolder ensureFolder(IContainer container, String path) throws CoreException
+  public static IFolder ensureFolder(IContainer container, String path)
+      throws CoreException
   {
     if (container == null)
     {
@@ -224,13 +228,13 @@ public class ResourcesHelper
   }
 
   public static boolean ensureFile(String path, String content, boolean force,
-          IProgressMonitor monitor) throws CoreException, IOException
+      IProgressMonitor monitor) throws CoreException, IOException
   {
     return ensureFile(path, content.getBytes(), force, monitor);
   }
 
   public static boolean ensureFile(String path, byte[] content, boolean force,
-          IProgressMonitor monitor) throws CoreException, IOException
+      IProgressMonitor monitor) throws CoreException, IOException
   {
     IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
     IFile file = root.getFile(new Path(path));
@@ -238,7 +242,7 @@ public class ResourcesHelper
     IContainer parent = file.getParent();
     if (parent instanceof IFolder)
     {
-      mkdirs((IFolder)parent, monitor);
+      mkdirs((IFolder) parent, monitor);
     }
 
     ByteArrayInputStream newContent = new ByteArrayInputStream(content);
@@ -256,8 +260,7 @@ public class ResourcesHelper
       }
 
       file.setContents(newContent, true, true, monitor);
-    }
-    else
+    } else
     {
       file.create(newContent, true, monitor);
     }
@@ -265,8 +268,8 @@ public class ResourcesHelper
     return true;
   }
 
-  public static void addNatureToProject(String natureId, IProject project, IProgressMonitor monitor)
-          throws CoreException
+  public static void addNatureToProject(String natureId, IProject project,
+      IProgressMonitor monitor) throws CoreException
   {
     IProjectDescription description = project.getDescription();
     String[] natures = description.getNatureIds();
@@ -278,7 +281,7 @@ public class ResourcesHelper
   }
 
   public static void removeNatureFromProject(String natureId, IProject project,
-          IProgressMonitor monitor) throws CoreException
+      IProgressMonitor monitor) throws CoreException
   {
     IProjectDescription description = project.getDescription();
     String[] natures = description.getNatureIds();
@@ -297,20 +300,21 @@ public class ResourcesHelper
     project.setDescription(description, monitor);
   }
 
-  public static void addReferenceToProject(IProject referencedProject, IProject project,
-          IProgressMonitor monitor) throws CoreException
+  public static void addReferenceToProject(IProject referencedProject,
+      IProject project, IProgressMonitor monitor) throws CoreException
   {
     IProjectDescription description = project.getDescription();
     IProject[] referencedProjects = description.getReferencedProjects();
     IProject[] newReferencedProjects = new IProject[referencedProjects.length + 1];
-    System.arraycopy(referencedProjects, 0, newReferencedProjects, 0, referencedProjects.length);
+    System.arraycopy(referencedProjects, 0, newReferencedProjects, 0,
+        referencedProjects.length);
     newReferencedProjects[referencedProjects.length] = referencedProject;
     description.setReferencedProjects(newReferencedProjects);
     project.setDescription(description, monitor);
   }
 
-  public static void removeReferenceFromProject(IProject referencedProject, IProject project,
-          IProgressMonitor monitor) throws CoreException
+  public static void removeReferenceFromProject(IProject referencedProject,
+      IProject project, IProgressMonitor monitor) throws CoreException
   {
     IProjectDescription description = project.getDescription();
     IProject[] referencedProjects = description.getReferencedProjects();
@@ -329,8 +333,8 @@ public class ResourcesHelper
     project.setDescription(description, monitor);
   }
 
-  public static void removeBuilderFromProject(String builderId, IProject project,
-          IProgressMonitor monitor) throws CoreException
+  public static void removeBuilderFromProject(String builderId,
+      IProject project, IProgressMonitor monitor) throws CoreException
   {
     IProjectDescription desc = project.getDescription();
     ICommand[] oldSpec = desc.getBuildSpec();
@@ -348,20 +352,21 @@ public class ResourcesHelper
       if (oldSpec[i].getBuilderName().equals(builderId))
       {
         oldSpec[i] = null;
-      }
-      else
+      } else
       {
         remaining++;
       }
     }
 
     // check if any were actually removed
-    if (remaining == oldSpec.length) return;
+    if (remaining == oldSpec.length)
+      return;
     ICommand[] newSpec = new ICommand[remaining];
 
     for (int i = 0, newIndex = 0; i < oldLength; i++)
     {
-      if (oldSpec[i] != null) newSpec[newIndex++] = oldSpec[i];
+      if (oldSpec[i] != null)
+        newSpec[newIndex++] = oldSpec[i];
     }
 
     desc.setBuildSpec(newSpec);
@@ -369,7 +374,7 @@ public class ResourcesHelper
   }
 
   public static void addBuilderToProject(String builderId, IProject project,
-          IProgressMonitor monitor) throws CoreException
+      IProgressMonitor monitor) throws CoreException
   {
     IProjectDescription desc = project.getDescription();
     ICommand[] commands = desc.getBuildSpec();
@@ -395,7 +400,7 @@ public class ResourcesHelper
   }
 
   public static IProjectNature[] getNatures(String natureId, IProject[] projects)
-          throws CoreException
+      throws CoreException
   {
     List<IProjectNature> list = new ArrayList<IProjectNature>();
 
@@ -412,7 +417,8 @@ public class ResourcesHelper
     return list.toArray(new IProjectNature[list.size()]);
   }
 
-  public static IProjectNature[] getNatures(String natureId) throws CoreException
+  public static IProjectNature[] getNatures(String natureId)
+      throws CoreException
   {
     return getNatures(natureId, getProjects());
   }
@@ -444,9 +450,9 @@ public class ResourcesHelper
   {
     try
     {
-      return project != null && project.exists() && project.isOpen() && project.hasNature(natureId);
-    }
-    catch (CoreException ex)
+      return project != null && project.exists() && project.isOpen()
+          && project.hasNature(natureId);
+    } catch (CoreException ex)
     {
       return false;
     }
@@ -469,7 +475,8 @@ public class ResourcesHelper
 
   public static void dump(IResourceChangeEvent event)
   {
-    Logger.getLogger("DELTA").debug("======================================================");
+    Logger.getLogger("DELTA").debug(
+        "======================================================");
     dump(event.getDelta());
   }
 
@@ -483,7 +490,8 @@ public class ResourcesHelper
     String kind = kindStr(delta.getKind());
     String flags = flagsStr(delta.getFlags());
     Logger.getLogger("DELTA").debug(
-            delta.getFullPath() + " -> " + kind + (flags.length() == 0 ? "" : " -> " + flags));
+        delta.getFullPath() + " -> " + kind
+            + (flags.length() == 0 ? "" : " -> " + flags));
 
     IResourceDelta[] children = delta.getAffectedChildren();
     for (int i = 0; i < children.length; i++)
@@ -571,10 +579,11 @@ public class ResourcesHelper
     return collectFiles(root, null);
   }
 
-  public static List<IFile> collectFiles(IResource root, String extension) throws CoreException
+  public static List<IFile> collectFiles(IResource root, String extension)
+      throws CoreException
   {
     FileCollector collector = extension == null ? new FileCollector()
-            : new FileByExtensionCollector(extension);
+        : new FileByExtensionCollector(extension);
 
     root.accept(collector);
     return collector.getFiles();
@@ -609,9 +618,9 @@ public class ResourcesHelper
 
     public boolean visit(IResource resource) throws CoreException
     {
-      if (resource instanceof IFile && isMatching((IFile)resource))
+      if (resource instanceof IFile && isMatching((IFile) resource))
       {
-        files.add((IFile)resource);
+        files.add((IFile) resource);
       }
 
       return true;
@@ -656,14 +665,24 @@ public class ResourcesHelper
     {
       if (resource instanceof IFile)
       {
-        return (IFile)resource;
-      }
-      else
+        return (IFile) resource;
+      } else
       {
         throw new IllegalArgumentException("Not a file: " + path);
       }
     }
 
     throw new IllegalArgumentException("File not found: " + path);
+  }
+
+  public static IPath getLocation(IPath fullPath)
+  {
+    IResource resource = ResourcesHelper.ROOT.findMember(fullPath);
+    if (resource != null && resource.exists())
+    {
+      return resource.getLocation();
+    }
+
+    return ResourcesHelper.ROOT.getLocation().append(fullPath);
   }
 }

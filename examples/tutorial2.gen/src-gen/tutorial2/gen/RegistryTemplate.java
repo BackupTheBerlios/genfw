@@ -1,20 +1,8 @@
-/***************************************************************************
- * Copyright (c) 2006 Eike Stepper, Fuggerstr. 39, 10777 Berlin, Germany.
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- * 
- * Contributors:
- *    Eike Stepper - initial API and implementation
- **************************************************************************/
 package tutorial2.gen;
 
 import java.util.*;
 import com.sympedia.util.*;
-import javax.xml.transform.*;
 import org.w3c.dom.*;
-import org.apache.xpath.*;
 
 public class RegistryTemplate
 {
@@ -29,7 +17,7 @@ public class RegistryTemplate
 
   protected final String NL = nl == null ? (System.getProperties().getProperty("line.separator")) : nl;
   protected final String TEXT_1 = "package ";
-  protected final String TEXT_2 = ".internal;" + NL + "" + NL + "import org.eclipse.core.runtime.*;" + NL + "import java.util.*;" + NL + "" + NL + "public class ";
+  protected final String TEXT_2 = ".internal;" + NL + "" + NL + "" + NL + "import org.eclipse.core.runtime.*;" + NL + "import java.util.*;" + NL + "" + NL + "" + NL + "public class ";
   protected final String TEXT_3 = " implements IRegistryChangeListener" + NL + "{" + NL + "  public static final String EXT_POINT_ID = \"";
   protected final String TEXT_4 = ".";
   protected final String TEXT_5 = "\";" + NL + "" + NL + "  public static final ";
@@ -82,7 +70,7 @@ public class RegistryTemplate
 
   public String generate(Object argument)
   {
-    StringBuffer stringBuffer = new StringBuffer();
+    final StringBuffer stringBuffer = new StringBuffer();
     
 Element element = (Element)argument;
 String pluginId = ExtPointHelper.getPluginId(element);

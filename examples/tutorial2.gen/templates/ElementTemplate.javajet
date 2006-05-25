@@ -1,5 +1,5 @@
 <%@ jet package="tutorial2.gen" 
-        imports="java.util.* com.sympedia.util.* javax.xml.transform.* org.w3c.dom.* org.apache.xpath.*" 
+        imports="java.util.* com.sympedia.util.* org.w3c.dom.*" 
         class="ElementTemplate"%>
 <%
 Element element = (Element)argument;
@@ -12,9 +12,10 @@ List<Element> attributes = ExtPointHelper.xPathList(element, ".//attribute");
 %>
 package <%=pluginId%>.internal;
 
+
 import org.eclipse.core.runtime.*;
 import java.util.*;
-import java.io.*;
+
 
 public class <%=ExtPointHelper.getElementClassName(element)%>
 {
@@ -87,7 +88,7 @@ public class <%=ExtPointHelper.getElementClassName(element)%>
   public <%=interfaceClass%> get<%=capName%>() throws CoreException { return (<%=interfaceClass%>)_origin.createExecutableExtension("<%=name%>"); }
   protected String <%=name%>;
     <%} else if ("resource".equals(kind)) {%>
-  public File get<%=capName%>() { return new File(<%=name%>); }
+  public java.io.File get<%=capName%>() { return new java.io.File(<%=name%>); }
   protected String <%=name%>;
     <%} else {%>
   public String get<%=capName%>() { return <%=name%>; }

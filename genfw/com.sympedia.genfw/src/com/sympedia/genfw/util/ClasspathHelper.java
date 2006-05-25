@@ -152,14 +152,13 @@ public class ClasspathHelper
     }
   }
 
-  public static void collectClasspathUrlOutput(IPath location, List<URL> urls)
+  public static void collectClasspathUrlOutput(IPath fullPath, List<URL> urls)
           throws MalformedURLException
   {
-    if (location != null)
+    if (fullPath != null)
     {
-      // TODO getLocation() not working for linked projects!!!
-      location = ResourcesHelper.ROOT.getLocation().append(location);
-      File outputFolder = new File(location.toString() + "/");
+      fullPath = ResourcesHelper.getLocation(fullPath);
+      File outputFolder = new File(fullPath.toString() + "/");
       URL url = outputFolder.toURL();
       if (!urls.contains(url))
       {

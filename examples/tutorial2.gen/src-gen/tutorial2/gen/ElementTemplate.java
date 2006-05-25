@@ -1,20 +1,8 @@
-/***************************************************************************
- * Copyright (c) 2006 Eike Stepper, Fuggerstr. 39, 10777 Berlin, Germany.
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- * 
- * Contributors:
- *    Eike Stepper - initial API and implementation
- **************************************************************************/
 package tutorial2.gen;
 
 import java.util.*;
 import com.sympedia.util.*;
-import javax.xml.transform.*;
 import org.w3c.dom.*;
-import org.apache.xpath.*;
 
 public class ElementTemplate
 {
@@ -29,7 +17,7 @@ public class ElementTemplate
 
   protected final String NL = nl == null ? (System.getProperties().getProperty("line.separator")) : nl;
   protected final String TEXT_1 = "package ";
-  protected final String TEXT_2 = ".internal;" + NL + "" + NL + "import org.eclipse.core.runtime.*;" + NL + "import java.util.*;" + NL + "import java.io.*;" + NL + "" + NL + "public class ";
+  protected final String TEXT_2 = ".internal;" + NL + "" + NL + "" + NL + "import org.eclipse.core.runtime.*;" + NL + "import java.util.*;" + NL + "" + NL + "" + NL + "public class ";
   protected final String TEXT_3 = NL + "{" + NL + "  protected ";
   protected final String TEXT_4 = "(Object parent, ";
   protected final String TEXT_5 = " origin)" + NL + "  {" + NL + "  \t_origin = origin;" + NL + "  \t_parent = parent;";
@@ -80,8 +68,8 @@ public class ElementTemplate
   protected final String TEXT_50 = ")_origin.createExecutableExtension(\"";
   protected final String TEXT_51 = "\"); }" + NL + "  protected String ";
   protected final String TEXT_52 = ";";
-  protected final String TEXT_53 = NL + "  public File get";
-  protected final String TEXT_54 = "() { return new File(";
+  protected final String TEXT_53 = NL + "  public java.io.File get";
+  protected final String TEXT_54 = "() { return new java.io.File(";
   protected final String TEXT_55 = "); }" + NL + "  protected String ";
   protected final String TEXT_56 = ";";
   protected final String TEXT_57 = NL + "  public String get";
@@ -99,7 +87,7 @@ public class ElementTemplate
 
   public String generate(Object argument)
   {
-    StringBuffer stringBuffer = new StringBuffer();
+    final StringBuffer stringBuffer = new StringBuffer();
     
 Element element = (Element)argument;
 boolean isExtension = ExtPointHelper.isExtension(element);
